@@ -7,6 +7,7 @@
     <meta name="description" content="Honest operational intelligence for Opendoor investors. No survivorship bias.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -303,6 +304,141 @@
         .footer-brand { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
         .footer-sub { font-size: 12px; color: var(--text-3); }
 
+        /* Screenshot Mode Button */
+        .screenshot-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .screenshot-btn:hover {
+            background: #1a1a1a;
+            color: var(--text);
+        }
+
+        .screenshot-btn.active {
+            background: var(--green-dim);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* Screenshot Mode */
+        body.screenshot-mode header,
+        body.screenshot-mode footer,
+        body.screenshot-mode .disclaimer {
+            display: none !important;
+        }
+
+        body.screenshot-mode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        body.screenshot-mode .container {
+            max-width: 1280px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        body.screenshot-mode .section {
+            margin-bottom: 24px;
+        }
+
+        .watermark {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-3);
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+
+        body.screenshot-mode .watermark {
+            display: block;
+        }
+
+        /* Collapsible Sections */
+        .collapsible {
+            margin-bottom: 48px;
+        }
+
+        .collapse-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .collapse-header:hover .section-title {
+            color: var(--text-2);
+        }
+
+        .collapse-arrow {
+            font-size: 12px;
+            color: var(--text-3);
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .collapsible.collapsed .collapse-arrow {
+            transform: rotate(-90deg);
+        }
+
+        .collapse-content {
+            overflow: hidden;
+            max-height: 1000px;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .collapsible.collapsed .collapse-content {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .collapse-preview {
+            display: none;
+            padding: 12px 0;
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        .collapsible.collapsed .collapse-preview {
+            display: block;
+        }
+
+        /* WoW Delta Badges */
+        .delta {
+            font-size: 11px;
+            margin-left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .delta.positive {
+            color: var(--green);
+        }
+
+        .delta.negative {
+            color: var(--red);
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .split { grid-template-columns: 1fr; }
@@ -319,10 +455,14 @@
     <header>
         <div class="brand">Glass House</div>
         <div class="header-right">
+            <button class="screenshot-btn" id="screenshot-btn" onclick="toggleScreenshotMode()">📷 Screenshot Mode</button>
             <span class="ticker">$OPEN $5.90</span>
             <span id="date">Jan 27, 2026</span>
         </div>
     </header>
+
+    <!-- Watermark for Screenshot Mode -->
+    <div class="watermark">Glass House</div>
 
     <!-- KAZ-ERA HEALTH -->
     <section class="section">
@@ -336,11 +476,11 @@
                 <div style="margin-top: 16px;">
                     <div class="stat-row">
                         <span class="stat-label">Win Rate</span>
-                        <span class="stat-value green" id="kaz-sold-wr">98.5%</span>
+                        <span><span class="stat-value green" id="kaz-sold-wr">98.5%</span><span class="delta positive" id="kaz-wr-delta">+0.5% WoW</span></span>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Avg Profit</span>
-                        <span class="stat-value green" id="kaz-sold-profit">$44.4K</span>
+                        <span><span class="stat-value green" id="kaz-sold-profit">$44.4K</span><span class="delta positive" id="kaz-profit-delta">+$2.1K WoW</span></span>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Total Realized</span>
@@ -360,7 +500,7 @@
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Underwater</span>
-                        <span class="stat-value red" id="kaz-listed-uw">3.4% (5)</span>
+                        <span><span class="stat-value red" id="kaz-listed-uw">3.4% (5)</span><span class="delta negative" id="kaz-uw-delta">+1 WoW</span></span>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">With Price Cuts</span>
@@ -401,7 +541,7 @@
                 <div style="margin-top: 16px;">
                     <div class="stat-row">
                         <span class="stat-label">Win Rate</span>
-                        <span class="stat-value amber" id="legacy-sold-wr">55.9%</span>
+                        <span><span class="stat-value amber" id="legacy-sold-wr">55.9%</span><span class="delta positive" id="legacy-wr-delta">+1.2% WoW</span></span>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Avg Profit</span>
@@ -425,7 +565,7 @@
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Underwater</span>
-                        <span class="stat-value red" id="legacy-listed-uw">40.4% (184)</span>
+                        <span><span class="stat-value red" id="legacy-listed-uw">40.4% (184)</span><span class="delta positive" id="legacy-uw-delta">-8 WoW</span></span>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">With Price Cuts</span>
@@ -440,11 +580,11 @@
             <div class="exposure-grid">
                 <div class="exposure-item">
                     <div class="exposure-num red" id="legacy-uw-exposure">-$4.95M</div>
-                    <div class="exposure-label">Underwater Exposure</div>
+                    <div class="exposure-label">Underwater Exposure<span class="delta positive" id="exposure-delta">+$120K WoW</span></div>
                 </div>
                 <div class="exposure-item">
                     <div class="exposure-num" id="legacy-toxic-remaining">84</div>
-                    <div class="exposure-label">Toxic Remaining</div>
+                    <div class="exposure-label">Toxic Remaining<span class="delta positive" id="toxic-delta">-5 WoW</span></div>
                 </div>
                 <div class="exposure-item">
                     <div class="exposure-num" id="legacy-weeks">~9 wks</div>
@@ -608,85 +748,129 @@
     </section>
 
     <!-- KAZ-ERA UNDERWATER WATCHLIST -->
-    <section class="section">
-        <div class="section-title">Kaz-Era Underwater Watchlist</div>
-
-        <div style="font-size: 13px; color: var(--text-2); margin-bottom: 16px;">
-            These <span id="uw-count">5</span> homes are the canary. Watch for deterioration.
+    <section class="collapsible collapsed" id="watchlist-section">
+        <div class="collapse-header" onclick="toggleSection('watchlist-section')">
+            <div class="section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
+                Kaz-Era Underwater Watchlist
+                <span class="collapse-arrow">▼</span>
+            </div>
         </div>
+        <div class="collapse-preview">
+            <span id="uw-count-preview">5</span> underwater homes • Total exposure: <span class="red">-$47.2K</span> • Click to expand
+        </div>
+        <div class="collapse-content">
+            <div class="section-title" style="border-bottom: 1px solid var(--border); margin-top: 12px;"></div>
+            <div style="font-size: 13px; color: var(--text-2); margin-bottom: 16px;">
+                These <span id="uw-count">5</span> homes are the canary. Watch for deterioration.
+            </div>
 
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>Location</th>
-                    <th>DOM</th>
-                    <th>Underwater</th>
-                    <th>Cuts</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="underwater-watchlist">
-                <tr><td class="name">Phoenix, AZ</td><td>45</td><td class="red">-$8.2K</td><td>1</td><td class="amber">Watching</td></tr>
-                <tr><td class="name">Dallas, TX</td><td>62</td><td class="red">-$12.1K</td><td>2</td><td class="red">Concern</td></tr>
-                <tr><td class="name">Atlanta, GA</td><td>38</td><td class="red">-$5.4K</td><td>1</td><td class="amber">Watching</td></tr>
-                <tr><td class="name">Tampa, FL</td><td>71</td><td class="red">-$18.3K</td><td>2</td><td class="red">Concern</td></tr>
-                <tr><td class="name">Charlotte, NC</td><td>29</td><td class="red">-$3.2K</td><td>0</td><td>Watching</td></tr>
-            </tbody>
-        </table>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>DOM</th>
+                        <th>Underwater</th>
+                        <th>Cuts</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="underwater-watchlist">
+                    <tr><td class="name">Phoenix, AZ</td><td>45</td><td class="red">-$8.2K</td><td>1</td><td class="amber">Watching</td></tr>
+                    <tr><td class="name">Dallas, TX</td><td>62</td><td class="red">-$12.1K</td><td>2</td><td class="red">Concern</td></tr>
+                    <tr><td class="name">Atlanta, GA</td><td>38</td><td class="red">-$5.4K</td><td>1</td><td class="amber">Watching</td></tr>
+                    <tr><td class="name">Tampa, FL</td><td>71</td><td class="red">-$18.3K</td><td>2</td><td class="red">Concern</td></tr>
+                    <tr><td class="name">Charlotte, NC</td><td>29</td><td class="red">-$3.2K</td><td>0</td><td>Watching</td></tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <!-- GEOGRAPHIC RISK -->
-    <section class="section">
-        <div class="section-title">Geographic Risk</div>
+    <section class="collapsible collapsed" id="geo-section">
+        <div class="collapse-header" onclick="toggleSection('geo-section')">
+            <div class="section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
+                Geographic Risk
+                <span class="collapse-arrow">▼</span>
+            </div>
+        </div>
+        <div class="collapse-preview">
+            Top risk: <span class="red">FL (48.2%)</span>, <span class="red">GA (44.1%)</span> • 5 states tracked • Click to expand
+        </div>
+        <div class="collapse-content">
+            <div class="section-title" style="border-bottom: 1px solid var(--border); margin-top: 12px;"></div>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Inventory</th>
+                        <th>Underwater</th>
+                        <th>UW Rate</th>
+                        <th>Risk</th>
+                    </tr>
+                </thead>
+                <tbody id="geo-table">
+                    <tr>
+                        <td class="name">NC</td>
+                        <td>127</td>
+                        <td>38</td>
+                        <td class="amber">29.9%</td>
+                        <td class="amber">Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="name">GA</td>
+                        <td>102</td>
+                        <td>45</td>
+                        <td class="red">44.1%</td>
+                        <td class="red">High</td>
+                    </tr>
+                    <tr>
+                        <td class="name">TX</td>
+                        <td>89</td>
+                        <td>22</td>
+                        <td class="amber">24.7%</td>
+                        <td class="amber">Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="name">FL</td>
+                        <td>85</td>
+                        <td>41</td>
+                        <td class="red">48.2%</td>
+                        <td class="red">High</td>
+                    </tr>
+                    <tr>
+                        <td class="name">AZ</td>
+                        <td>59</td>
+                        <td>12</td>
+                        <td>20.3%</td>
+                        <td>Low</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>State</th>
-                    <th>Inventory</th>
-                    <th>Underwater</th>
-                    <th>UW Rate</th>
-                    <th>Risk</th>
-                </tr>
-            </thead>
-            <tbody id="geo-table">
-                <tr>
-                    <td class="name">NC</td>
-                    <td>127</td>
-                    <td>38</td>
-                    <td class="amber">29.9%</td>
-                    <td class="amber">Medium</td>
-                </tr>
-                <tr>
-                    <td class="name">GA</td>
-                    <td>102</td>
-                    <td>45</td>
-                    <td class="red">44.1%</td>
-                    <td class="red">High</td>
-                </tr>
-                <tr>
-                    <td class="name">TX</td>
-                    <td>89</td>
-                    <td>22</td>
-                    <td class="amber">24.7%</td>
-                    <td class="amber">Medium</td>
-                </tr>
-                <tr>
-                    <td class="name">FL</td>
-                    <td>85</td>
-                    <td>41</td>
-                    <td class="red">48.2%</td>
-                    <td class="red">High</td>
-                </tr>
-                <tr>
-                    <td class="name">AZ</td>
-                    <td>59</td>
-                    <td>12</td>
-                    <td>20.3%</td>
-                    <td>Low</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- DAILY REVENUE CHART -->
+    <section class="section">
+        <div class="section-title">Daily Revenue (Last 14 Days)</div>
+        <div id="revenue-chart" style="width:100%;height:250px;"></div>
+    </section>
+
+    <!-- TOXIC COUNTDOWN CHART -->
+    <section class="section">
+        <div class="section-title">Toxic Inventory Countdown</div>
+        <div id="toxic-chart" style="width:100%;height:250px;"></div>
+    </section>
+
+    <!-- WIN RATE TREND CHART -->
+    <section class="section">
+        <div class="section-title">Win Rate Trend (Last 30 Days)</div>
+        <div id="winrate-chart" style="width:100%;height:250px;"></div>
+    </section>
+
+    <!-- INVENTORY AGE DISTRIBUTION CHART -->
+    <section class="section">
+        <div class="section-title">Inventory Age Distribution</div>
+        <div id="inventory-age-chart" style="width:100%;height:250px;"></div>
     </section>
 
     <!-- DISCLAIMER -->
@@ -721,6 +905,205 @@ function fmt(v) {
     if (Math.abs(v) >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
     if (Math.abs(v) >= 1e3) return '$' + (v/1e3).toFixed(1) + 'K';
     return '$' + v.toFixed(0);
+}
+
+// Chart theme configuration
+const chartLayout = {
+    paper_bgcolor: '#0a0a0a',
+    plot_bgcolor: '#141414',
+    font: { color: '#f5f5f5', family: 'Inter, sans-serif' },
+    margin: { t: 20, r: 20, b: 40, l: 50 },
+    xaxis: { gridcolor: '#1a1a1a', linecolor: '#1a1a1a', tickfont: { size: 10 } },
+    yaxis: { gridcolor: '#1a1a1a', linecolor: '#1a1a1a', tickfont: { size: 10 } }
+};
+
+const chartConfig = { displayModeBar: false, responsive: true };
+
+// Daily Revenue Bar Chart
+function renderRevenueChart(data) {
+    if (!data || !data.dates || data.dates.length === 0) return;
+
+    const target = 6800000; // $6.8M daily target
+    const colors = data.revenue.map(v => v >= target ? '#22c55e' : '#f59e0b');
+
+    const traces = [
+        {
+            x: data.dates,
+            y: data.revenue,
+            type: 'bar',
+            marker: { color: colors },
+            hovertemplate: '%{x}<br>$%{y:,.0f}<extra></extra>'
+        },
+        {
+            x: [data.dates[0], data.dates[data.dates.length - 1]],
+            y: [target, target],
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: '#f5f5f5', width: 2, dash: 'dash' },
+            hoverinfo: 'skip',
+            showlegend: false
+        }
+    ];
+
+    const layout = {
+        ...chartLayout,
+        showlegend: false,
+        yaxis: {
+            ...chartLayout.yaxis,
+            tickformat: '$.2s'
+        },
+        annotations: [{
+            x: data.dates[data.dates.length - 1],
+            y: target,
+            text: '$6.8M target',
+            showarrow: false,
+            xanchor: 'right',
+            yanchor: 'bottom',
+            font: { size: 10, color: '#a0a0a0' }
+        }]
+    };
+
+    Plotly.newPlot('revenue-chart', traces, layout, chartConfig);
+}
+
+// Toxic Countdown Area Chart
+function renderToxicChart(data) {
+    if (!data || !data.dates || data.dates.length === 0) return;
+
+    // Split actual data and projection
+    const actualDates = data.dates.filter((_, i) => !data.isProjection || !data.isProjection[i]);
+    const actualCounts = data.counts.slice(0, actualDates.length);
+
+    const projDates = data.dates.filter((_, i) => data.isProjection && data.isProjection[i]);
+    const projCounts = data.counts.slice(actualDates.length);
+
+    // Add last actual point to projection for continuity
+    if (actualDates.length > 0 && projDates.length > 0) {
+        projDates.unshift(actualDates[actualDates.length - 1]);
+        projCounts.unshift(actualCounts[actualCounts.length - 1]);
+    }
+
+    const traces = [
+        {
+            x: actualDates,
+            y: actualCounts,
+            type: 'scatter',
+            mode: 'lines',
+            fill: 'tozeroy',
+            fillcolor: 'rgba(239, 68, 68, 0.3)',
+            line: { color: '#ef4444', width: 2 },
+            name: 'Actual',
+            hovertemplate: '%{x}<br>%{y} homes<extra></extra>'
+        }
+    ];
+
+    if (projDates.length > 1) {
+        traces.push({
+            x: projDates,
+            y: projCounts,
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: '#ef4444', width: 2, dash: 'dot' },
+            name: 'Projected',
+            hovertemplate: '%{x}<br>%{y} homes (projected)<extra></extra>'
+        });
+    }
+
+    const layout = {
+        ...chartLayout,
+        showlegend: true,
+        legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.05 },
+        yaxis: {
+            ...chartLayout.yaxis,
+            title: { text: 'Toxic Homes', font: { size: 10, color: '#666666' } }
+        }
+    };
+
+    Plotly.newPlot('toxic-chart', traces, layout, chartConfig);
+}
+
+// Win Rate Trend Line Chart
+function renderWinRateChart(data) {
+    if (!data || !data.dates || data.dates.length === 0) return;
+
+    const traces = [
+        {
+            x: data.dates,
+            y: data.kazEra,
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: { color: '#22c55e', width: 2 },
+            marker: { size: 4 },
+            name: 'Kaz-Era',
+            hovertemplate: '%{x}<br>%{y:.1f}%<extra>Kaz-Era</extra>'
+        },
+        {
+            x: data.dates,
+            y: data.legacy,
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: { color: '#f59e0b', width: 2 },
+            marker: { size: 4 },
+            name: 'Legacy',
+            hovertemplate: '%{x}<br>%{y:.1f}%<extra>Legacy</extra>'
+        }
+    ];
+
+    const layout = {
+        ...chartLayout,
+        showlegend: true,
+        legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.05 },
+        yaxis: {
+            ...chartLayout.yaxis,
+            range: [0, 100],
+            ticksuffix: '%',
+            title: { text: 'Win Rate', font: { size: 10, color: '#666666' } }
+        }
+    };
+
+    Plotly.newPlot('winrate-chart', traces, layout, chartConfig);
+}
+
+// Inventory Age Distribution Stacked Bar Chart
+function renderInventoryAgeChart(data) {
+    if (!data) return;
+
+    const categories = ['Kaz-Era', 'Legacy'];
+    const ageSegments = [
+        { name: 'Fresh (<30d)', key: 'fresh', color: '#22c55e' },
+        { name: 'Normal (30-90d)', key: 'normal', color: '#84cc16' },
+        { name: 'Stale (90-180d)', key: 'stale', color: '#f59e0b' },
+        { name: 'V.Stale (180-365d)', key: 'veryStale', color: '#f97316' },
+        { name: 'Toxic (>365d)', key: 'toxic', color: '#ef4444' }
+    ];
+
+    const traces = ageSegments.map(seg => ({
+        x: categories,
+        y: [data.kazEra[seg.key] || 0, data.legacy[seg.key] || 0],
+        type: 'bar',
+        name: seg.name,
+        marker: { color: seg.color },
+        hovertemplate: '%{x}<br>' + seg.name + ': %{y}<extra></extra>'
+    }));
+
+    const layout = {
+        ...chartLayout,
+        barmode: 'stack',
+        showlegend: true,
+        legend: {
+            orientation: 'h',
+            x: 0.5,
+            xanchor: 'center',
+            y: 1.1,
+            font: { size: 9 }
+        },
+        yaxis: {
+            ...chartLayout.yaxis,
+            title: { text: 'Homes', font: { size: 10, color: '#666666' } }
+        }
+    };
+
+    Plotly.newPlot('inventory-age-chart', traces, layout, chartConfig);
 }
 
 function render(data) {
@@ -865,10 +1248,86 @@ function render(data) {
         document.getElementById('legacy-toxic-remaining').textContent = toxic.remaining_count;
         document.getElementById('legacy-weeks').textContent = '~' + Math.ceil(toxic.weeks_to_clear || 9) + ' wks';
     }
+
+    // Render Charts when trends data is available
+    const trends = data.trends || {};
+
+    // Daily Revenue Chart
+    if (trends.revenue_chart && trends.revenue_chart.length > 0) {
+        renderRevenueChart({
+            dates: trends.revenue_chart.map(d => d.date),
+            revenue: trends.revenue_chart.map(d => d.revenue)
+        });
+    }
+
+    // Toxic Countdown Chart
+    if (trends.toxic_countdown && trends.toxic_countdown.actual) {
+        const tc = trends.toxic_countdown;
+        const allDates = [...tc.actual.map(d => d.date), ...(tc.projected || []).map(d => d.date)];
+        const allCounts = [...tc.actual.map(d => d.count), ...(tc.projected || []).map(d => d.count)];
+        const isProjection = [
+            ...tc.actual.map(() => false),
+            ...(tc.projected || []).map(() => true)
+        ];
+        renderToxicChart({ dates: allDates, counts: allCounts, isProjection });
+    }
+
+    // Win Rate Trend Chart
+    if (trends.win_rate_trend && trends.win_rate_trend.kaz) {
+        const wrt = trends.win_rate_trend;
+        renderWinRateChart({
+            dates: wrt.kaz.map(d => d.date),
+            kazEra: wrt.kaz.map(d => d.win_rate),
+            legacy: (wrt.legacy || []).map(d => d.win_rate)
+        });
+    }
+
+    // Inventory Age Distribution - use current inventory data
+    if (d.inventory) {
+        const inv = d.inventory;
+        renderInventoryAgeChart({
+            kazEra: { fresh: inv.fresh_count || 0, normal: inv.normal_count || 0, stale: 0, veryStale: 0, toxic: 0 },
+            legacy: { fresh: 0, normal: 0, stale: inv.stale_count || 0, veryStale: inv.very_stale_count || 0, toxic: inv.toxic_count || 0 }
+        });
+    }
 }
 
 loadData().then(render);
 setInterval(() => loadData().then(render), 300000);
+
+// Screenshot Mode Toggle
+function toggleScreenshotMode() {
+    const body = document.body;
+    const btn = document.getElementById('screenshot-btn');
+    body.classList.toggle('screenshot-mode');
+    btn.classList.toggle('active');
+
+    if (body.classList.contains('screenshot-mode')) {
+        btn.textContent = '✕ Exit Screenshot Mode';
+        // Expand all collapsed sections in screenshot mode
+        document.querySelectorAll('.collapsible.collapsed').forEach(section => {
+            section.classList.remove('collapsed');
+        });
+    } else {
+        btn.textContent = '📷 Screenshot Mode';
+    }
+}
+
+// Collapsible Section Toggle
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.classList.toggle('collapsed');
+    }
+}
+
+// Keyboard shortcut for screenshot mode (Ctrl/Cmd + Shift + S)
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
+        e.preventDefault();
+        toggleScreenshotMode();
+    }
+});
 </script>
 </body>
 </html>

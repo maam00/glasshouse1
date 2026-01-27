@@ -18,6 +18,19 @@ from src.api import CSVImporter
 from src.metrics.v3_metrics import V3Metrics
 import logging
 
+# Optional imports for trends and insights
+try:
+    from src.metrics.trends import TrendAnalyzer
+    TRENDS_AVAILABLE = True
+except ImportError:
+    TRENDS_AVAILABLE = False
+
+try:
+    from src.metrics.insights import InsightsGenerator
+    INSIGHTS_AVAILABLE = True
+except ImportError:
+    INSIGHTS_AVAILABLE = False
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%H:%M:%S')
 logger = logging.getLogger(__name__)
 
@@ -130,11 +143,39 @@ def generate_dashboard_data(output_dir: Path = None) -> Path:
     if v3_data:
         current["v3"] = v3_data
 
+    # Generate trend data
+    trends_data = {}
+    if TRENDS_AVAILABLE:
+        try:
+            trend_analyzer = TrendAnalyzer()
+            trends_data = trend_analyzer.generate_all_trends(all_metrics)
+            logger.info("  Trend data generated")
+        except Exception as e:
+            logger.warning(f"Could not generate trend data: {e}")
+    else:
+        logger.info("  TrendAnalyzer not available, skipping trends")
+
+    # Generate insights
+    insights_data = {}
+    if INSIGHTS_AVAILABLE:
+        try:
+            # Get previous week's data for comparison
+            previous = all_metrics[-2] if len(all_metrics) > 1 else {}
+            insights_generator = InsightsGenerator()
+            insights_data = insights_generator.generate_full_insights(current, previous, all_metrics)
+            logger.info("  Insights generated")
+        except Exception as e:
+            logger.warning(f"Could not generate insights: {e}")
+    else:
+        logger.info("  InsightsGenerator not available, skipping insights")
+
     # Build dashboard data
     dashboard_data = {
         "generated_at": datetime.now().isoformat(),
         "current": current,
         "history": all_metrics,
+        "trends": trends_data,
+        "insights": insights_data,
     }
 
     # Save to file
@@ -147,6 +188,8 @@ def generate_dashboard_data(output_dir: Path = None) -> Path:
     logger.info(f"  History: {len(all_metrics)} days")
     logger.info(f"  Has kaz_era: {'kaz_era' in current}")
     logger.info(f"  Has guidance: {'guidance' in current}")
+    logger.info(f"  Has trends: {bool(trends_data)}")
+    logger.info(f"  Has insights: {bool(insights_data)}")
 
     return output_file
 

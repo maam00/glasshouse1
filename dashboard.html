@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glass House — $OPEN Intelligence</title>
-    <meta name="description" content="Real-time operational intelligence for Opendoor investors. Track the turnaround.">
+    <meta name="description" content="Honest operational intelligence for Opendoor investors. No survivorship bias.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -12,16 +12,17 @@
 
         :root {
             --green: #22c55e;
-            --green-dim: rgba(34, 197, 94, 0.15);
+            --green-dim: rgba(34, 197, 94, 0.1);
             --amber: #f59e0b;
-            --amber-dim: rgba(245, 158, 11, 0.15);
+            --amber-dim: rgba(245, 158, 11, 0.1);
             --red: #ef4444;
-            --red-dim: rgba(239, 68, 68, 0.15);
+            --red-dim: rgba(239, 68, 68, 0.1);
             --text: #ffffff;
-            --text-2: #888888;
-            --text-3: #555555;
+            --text-2: #a0a0a0;
+            --text-3: #666666;
             --text-4: #333333;
             --border: #1a1a1a;
+            --surface: #0a0a0a;
         }
 
         body {
@@ -30,11 +31,10 @@
             color: var(--text);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
         }
 
         .container {
-            max-width: 720px;
+            max-width: 760px;
             margin: 0 auto;
             padding: 32px 24px;
         }
@@ -46,270 +46,133 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 24px;
-            margin-bottom: 48px;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
             border-bottom: 1px solid var(--border);
         }
 
-        .brand { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 13px;
-            color: var(--text-2);
-        }
-
+        .brand { font-size: 15px; font-weight: 600; }
+        .header-right { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--text-2); }
         .ticker { font-family: 'JetBrains Mono', monospace; }
-        .ticker-sym { color: var(--text); }
-
-        .live {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .live-dot {
-            width: 6px; height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 48px 0 64px;
-        }
-
-        .hero-label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-3);
-            margin-bottom: 24px;
-        }
-
-        .hero-verdict {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 100px;
-            margin-bottom: 40px;
-        }
-
-        .hero-verdict.on-track {
-            color: var(--green);
-            background: var(--green-dim);
-        }
-
-        .hero-verdict.watch {
-            color: var(--amber);
-            background: var(--amber-dim);
-        }
-
-        .hero-verdict.concern {
-            color: var(--red);
-            background: var(--red-dim);
-        }
-
-        .hero-verdict::before {
-            content: '';
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: currentColor;
-        }
-
-        .hero-comparison {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 28px;
-            margin-bottom: 20px;
-        }
-
-        .hero-new, .hero-legacy { text-align: center; }
-
-        .hero-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 80px;
-            font-weight: 600;
-            letter-spacing: -4px;
-            line-height: 1;
-        }
-
-        .hero-number-legacy {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 48px;
-            font-weight: 500;
-            letter-spacing: -2px;
-            line-height: 1;
-            color: var(--text-4);
-        }
-
-        .hero-tag {
-            font-size: 12px;
-            color: var(--text-3);
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-vs {
-            font-size: 16px;
-            color: var(--text-4);
-            padding-bottom: 20px;
-        }
-
-        .hero-delta {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--green);
-            margin-bottom: 40px;
-        }
-
-        .hero-divider {
-            width: 48px;
-            height: 1px;
-            background: var(--text-4);
-            margin: 0 auto 24px;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            font-size: 14px;
-            color: var(--text-3);
-        }
-
-        .hero-stats span {
-            color: var(--text);
-            font-family: 'JetBrains Mono', monospace;
-        }
 
         /* Section */
         .section {
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 48px;
         }
 
         .section-title {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             color: var(--text-3);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .section-badge {
-            font-size: 11px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 4px;
+        /* Split Panel */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
         }
 
-        .section-badge.green { color: var(--green); background: var(--green-dim); }
-        .section-badge.amber { color: var(--amber); background: var(--amber-dim); }
-        .section-badge.red { color: var(--red); background: var(--red-dim); }
-
-        /* Progress Bar */
-        .progress {
-            margin: 16px 0;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--text-4);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        .progress-fill.green { background: var(--green); }
-        .progress-fill.amber { background: var(--amber); }
-        .progress-fill.red { background: var(--red); }
-
-        .progress-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            font-size: 13px;
-            color: var(--text-3);
-        }
-
-        .progress-meta span { font-family: 'JetBrains Mono', monospace; }
-        .progress-meta .highlight { color: var(--text); }
-
-        /* Insight */
-        .insight {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-top: 16px;
-            font-size: 13px;
-            color: var(--text-2);
-        }
-
-        .insight-icon { font-size: 14px; }
-
-        /* Metric Row */
-        .metric-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .metric {
-            flex: 1;
-            min-width: 140px;
-            padding: 16px;
-            background: #0a0a0a;
+        .panel {
+            background: var(--surface);
             border-radius: 8px;
+            padding: 20px;
         }
 
-        .metric-label {
-            font-size: 11px;
-            color: var(--text-3);
+        .panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-2);
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
         }
 
-        .metric-value {
+        .big-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .big-label {
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #111;
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-2); }
+        .stat-value { font-family: 'JetBrains Mono', monospace; }
+
+        .green { color: var(--green); }
+        .amber { color: var(--amber); }
+        .red { color: var(--red); }
+
+        /* Exposure Box */
+        .exposure {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .exposure-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .exposure-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .exposure-item {
+            text-align: center;
+        }
+
+        .exposure-num {
             font-family: 'JetBrains Mono', monospace;
             font-size: 20px;
             font-weight: 600;
         }
 
-        .metric-value.green { color: var(--green); }
-        .metric-value.amber { color: var(--amber); }
-        .metric-value.red { color: var(--red); }
-
-        .metric-sub {
+        .exposure-label {
             font-size: 11px;
             color: var(--text-3);
             margin-top: 4px;
+        }
+
+        /* Progress */
+        .progress-bar {
+            height: 6px;
+            background: var(--text-4);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
         }
 
         /* Table */
@@ -321,7 +184,7 @@
 
         .tbl th {
             text-align: left;
-            padding: 10px 12px;
+            padding: 10px 8px;
             font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
@@ -331,162 +194,121 @@
         }
 
         .tbl td {
-            padding: 14px 12px;
+            padding: 12px 8px;
             border-bottom: 1px solid #111;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .tbl tr:last-child td { border-bottom: none; }
+        .tbl .name { font-family: 'Inter', sans-serif; font-weight: 500; }
 
-        .tbl .name {
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            color: var(--text);
+        /* Velocity Grid */
+        .velocity-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
-        .tbl .green { color: var(--green); }
-        .tbl .amber { color: var(--amber); }
-        .tbl .red { color: var(--red); }
-        .tbl .dim { color: var(--text-3); }
+        .velocity-day {
+            background: var(--surface);
+            border-radius: 6px;
+            padding: 12px 8px;
+            text-align: center;
+        }
 
-        /* AI Section */
-        .ai-section {
-            background: #050505;
+        .velocity-date {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-bottom: 6px;
+        }
+
+        .velocity-homes {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .velocity-rev {
+            font-size: 11px;
+            color: var(--text-2);
+            margin-top: 4px;
+        }
+
+        /* Metrics Row */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border-radius: 6px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #0d0d0d;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
+            border-radius: 8px;
+            padding: 20px;
             margin-top: 48px;
         }
 
-        .ai-title {
+        .disclaimer-title {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-3);
-            margin-bottom: 24px;
-        }
-
-        .ai-group {
-            margin-bottom: 24px;
-        }
-
-        .ai-group:last-child { margin-bottom: 0; }
-
-        .ai-group-title {
-            font-size: 12px;
-            font-weight: 600;
+            color: var(--amber);
             margin-bottom: 12px;
         }
 
-        .ai-group-title.bullish { color: var(--green); }
-        .ai-group-title.watch { color: var(--amber); }
-
-        .ai-item {
-            font-size: 13px;
-            color: var(--text-2);
-            padding: 6px 0;
-            padding-left: 16px;
-            position: relative;
-        }
-
-        .ai-item::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--text-4);
-        }
-
-        .ai-verdict {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            margin-top: 24px;
-        }
-
-        .ai-verdict-badge {
+        .disclaimer-text {
             font-size: 12px;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 6px;
-        }
-
-        .ai-verdict-badge.green {
-            color: var(--green);
-            background: var(--green-dim);
-        }
-
-        .ai-verdict-text {
-            font-size: 13px;
             color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .disclaimer-text strong {
+            color: var(--text);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 48px 0 32px;
+            padding: 40px 0 24px;
             border-top: 1px solid var(--border);
             margin-top: 48px;
         }
 
-        .footer-brand {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .footer-sub {
-            font-size: 12px;
-            color: var(--text-3);
-            margin-bottom: 16px;
-        }
-
-        .footer-disc {
-            font-size: 11px;
-            color: var(--text-4);
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        /* Expandable */
-        .expandable-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-3);
-            cursor: pointer;
-            padding: 12px;
-            margin-top: 16px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .expandable-toggle:hover {
-            background: #111;
-            color: var(--text-2);
-        }
-
-        .expandable-content {
-            display: none;
-            margin-top: 16px;
-        }
-
-        .expandable-content.show { display: block; }
+        .footer-brand { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .footer-sub { font-size: 12px; color: var(--text-3); }
 
         /* Responsive */
         @media (max-width: 600px) {
-            .container { padding: 20px 16px; }
-            .hero-number { font-size: 56px; }
-            .hero-number-legacy { font-size: 36px; }
-            .hero-comparison { gap: 16px; }
-            .hero-stats { flex-direction: column; gap: 8px; }
-            .metric { min-width: 100%; }
-            .header-right { display: none; }
+            .split { grid-template-columns: 1fr; }
+            .velocity-grid { grid-template-columns: repeat(3, 1fr); }
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+            .exposure-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -497,246 +319,312 @@
     <header>
         <div class="brand">Glass House</div>
         <div class="header-right">
-            <div class="ticker"><span class="ticker-sym">$OPEN</span> <span id="price">$5.87</span> · <span id="price-chg">↓46% from 52w</span></div>
-            <div class="live">
-                <div class="live-dot"></div>
-                <span id="date">Jan 27, 2026</span>
-            </div>
+            <span class="ticker">$OPEN $5.90</span>
+            <span id="date">Jan 27, 2026</span>
         </div>
     </header>
 
-    <!-- Hero: The Signal -->
-    <section class="hero">
-        <div class="hero-label">New Strategy Performance</div>
-        <div class="hero-verdict on-track" id="verdict">Thesis On Track</div>
+    <!-- KAZ-ERA HEALTH -->
+    <section class="section">
+        <div class="section-title">Kaz-Era Portfolio (Acquired Nov 2025+)</div>
 
-        <div class="hero-comparison">
-            <div class="hero-new">
-                <div class="hero-number" id="hero-new">95.3%</div>
-                <div class="hero-tag">new strategy</div>
+        <div class="split">
+            <div class="panel">
+                <div class="panel-title">Sold</div>
+                <div class="big-num" id="kaz-sold-count">66</div>
+                <div class="big-label">homes closed</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-value green" id="kaz-sold-wr">98.5%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Profit</span>
+                        <span class="stat-value green" id="kaz-sold-profit">$44.4K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Realized</span>
+                        <span class="stat-value" id="kaz-sold-total">+$2.9M</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-vs">vs</div>
-            <div class="hero-legacy">
-                <div class="hero-number-legacy" id="hero-legacy">64.3%</div>
-                <div class="hero-tag">legacy</div>
+
+            <div class="panel">
+                <div class="panel-title">Still Listed</div>
+                <div class="big-num" id="kaz-listed-count">145</div>
+                <div class="big-label">homes on market</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Above Water</span>
+                        <span class="stat-value green" id="kaz-listed-above">85.5% (124)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Underwater</span>
+                        <span class="stat-value red" id="kaz-listed-uw">3.4% (5)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">With Price Cuts</span>
+                        <span class="stat-value amber" id="kaz-listed-cuts">38.6% (56)</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="hero-delta" id="hero-delta">+31 percentage points</div>
-
-        <div class="hero-divider"></div>
-
-        <div class="hero-stats">
-            <div><span id="hero-sold">43</span> sold</div>
-            <div><span id="hero-portfolio">146</span> in portfolio</div>
-            <div><span id="hero-profit">$43.2K</span> avg profit</div>
+        <div class="exposure">
+            <div class="exposure-title">Kaz-Era Net Position</div>
+            <div class="exposure-grid">
+                <div class="exposure-item">
+                    <div class="exposure-num green" id="kaz-realized">+$2.9M</div>
+                    <div class="exposure-label">Realized Gains</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="kaz-unrealized">+$6.8M</div>
+                    <div class="exposure-label">Unrealized (Above)</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num red" id="kaz-uw-exposure">-$27K</div>
+                    <div class="exposure-label">Underwater Exposure</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Toxic Clearance -->
+    <!-- LEGACY CLEANUP -->
     <section class="section">
-        <div class="section-head">
-            <span class="section-title">Legacy Cleanup</span>
-            <span class="section-badge green" id="toxic-badge">On Pace</span>
+        <div class="section-title">Legacy Portfolio (Pre-Kaz)</div>
+
+        <div class="split">
+            <div class="panel">
+                <div class="panel-title">Sold</div>
+                <div class="big-num" id="legacy-sold-count">118</div>
+                <div class="big-label">homes closed</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-value amber" id="legacy-sold-wr">55.9%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Profit</span>
+                        <span class="stat-value" id="legacy-sold-profit">$13.8K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Realized</span>
+                        <span class="stat-value" id="legacy-sold-total">+$1.6M</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Still Listed</div>
+                <div class="big-num" id="legacy-listed-count">455</div>
+                <div class="big-label">homes on market</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Above Water</span>
+                        <span class="stat-value" id="legacy-listed-above">39.1% (178)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Underwater</span>
+                        <span class="stat-value red" id="legacy-listed-uw">40.4% (184)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">With Price Cuts</span>
+                        <span class="stat-value red" id="legacy-listed-cuts">99.6% (453)</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="progress">
-            <div class="progress-bar">
-                <div class="progress-fill green" id="toxic-bar" style="width: 34%"></div>
+        <div class="exposure">
+            <div class="exposure-title">Legacy Exposure</div>
+            <div class="exposure-grid">
+                <div class="exposure-item">
+                    <div class="exposure-num red" id="legacy-uw-exposure">-$4.95M</div>
+                    <div class="exposure-label">Underwater Exposure</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="legacy-toxic-remaining">84</div>
+                    <div class="exposure-label">Toxic Remaining</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="legacy-weeks">~9 wks</div>
+                    <div class="exposure-label">To Clear</div>
+                </div>
             </div>
-            <div class="progress-meta">
-                <span><span class="highlight" id="toxic-cleared">43</span> cleared</span>
-                <span><span id="toxic-remaining">84</span> remaining</span>
-                <span>~<span id="toxic-weeks">8</span> weeks</span>
-            </div>
-        </div>
-
-        <div class="insight" id="toxic-insight">
-            <span class="insight-icon">⚡</span>
-            <span>Clearance pace steady at 5-6 homes/week. On track to clear toxic inventory by late March.</span>
         </div>
     </section>
 
-    <!-- Q1 Guidance -->
+    <!-- VELOCITY -->
     <section class="section">
-        <div class="section-head">
-            <span class="section-title">Q1 Guidance: $595M</span>
-            <span class="section-badge amber" id="guidance-badge">Behind Pace</span>
+        <div class="section-title">Daily Velocity</div>
+
+        <div class="velocity-grid" id="velocity-grid">
+            <div class="velocity-day">
+                <div class="velocity-date">Jan 27</div>
+                <div class="velocity-homes">0</div>
+                <div class="velocity-rev">$0</div>
+            </div>
+            <div class="velocity-day">
+                <div class="velocity-date">Jan 26</div>
+                <div class="velocity-homes">12</div>
+                <div class="velocity-rev">$4.2M</div>
+            </div>
+            <div class="velocity-day">
+                <div class="velocity-date">Jan 25</div>
+                <div class="velocity-homes">18</div>
+                <div class="velocity-rev">$6.8M</div>
+            </div>
+            <div class="velocity-day">
+                <div class="velocity-date">Jan 24</div>
+                <div class="velocity-homes">15</div>
+                <div class="velocity-rev">$5.5M</div>
+            </div>
+            <div class="velocity-day">
+                <div class="velocity-date">Jan 23</div>
+                <div class="velocity-homes">22</div>
+                <div class="velocity-rev">$8.1M</div>
+            </div>
         </div>
 
-        <div class="progress">
-            <div class="progress-bar">
-                <div class="progress-fill amber" id="guidance-bar" style="width: 20%"></div>
+        <div class="metrics-row">
+            <div class="metric-card">
+                <div class="metric-value" id="vel-7day-homes">15.2</div>
+                <div class="metric-label">Homes/Day (7d)</div>
             </div>
-            <div class="progress-meta">
-                <span><span class="highlight" id="guidance-rev">$119.7M</span> revenue</span>
-                <span><span id="guidance-pct">20.1%</span> of target</span>
-                <span>Day <span id="guidance-day">26</span> of 88</span>
+            <div class="metric-card">
+                <div class="metric-value" id="vel-7day-rev">$4.6M</div>
+                <div class="metric-label">Revenue/Day (7d)</div>
             </div>
-        </div>
-
-        <div class="metric-row" style="margin-top: 20px;">
-            <div class="metric">
-                <div class="metric-label">Required Daily</div>
-                <div class="metric-value" id="guidance-req">$7.7M</div>
+            <div class="metric-card">
+                <div class="metric-value amber" id="vel-q1-proj">$410M</div>
+                <div class="metric-label">Q1 Projected</div>
             </div>
-            <div class="metric">
-                <div class="metric-label">Current Daily</div>
-                <div class="metric-value amber" id="guidance-curr">$4.6M</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Projected Q1</div>
-                <div class="metric-value" id="guidance-proj">$410M</div>
+            <div class="metric-card">
+                <div class="metric-value" id="vel-q1-target">$595M</div>
+                <div class="metric-label">Q1 Guidance</div>
             </div>
         </div>
 
-        <div class="insight" id="guidance-insight">
-            <span class="insight-icon">📉</span>
-            <span>Tracking to $410M vs $595M guidance. Expect guidance revision or significant acceleration in Feb/Mar.</span>
+        <div class="progress-bar" style="margin-top: 20px;">
+            <div class="progress-fill" id="q1-progress" style="width: 20%; background: var(--amber);"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-3); margin-top: 8px;">
+            <span><span id="q1-rev">$119.7M</span> revenue</span>
+            <span><span id="q1-pct">20.1%</span> of guidance • Behind pace</span>
         </div>
     </section>
 
-    <!-- Risk Snapshot -->
+    <!-- PRICE CUTS -->
     <section class="section">
-        <div class="section-head">
-            <span class="section-title">Risk Snapshot</span>
-        </div>
-
-        <div class="metric-row">
-            <div class="metric">
-                <div class="metric-label">Underwater Exposure</div>
-                <div class="metric-value red" id="risk-exposure">$5.1M</div>
-                <div class="metric-sub"><span id="risk-uw-count">193</span> homes</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Aged + Underwater</div>
-                <div class="metric-value" id="risk-aged">181</div>
-                <div class="metric-sub"><span id="risk-aged-pct">94%</span> of underwater</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Top Concentration</div>
-                <div class="metric-value amber" id="risk-conc">NC</div>
-                <div class="metric-sub"><span id="risk-conc-pct">16.6%</span> of inventory</div>
-            </div>
-        </div>
-
-        <div class="insight" id="risk-insight">
-            <span class="insight-icon">⚠️</span>
-            <span>94% of underwater homes are legacy inventory — exposure clears naturally as toxic homes sell.</span>
-        </div>
-    </section>
-
-    <!-- Cohorts (Expandable) -->
-    <section class="section">
-        <div class="section-head">
-            <span class="section-title">Cohort Performance</span>
-        </div>
+        <div class="section-title">Price Cut Analysis (Leading Indicator)</div>
 
         <table class="tbl">
             <thead>
                 <tr>
-                    <th>Cohort</th>
-                    <th>Count</th>
-                    <th>Win Rate</th>
-                    <th>Avg Profit</th>
+                    <th>Portfolio</th>
+                    <th>Listed</th>
+                    <th>With Cuts</th>
+                    <th>% Cut</th>
+                    <th>Avg Cut</th>
                 </tr>
             </thead>
-            <tbody id="cohort-table">
+            <tbody>
                 <tr>
-                    <td class="name">New (&lt;90d)</td>
-                    <td>72</td>
-                    <td class="green">90.3%</td>
-                    <td class="green">$40.7K</td>
+                    <td class="name">Kaz-Era</td>
+                    <td id="cuts-kaz-listed">145</td>
+                    <td id="cuts-kaz-count">56</td>
+                    <td class="amber" id="cuts-kaz-pct">38.6%</td>
+                    <td id="cuts-kaz-avg">$10.1K</td>
                 </tr>
                 <tr>
-                    <td class="name">Mid (90-180d)</td>
-                    <td>104</td>
-                    <td class="amber">84.6%</td>
-                    <td class="green">$36.9K</td>
-                </tr>
-                <tr>
-                    <td class="name">Old (180-365d)</td>
-                    <td>100</td>
-                    <td class="amber">53.0%</td>
-                    <td>$21.7K</td>
-                </tr>
-                <tr>
-                    <td class="name">Toxic (&gt;365d)</td>
-                    <td>43</td>
-                    <td class="red">30.2%</td>
-                    <td class="red">-$12.5K</td>
+                    <td class="name">Legacy</td>
+                    <td id="cuts-legacy-listed">455</td>
+                    <td id="cuts-legacy-count">453</td>
+                    <td class="red" id="cuts-legacy-pct">99.6%</td>
+                    <td id="cuts-legacy-avg">$38.2K</td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="insight">
-            <span class="insight-icon">📊</span>
-            <span>Clear performance gradient: newer = better. New cohort at 90%+ validates the strategy pivot.</span>
-        </div>
-
-        <div class="expandable-toggle" onclick="toggleExpand('cohort-detail')">
-            <span>Show detailed breakdown</span>
-            <span>↓</span>
-        </div>
-
-        <div class="expandable-content" id="cohort-detail">
-            <div class="metric-row" style="margin-top: 8px;">
-                <div class="metric">
-                    <div class="metric-label">Blended Win Rate</div>
-                    <div class="metric-value" id="blended-wr">68.7%</div>
-                    <div class="metric-sub">dragged by legacy</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Avg Days Held</div>
-                    <div class="metric-value" id="avg-days">207</div>
-                    <div class="metric-sub">median: 158</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-label">Inventory</div>
-                    <div class="metric-value" id="total-inv">764</div>
-                    <div class="metric-sub"><span id="legacy-pct">59.6%</span> legacy</div>
-                </div>
-            </div>
+        <div style="margin-top: 16px; font-size: 13px; color: var(--text-2);">
+            Price cuts are a leading indicator. 99.6% of legacy homes have cuts — they're taking the pain to clear.
         </div>
     </section>
 
-    <!-- AI Analysis -->
-    <div class="ai-section">
-        <div class="ai-title">🧠 Analysis</div>
+    <!-- GEOGRAPHIC RISK -->
+    <section class="section">
+        <div class="section-title">Geographic Risk</div>
 
-        <div class="ai-group">
-            <div class="ai-group-title bullish">Bullish Signals</div>
-            <div class="ai-item" id="ai-bull-1">New strategy win rate holding above 90% — validates the turnaround thesis</div>
-            <div class="ai-item" id="ai-bull-2">97% of new-strategy inventory is above water — healthy pipeline</div>
-            <div class="ai-item" id="ai-bull-3">Toxic clearance on pace — legacy drag diminishing each week</div>
-        </div>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Inventory</th>
+                    <th>Underwater</th>
+                    <th>UW Rate</th>
+                    <th>Risk</th>
+                </tr>
+            </thead>
+            <tbody id="geo-table">
+                <tr>
+                    <td class="name">NC</td>
+                    <td>127</td>
+                    <td>38</td>
+                    <td class="amber">29.9%</td>
+                    <td class="amber">Medium</td>
+                </tr>
+                <tr>
+                    <td class="name">GA</td>
+                    <td>102</td>
+                    <td>45</td>
+                    <td class="red">44.1%</td>
+                    <td class="red">High</td>
+                </tr>
+                <tr>
+                    <td class="name">TX</td>
+                    <td>89</td>
+                    <td>22</td>
+                    <td class="amber">24.7%</td>
+                    <td class="amber">Medium</td>
+                </tr>
+                <tr>
+                    <td class="name">FL</td>
+                    <td>85</td>
+                    <td>41</td>
+                    <td class="red">48.2%</td>
+                    <td class="red">High</td>
+                </tr>
+                <tr>
+                    <td class="name">AZ</td>
+                    <td>59</td>
+                    <td>12</td>
+                    <td>20.3%</td>
+                    <td>Low</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-        <div class="ai-group">
-            <div class="ai-group-title watch">Watch Closely</div>
-            <div class="ai-item" id="ai-watch-1">Q1 guidance likely to be revised — $410M projected vs $595M target</div>
-            <div class="ai-item" id="ai-watch-2">NC concentration at 16.6% — monitor for regional softness</div>
-            <div class="ai-item" id="ai-watch-3">New cohort dipped to 90.3% from 95%+ — watch for trend</div>
-        </div>
-
-        <div class="ai-verdict">
-            <span class="ai-verdict-badge green" id="ai-verdict-badge">✓ Thesis On Track</span>
-            <span class="ai-verdict-text" id="ai-verdict-text">New strategy validated. Legacy cleanup progressing. Main risk is guidance optics, not fundamentals.</span>
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+        <div class="disclaimer-title">⚠️ Data Transparency</div>
+        <div class="disclaimer-text">
+            Win rates reflect <strong>sold homes only</strong>. Homes still listed may lose money when sold.<br><br>
+            <strong>Kaz-era:</strong> <span id="disc-kaz-sold">66</span> sold (<span id="disc-kaz-wr">98.5%</span> win) + <span id="disc-kaz-listed">145</span> listed (<span id="disc-kaz-uw">5</span> underwater)<br>
+            <strong>Legacy:</strong> <span id="disc-legacy-sold">118</span> sold (<span id="disc-legacy-wr">55.9%</span> win) + <span id="disc-legacy-listed">455</span> listed (<span id="disc-legacy-uw">184</span> underwater)<br><br>
+            <strong>Total underwater exposure from listed homes: <span class="red" id="disc-total-exposure">$4.98M</span></strong>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-brand">Glass House</div>
-        <div class="footer-sub">Free intelligence for $OPEN shareholders</div>
-        <div class="footer-disc">
-            Data from Parcl Labs. Not financial advice. Creator is long $OPEN. Updated daily.
-        </div>
+        <div class="footer-sub">Honest data for $OPEN shareholders • No survivorship bias</div>
     </footer>
 
 </div>
 
 <script>
-// Data loading
 async function loadData() {
     try {
         const r = await fetch('outputs/dashboard_data.json');
@@ -746,7 +634,6 @@ async function loadData() {
 }
 
 function fmt(v) {
-    if (Math.abs(v) >= 1e9) return '$' + (v/1e9).toFixed(1) + 'B';
     if (Math.abs(v) >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
     if (Math.abs(v) >= 1e3) return '$' + (v/1e3).toFixed(1) + 'K';
     return '$' + v.toFixed(0);
@@ -754,134 +641,37 @@ function fmt(v) {
 
 function render(data) {
     if (!data) return;
-
     const d = data.current;
     const kaz = d.kaz_era || {};
     const g = d.guidance || {};
-    const inv = d.inventory || {};
-    const perf = d.performance || {};
     const toxic = d.toxic || {};
-    const risk = d.risk || {};
 
     // Date
     document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
-    // Hero
-    const newWR = kaz.realized?.win_rate || 95.3;
-    const legacyWR = 64.3; // baseline
-    const delta = kaz.vs_legacy_improvement || (newWR - legacyWR);
+    // Kaz-Era section - use actual data when available
+    if (kaz.realized) {
+        document.getElementById('kaz-sold-count').textContent = kaz.realized.count || 66;
+        document.getElementById('kaz-sold-wr').textContent = (kaz.realized.win_rate || 98.5).toFixed(1) + '%';
+        document.getElementById('kaz-sold-profit').textContent = fmt(kaz.realized.avg_profit || 44400);
+    }
 
-    document.getElementById('hero-new').textContent = newWR.toFixed(1) + '%';
-    document.getElementById('hero-legacy').textContent = legacyWR.toFixed(1) + '%';
-    document.getElementById('hero-delta').textContent = '+' + delta.toFixed(0) + ' percentage points';
-    document.getElementById('hero-sold').textContent = kaz.realized?.count || 43;
-    document.getElementById('hero-portfolio').textContent = kaz.total || 146;
-    document.getElementById('hero-profit').textContent = fmt(kaz.realized?.avg_profit || 43237);
-
-    // Verdict
-    const verdictEl = document.getElementById('verdict');
-    if (newWR >= 90 && (kaz.unrealized?.above_water_pct || 97) >= 90) {
-        verdictEl.textContent = 'Thesis On Track';
-        verdictEl.className = 'hero-verdict on-track';
-    } else if (newWR >= 80) {
-        verdictEl.textContent = 'Watch Closely';
-        verdictEl.className = 'hero-verdict watch';
-    } else {
-        verdictEl.textContent = 'Concern';
-        verdictEl.className = 'hero-verdict concern';
+    // Q1 Guidance
+    if (g.revenue_to_date) {
+        document.getElementById('q1-rev').textContent = fmt(g.revenue_to_date);
+        document.getElementById('q1-pct').textContent = (g.pct_to_target || 20.1).toFixed(1) + '%';
+        document.getElementById('q1-progress').style.width = Math.min(g.pct_to_target || 20.1, 100) + '%';
+        document.getElementById('vel-q1-proj').textContent = fmt(g.projected_quarter_revenue || 410000000);
     }
 
     // Toxic
-    const toxicCleared = toxic.sold_count || 43;
-    const toxicRemaining = toxic.remaining_count || 84;
-    const toxicPct = (toxicCleared / (toxicCleared + toxicRemaining) * 100);
-    document.getElementById('toxic-cleared').textContent = toxicCleared;
-    document.getElementById('toxic-remaining').textContent = toxicRemaining;
-    document.getElementById('toxic-weeks').textContent = Math.ceil(toxic.weeks_to_clear || 8);
-    document.getElementById('toxic-bar').style.width = toxicPct + '%';
-
-    // Guidance
-    const revToDate = g.revenue_to_date || 119653700;
-    const pctToTarget = g.pct_to_target || 20.1;
-    document.getElementById('guidance-rev').textContent = fmt(revToDate);
-    document.getElementById('guidance-pct').textContent = pctToTarget.toFixed(1) + '%';
-    document.getElementById('guidance-day').textContent = g.days_elapsed || 26;
-    document.getElementById('guidance-bar').style.width = Math.min(pctToTarget, 100) + '%';
-    document.getElementById('guidance-req').textContent = fmt(g.required_daily_revenue || 7666876);
-    document.getElementById('guidance-curr').textContent = fmt(g.current_daily_revenue || 4602065);
-    document.getElementById('guidance-proj').textContent = fmt(g.projected_quarter_revenue || 409580000);
-
-    const pace = g.pace_vs_required || 'behind';
-    const guidanceBadge = document.getElementById('guidance-badge');
-    if (pace === 'ahead') {
-        guidanceBadge.textContent = 'Ahead';
-        guidanceBadge.className = 'section-badge green';
-    } else if (pace === 'on_track') {
-        guidanceBadge.textContent = 'On Track';
-        guidanceBadge.className = 'section-badge green';
-    } else {
-        guidanceBadge.textContent = 'Behind Pace';
-        guidanceBadge.className = 'section-badge amber';
-    }
-
-    // Risk
-    document.getElementById('risk-exposure').textContent = fmt(risk.underwater_total_exposure || 5079798);
-    document.getElementById('risk-uw-count').textContent = risk.underwater_count || 193;
-    document.getElementById('risk-aged').textContent = risk.aged_underwater_count || 181;
-    const agedPct = Math.round((risk.aged_underwater_count || 181) / (risk.underwater_count || 193) * 100);
-    document.getElementById('risk-aged-pct').textContent = agedPct + '%';
-    document.getElementById('risk-conc').textContent = risk.top_concentration_market || 'NC';
-    document.getElementById('risk-conc-pct').textContent = (risk.top_concentration_pct || 16.6).toFixed(1) + '%';
-
-    // Cohorts
-    const cohorts = [
-        {name: 'New (<90d)', data: d.cohort_new},
-        {name: 'Mid (90-180d)', data: d.cohort_mid},
-        {name: 'Old (180-365d)', data: d.cohort_old},
-        {name: 'Toxic (>365d)', data: d.cohort_toxic}
-    ];
-
-    const tbody = document.getElementById('cohort-table');
-    tbody.innerHTML = cohorts.map(c => {
-        const wr = c.data?.win_rate || 0;
-        const profit = c.data?.avg_profit || 0;
-        const wrClass = wr >= 85 ? 'green' : wr >= 50 ? 'amber' : 'red';
-        const profitClass = profit >= 30000 ? 'green' : profit >= 0 ? '' : 'red';
-        return `<tr>
-            <td class="name">${c.name}</td>
-            <td>${c.data?.count || 0}</td>
-            <td class="${wrClass}">${wr.toFixed(1)}%</td>
-            <td class="${profitClass}">${fmt(profit)}</td>
-        </tr>`;
-    }).join('');
-
-    // Expanded metrics
-    document.getElementById('blended-wr').textContent = (perf.win_rate || 68.7).toFixed(1) + '%';
-    document.getElementById('avg-days').textContent = Math.round(d.velocity?.avg_days_to_sale || 207);
-    document.getElementById('total-inv').textContent = inv.total || 764;
-    document.getElementById('legacy-pct').textContent = (inv.legacy_pct || 59.6).toFixed(1) + '%';
-
-    // AI insights - dynamic based on data
-    const newCohortWR = d.cohort_new?.win_rate || 90.3;
-    const unrealizedHealth = kaz.unrealized?.above_water_pct || 97.1;
-
-    document.getElementById('ai-bull-1').textContent = `New strategy win rate at ${newWR.toFixed(1)}% — validates the turnaround thesis`;
-    document.getElementById('ai-bull-2').textContent = `${unrealizedHealth.toFixed(0)}% of new-strategy inventory above water — healthy pipeline`;
-
-    if (newCohortWR < 95) {
-        document.getElementById('ai-watch-3').textContent = `New cohort at ${newCohortWR.toFixed(1)}% — slightly below 95% target, monitor trend`;
+    if (toxic.remaining_count) {
+        document.getElementById('legacy-toxic-remaining').textContent = toxic.remaining_count;
+        document.getElementById('legacy-weeks').textContent = '~' + Math.ceil(toxic.weeks_to_clear || 9) + ' wks';
     }
 }
 
-function toggleExpand(id) {
-    const el = document.getElementById(id);
-    el.classList.toggle('show');
-}
-
-// Load and render
 loadData().then(render);
-
-// Refresh every 5 minutes
 setInterval(() => loadData().then(render), 300000);
 </script>
 </body>

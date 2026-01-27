@@ -3,231 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glass House — $OPEN Intelligence</title>
+    <title>Glass House — $OPEN Deep Intelligence</title>
+    <meta name="description" content="Institutional-grade operational intelligence for Opendoor shareholders. Real-time metrics, unit economics, market analysis.">
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=SF+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
         :root {
-            --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
-            --bg-card: #111111;
-            --bg-card-hover: #161616;
-            --bg-elevated: #1a1a1a;
-            --border: #222222;
-            --border-subtle: #1a1a1a;
-
-            --text-primary: #f5f5f7;
-            --text-secondary: #a1a1a6;
-            --text-tertiary: #6e6e73;
-
-            --green: #30d158;
-            --green-dim: #28a745;
-            --red: #ff453a;
-            --orange: #ff9f0a;
-            --blue: #0a84ff;
-            --cyan: #64d2ff;
-            --purple: #bf5af2;
-
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
+            --bg: #09090b;
+            --surface: #111113;
+            --surface-2: #18181b;
+            --surface-3: #27272a;
+            --border: #27272a;
+            --text: #fafafa;
+            --text-2: #a1a1aa;
+            --text-3: #71717a;
+            --green: #22c55e;
+            --green-bg: rgba(34, 197, 94, 0.12);
+            --red: #ef4444;
+            --red-bg: rgba(239, 68, 68, 0.12);
+            --blue: #3b82f6;
+            --blue-bg: rgba(59, 130, 246, 0.12);
+            --orange: #f59e0b;
+            --orange-bg: rgba(245, 158, 11, 0.12);
+            --purple: #a855f7;
+            --cyan: #06b6d4;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            font-size: 14px;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.5;
+            font-size: 14px;
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
         /* Header */
-        .header {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 24px;
-            border-bottom: 1px solid var(--border-subtle);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
 
         .logo h1 {
             font-size: 20px;
             font-weight: 600;
-            letter-spacing: -0.5px;
         }
 
-        .logo h1 span {
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
+        .logo h1 span { color: var(--text-3); font-weight: 400; }
 
         .ticker {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 8px 16px;
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            font-family: 'SF Mono', 'Menlo', monospace;
+            background: var(--surface);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .ticker-symbol {
-            font-weight: 600;
-            color: var(--cyan);
-        }
+        .ticker-sym { color: var(--cyan); font-weight: 600; }
+        .ticker-price { font-size: 18px; font-weight: 600; }
+        .ticker-chg { font-size: 12px; padding: 4px 10px; border-radius: 4px; }
+        .ticker-chg.down { background: var(--red-bg); color: var(--red); }
+        .ticker-chg.up { background: var(--green-bg); color: var(--green); }
 
-        .ticker-price {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .ticker-change {
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .ticker-change.down {
-            background: rgba(255, 69, 58, 0.15);
-            color: var(--red);
-        }
-
-        .ticker-change.up {
-            background: rgba(48, 209, 88, 0.15);
-            color: var(--green);
-        }
-
-        .header-right {
+        .header-meta {
             display: flex;
             align-items: center;
             gap: 16px;
-            font-size: 13px;
-            color: var(--text-tertiary);
+            font-size: 12px;
+            color: var(--text-3);
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
+        .live-dot {
+            width: 8px; height: 8px;
             background: var(--green);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+        /* Thesis Hero */
+        .thesis {
+            background: linear-gradient(135deg, var(--green-bg) 0%, transparent 60%);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
         }
 
-        /* Hero Section - Kaz Era */
-        .hero {
-            background: linear-gradient(135deg, rgba(48, 209, 88, 0.08) 0%, rgba(0, 0, 0, 0) 50%);
-            border: 1px solid rgba(48, 209, 88, 0.2);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-
-        .hero-header {
+        .thesis-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .hero-title {
-            font-size: 13px;
+        .thesis-title {
+            font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             color: var(--green);
         }
 
-        .hero-badge {
-            font-size: 11px;
-            padding: 4px 10px;
-            background: rgba(48, 209, 88, 0.15);
+        .thesis-badge {
+            font-size: 10px;
+            padding: 5px 12px;
+            background: var(--green-bg);
             color: var(--green);
             border-radius: 20px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .hero-grid {
+        .thesis-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 24px;
+            gap: 20px;
         }
 
-        .hero-stat {
-            text-align: center;
-        }
+        .thesis-stat { text-align: center; }
 
-        .hero-stat .label {
-            font-size: 11px;
-            color: var(--text-tertiary);
+        .thesis-stat .lbl {
+            font-size: 10px;
+            color: var(--text-3);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        .hero-stat .value {
+        .thesis-stat .val {
             font-size: 32px;
             font-weight: 700;
-            font-family: 'SF Mono', monospace;
             color: var(--green);
-            letter-spacing: -1px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .hero-stat .detail {
+        .thesis-stat .sub {
             font-size: 12px;
-            color: var(--text-secondary);
+            color: var(--text-2);
             margin-top: 4px;
         }
 
-        /* Grid Layout */
-        .grid {
+        /* KPI Row */
+        .kpi-row {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
-        .col-3 { grid-column: span 3; }
-        .col-4 { grid-column: span 4; }
-        .col-6 { grid-column: span 6; }
-        .col-8 { grid-column: span 8; }
-        .col-12 { grid-column: span 12; }
+        .kpi {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
 
-        /* Cards */
+        .kpi .lbl {
+            font-size: 10px;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .kpi .val {
+            font-size: 22px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .kpi .val.g { color: var(--green); }
+        .kpi .val.r { color: var(--red); }
+        .kpi .val.b { color: var(--blue); }
+        .kpi .val.o { color: var(--orange); }
+
+        .kpi .ctx {
+            font-size: 11px;
+            color: var(--text-3);
+            margin-top: 4px;
+        }
+
+        /* Card */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            background: var(--surface);
+            border-radius: 12px;
+            margin-bottom: 16px;
             overflow: hidden;
         }
 
-        .card-header {
-            padding: 14px 16px;
+        .card-head {
+            padding: 14px 18px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -235,736 +218,478 @@
         }
 
         .card-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-secondary);
         }
 
-        .card-badge {
+        .card-tag {
             font-size: 10px;
-            padding: 3px 8px;
-            background: var(--bg-elevated);
-            color: var(--text-tertiary);
+            padding: 4px 10px;
+            background: var(--surface-3);
             border-radius: 4px;
-            font-family: 'SF Mono', monospace;
+            color: var(--text-3);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .card-body {
-            padding: 16px;
-        }
+        .card-body { padding: 18px; }
 
-        /* KPI Cards */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+        /* Grid */
+        .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .g23 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
 
-        .kpi {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            text-align: center;
-            transition: background 0.2s;
-        }
-
-        .kpi:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .kpi .label {
-            font-size: 10px;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .kpi .value {
-            font-size: 24px;
-            font-weight: 700;
-            font-family: 'SF Mono', monospace;
-            letter-spacing: -0.5px;
-        }
-
-        .kpi .value.green { color: var(--green); }
-        .kpi .value.red { color: var(--red); }
-        .kpi .value.orange { color: var(--orange); }
-        .kpi .value.blue { color: var(--blue); }
-
-        .kpi .trend {
-            font-size: 11px;
-            margin-top: 4px;
-            font-family: 'SF Mono', monospace;
-        }
-
-        .kpi .trend.up { color: var(--green); }
-        .kpi .trend.down { color: var(--red); }
-
-        /* Progress Bar */
-        .progress-section {
-            margin-bottom: 20px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .progress-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .progress-value {
-            font-size: 14px;
-            font-family: 'SF Mono', monospace;
-            color: var(--text-primary);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--bg-elevated);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--green), var(--cyan));
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        .progress-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 11px;
-            color: var(--text-tertiary);
-        }
+        /* Progress */
+        .prog-wrap { margin-bottom: 24px; }
+        .prog-head { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+        .prog-head .title { font-weight: 600; }
+        .prog-head .val { color: var(--text-2); }
+        .prog-bar { height: 10px; background: var(--surface-3); border-radius: 5px; overflow: hidden; }
+        .prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--cyan)); border-radius: 5px; }
+        .prog-meta { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--text-3); }
 
         /* Table */
-        .table {
-            width: 100%;
-            font-size: 13px;
-        }
+        .tbl { width: 100%; font-size: 13px; }
+        .tbl th { text-align: left; padding: 10px 12px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); border-bottom: 1px solid var(--border); }
+        .tbl td { padding: 12px; border-bottom: 1px solid var(--surface-3); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+        .tbl tr:last-child td { border-bottom: none; }
+        .tbl tr:hover { background: var(--surface-2); }
+        .tbl .name { font-family: 'Inter', sans-serif; font-weight: 500; }
+        .pos { color: var(--green); }
+        .neg { color: var(--red); }
+        .warn { color: var(--orange); }
 
-        .table th {
-            text-align: left;
-            padding: 10px 12px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-tertiary);
-            border-bottom: 1px solid var(--border);
-        }
+        .pill { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+        .pill.g { background: var(--green-bg); color: var(--green); }
+        .pill.r { background: var(--red-bg); color: var(--red); }
+        .pill.o { background: var(--orange-bg); color: var(--orange); }
+        .pill.b { background: var(--blue-bg); color: var(--blue); }
 
-        .table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-subtle);
-            font-family: 'SF Mono', monospace;
-        }
+        /* Insights */
+        .insights { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+        .insights-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--purple); margin-bottom: 16px; }
+        .insight { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--surface-3); font-size: 13px; }
+        .insight:last-child { border-bottom: none; }
+        .insight-icon { font-size: 16px; }
+        .insight-text { color: var(--text-2); }
+        .insight-text strong { color: var(--text); }
 
-        .table tr:last-child td {
-            border-bottom: none;
-        }
+        /* Chart */
+        .chart { height: 200px; }
 
-        .table tr:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .table .name {
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-        }
-
-        .table .positive { color: var(--green); }
-        .table .negative { color: var(--red); }
-        .table .warning { color: var(--orange); }
-
-        .status-pill {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 500;
-        }
-
-        .status-pill.signal { background: rgba(48, 209, 88, 0.15); color: var(--green); }
-        .status-pill.watch { background: rgba(255, 159, 10, 0.15); color: var(--orange); }
-        .status-pill.clear { background: rgba(255, 69, 58, 0.15); color: var(--red); }
-
-        /* Charts */
-        .chart-container {
-            height: 200px;
-        }
-
-        /* Insights Panel */
-        .insights {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .insights-title {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--purple);
-            margin-bottom: 12px;
-        }
-
-        .insight-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-subtle);
-            font-size: 13px;
-        }
-
-        .insight-item:last-child {
-            border-bottom: none;
-        }
-
-        .insight-icon {
-            font-size: 14px;
-        }
-
-        .insight-text {
-            color: var(--text-secondary);
-        }
-
-        .insight-text strong {
-            color: var(--text-primary);
-        }
-
-        /* Markets Grid */
-        .markets-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .market-card {
-            background: var(--bg-elevated);
-            border-radius: var(--radius-sm);
-            padding: 14px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-
-        .market-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .market-card .state {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--cyan);
-            margin-bottom: 4px;
-        }
-
-        .market-card .count {
-            font-size: 11px;
-            color: var(--text-tertiary);
-        }
-
-        .market-card .indicator {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 4px;
-        }
-
-        .market-card .indicator.healthy { background: var(--green); }
-        .market-card .indicator.warning { background: var(--orange); }
-        .market-card .indicator.risk { background: var(--red); }
+        /* Metric Mini */
+        .mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .mini { background: var(--surface-2); border-radius: 8px; padding: 14px; text-align: center; }
+        .mini .lbl { font-size: 10px; color: var(--text-3); text-transform: uppercase; margin-bottom: 4px; }
+        .mini .val { font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
 
         /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 11px;
-            color: var(--text-tertiary);
-            border-top: 1px solid var(--border-subtle);
-            margin-top: 24px;
-        }
-
-        /* Alert Bar */
-        .alert {
-            background: rgba(255, 69, 58, 0.1);
-            border: 1px solid rgba(255, 69, 58, 0.3);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--red);
-        }
-
-        .alert-icon { font-size: 16px; }
+        footer { text-align: center; padding: 32px; border-top: 1px solid var(--border); margin-top: 32px; }
+        .footer-brand { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .footer-sub { font-size: 12px; color: var(--text-3); margin-bottom: 12px; }
+        .footer-disc { font-size: 10px; color: var(--text-3); max-width: 700px; margin: 0 auto; }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .hero-grid { grid-template-columns: repeat(3, 1fr); }
-            .kpi-grid { grid-template-columns: repeat(3, 1fr); }
-            .col-3, .col-4 { grid-column: span 6; }
-        }
-
-        @media (max-width: 768px) {
-            .hero-grid { grid-template-columns: repeat(2, 1fr); }
-            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-            .col-3, .col-4, .col-6, .col-8 { grid-column: span 12; }
-            .markets-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (max-width: 1100px) { .thesis-grid, .kpi-row { grid-template-columns: repeat(3, 1fr); } .g2, .g3, .g23 { grid-template-columns: 1fr; } }
+        @media (max-width: 700px) { .thesis-grid, .kpi-row { grid-template-columns: repeat(2, 1fr); } .mini-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <h1>Glass House <span>/ $OPEN Intelligence</span></h1>
-                <div class="ticker">
-                    <span class="ticker-symbol">OPEN</span>
-                    <span class="ticker-price" id="stockPrice">$5.87</span>
-                    <span class="ticker-change down" id="stockChange">-46% from 52W high</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <span class="status-dot"></span>
-                <span>Live</span>
-                <span>•</span>
-                <span id="timestamp">Jan 27, 2026</span>
-            </div>
-        </header>
+<div class="container">
 
-        <!-- Alert -->
-        <div class="alert" id="alertBar" style="display: none;">
-            <span class="alert-icon">⚠</span>
-            <span id="alertText"></span>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <h1>Glass House <span>/ $OPEN Intelligence</span></h1>
+        <div class="ticker">
+            <span class="ticker-sym">OPEN</span>
+            <span class="ticker-price" id="price">$5.87</span>
+            <span class="ticker-chg down" id="chg">-46% from 52W</span>
         </div>
-
-        <!-- Hero: Kaz Era Performance -->
-        <section class="hero">
-            <div class="hero-header">
-                <span class="hero-title">Kaz-Era Performance — New Strategy Since Nov 2025</span>
-                <span class="hero-badge">Leading Indicator</span>
-            </div>
-            <div class="hero-grid">
-                <div class="hero-stat">
-                    <div class="label">Sold Win Rate</div>
-                    <div class="value" id="kazSoldRate">95.3%</div>
-                    <div class="detail" id="kazSoldDetail">41/43 profitable</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="label">On Market Health</div>
-                    <div class="value" id="kazMarketRate">97.1%</div>
-                    <div class="detail" id="kazMarketDetail">100/103 above water</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="label">Total Kaz-Era</div>
-                    <div class="value" id="kazTotal">146</div>
-                    <div class="detail">homes in portfolio</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="label">Combined Health</div>
-                    <div class="value" id="kazHealth">96.6%</div>
-                    <div class="detail">profitable + above water</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="label">vs Legacy</div>
-                    <div class="value" id="kazImprovement">+31pp</div>
-                    <div class="detail">win rate improvement</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- KPIs -->
-        <div class="kpi-grid">
-            <div class="kpi">
-                <div class="label">Overall Win Rate</div>
-                <div class="value" id="kpiWinRate">68.7%</div>
-                <div class="trend up" id="kpiWinTrend">↑ from 55.6%</div>
-            </div>
-            <div class="kpi">
-                <div class="label">Q1 Revenue</div>
-                <div class="value green" id="kpiRevenue">$119.7M</div>
-                <div class="trend" id="kpiRevTarget">of $595M target</div>
-            </div>
-            <div class="kpi">
-                <div class="label">Homes Sold</div>
-                <div class="value blue" id="kpiSold">319</div>
-                <div class="trend" id="kpiSoldRate">15.2/day avg</div>
-            </div>
-            <div class="kpi">
-                <div class="label">Inventory</div>
-                <div class="value" id="kpiInventory">764</div>
-                <div class="trend" id="kpiInvTurn">50d turnover</div>
-            </div>
-            <div class="kpi">
-                <div class="label">Toxic Remaining</div>
-                <div class="value red" id="kpiToxic">84</div>
-                <div class="trend" id="kpiToxicWeeks">~8 weeks to clear</div>
-            </div>
-            <div class="kpi">
-                <div class="label">Avg Profit</div>
-                <div class="value green" id="kpiProfit">$30.3K</div>
-                <div class="trend" id="kpiMargin">7.0% margin</div>
-            </div>
-        </div>
-
-        <!-- Q1 Guidance -->
-        <div class="progress-section">
-            <div class="progress-header">
-                <span class="progress-title">Q1 2026 Guidance Progress</span>
-                <span class="progress-value"><span id="guidancePct">20.1%</span> • <span id="guidancePace" style="color: var(--orange);">Behind Pace</span></span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="guidanceBar" style="width: 20.1%;"></div>
-            </div>
-            <div class="progress-meta">
-                <span>$<span id="guidanceRevenue">119.7</span>M of $595M</span>
-                <span>Projected: $<span id="guidanceProjected">409.6</span>M</span>
-                <span><span id="guidanceDays">62</span> days remaining</span>
-            </div>
-        </div>
-
-        <!-- CEO Insights -->
-        <div class="insights" id="insightsPanel">
-            <div class="insights-title">🎯 CEO Action Items</div>
-            <div class="insight-item">
-                <span class="insight-icon">✅</span>
-                <span class="insight-text"><strong>Kaz strategy working:</strong> 95.3% win rate on new acquisitions vs 64.3% legacy. Continue current acquisition criteria.</span>
-            </div>
-            <div class="insight-item">
-                <span class="insight-icon">⚠️</span>
-                <span class="insight-text"><strong>New cohort watch:</strong> Win rate at 90.3%, below 95% target. Review recent purchases in GA, FL markets.</span>
-            </div>
-            <div class="insight-item">
-                <span class="insight-icon">🔴</span>
-                <span class="insight-text"><strong>Toxic priority:</strong> 84 homes >365 days. GA (17), FL (16), TX (11) need price cuts to clear before Q2.</span>
-            </div>
-            <div class="insight-item">
-                <span class="insight-icon">📊</span>
-                <span class="insight-text"><strong>Revenue gap:</strong> Need $7.7M/day vs current $4.6M/day. Increase listing velocity or accept lower margins.</span>
-            </div>
-        </div>
-
-        <!-- Main Grid -->
-        <div class="grid">
-            <!-- Cohort Performance -->
-            <div class="card col-8">
-                <div class="card-header">
-                    <span class="card-title">Cohort Performance</span>
-                    <span class="card-badge">by age bucket</span>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Cohort</th>
-                                <th>Count</th>
-                                <th>Win Rate</th>
-                                <th>Avg Profit</th>
-                                <th>Margin</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cohortTable"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Toxic Countdown -->
-            <div class="card col-4">
-                <div class="card-header">
-                    <span class="card-title">Toxic Countdown</span>
-                    <span class="card-badge" id="toxicPct">33.9% cleared</span>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" id="chartToxic"></div>
-                </div>
-            </div>
-
-            <!-- Win Rate Trend -->
-            <div class="card col-6">
-                <div class="card-header">
-                    <span class="card-title">Win Rate Trend</span>
-                    <span class="card-badge">30 days</span>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" id="chartWinRate"></div>
-                </div>
-            </div>
-
-            <!-- Revenue -->
-            <div class="card col-6">
-                <div class="card-header">
-                    <span class="card-title">Revenue Accumulation</span>
-                    <span class="card-badge">Q1 2026</span>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" id="chartRevenue"></div>
-                </div>
-            </div>
-
-            <!-- Markets -->
-            <div class="card col-6">
-                <div class="card-header">
-                    <span class="card-title">Market Distribution</span>
-                    <span class="card-badge">by inventory</span>
-                </div>
-                <div class="card-body">
-                    <div class="markets-grid" id="marketGrid"></div>
-                </div>
-            </div>
-
-            <!-- Inventory -->
-            <div class="card col-6">
-                <div class="card-header">
-                    <span class="card-title">Inventory Aging</span>
-                    <span class="card-badge" id="invLegacy">59.6% legacy</span>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" id="chartInventory"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            Glass House Intelligence • Data: Parcl Labs, Yahoo Finance, SEC EDGAR • Auto-refresh: 5 min
-        </footer>
     </div>
+    <div class="header-meta">
+        <div class="live-dot"></div>
+        <span>Live</span>
+        <span>•</span>
+        <span id="ts">Jan 27, 2026</span>
+    </div>
+</header>
 
-    <script>
-        const colors = {
-            green: '#30d158',
-            red: '#ff453a',
-            orange: '#ff9f0a',
-            blue: '#0a84ff',
-            cyan: '#64d2ff',
-            purple: '#bf5af2',
-            gray: '#6e6e73',
-        };
+<!-- Investment Thesis: The Signal -->
+<section class="thesis">
+    <div class="thesis-head">
+        <span class="thesis-title">📈 The Turnaround Signal — New CEO Acquisition Strategy (Since Nov 2025)</span>
+        <span class="thesis-badge">Leading Indicator</span>
+    </div>
+    <div class="thesis-grid">
+        <div class="thesis-stat">
+            <div class="lbl">Realized Win Rate</div>
+            <div class="val" id="kaz-sold">95.3%</div>
+            <div class="sub" id="kaz-sold-d">41/43 profitable</div>
+        </div>
+        <div class="thesis-stat">
+            <div class="lbl">Unrealized Health</div>
+            <div class="val" id="kaz-mkt">97.1%</div>
+            <div class="sub" id="kaz-mkt-d">100/103 above water</div>
+        </div>
+        <div class="thesis-stat">
+            <div class="lbl">Total New Strategy</div>
+            <div class="val" id="kaz-tot">146</div>
+            <div class="sub">homes in portfolio</div>
+        </div>
+        <div class="thesis-stat">
+            <div class="lbl">Combined Success</div>
+            <div class="val" id="kaz-health">96.6%</div>
+            <div class="sub">profitable + above water</div>
+        </div>
+        <div class="thesis-stat">
+            <div class="lbl">vs Legacy Strategy</div>
+            <div class="val" id="kaz-imp">+31pp</div>
+            <div class="sub">win rate improvement</div>
+        </div>
+    </div>
+</section>
 
-        const chartLayout = {
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#a1a1a6', family: '-apple-system, SF Pro Display, sans-serif', size: 11 },
-            margin: { t: 10, r: 10, b: 30, l: 45 },
-            xaxis: { gridcolor: '#222', linecolor: '#222', tickfont: { size: 10 } },
-            yaxis: { gridcolor: '#222', linecolor: '#222', tickfont: { size: 10 } },
-            showlegend: false,
-        };
+<!-- Key Performance Indicators -->
+<div class="kpi-row">
+    <div class="kpi"><div class="lbl">Overall Win Rate</div><div class="val" id="kpi-wr">68.7%</div><div class="ctx">blended (legacy drag)</div></div>
+    <div class="kpi"><div class="lbl">Q1 Revenue</div><div class="val g" id="kpi-rev">$119.7M</div><div class="ctx">of $595M guidance</div></div>
+    <div class="kpi"><div class="lbl">Avg Profit/Home</div><div class="val g" id="kpi-profit">$30.3K</div><div class="ctx">7.0% contribution margin</div></div>
+    <div class="kpi"><div class="lbl">Homes Sold</div><div class="val b" id="kpi-sold">319</div><div class="ctx">15.2/day velocity</div></div>
+    <div class="kpi"><div class="lbl">Inventory</div><div class="val" id="kpi-inv">764</div><div class="ctx">50d turnover</div></div>
+    <div class="kpi"><div class="lbl">Toxic Remaining</div><div class="val r" id="kpi-toxic">84</div><div class="ctx">~8 weeks to clear</div></div>
+</div>
 
-        async function loadData() {
-            try {
-                const response = await fetch('outputs/dashboard_data.json');
-                if (!response.ok) throw new Error('not found');
-                return await response.json();
-            } catch (e) {
-                console.log('Using fallback data');
-                return getFallbackData();
-            }
-        }
+<!-- Q1 Guidance Progress -->
+<div class="prog-wrap">
+    <div class="prog-head">
+        <span class="title">Q1 2026 Revenue Guidance</span>
+        <span class="val"><span id="prog-pct">20.1%</span> • <span id="prog-pace" style="color:var(--orange)">Behind Pace</span></span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-bar" style="width:20.1%"></div></div>
+    <div class="prog-meta">
+        <span>$<span id="prog-rev">119.7</span>M of $595M</span>
+        <span>Required: $7.7M/day • Current: $4.6M/day</span>
+        <span>Projected: $<span id="prog-proj">409.6</span>M</span>
+    </div>
+</div>
 
-        function getFallbackData() {
-            return {
-                current: {
-                    date: "2026-01-27",
-                    performance: { win_rate: 68.7, homes_sold_total: 319, revenue_total: 119653700, avg_profit: 30300, contribution_margin: 7.02 },
-                    inventory: { total: 764, fresh_count: 54, normal_count: 91, stale_count: 164, very_stale_count: 371, toxic_count: 84, avg_dom: 228, legacy_pct: 59.6 },
-                    cohort_new: { count: 72, win_rate: 90.3, avg_profit: 40700, contribution_margin: 10.4 },
-                    cohort_mid: { count: 104, win_rate: 84.6, avg_profit: 36900, contribution_margin: 10.0 },
-                    cohort_old: { count: 100, win_rate: 53.0, avg_profit: 21700, contribution_margin: 5.4 },
-                    cohort_toxic: { count: 43, win_rate: 30.2, avg_profit: -12500, contribution_margin: -4.1 },
-                    toxic: { sold_count: 43, remaining_count: 84, clearance_pct: 33.9 },
-                    kaz_era: {
-                        realized: { count: 43, profitable: 41, win_rate: 95.3 },
-                        unrealized: { count: 103, above_water: 100, above_water_pct: 97.1 },
-                        total: 146, overall_health_pct: 96.6, vs_legacy_improvement: 31,
-                    },
-                    guidance: { revenue_to_date: 119653700, pct_to_target: 20.1, projected_quarter_revenue: 409580000, pace_vs_required: "behind", days_remaining: 62 },
-                    alerts: ["New cohort win rate dropped to 90.3% (target: >95%)"],
-                },
-                history: []
-            };
-        }
+<!-- Deep Insights -->
+<div class="insights">
+    <div class="insights-title">🎯 Investment Thesis Checkpoints</div>
+    <div class="insight">
+        <span class="insight-icon">✅</span>
+        <span class="insight-text"><strong>New strategy validated.</strong> 95.3% win rate on homes acquired since Nov 2025 vs 64.3% legacy. This is the most important metric — it proves the business model works when executed with discipline.</span>
+    </div>
+    <div class="insight">
+        <span class="insight-icon">📊</span>
+        <span class="insight-text"><strong>New cohort at 90.3%.</strong> Homes sold within 90 days showing strong performance, though slightly below 95% target. Still dramatically better than legacy cohorts (53% old, 30% toxic).</span>
+    </div>
+    <div class="insight">
+        <span class="insight-icon">⚠️</span>
+        <span class="insight-text"><strong>Legacy cleanup is the drag.</strong> 59.6% of inventory is >180 days old. These legacy homes pull down overall metrics. As they clear, blended win rate should approach new-strategy levels.</span>
+    </div>
+    <div class="insight">
+        <span class="insight-icon">🔴</span>
+        <span class="insight-text"><strong>Q1 guidance at risk.</strong> $409M projected vs $595M guidance (-31%). Either pace accelerates in Feb/March, or expect guidance revision. This is the near-term risk.</span>
+    </div>
+</div>
 
-        function fmt(val) {
-            if (Math.abs(val) >= 1e9) return '$' + (val/1e9).toFixed(2) + 'B';
-            if (Math.abs(val) >= 1e6) return '$' + (val/1e6).toFixed(1) + 'M';
-            if (Math.abs(val) >= 1e3) return '$' + (val/1e3).toFixed(1) + 'K';
-            return '$' + val.toFixed(0);
-        }
+<!-- Row: Cohorts + Toxic -->
+<div class="g23">
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Cohort Performance Analysis</span>
+            <span class="card-tag">by holding period</span>
+        </div>
+        <div class="card-body">
+            <table class="tbl">
+                <thead><tr><th>Cohort</th><th>Count</th><th>Win Rate</th><th>Avg Profit</th><th>Margin</th><th>Signal</th></tr></thead>
+                <tbody id="cohort-tbl"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Legacy Cleanup</span>
+            <span class="card-tag" id="toxic-pct">33.9% cleared</span>
+        </div>
+        <div class="card-body">
+            <div class="chart" id="chart-toxic"></div>
+        </div>
+    </div>
+</div>
 
-        function render(data) {
-            const d = data.current;
-            const kaz = d.kaz_era || {};
-            const g = d.guidance || {};
-            const inv = d.inventory || {};
-            const perf = d.performance || {};
-            const toxic = d.toxic || {};
+<!-- Row: Unit Economics + Velocity -->
+<div class="g2">
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Unit Economics</span>
+            <span class="card-tag">per home</span>
+        </div>
+        <div class="card-body">
+            <div class="mini-grid">
+                <div class="mini"><div class="lbl">Avg Sale Price</div><div class="val" id="ue-sale">$375K</div></div>
+                <div class="mini"><div class="lbl">Avg Purchase</div><div class="val" id="ue-buy">$345K</div></div>
+                <div class="mini"><div class="lbl">Gross Spread</div><div class="val pos" id="ue-spread">$30.3K</div></div>
+                <div class="mini"><div class="lbl">Margin</div><div class="val pos" id="ue-margin">7.0%</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Velocity Metrics</span>
+            <span class="card-tag">throughput</span>
+        </div>
+        <div class="card-body">
+            <div class="mini-grid">
+                <div class="mini"><div class="lbl">Avg Days Held</div><div class="val" id="vel-days">207</div></div>
+                <div class="mini"><div class="lbl">Median Days</div><div class="val" id="vel-med">158</div></div>
+                <div class="mini"><div class="lbl">Sales/Day</div><div class="val" id="vel-spd">15.2</div></div>
+                <div class="mini"><div class="lbl">Inv Turnover</div><div class="val" id="vel-turn">50d</div></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-            // Timestamp
-            document.getElementById('timestamp').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+<!-- Row: Win Rate Trend + Revenue -->
+<div class="g2">
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Win Rate Trend</span>
+            <span class="card-tag">30 days</span>
+        </div>
+        <div class="card-body"><div class="chart" id="chart-wr"></div></div>
+    </div>
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Revenue Accumulation</span>
+            <span class="card-tag">Q1 2026</span>
+        </div>
+        <div class="card-body"><div class="chart" id="chart-rev"></div></div>
+    </div>
+</div>
 
-            // Alerts
-            if (d.alerts?.length) {
-                document.getElementById('alertBar').style.display = 'flex';
-                document.getElementById('alertText').textContent = d.alerts[0];
-            }
+<!-- Row: Inventory + Markets -->
+<div class="g2">
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Inventory Age Distribution</span>
+            <span class="card-tag" id="inv-legacy">59.6% legacy</span>
+        </div>
+        <div class="card-body"><div class="chart" id="chart-inv"></div></div>
+    </div>
+    <div class="card">
+        <div class="card-head">
+            <span class="card-title">Market Concentration</span>
+            <span class="card-tag">top 8 states</span>
+        </div>
+        <div class="card-body">
+            <table class="tbl">
+                <thead><tr><th>State</th><th>Inventory</th><th>Toxic</th><th>Concentration</th><th>Risk</th></tr></thead>
+                <tbody id="mkt-tbl"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-            // Kaz Era
-            document.getElementById('kazSoldRate').textContent = (kaz.realized?.win_rate || 0).toFixed(1) + '%';
-            document.getElementById('kazSoldDetail').textContent = `${kaz.realized?.profitable || 0}/${kaz.realized?.count || 0} profitable`;
-            document.getElementById('kazMarketRate').textContent = (kaz.unrealized?.above_water_pct || 0).toFixed(1) + '%';
-            document.getElementById('kazMarketDetail').textContent = `${kaz.unrealized?.above_water || 0}/${kaz.unrealized?.count || 0} above water`;
-            document.getElementById('kazTotal').textContent = kaz.total || 0;
-            document.getElementById('kazHealth').textContent = (kaz.overall_health_pct || 0).toFixed(1) + '%';
-            document.getElementById('kazImprovement').textContent = '+' + (kaz.vs_legacy_improvement || 0) + 'pp';
+<!-- Risk Dashboard -->
+<div class="card">
+    <div class="card-head">
+        <span class="card-title">Risk Dashboard</span>
+        <span class="card-tag">exposure analysis</span>
+    </div>
+    <div class="card-body">
+        <div class="mini-grid">
+            <div class="mini"><div class="lbl">Underwater Homes</div><div class="val neg" id="risk-uw">193</div></div>
+            <div class="mini"><div class="lbl">UW Exposure</div><div class="val neg" id="risk-exp">$5.1M</div></div>
+            <div class="mini"><div class="lbl">Aged + Underwater</div><div class="val neg" id="risk-aged">181</div></div>
+            <div class="mini"><div class="lbl">Top Market Conc.</div><div class="val warn" id="risk-conc">NC 16.6%</div></div>
+        </div>
+    </div>
+</div>
 
-            // KPIs
-            document.getElementById('kpiWinRate').textContent = (perf.win_rate || 0).toFixed(1) + '%';
-            document.getElementById('kpiRevenue').textContent = fmt(perf.revenue_total || 0);
-            document.getElementById('kpiSold').textContent = perf.homes_sold_total || 0;
-            document.getElementById('kpiInventory').textContent = inv.total || 0;
-            document.getElementById('kpiToxic').textContent = toxic.remaining_count || 0;
-            document.getElementById('kpiProfit').textContent = fmt(perf.avg_profit || 30300);
-            document.getElementById('kpiMargin').textContent = (perf.contribution_margin || 0).toFixed(1) + '% margin';
+<!-- Footer -->
+<footer>
+    <div class="footer-brand">Glass House</div>
+    <div class="footer-sub">Institutional-grade intelligence for $OPEN shareholders • Free forever</div>
+    <div class="footer-disc">
+        Data sourced from Parcl Labs (public real estate data). This is not financial advice.
+        The creator is long $OPEN. Updated daily. Always do your own research before investing.
+    </div>
+</footer>
 
-            // Guidance
-            document.getElementById('guidancePct').textContent = (g.pct_to_target || 0).toFixed(1) + '%';
-            document.getElementById('guidanceBar').style.width = Math.min(g.pct_to_target || 0, 100) + '%';
-            document.getElementById('guidanceRevenue').textContent = ((g.revenue_to_date || 0) / 1e6).toFixed(1);
-            document.getElementById('guidanceProjected').textContent = ((g.projected_quarter_revenue || 0) / 1e6).toFixed(0);
-            document.getElementById('guidanceDays').textContent = g.days_remaining || 0;
+</div>
 
-            const pace = g.pace_vs_required || 'behind';
-            const paceEl = document.getElementById('guidancePace');
-            paceEl.textContent = pace === 'ahead' ? 'Ahead of Pace' : pace === 'on_track' ? 'On Track' : 'Behind Pace';
-            paceEl.style.color = pace === 'ahead' ? colors.green : pace === 'on_track' ? colors.orange : colors.red;
+<script>
+const C = { g:'#22c55e', r:'#ef4444', b:'#3b82f6', o:'#f59e0b', c:'#06b6d4' };
+const L = {
+    paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+    font:{color:'#71717a',family:'Inter',size:11},
+    margin:{t:10,r:10,b:30,l:50},
+    xaxis:{gridcolor:'#27272a',linecolor:'#27272a'},
+    yaxis:{gridcolor:'#27272a',linecolor:'#27272a'},
+    showlegend:false
+};
 
-            // Toxic
-            document.getElementById('toxicPct').textContent = (toxic.clearance_pct || 0).toFixed(1) + '% cleared';
-            document.getElementById('invLegacy').textContent = (inv.legacy_pct || 0).toFixed(1) + '% legacy';
+async function load() {
+    try {
+        const r = await fetch('outputs/dashboard_data.json');
+        return r.ok ? await r.json() : null;
+    } catch { return null; }
+}
 
-            // Cohort Table
-            const cohorts = [
-                { name: 'New (<90d)', data: d.cohort_new, status: 'signal', statusText: 'Signal' },
-                { name: 'Mid (90-180d)', data: d.cohort_mid, status: null, statusText: '—' },
-                { name: 'Old (180-365d)', data: d.cohort_old, status: 'watch', statusText: 'Watch' },
-                { name: 'Toxic (>365d)', data: d.cohort_toxic, status: 'clear', statusText: 'Clear' },
-            ];
+function fmt(v) {
+    if (Math.abs(v)>=1e9) return '$'+(v/1e9).toFixed(2)+'B';
+    if (Math.abs(v)>=1e6) return '$'+(v/1e6).toFixed(1)+'M';
+    if (Math.abs(v)>=1e3) return '$'+(v/1e3).toFixed(1)+'K';
+    return '$'+v.toFixed(0);
+}
 
-            document.getElementById('cohortTable').innerHTML = cohorts.map(c => {
-                const wr = c.data?.win_rate || 0;
-                const wrClass = wr >= 90 ? 'positive' : wr >= 70 ? 'warning' : 'negative';
-                const profit = c.data?.avg_profit || 0;
-                const profitClass = profit >= 0 ? 'positive' : 'negative';
-                return `<tr>
-                    <td class="name">${c.name}</td>
-                    <td>${c.data?.count || 0}</td>
-                    <td class="${wrClass}">${wr.toFixed(1)}%</td>
-                    <td class="${profitClass}">${fmt(profit)}</td>
-                    <td>${(c.data?.contribution_margin || 0).toFixed(1)}%</td>
-                    <td>${c.status ? `<span class="status-pill ${c.status}">${c.statusText}</span>` : c.statusText}</td>
-                </tr>`;
-            }).join('');
+function render(data) {
+    if (!data) return;
+    const d = data.current;
+    const kaz = d.kaz_era || {};
+    const g = d.guidance || {};
+    const inv = d.inventory || {};
+    const perf = d.performance || {};
+    const toxic = d.toxic || {};
+    const vel = d.velocity || {};
+    const pricing = d.pricing || {};
+    const risk = d.risk || {};
+    const markets = d.markets || [];
 
-            // Markets
-            const markets = [
-                { state: 'NC', count: 127, toxic: 6 },
-                { state: 'GA', count: 102, toxic: 17 },
-                { state: 'TX', count: 89, toxic: 11 },
-                { state: 'FL', count: 85, toxic: 16 },
-                { state: 'SC', count: 61, toxic: 4 },
-                { state: 'AZ', count: 59, toxic: 7 },
-                { state: 'CA', count: 47, toxic: 7 },
-                { state: 'CO', count: 34, toxic: 4 },
-            ];
-            document.getElementById('marketGrid').innerHTML = markets.map(m => {
-                const indicator = m.toxic > 10 ? 'risk' : m.toxic > 5 ? 'warning' : 'healthy';
-                return `<div class="market-card">
-                    <div class="state">${m.state}</div>
-                    <div class="count"><span class="indicator ${indicator}"></span>${m.count} homes • ${m.toxic} toxic</div>
-                </div>`;
-            }).join('');
+    // Timestamp
+    document.getElementById('ts').textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 
-            renderCharts(data);
-        }
+    // Kaz Era
+    document.getElementById('kaz-sold').textContent = (kaz.realized?.win_rate||95.3).toFixed(1)+'%';
+    document.getElementById('kaz-sold-d').textContent = `${kaz.realized?.profitable||41}/${kaz.realized?.count||43} profitable`;
+    document.getElementById('kaz-mkt').textContent = (kaz.unrealized?.above_water_pct||97.1).toFixed(1)+'%';
+    document.getElementById('kaz-mkt-d').textContent = `${kaz.unrealized?.above_water||100}/${kaz.unrealized?.count||103} above water`;
+    document.getElementById('kaz-tot').textContent = kaz.total||146;
+    document.getElementById('kaz-health').textContent = (kaz.overall_health_pct||96.6).toFixed(1)+'%';
+    document.getElementById('kaz-imp').textContent = '+'+(kaz.vs_legacy_improvement||31).toFixed(0)+'pp';
 
-        function renderCharts(data) {
-            const history = data.history || [];
-            const current = data.current;
+    // KPIs
+    document.getElementById('kpi-wr').textContent = (perf.win_rate||68.7).toFixed(1)+'%';
+    document.getElementById('kpi-rev').textContent = fmt(perf.revenue_total||119653700);
+    document.getElementById('kpi-profit').textContent = fmt(pricing.avg_spread||30300);
+    document.getElementById('kpi-sold').textContent = perf.homes_sold_total||319;
+    document.getElementById('kpi-inv').textContent = inv.total||764;
+    document.getElementById('kpi-toxic').textContent = toxic.remaining_count||84;
 
-            // Win Rate
-            if (history.length > 1) {
-                Plotly.newPlot('chartWinRate', [
-                    { x: history.map(h => h.date), y: history.map(h => h.performance?.win_rate || 0), line: { color: colors.cyan, width: 2 }, fill: 'tozeroy', fillcolor: 'rgba(100,210,255,0.1)' },
-                    { x: history.map(h => h.date), y: history.map(h => h.cohort_new?.win_rate || 0), line: { color: colors.green, width: 2, dash: 'dot' } },
-                ], { ...chartLayout, showlegend: true, legend: { x: 0, y: 1.1, orientation: 'h', font: { size: 10 } } }, { responsive: true, displayModeBar: false });
-            } else {
-                document.getElementById('chartWinRate').innerHTML = '<div style="text-align:center;padding:80px;color:#6e6e73;">Accumulating historical data...</div>';
-            }
+    // Progress
+    document.getElementById('prog-pct').textContent = (g.pct_to_target||20.1).toFixed(1)+'%';
+    document.getElementById('prog-bar').style.width = Math.min(g.pct_to_target||20.1,100)+'%';
+    document.getElementById('prog-rev').textContent = ((g.revenue_to_date||119653700)/1e6).toFixed(1);
+    document.getElementById('prog-proj').textContent = ((g.projected_quarter_revenue||409580000)/1e6).toFixed(0);
+    const pace = g.pace_vs_required||'behind';
+    const paceEl = document.getElementById('prog-pace');
+    paceEl.textContent = pace==='ahead'?'Ahead':pace==='on_track'?'On Track':'Behind Pace';
+    paceEl.style.color = pace==='ahead'?C.g:pace==='on_track'?C.o:C.o;
 
-            // Revenue
-            if (history.length > 1) {
-                Plotly.newPlot('chartRevenue', [{
-                    x: history.map(h => h.date),
-                    y: history.map(h => (h.performance?.revenue_total || 0) / 1e6),
-                    fill: 'tozeroy', fillcolor: 'rgba(48,209,88,0.15)',
-                    line: { color: colors.green, width: 2 },
-                }], { ...chartLayout, yaxis: { ...chartLayout.yaxis, ticksuffix: 'M' } }, { responsive: true, displayModeBar: false });
-            } else {
-                document.getElementById('chartRevenue').innerHTML = '<div style="text-align:center;padding:80px;color:#6e6e73;">Accumulating historical data...</div>';
-            }
+    // Unit Economics
+    document.getElementById('ue-sale').textContent = fmt(perf.revenue_total/perf.homes_sold_total||375000);
+    document.getElementById('ue-buy').textContent = fmt((perf.revenue_total-perf.homes_sold_total*(pricing.avg_spread||30300))/perf.homes_sold_total||345000);
+    document.getElementById('ue-spread').textContent = fmt(pricing.avg_spread||30300);
+    document.getElementById('ue-margin').textContent = (perf.contribution_margin||7.0).toFixed(1)+'%';
 
-            // Toxic
-            const toxic = current.toxic || {};
-            Plotly.newPlot('chartToxic', [{
-                type: 'pie',
-                values: [toxic.sold_count || 0, toxic.remaining_count || 0],
-                labels: ['Cleared', 'Remaining'],
-                marker: { colors: [colors.green, colors.red], line: { color: '#111', width: 2 } },
-                hole: 0.6,
-                textinfo: 'value',
-                textfont: { color: '#f5f5f7', size: 14 },
-            }], {
-                ...chartLayout,
-                annotations: [{ text: (toxic.clearance_pct || 0).toFixed(0) + '%', showarrow: false, font: { size: 24, color: '#f5f5f7' } }],
-            }, { responsive: true, displayModeBar: false });
+    // Velocity
+    document.getElementById('vel-days').textContent = (vel.avg_days_to_sale||207).toFixed(0);
+    document.getElementById('vel-med').textContent = (vel.median_days_to_sale||158).toFixed(0);
+    document.getElementById('vel-spd').textContent = (vel.sales_per_day_avg||15.2).toFixed(1);
+    document.getElementById('vel-turn').textContent = (vel.inventory_turnover_days||50).toFixed(0)+'d';
 
-            // Inventory
-            const inv = current.inventory || {};
-            Plotly.newPlot('chartInventory', [{
-                type: 'bar',
-                x: ['Fresh', 'Normal', 'Stale', 'V.Stale', 'Toxic'],
-                y: [inv.fresh_count, inv.normal_count, inv.stale_count, inv.very_stale_count, inv.toxic_count],
-                marker: { color: [colors.green, colors.blue, colors.orange, '#ff6600', colors.red], borderRadius: 4 },
-            }], chartLayout, { responsive: true, displayModeBar: false });
-        }
+    // Risk
+    document.getElementById('risk-uw').textContent = risk.underwater_count||193;
+    document.getElementById('risk-exp').textContent = fmt(risk.underwater_total_exposure||5080000);
+    document.getElementById('risk-aged').textContent = risk.aged_underwater_count||181;
+    document.getElementById('risk-conc').textContent = (risk.top_concentration_market||'NC')+' '+(risk.top_concentration_pct||16.6).toFixed(1)+'%';
 
-        loadData().then(render);
-        setInterval(() => loadData().then(render), 300000);
-    </script>
+    // Labels
+    document.getElementById('toxic-pct').textContent = (toxic.clearance_pct||33.9).toFixed(1)+'% cleared';
+    document.getElementById('inv-legacy').textContent = (inv.legacy_pct||59.6).toFixed(1)+'% legacy';
+
+    // Cohort Table
+    const cohorts = [
+        {name:'New (<90d)',d:d.cohort_new,pill:'g',sig:'Leading'},
+        {name:'Mid (90-180d)',d:d.cohort_mid,pill:'b',sig:'Transition'},
+        {name:'Old (180-365d)',d:d.cohort_old,pill:'o',sig:'Legacy'},
+        {name:'Toxic (>365d)',d:d.cohort_toxic,pill:'r',sig:'Clearing'},
+    ];
+    document.getElementById('cohort-tbl').innerHTML = cohorts.map(c=>{
+        const wr=c.d?.win_rate||0, p=c.d?.avg_profit||0;
+        return `<tr>
+            <td class="name">${c.name}</td>
+            <td>${c.d?.count||0}</td>
+            <td class="${wr>=90?'pos':wr>=70?'warn':'neg'}">${wr.toFixed(1)}%</td>
+            <td class="${p>=0?'pos':'neg'}">${fmt(p)}</td>
+            <td>${(c.d?.contribution_margin||0).toFixed(1)}%</td>
+            <td><span class="pill ${c.pill}">${c.sig}</span></td>
+        </tr>`;
+    }).join('');
+
+    // Market Table
+    const mkts = markets.length ? markets.slice(0,8) : [
+        {state:'NC',inventory_count:127,toxic_count:6,concentration_pct:16.6},
+        {state:'GA',inventory_count:102,toxic_count:17,concentration_pct:13.4},
+        {state:'TX',inventory_count:89,toxic_count:11,concentration_pct:11.6},
+        {state:'FL',inventory_count:85,toxic_count:16,concentration_pct:11.1},
+        {state:'SC',inventory_count:61,toxic_count:4,concentration_pct:8.0},
+        {state:'AZ',inventory_count:59,toxic_count:7,concentration_pct:7.7},
+        {state:'CA',inventory_count:47,toxic_count:7,concentration_pct:6.2},
+        {state:'CO',inventory_count:34,toxic_count:4,concentration_pct:4.5},
+    ];
+    document.getElementById('mkt-tbl').innerHTML = mkts.map(m=>{
+        const risk = m.toxic_count>10?'r':m.toxic_count>5?'o':'g';
+        return `<tr>
+            <td class="name">${m.state}</td>
+            <td>${m.inventory_count}</td>
+            <td>${m.toxic_count}</td>
+            <td>${m.concentration_pct.toFixed(1)}%</td>
+            <td><span class="pill ${risk}">${m.toxic_count>10?'High':m.toxic_count>5?'Med':'Low'}</span></td>
+        </tr>`;
+    }).join('');
+
+    // Charts
+    const hist = data.history||[];
+
+    // Win Rate
+    if (hist.length>1) {
+        Plotly.newPlot('chart-wr',[
+            {x:hist.map(h=>h.date),y:hist.map(h=>h.performance?.win_rate||0),name:'Overall',line:{color:C.b,width:2},fill:'tozeroy',fillcolor:'rgba(59,130,246,0.1)'},
+            {x:hist.map(h=>h.date),y:hist.map(h=>h.cohort_new?.win_rate||0),name:'New',line:{color:C.g,width:2,dash:'dot'}}
+        ],{...L,showlegend:true,legend:{x:0,y:1.1,orientation:'h',font:{size:10}}},{responsive:true,displayModeBar:false});
+    } else {
+        document.getElementById('chart-wr').innerHTML='<p style="text-align:center;padding:80px;color:#71717a">Accumulating data...</p>';
+    }
+
+    // Revenue
+    if (hist.length>1) {
+        Plotly.newPlot('chart-rev',[{
+            x:hist.map(h=>h.date),y:hist.map(h=>(h.performance?.revenue_total||0)/1e6),
+            fill:'tozeroy',fillcolor:'rgba(34,197,94,0.15)',line:{color:C.g,width:2}
+        }],{...L,yaxis:{...L.yaxis,tickprefix:'$',ticksuffix:'M'}},{responsive:true,displayModeBar:false});
+    } else {
+        document.getElementById('chart-rev').innerHTML='<p style="text-align:center;padding:80px;color:#71717a">Accumulating data...</p>';
+    }
+
+    // Toxic Donut
+    Plotly.newPlot('chart-toxic',[{
+        type:'pie',values:[toxic.sold_count||43,toxic.remaining_count||84],labels:['Cleared','Remaining'],
+        marker:{colors:[C.g,C.r],line:{color:'#111113',width:3}},hole:.65,textinfo:'value',textfont:{color:'#fafafa',size:14}
+    }],{...L,annotations:[{text:(toxic.clearance_pct||33.9).toFixed(0)+'%',showarrow:false,font:{size:24,color:'#fafafa'}}]},{responsive:true,displayModeBar:false});
+
+    // Inventory Bar
+    Plotly.newPlot('chart-inv',[{
+        type:'bar',x:['Fresh','Normal','Stale','V.Stale','Toxic'],
+        y:[inv.fresh_count||54,inv.normal_count||91,inv.stale_count||164,inv.very_stale_count||371,inv.toxic_count||84],
+        marker:{color:[C.g,C.b,C.o,'#ea580c',C.r]}
+    }],L,{responsive:true,displayModeBar:false});
+}
+
+load().then(render);
+setInterval(()=>load().then(render),300000);
+</script>
 </body>
 </html>

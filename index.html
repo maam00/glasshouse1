@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass House — $OPEN Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --green: #22c55e;
+            --green-dim: rgba(34, 197, 94, 0.1);
+            --amber: #f59e0b;
+            --amber-dim: rgba(245, 158, 11, 0.1);
+            --red: #ef4444;
+            --red-dim: rgba(239, 68, 68, 0.1);
+            --text: #ffffff;
+            --text-2: #a0a0a0;
+            --text-3: #666666;
+            --text-4: #333333;
+            --border: #1a1a1a;
+            --surface: #0a0a0a;
+            --card: #141414;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #000;
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header__brand {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .header__right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header__ticker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-2);
+            background: var(--surface);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .header__timestamp {
+            font-size: 12px;
+            color: var(--text-3);
+        }
+
+        .header__btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .header__btn:hover {
+            background: #1a1a1a;
+            color: var(--text);
+        }
+
+        /* ============================================================
+           THE VERDICT (Top Hero Section)
+           ============================================================ */
+        .verdict {
+            background: var(--surface);
+            border-left: 3px solid var(--green);
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .verdict__headline {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .verdict__body {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-2);
+            margin-bottom: 16px;
+        }
+
+        .verdict__warning {
+            font-size: 13px;
+            color: var(--amber);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           SECTION STYLES (V3)
+           ============================================================ */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           SPLIT PANEL (V3)
+           ============================================================ */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-2);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .big-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .big-label {
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #111;
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-2); }
+        .stat-value { font-family: 'JetBrains Mono', monospace; }
+
+        .green { color: var(--green); }
+        .amber { color: var(--amber); }
+        .red { color: var(--red); }
+
+        /* ============================================================
+           EXPOSURE BOX (V3)
+           ============================================================ */
+        .exposure {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .exposure-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .exposure-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .exposure-item { text-align: center; }
+
+        .exposure-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .exposure-label {
+            font-size: 11px;
+            color: var(--text-3);
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           WATCHLIST (Inline in Kaz Section)
+           ============================================================ */
+        .watchlist {
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 16px;
+        }
+
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: var(--text-2);
+        }
+
+        .watchlist-header strong { color: var(--text); }
+
+        .watchlist-table {
+            width: 100%;
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+        .watchlist-table th {
+            text-align: left;
+            padding: 6px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .watchlist-table td {
+            padding: 8px;
+            border-bottom: 1px solid #111;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .watchlist-table tr:last-child td { border-bottom: none; }
+        .watchlist-table .name { font-family: 'Inter', sans-serif; }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .status-badge.concern { background: var(--amber-dim); color: var(--amber); }
+        .status-badge.watching { background: rgba(102, 102, 102, 0.2); color: var(--text-2); }
+
+        /* ============================================================
+           TOXIC CLEARANCE SECTION
+           ============================================================ */
+        .toxic-clearance {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 48px;
+        }
+
+        .toxic-clearance__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .toxic-clearance__labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .toxic-clearance__cleared { color: var(--green); font-weight: 600; }
+        .toxic-clearance__remaining { color: var(--red); font-weight: 600; }
+
+        .toxic-clearance__bar {
+            position: relative;
+            height: 20px;
+            background: var(--text-4);
+            border-radius: 10px;
+            overflow: visible;
+            margin-bottom: 16px;
+        }
+
+        .toxic-clearance__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green) 0%, #16a34a 100%);
+            border-radius: 10px 0 0 10px;
+            position: relative;
+        }
+
+        .toxic-clearance__marker {
+            position: absolute;
+            right: -2px;
+            top: -3px;
+            width: 4px;
+            height: 26px;
+            background: var(--text);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .toxic-clearance__projection {
+            font-size: 13px;
+            color: var(--text-2);
+            margin-bottom: 12px;
+        }
+
+        .toxic-clearance__projection strong { color: var(--green); }
+
+        .toxic-clearance__trend {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: var(--text-3);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .toxic-clearance__trend span {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-2);
+        }
+
+        /* ============================================================
+           VELOCITY / METRICS (V3)
+           ============================================================ */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border-radius: 6px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--text-4);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        /* ============================================================
+           TABLES (V3)
+           ============================================================ */
+        .tbl {
+            width: 100%;
+            font-size: 13px;
+            border-collapse: collapse;
+        }
+
+        .tbl th {
+            text-align: left;
+            padding: 10px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tbl td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #111;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .tbl tr:last-child td { border-bottom: none; }
+        .tbl .name { font-family: 'Inter', sans-serif; font-weight: 500; }
+
+        .insight-text {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        /* Risk Indicators */
+        .risk-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .risk-dot.high { background: var(--red); }
+        .risk-dot.medium {
+            background: linear-gradient(90deg, var(--amber) 50%, transparent 50%);
+            border: 2px solid var(--amber);
+            box-sizing: border-box;
+        }
+        .risk-dot.low {
+            background: transparent;
+            border: 2px solid var(--text-3);
+            box-sizing: border-box;
+        }
+
+        .risk-legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--text-3);
+        }
+
+        .risk-legend span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ============================================================
+           CHART CONTAINER
+           ============================================================ */
+        .chart-container {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        #revenue-chart {
+            width: 100%;
+            height: 260px;
+        }
+
+        /* ============================================================
+           THIS WEEK SECTION
+           ============================================================ */
+        .this-week {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .this-week__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .this-week__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+        }
+
+        .this-week__date {
+            font-size: 11px;
+            color: var(--text-3);
+            background: #1a1a1a;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .this-week__group {
+            margin-bottom: 20px;
+        }
+
+        .this-week__group:last-child { margin-bottom: 0; }
+
+        .this-week__group-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .this-week__group-label.improving { color: var(--green); }
+        .this-week__group-label.stable { color: var(--text-3); }
+        .this-week__group-label.watching { color: var(--amber); }
+
+        .this-week__items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .this-week__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        .this-week__icon {
+            width: 16px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .this-week__item.improving .this-week__icon { color: var(--green); }
+        .this-week__item.stable .this-week__icon { color: var(--text-3); }
+        .this-week__item.watching .this-week__icon { color: var(--amber); }
+
+        /* ============================================================
+           DISCLAIMER (V3)
+           ============================================================ */
+        .disclaimer {
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 48px;
+        }
+
+        .disclaimer-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--amber);
+            margin-bottom: 12px;
+        }
+
+        .disclaimer-text {
+            font-size: 12px;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .disclaimer-text strong { color: var(--text); }
+
+        /* ============================================================
+           FOOTER (V3)
+           ============================================================ */
+        footer {
+            text-align: center;
+            padding: 40px 0 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .footer-brand { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .footer-sub { font-size: 12px; color: var(--text-3); }
+
+        /* ============================================================
+           SCREENSHOT MODE
+           ============================================================ */
+        body.screenshot-mode .disclaimer,
+        body.screenshot-mode footer {
+            display: none !important;
+        }
+
+        body.screenshot-mode::after {
+            content: 'Glass House';
+            position: fixed;
+            bottom: 16px;
+            right: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-3);
+            opacity: 0.6;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 600px) {
+            .split { grid-template-columns: 1fr; }
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+            .exposure-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
+    <header class="header">
+        <div class="header__brand">Glass House</div>
+        <div class="header__right">
+            <span class="header__ticker">$OPEN $5.90</span>
+            <span class="header__timestamp" id="timestamp">Jan 27, 2026 • 4:15 PM</span>
+            <button class="header__btn" onclick="toggleScreenshotMode()">&#128247; Screenshot</button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         THE VERDICT
+         ============================================================ -->
+    <section class="verdict">
+        <h1 class="verdict__headline">Q1 TRACKING AT <span data-metric="pacing">94.9%</span> OF GUIDANCE</h1>
+        <p class="verdict__body">
+            <strong><span data-metric="q1-sales">715</span> homes sold</strong> in Q1 so far, generating
+            <strong><span data-metric="q1-revenue">$274.1M</span></strong> revenue.
+            Running at <strong><span data-metric="daily-avg-sales">22.0</span> homes/day</strong> —
+            need ~24/day to hit $1B guidance.
+        </p>
+        <p class="verdict__body">
+            Win rate holding at <strong><span data-metric="win-rate">79.1%</span></strong> with
+            <strong><span data-metric="avg-profit">$46,407</span></strong> avg profit per win.
+            Total realized P&L: <strong class="green"><span data-metric="total-realized">$8.4M</span></strong>.
+        </p>
+        <p class="verdict__warning">
+            &#9888; <span data-metric="days-remaining">64</span> days left in Q1.
+            Velocity needs to increase ~9% to hit guidance.
+        </p>
+    </section>
+
+    <!-- ============================================================
+         KAZ-ERA PORTFOLIO
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Kaz-Era Portfolio (Acquired Nov 2025+)</div>
+
+        <div class="split">
+            <div class="panel">
+                <div class="panel-title">Sold</div>
+                <div class="big-num" id="kaz-sold-count">43</div>
+                <div class="big-label">homes closed</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-value green" id="kaz-sold-wr">95.3%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Profit</span>
+                        <span class="stat-value green" id="kaz-sold-profit">$43.2K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Realized</span>
+                        <span class="stat-value" id="kaz-sold-total">+$1.9M</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Still Listed</div>
+                <div class="big-num" id="kaz-listed-count">103</div>
+                <div class="big-label">homes on market</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Above Water</span>
+                        <span class="stat-value green" id="kaz-listed-above">97.1% (100)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Underwater</span>
+                        <span class="stat-value red" id="kaz-listed-uw">2.9% (3)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">With Price Cuts</span>
+                        <span class="stat-value amber" id="kaz-listed-cuts">35.0% (36)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kaz-Era Net Position -->
+        <div class="exposure">
+            <div class="exposure-title">Kaz-Era Net Position</div>
+            <div class="exposure-grid">
+                <div class="exposure-item">
+                    <div class="exposure-num green" id="kaz-realized">+$2.9M</div>
+                    <div class="exposure-label">Realized Gains</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="kaz-unrealized">+$6.8M</div>
+                    <div class="exposure-label">Unrealized (Above)</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num red" id="kaz-uw-exposure">-$12.2K</div>
+                    <div class="exposure-label">Underwater Exposure</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kaz-Era Watchlist (Inline) -->
+        <div class="watchlist">
+            <div class="watchlist-header">
+                <span><strong id="uw-count">3</strong> homes underwater</span>
+                <span>Total exposure: <span class="red" id="uw-total">-$12.2K</span></span>
+            </div>
+            <table class="watchlist-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Days</th>
+                        <th>Underwater</th>
+                        <th>Cuts</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="watchlist-body">
+                    <tr>
+                        <td class="name">Charlotte, NC</td>
+                        <td>47</td>
+                        <td class="red">-$10.5K</td>
+                        <td>2</td>
+                        <td><span class="status-badge concern">Concern</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Maricopa, AZ</td>
+                        <td>15</td>
+                        <td class="red">-$1.6K</td>
+                        <td>1</td>
+                        <td><span class="status-badge watching">Watching</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Stone Mountain, GA</td>
+                        <td>18</td>
+                        <td class="red">-$77</td>
+                        <td>1</td>
+                        <td><span class="status-badge watching">Watching</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LEGACY PORTFOLIO
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Legacy Portfolio (Pre-Kaz)</div>
+
+        <div class="split">
+            <div class="panel">
+                <div class="panel-title">Sold</div>
+                <div class="big-num" id="legacy-sold-count">276</div>
+                <div class="big-label">homes closed</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-value amber" id="legacy-sold-wr">64.5%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Profit</span>
+                        <span class="stat-value" id="legacy-sold-profit">$23.7K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Realized</span>
+                        <span class="stat-value" id="legacy-sold-total">+$6.5M</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Still Listed</div>
+                <div class="big-num" id="legacy-listed-count">661</div>
+                <div class="big-label">homes on market</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Above Water</span>
+                        <span class="stat-value" id="legacy-listed-above">71.3% (471)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Underwater</span>
+                        <span class="stat-value red" id="legacy-listed-uw">28.7% (190)</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">With Price Cuts</span>
+                        <span class="stat-value red" id="legacy-listed-cuts">96.1% (635)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exposure">
+            <div class="exposure-title">Legacy Exposure</div>
+            <div class="exposure-grid">
+                <div class="exposure-item">
+                    <div class="exposure-num red" id="legacy-uw-exposure">-$5.1M</div>
+                    <div class="exposure-label">Underwater Exposure</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="legacy-toxic-remaining">84</div>
+                    <div class="exposure-label">Toxic Remaining</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="legacy-weeks">~17 wks</div>
+                    <div class="exposure-label">To Clear</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         TOXIC INVENTORY CLEARANCE
+         ============================================================ -->
+    <section class="toxic-clearance">
+        <div class="toxic-clearance__title">Toxic Inventory Clearance</div>
+
+        <div class="toxic-clearance__labels">
+            <span class="toxic-clearance__cleared"><span id="toxic-cleared">43</span> cleared</span>
+            <span class="toxic-clearance__remaining"><span id="toxic-remaining">84</span> remaining</span>
+        </div>
+
+        <div class="toxic-clearance__bar">
+            <div class="toxic-clearance__fill" id="toxic-bar" style="width: 33.9%">
+                <div class="toxic-clearance__marker"></div>
+            </div>
+        </div>
+
+        <p class="toxic-clearance__projection">
+            Clearing <strong><span id="clearance-rate">5</span> homes/week</strong> → Zero by early May
+        </p>
+
+        <div class="toxic-clearance__trend">
+            Week 1: <span>89</span> →
+            Week 2: <span>85</span> →
+            Week 3: <span>84</span> →
+            Week 4: <span>84</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         DAILY VELOCITY
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Daily Velocity</div>
+
+        <div class="metrics-row">
+            <div class="metric-card">
+                <div class="metric-value" id="vel-homes">15.2</div>
+                <div class="metric-label">Homes/Day (7d)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="vel-rev">$4.6M</div>
+                <div class="metric-label">Revenue/Day (7d)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value amber" id="vel-proj">$409M</div>
+                <div class="metric-label">Q1 Projected</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="vel-target">$595M</div>
+                <div class="metric-label">Q1 Guidance</div>
+            </div>
+        </div>
+
+        <div class="progress-bar" style="margin-top: 20px;">
+            <div class="progress-fill" id="q1-progress" style="width: 20.1%; background: var(--amber);"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-3); margin-top: 8px;">
+            <span><span id="q1-rev">$119.7M</span> revenue</span>
+            <span><span id="q1-pct">20.1%</span> of guidance • Tracking behind pace</span>
+        </div>
+
+        <!-- Revenue Chart -->
+        <div class="chart-container">
+            <div id="revenue-chart"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         COHORT PERFORMANCE
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Cohort Performance</div>
+
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Cohort</th>
+                    <th>Sold</th>
+                    <th>Win Rate</th>
+                    <th>Margin</th>
+                    <th>Avg Profit</th>
+                </tr>
+            </thead>
+            <tbody id="cohort-table">
+                <tr><td class="name">New (&lt;90d)</td><td>70</td><td class="green">92.9%</td><td class="green">10.7%</td><td class="green">$41.9K</td></tr>
+                <tr><td class="name">Mid (90-180d)</td><td>104</td><td>84.6%</td><td>10.0%</td><td>$36.9K</td></tr>
+                <tr><td class="name">Old (180-365d)</td><td>100</td><td class="amber">53.0%</td><td>5.4%</td><td>$21.7K</td></tr>
+                <tr><td class="name">Toxic (&gt;365d)</td><td>43</td><td class="red">30.2%</td><td class="red">-4.1%</td><td class="red">-$12.5K</td></tr>
+            </tbody>
+        </table>
+
+        <div class="insight-text">
+            The gradient is clear: newer cohorts outperform on every metric. This proves the strategy pivot is working.
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RISK MONITORING
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Risk Monitoring</div>
+
+        <div class="split">
+            <!-- Geographic Risk -->
+            <div class="panel">
+                <div class="panel-title">Geographic Risk</div>
+                <table class="tbl">
+                    <thead>
+                        <tr><th>State</th><th>Inv</th><th>UW</th><th>Rate</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="name"><span class="risk-dot high"></span>FL</td><td>85</td><td>41</td><td class="red">48.2%</td></tr>
+                        <tr><td class="name"><span class="risk-dot high"></span>GA</td><td>102</td><td>45</td><td class="red">44.1%</td></tr>
+                        <tr><td class="name"><span class="risk-dot medium"></span>NC</td><td>127</td><td>38</td><td class="amber">29.9%</td></tr>
+                        <tr><td class="name"><span class="risk-dot medium"></span>TX</td><td>89</td><td>22</td><td class="amber">24.7%</td></tr>
+                        <tr><td class="name"><span class="risk-dot low"></span>AZ</td><td>59</td><td>12</td><td>20.3%</td></tr>
+                    </tbody>
+                </table>
+                <div class="risk-legend">
+                    <span><span class="risk-dot high"></span>High (&gt;40%)</span>
+                    <span><span class="risk-dot medium"></span>Medium</span>
+                    <span><span class="risk-dot low"></span>Low (&lt;25%)</span>
+                </div>
+            </div>
+
+            <!-- Price Cut Severity -->
+            <div class="panel">
+                <div class="panel-title">Price Cut Severity</div>
+                <table class="tbl">
+                    <thead>
+                        <tr><th>Portfolio</th><th>% Cut</th><th>Avg Below</th><th>3+ Cuts</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="name">Kaz-Era</td><td class="green">35%</td><td>2.3%</td><td>1</td></tr>
+                        <tr><td class="name">Legacy</td><td class="red">96%</td><td class="red">11.8%</td><td class="red">570</td></tr>
+                    </tbody>
+                </table>
+                <div class="insight-text" style="margin-top: 12px;">
+                    Legacy taking the pain. Kaz-era cuts are healthy price discovery.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         THIS WEEK
+         ============================================================ -->
+    <section class="section">
+        <div class="this-week">
+            <div class="this-week__header">
+                <span class="this-week__title">This Week</span>
+                <span class="this-week__date">Jan 20-27</span>
+            </div>
+
+            <div class="this-week__group">
+                <div class="this-week__group-label improving">Improving</div>
+                <div class="this-week__items">
+                    <div class="this-week__item improving">
+                        <span class="this-week__icon">&#10003;</span>
+                        <span>Toxic inventory down 5 homes (89 → 84)</span>
+                    </div>
+                    <div class="this-week__item improving">
+                        <span class="this-week__icon">&#10003;</span>
+                        <span>Legacy underwater down 8 homes (198 → 190)</span>
+                    </div>
+                    <div class="this-week__item improving">
+                        <span class="this-week__icon">&#10003;</span>
+                        <span>Underwater exposure improved $120K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="this-week__group">
+                <div class="this-week__group-label stable">Stable</div>
+                <div class="this-week__items">
+                    <div class="this-week__item stable">
+                        <span class="this-week__icon">—</span>
+                        <span>Kaz-era win rate holding (95.3%)</span>
+                    </div>
+                    <div class="this-week__item stable">
+                        <span class="this-week__icon">—</span>
+                        <span>New cohort margin steady (10.7%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="this-week__group">
+                <div class="this-week__group-label watching">Watching</div>
+                <div class="this-week__items">
+                    <div class="this-week__item watching">
+                        <span class="this-week__icon">&#9888;</span>
+                        <span>Kaz-era underwater +1 home (Charlotte added)</span>
+                    </div>
+                    <div class="this-week__item watching">
+                        <span class="this-week__icon">&#9888;</span>
+                        <span>Daily velocity below target (15.2 vs 21 needed)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         DATA TRANSPARENCY
+         ============================================================ -->
+    <div class="disclaimer">
+        <div class="disclaimer-title">&#9888; Data Transparency</div>
+        <div class="disclaimer-text">
+            Win rates reflect <strong>sold homes only</strong>. Homes still listed may lose money when sold.<br><br>
+            <strong>Q1 2026:</strong> <span data-metric="data-coverage">715 sales (38.7% with P&L)</span><br>
+            <strong>Win Rate:</strong> <span data-metric="win-rate">79.1%</span> (from <span data-metric="pnl-sample">277</span> sales with P&L data)<br>
+            <strong>Avg Profit:</strong> <span data-metric="avg-profit">$46,407</span> | <strong>Total Realized:</strong> <span data-metric="total-realized">$8.4M</span><br><br>
+            <strong>Data Sources:</strong><br>
+            • Sales velocity & revenue: <a href="https://singularityresearchfund.com/opendoor-tracker" target="_blank" style="color: var(--text-2);">Singularity Research</a> (real-time)<br>
+            • P&L metrics: Parcl Research (38.7% coverage)<br><br>
+            <span style="color: var(--text-3); font-size: 11px;">Data as of <span data-metric="as-of">Jan 26, 2026</span> | Unified dataset</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">Glass House</div>
+        <div class="footer-sub">Honest data for $OPEN shareholders • No survivorship bias</div>
+    </footer>
+
+</div>
+
+<script>
+// ============================================================
+// UTILITIES
+// ============================================================
+function fmt(v) {
+    if (Math.abs(v) >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
+    if (Math.abs(v) >= 1e3) return '$' + (v/1e3).toFixed(1) + 'K';
+    return '$' + v.toFixed(0);
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ============================================================
+// REVENUE CHART - DAILY REVENUE (Sample Data)
+// ============================================================
+function renderRevenueChart(data) {
+    const el = document.getElementById('revenue-chart');
+    if (!el) return;
+
+    // Use data from unified dataset, or fallback to defaults
+    let chartData;
+    if (data && data.revenue_chart && data.revenue_chart.length > 0) {
+        chartData = data.revenue_chart.map(d => ({
+            date: d.date,
+            revenue: d.revenue,
+            sales: d.sales_count
+        }));
+    } else {
+        // Fallback data if JSON not loaded
+        chartData = [
+            { date: 'Jan 01', revenue: 3840000, sales: 9 },
+            { date: 'Jan 02', revenue: 1330000, sales: 5 },
+            { date: 'Jan 03', revenue: 4940000, sales: 14 },
+            { date: 'Jan 04', revenue: 10220000, sales: 27 },
+            { date: 'Jan 05', revenue: 9070000, sales: 25 },
+            { date: 'Jan 06', revenue: 6930000, sales: 19 },
+            { date: 'Jan 07', revenue: 9090000, sales: 20 },
+            { date: 'Jan 08', revenue: 8310000, sales: 20 },
+            { date: 'Jan 09', revenue: 9750000, sales: 26 },
+            { date: 'Jan 10', revenue: 3730000, sales: 11 },
+            { date: 'Jan 11', revenue: 2860000, sales: 9 },
+            { date: 'Jan 12', revenue: 10840000, sales: 25 },
+            { date: 'Jan 13', revenue: 10170000, sales: 27 },
+            { date: 'Jan 14', revenue: 12320000, sales: 33 },
+            { date: 'Jan 15', revenue: 8370000, sales: 20 },
+            { date: 'Jan 16', revenue: 9430000, sales: 25 },
+            { date: 'Jan 17', revenue: 3180000, sales: 9 },
+            { date: 'Jan 18', revenue: 5090000, sales: 14 },
+            { date: 'Jan 19', revenue: 8530000, sales: 24 },
+            { date: 'Jan 20', revenue: 14270000, sales: 41 },
+            { date: 'Jan 21', revenue: 13270000, sales: 33 },
+            { date: 'Jan 22', revenue: 15810000, sales: 40 },
+            { date: 'Jan 23', revenue: 12930000, sales: 31 },
+            { date: 'Jan 24', revenue: 2780000, sales: 9 },
+            { date: 'Jan 25', revenue: 5880000, sales: 18 },
+            { date: 'Jan 26', revenue: 14380000, sales: 37 }
+        ];
+    }
+
+    // Q1 guidance: $1B / 90 days = $11.1M/day target
+    const TARGET = 11100000;
+    const dates = chartData.map(d => d.date);
+    const revenues = chartData.map(d => d.revenue);
+    const salesCounts = chartData.map(d => d.sales || 0);
+    // Calmer colors - darker green for above target, muted amber for below
+    const colors = revenues.map(r => r >= TARGET ? '#16a34a' : '#d97706');
+
+    const traces = [
+        {
+            x: dates,
+            y: revenues,
+            type: 'bar',
+            marker: {
+                color: colors,
+                line: { color: colors.map(c => c === '#16a34a' ? '#15803d' : '#b45309'), width: 1 }
+            },
+            hovertemplate: '%{x}<br>%{customdata[0]}<br>%{customdata[1]} sales<extra></extra>',
+            customdata: revenues.map((r, i) => [fmt(r), salesCounts[i]]),
+            text: revenues.map(r => fmt(r))
+        },
+        {
+            x: [dates[0], dates[dates.length - 1]],
+            y: [TARGET, TARGET],
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: '#f59e0b', width: 2, dash: 'dash' },
+            hoverinfo: 'skip',
+            showlegend: false
+        }
+    ];
+
+    const layout = {
+        paper_bgcolor: '#141414',
+        plot_bgcolor: '#141414',
+        font: { color: '#a0a0a0', family: 'Inter, sans-serif', size: 11 },
+        margin: { t: 30, r: 30, b: 60, l: 60 },
+        showlegend: false,
+        bargap: 0.3,
+        xaxis: {
+            tickangle: -30,
+            gridcolor: 'transparent',
+            linecolor: '#333',
+            showline: true,
+            showticklabels: true,
+            tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#888' },
+            ticks: 'outside',
+            tickcolor: '#333'
+        },
+        yaxis: {
+            range: [0, 20000000],
+            tickmode: 'array',
+            tickvals: [0, 5000000, 10000000, 15000000, 20000000],
+            ticktext: ['$0', '$5M', '$10M', '$15M', '$20M'],
+            showline: true,
+            showticklabels: true,
+            gridcolor: '#262626',
+            linecolor: '#333',
+            tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#888' },
+            ticks: 'outside',
+            tickcolor: '#333',
+            zeroline: true,
+            zerolinecolor: '#333'
+        },
+        annotations: [{
+            x: dates[Math.floor(dates.length / 2)],
+            y: TARGET,
+            text: '  $11.1M/day target (Q1 guidance)',
+            showarrow: false,
+            xanchor: 'left',
+            yanchor: 'bottom',
+            font: { size: 11, color: '#f59e0b', family: 'Inter, sans-serif' }
+        }]
+    };
+
+    Plotly.newPlot(el, traces, layout, { displayModeBar: false, responsive: true });
+}
+
+// ============================================================
+// SCREENSHOT MODE
+// ============================================================
+function toggleScreenshotMode() {
+    document.body.classList.toggle('screenshot-mode');
+}
+
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
+        e.preventDefault();
+        toggleScreenshotMode();
+    }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+    try {
+        const r = await fetch('outputs/unified_dashboard_data.json');
+        if (r.ok) {
+            const data = await r.json();
+            renderRevenueChart(data);
+            updateDashboardMetrics(data);
+        } else {
+            renderRevenueChart(null);
+        }
+    } catch (e) {
+        console.error('Failed to load dashboard data:', e);
+        renderRevenueChart(null);
+    }
+}
+
+// Update dashboard metrics from unified data
+function updateDashboardMetrics(data) {
+    if (!data) return;
+
+    // Update timestamp
+    const tsEl = document.querySelector('.header__timestamp');
+    if (tsEl && data.as_of) {
+        tsEl.textContent = `Data: ${data.as_of}`;
+    }
+    updateText('[data-metric="as-of"]', data.as_of);
+
+    // Update velocity metrics
+    if (data.velocity) {
+        updateText('[data-metric="q1-sales"]', data.velocity.q1_sales?.toLocaleString());
+        updateText('[data-metric="q1-revenue"]', '$' + (data.velocity.q1_revenue / 1000000).toFixed(1) + 'M');
+        updateText('[data-metric="daily-avg-sales"]', data.velocity.daily_avg_sales?.toFixed(1));
+    }
+
+    // Update P&L metrics
+    if (data.pnl) {
+        // Update all instances of win-rate
+        document.querySelectorAll('[data-metric="win-rate"]').forEach(el => {
+            el.textContent = data.pnl.win_rate?.toFixed(1) + '%';
+        });
+        updateText('[data-metric="avg-profit"]', '$' + data.pnl.avg_profit?.toLocaleString());
+        // Update all instances of total-realized
+        document.querySelectorAll('[data-metric="total-realized"]').forEach(el => {
+            el.textContent = '$' + (data.pnl.total_realized / 1000000).toFixed(1) + 'M';
+        });
+        updateText('[data-metric="pnl-coverage"]', data.pnl.coverage_pct?.toFixed(0) + '%');
+        updateText('[data-metric="pnl-sample"]', (data.pnl.wins + data.pnl.losses)?.toLocaleString());
+    }
+
+    // Update guidance tracking
+    if (data.guidance) {
+        updateText('[data-metric="pacing"]', data.guidance.pacing_pct?.toFixed(1) + '%');
+        updateText('[data-metric="days-elapsed"]', data.guidance.days_elapsed);
+        updateText('[data-metric="days-remaining"]', data.guidance.days_remaining);
+    }
+
+    // Update data quality info
+    if (data.data_quality) {
+        updateText('[data-metric="data-coverage"]',
+            `${data.data_quality.total_records} sales (${data.data_quality.pnl_coverage}% with P&L)`);
+    }
+}
+
+function updateText(selector, value) {
+    const el = document.querySelector(selector);
+    if (el && value !== undefined) {
+        el.textContent = value;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

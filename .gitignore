@@ -9,9 +9,10 @@ data/*.csv
 !data/.gitkeep
 
 # Outputs
-outputs/*.json
 outputs/*.csv
 !outputs/.gitkeep
+# Allow dashboard data for GitHub Pages
+!outputs/unified_dashboard_data.json
 
 # Python
 __pycache__/

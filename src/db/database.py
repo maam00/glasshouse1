@@ -254,6 +254,62 @@ class Database:
 
         logger.info(f"Saved metrics for {metrics.date}")
 
+    def save_raw_metrics(self, date: str, metrics_dict: Dict):
+        """Save raw metrics dict (for backfill)."""
+        import numpy as np
+
+        def convert_numpy(obj):
+            if isinstance(obj, (np.integer, np.int64)):
+                return int(obj)
+            elif isinstance(obj, (np.floating, np.float64)):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+
+        conn = self._get_conn()
+        cursor = conn.cursor()
+
+        snapshot_json = json.dumps(metrics_dict, default=convert_numpy)
+
+        # Extract key fields with safe defaults
+        cohort_new = metrics_dict.get("cohort_new", {})
+        cohort_mid = metrics_dict.get("cohort_mid", {})
+        cohort_old = metrics_dict.get("cohort_old", {})
+        cohort_toxic = metrics_dict.get("cohort_toxic", {})
+        toxic = metrics_dict.get("toxic", {})
+        perf = metrics_dict.get("performance", {})
+        inv = metrics_dict.get("inventory", {})
+
+        cursor.execute("""
+            INSERT OR REPLACE INTO daily_metrics (
+                date,
+                new_cohort_win_rate, new_cohort_count,
+                mid_cohort_win_rate, old_cohort_win_rate,
+                toxic_cohort_win_rate, toxic_cohort_count,
+                toxic_remaining, toxic_sold, clearance_pct,
+                overall_win_rate, contribution_margin, avg_profit,
+                homes_sold_total, homes_sold_today,
+                revenue_total, revenue_today,
+                total_listings, legacy_pct, avg_dom,
+                snapshot_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            date,
+            cohort_new.get("win_rate", 0), cohort_new.get("count", 0),
+            cohort_mid.get("win_rate", 0), cohort_old.get("win_rate", 0),
+            cohort_toxic.get("win_rate", 0), cohort_toxic.get("count", 0),
+            toxic.get("remaining_count", 0), toxic.get("sold_count", 0), toxic.get("clearance_pct", 0),
+            perf.get("win_rate", 0), perf.get("contribution_margin", 0), perf.get("avg_profit", 0),
+            perf.get("homes_sold_total", 0), perf.get("homes_sold_today", 0),
+            perf.get("revenue_total", 0), perf.get("revenue_today", 0),
+            inv.get("total", 0), inv.get("legacy_pct", 0), inv.get("avg_dom", 0),
+            snapshot_json,
+        ))
+
+        conn.commit()
+        conn.close()
+
     def get_daily_metrics(self, date: str) -> Optional[Dict]:
         """Get metrics for a specific date."""
         conn = self._get_conn()

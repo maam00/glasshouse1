@@ -363,6 +363,14 @@ def run_full_dashboard(
     except Exception:
         pass
 
+    # Generate web dashboard data
+    try:
+        from scripts.generate_dashboard_data import generate_dashboard_data
+        dashboard_file = generate_dashboard_data(output_dir)
+        logger.info(f"Dashboard data saved: {dashboard_file}")
+    except Exception as e:
+        logger.warning(f"Could not generate dashboard data: {e}")
+
     print(f"\nData saved: {output_file}")
     print("═" * 78 + "\n")
 

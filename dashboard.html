@@ -514,41 +514,125 @@
         </div>
     </section>
 
-    <!-- PRICE CUTS -->
+    <!-- SALES VELOCITY BY COHORT -->
     <section class="section">
-        <div class="section-title">Price Cut Analysis (Leading Indicator)</div>
+        <div class="section-title">Sales Velocity by Cohort</div>
+
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Cohort</th>
+                    <th>Sold</th>
+                    <th>Avg Days</th>
+                    <th>Median</th>
+                </tr>
+            </thead>
+            <tbody id="velocity-cohort-table">
+                <tr><td class="name">New (&lt;90d)</td><td>72</td><td class="green">34</td><td>28</td></tr>
+                <tr><td class="name">Mid (90-180d)</td><td>104</td><td>127</td><td>118</td></tr>
+                <tr><td class="name">Old (180-365d)</td><td>100</td><td class="amber">245</td><td>230</td></tr>
+                <tr><td class="name">Toxic (&gt;365d)</td><td>43</td><td class="red">485</td><td>462</td></tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 16px; font-size: 13px; color: var(--text-2);">
+            Good homes sell fast. Toxic homes sit for 400+ days — proves the cohort stratification.
+        </div>
+    </section>
+
+    <!-- CONTRIBUTION MARGIN BY COHORT -->
+    <section class="section">
+        <div class="section-title">Contribution Margin by Cohort</div>
+
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Cohort</th>
+                    <th>Sold</th>
+                    <th>Win Rate</th>
+                    <th>Margin</th>
+                    <th>Avg Profit</th>
+                </tr>
+            </thead>
+            <tbody id="margin-cohort-table">
+                <tr><td class="name">New (&lt;90d)</td><td>72</td><td class="green">90.3%</td><td class="green">11.2%</td><td class="green">$40.7K</td></tr>
+                <tr><td class="name">Mid (90-180d)</td><td>104</td><td class="green">84.6%</td><td>8.4%</td><td>$36.9K</td></tr>
+                <tr><td class="name">Old (180-365d)</td><td>100</td><td class="amber">53.0%</td><td>4.1%</td><td>$21.7K</td></tr>
+                <tr><td class="name">Toxic (&gt;365d)</td><td>43</td><td class="red">30.2%</td><td class="red">-3.8%</td><td class="red">-$12.5K</td></tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 16px; font-size: 13px; color: var(--text-2);">
+            Win rate tells part of the story. Margin shows profitability — new cohort at 11%+ margin vs toxic at -4%.
+        </div>
+    </section>
+
+    <!-- PRICE CUT SEVERITY -->
+    <section class="section">
+        <div class="section-title">Price Cut Severity (Leading Indicator)</div>
 
         <table class="tbl">
             <thead>
                 <tr>
                     <th>Portfolio</th>
-                    <th>Listed</th>
-                    <th>With Cuts</th>
-                    <th>% Cut</th>
-                    <th>Avg Cut</th>
+                    <th>1 Cut</th>
+                    <th>2 Cuts</th>
+                    <th>3+ Cuts</th>
+                    <th>% With Cuts</th>
+                    <th>Avg % Below</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="price-cut-table">
                 <tr>
                     <td class="name">Kaz-Era</td>
-                    <td id="cuts-kaz-listed">145</td>
-                    <td id="cuts-kaz-count">56</td>
+                    <td id="cuts-kaz-1">40</td>
+                    <td id="cuts-kaz-2">12</td>
+                    <td id="cuts-kaz-3">4</td>
                     <td class="amber" id="cuts-kaz-pct">38.6%</td>
-                    <td id="cuts-kaz-avg">$10.1K</td>
+                    <td id="cuts-kaz-below">3.2%</td>
                 </tr>
                 <tr>
                     <td class="name">Legacy</td>
-                    <td id="cuts-legacy-listed">455</td>
-                    <td id="cuts-legacy-count">453</td>
+                    <td id="cuts-legacy-1">180</td>
+                    <td id="cuts-legacy-2">150</td>
+                    <td class="red" id="cuts-legacy-3">123</td>
                     <td class="red" id="cuts-legacy-pct">99.6%</td>
-                    <td id="cuts-legacy-avg">$38.2K</td>
+                    <td class="red" id="cuts-legacy-below">12.8%</td>
                 </tr>
             </tbody>
         </table>
 
         <div style="margin-top: 16px; font-size: 13px; color: var(--text-2);">
-            Price cuts are a leading indicator. 99.6% of legacy homes have cuts — they're taking the pain to clear.
+            3+ cuts = distressed. 123 legacy homes have 3+ cuts. Kaz-era mostly at 1 cut — healthy price discovery.
         </div>
+    </section>
+
+    <!-- KAZ-ERA UNDERWATER WATCHLIST -->
+    <section class="section">
+        <div class="section-title">Kaz-Era Underwater Watchlist</div>
+
+        <div style="font-size: 13px; color: var(--text-2); margin-bottom: 16px;">
+            These <span id="uw-count">5</span> homes are the canary. Watch for deterioration.
+        </div>
+
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>DOM</th>
+                    <th>Underwater</th>
+                    <th>Cuts</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="underwater-watchlist">
+                <tr><td class="name">Phoenix, AZ</td><td>45</td><td class="red">-$8.2K</td><td>1</td><td class="amber">Watching</td></tr>
+                <tr><td class="name">Dallas, TX</td><td>62</td><td class="red">-$12.1K</td><td>2</td><td class="red">Concern</td></tr>
+                <tr><td class="name">Atlanta, GA</td><td>38</td><td class="red">-$5.4K</td><td>1</td><td class="amber">Watching</td></tr>
+                <tr><td class="name">Tampa, FL</td><td>71</td><td class="red">-$18.3K</td><td>2</td><td class="red">Concern</td></tr>
+                <tr><td class="name">Charlotte, NC</td><td>29</td><td class="red">-$3.2K</td><td>0</td><td>Watching</td></tr>
+            </tbody>
+        </table>
     </section>
 
     <!-- GEOGRAPHIC RISK -->
@@ -645,15 +729,127 @@ function render(data) {
     const kaz = d.kaz_era || {};
     const g = d.guidance || {};
     const toxic = d.toxic || {};
+    const v3 = d.v3 || {};
 
     // Date
     document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
-    // Kaz-Era section - use actual data when available
-    if (kaz.realized) {
+    // V3 Portfolio Data
+    if (v3.portfolio) {
+        const kazP = v3.portfolio.kaz_era || {};
+        const legacyP = v3.portfolio.legacy || {};
+
+        // Kaz-Era
+        if (kazP.sold_count) {
+            document.getElementById('kaz-sold-count').textContent = kazP.sold_count;
+            document.getElementById('kaz-sold-wr').textContent = kazP.sold_win_rate.toFixed(1) + '%';
+            document.getElementById('kaz-sold-profit').textContent = fmt(kazP.sold_avg_profit);
+            document.getElementById('kaz-sold-total').textContent = '+' + fmt(kazP.sold_total_realized);
+        }
+        if (kazP.listed_count) {
+            document.getElementById('kaz-listed-count').textContent = kazP.listed_count;
+            document.getElementById('kaz-listed-above').textContent = kazP.listed_above_water_pct.toFixed(1) + '% (' + kazP.listed_above_water + ')';
+            document.getElementById('kaz-listed-uw').textContent = kazP.listed_underwater_pct.toFixed(1) + '% (' + kazP.listed_underwater + ')';
+            document.getElementById('kaz-listed-cuts').textContent = kazP.listed_with_cuts_pct.toFixed(1) + '% (' + kazP.listed_with_cuts + ')';
+            document.getElementById('kaz-uw-exposure').textContent = '-' + fmt(kazP.listed_underwater_exposure);
+        }
+
+        // Legacy
+        if (legacyP.sold_count) {
+            document.getElementById('legacy-sold-count').textContent = legacyP.sold_count;
+            document.getElementById('legacy-sold-wr').textContent = legacyP.sold_win_rate.toFixed(1) + '%';
+            document.getElementById('legacy-sold-profit').textContent = fmt(legacyP.sold_avg_profit);
+            document.getElementById('legacy-sold-total').textContent = '+' + fmt(legacyP.sold_total_realized);
+        }
+        if (legacyP.listed_count) {
+            document.getElementById('legacy-listed-count').textContent = legacyP.listed_count;
+            document.getElementById('legacy-listed-above').textContent = legacyP.listed_above_water_pct.toFixed(1) + '% (' + legacyP.listed_above_water + ')';
+            document.getElementById('legacy-listed-uw').textContent = legacyP.listed_underwater_pct.toFixed(1) + '% (' + legacyP.listed_underwater + ')';
+            document.getElementById('legacy-listed-cuts').textContent = legacyP.listed_with_cuts_pct.toFixed(1) + '% (' + legacyP.listed_with_cuts + ')';
+            document.getElementById('legacy-uw-exposure').textContent = '-' + fmt(legacyP.listed_underwater_exposure);
+        }
+
+        // Disclaimer
+        document.getElementById('disc-kaz-sold').textContent = kazP.sold_count || 0;
+        document.getElementById('disc-kaz-wr').textContent = (kazP.sold_win_rate || 0).toFixed(1) + '%';
+        document.getElementById('disc-kaz-listed').textContent = kazP.listed_count || 0;
+        document.getElementById('disc-kaz-uw').textContent = kazP.listed_underwater || 0;
+        document.getElementById('disc-legacy-sold').textContent = legacyP.sold_count || 0;
+        document.getElementById('disc-legacy-wr').textContent = (legacyP.sold_win_rate || 0).toFixed(1) + '%';
+        document.getElementById('disc-legacy-listed').textContent = legacyP.listed_count || 0;
+        document.getElementById('disc-legacy-uw').textContent = legacyP.listed_underwater || 0;
+        const totalExposure = (kazP.listed_underwater_exposure || 0) + (legacyP.listed_underwater_exposure || 0);
+        document.getElementById('disc-total-exposure').textContent = fmt(totalExposure);
+    } else if (kaz.realized) {
+        // Fallback to old kaz_era data
         document.getElementById('kaz-sold-count').textContent = kaz.realized.count || 66;
         document.getElementById('kaz-sold-wr').textContent = (kaz.realized.win_rate || 98.5).toFixed(1) + '%';
         document.getElementById('kaz-sold-profit').textContent = fmt(kaz.realized.avg_profit || 44400);
+    }
+
+    // V3 Days to Sale by Cohort
+    if (v3.days_to_sale && v3.days_to_sale.length > 0) {
+        const tbody = document.getElementById('velocity-cohort-table');
+        tbody.innerHTML = v3.days_to_sale.map(c => {
+            const avgClass = c.avg_days_to_sale < 60 ? 'green' : c.avg_days_to_sale > 300 ? 'red' : c.avg_days_to_sale > 150 ? 'amber' : '';
+            return `<tr>
+                <td class="name">${c.cohort}</td>
+                <td>${c.sold_count}</td>
+                <td class="${avgClass}">${Math.round(c.avg_days_to_sale)}</td>
+                <td>${Math.round(c.median_days_to_sale)}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    // V3 Cohort Margins
+    if (v3.cohort_margins && v3.cohort_margins.length > 0) {
+        const tbody = document.getElementById('margin-cohort-table');
+        tbody.innerHTML = v3.cohort_margins.map(c => {
+            const wrClass = c.win_rate >= 85 ? 'green' : c.win_rate >= 50 ? 'amber' : 'red';
+            const marginClass = c.contribution_margin >= 8 ? 'green' : c.contribution_margin >= 0 ? '' : 'red';
+            const profitClass = c.avg_profit >= 30000 ? 'green' : c.avg_profit >= 0 ? '' : 'red';
+            return `<tr>
+                <td class="name">${c.cohort}</td>
+                <td>${c.sold_count}</td>
+                <td class="${wrClass}">${c.win_rate.toFixed(1)}%</td>
+                <td class="${marginClass}">${c.contribution_margin.toFixed(1)}%</td>
+                <td class="${profitClass}">${fmt(c.avg_profit)}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    // V3 Price Cut Severity
+    if (v3.price_cut_severity && v3.price_cut_severity.length > 0) {
+        const tbody = document.getElementById('price-cut-table');
+        tbody.innerHTML = v3.price_cut_severity.map(p => {
+            const pctClass = p.pct_with_cuts > 90 ? 'red' : p.pct_with_cuts > 50 ? 'amber' : '';
+            const belowClass = p.avg_pct_below_list > 10 ? 'red' : p.avg_pct_below_list > 5 ? 'amber' : '';
+            const threeClass = p.with_3plus_cuts > 50 ? 'red' : '';
+            return `<tr>
+                <td class="name">${p.portfolio === 'kaz_era' ? 'Kaz-Era' : 'Legacy'}</td>
+                <td>${p.with_1_cut}</td>
+                <td>${p.with_2_cuts}</td>
+                <td class="${threeClass}">${p.with_3plus_cuts}</td>
+                <td class="${pctClass}">${p.pct_with_cuts.toFixed(1)}%</td>
+                <td class="${belowClass}">${p.avg_pct_below_list.toFixed(1)}%</td>
+            </tr>`;
+        }).join('');
+    }
+
+    // V3 Underwater Watchlist
+    if (v3.underwater_watchlist && v3.underwater_watchlist.length > 0) {
+        document.getElementById('uw-count').textContent = v3.underwater_watchlist.length;
+        const tbody = document.getElementById('underwater-watchlist');
+        tbody.innerHTML = v3.underwater_watchlist.map(h => {
+            const statusClass = h.status === 'Distressed' ? 'red' : h.status === 'Concern' ? 'red' : 'amber';
+            return `<tr>
+                <td class="name">${h.city}, ${h.state}</td>
+                <td>${h.days_on_market}</td>
+                <td class="red">-${fmt(h.underwater_amount)}</td>
+                <td>${h.price_cuts}</td>
+                <td class="${statusClass}">${h.status}</td>
+            </tr>`;
+        }).join('');
     }
 
     // Q1 Guidance

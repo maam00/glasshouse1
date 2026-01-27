@@ -681,11 +681,24 @@ function render(data) {
     }],{...L,annotations:[{text:(toxic.clearance_pct||33.9).toFixed(0)+'%',showarrow:false,font:{size:24,color:'#fafafa'}}]},{responsive:true,displayModeBar:false});
 
     // Inventory Bar
-    Plotly.newPlot('chart-inv',[{
-        type:'bar',x:['Fresh','Normal','Stale','V.Stale','Toxic'],
+    Plotly.newPlot('chart-inv', [{
+        type:'bar',
+        x:['Fresh','Normal','Stale','V.Stale','Toxic'],
         y:[inv.fresh_count||54,inv.normal_count||91,inv.stale_count||164,inv.very_stale_count||371,inv.toxic_count||84],
-        marker:{color:[C.g,C.b,C.o,'#ea580c',C.r]}
-    }],L,{responsive:true,displayModeBar:false});
+        marker:{color:[C.g,C.b,C.o,'#ea580c',C.r]},
+        text:[inv.fresh_count||54,inv.normal_count||91,inv.stale_count||164,inv.very_stale_count||371,inv.toxic_count||84],
+        textposition:'auto',
+        textfont:{color:'#fafafa',size:11}
+    }], {
+        paper_bgcolor:'rgba(0,0,0,0)',
+        plot_bgcolor:'rgba(0,0,0,0)',
+        font:{color:'#71717a',family:'Inter',size:11},
+        margin:{t:20,r:10,b:40,l:40},
+        xaxis:{gridcolor:'#27272a',linecolor:'#27272a'},
+        yaxis:{gridcolor:'#27272a',linecolor:'#27272a'},
+        showlegend:false,
+        bargap:0.3
+    }, {responsive:true,displayModeBar:false});
 }
 
 load().then(render);

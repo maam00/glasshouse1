@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glass House - $OPEN Intelligence Dashboard</title>
+    <title>GLASS HOUSE // $OPEN TERMINAL</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a24;
-            --text-primary: #e4e4e7;
-            --text-secondary: #a1a1aa;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-yellow: #eab308;
-            --accent-blue: #3b82f6;
-            --border-color: #27272a;
+            --bg-terminal: #0c0c0c;
+            --bg-panel: #0f0f0f;
+            --bg-header: #111111;
+            --border: #1a1a1a;
+            --border-glow: #00ff4120;
+            --text-bright: #00ff41;
+            --text-dim: #00aa2a;
+            --text-muted: #006618;
+            --text-white: #c0c0c0;
+            --accent-green: #00ff41;
+            --accent-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --accent-blue: #00aaff;
+            --accent-cyan: #00ffff;
+            --scanline: rgba(0, 255, 65, 0.03);
         }
 
         * {
@@ -26,467 +32,791 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'SF Pro Display', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+            background: var(--bg-terminal);
+            color: var(--text-bright);
             min-height: 100vh;
-            padding: 20px;
+            font-size: 13px;
+            line-height: 1.4;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .header .stock-price {
-            margin-top: 15px;
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .kpi-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .kpi-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .kpi-card .label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .kpi-card .value {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .kpi-card .change {
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .kpi-card.positive .value { color: var(--accent-green); }
-        .kpi-card.negative .value { color: var(--accent-red); }
-        .kpi-card.warning .value { color: var(--accent-yellow); }
-
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .icon {
-            font-size: 1.5rem;
-        }
-
-        .chart-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 20px;
-        }
-
-        .chart-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .chart-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-secondary);
-        }
-
-        .kaz-era-banner {
-            background: linear-gradient(135deg, #1a472a 0%, #0f2818 100%);
-            border: 1px solid #22c55e33;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-        }
-
-        .kaz-section {
-            text-align: center;
-        }
-
-        .kaz-section .title {
-            color: #86efac;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .kaz-section .big-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #22c55e;
-        }
-
-        .kaz-section .detail {
-            color: #86efac;
-            font-size: 0.95rem;
-            margin-top: 5px;
-        }
-
-        .cohort-table {
+        /* CRT Scanline effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                var(--scanline) 2px,
+                var(--scanline) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
         }
 
-        .cohort-table th, .cohort-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
+        /* Subtle vignette */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+            z-index: 999;
         }
 
-        .cohort-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.85rem;
-            text-transform: uppercase;
+        .terminal {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 10px;
         }
 
-        .cohort-table tr:hover {
-            background: var(--bg-secondary);
-        }
-
-        .win-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .win-badge.high { background: #22c55e22; color: #22c55e; }
-        .win-badge.medium { background: #eab30822; color: #eab308; }
-        .win-badge.low { background: #ef444422; color: #ef4444; }
-
-        .progress-bar {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            height: 20px;
-            overflow: hidden;
+        /* Header */
+        .header {
+            border: 1px solid var(--border);
+            background: var(--bg-header);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: relative;
         }
 
-        .progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
+        .header::before {
+            content: "▋";
+            position: absolute;
+            left: 8px;
+            animation: blink 1s infinite;
+            color: var(--accent-green);
         }
 
-        .progress-label {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8rem;
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-bright);
+            text-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .logo span {
+            color: var(--text-muted);
+        }
+
+        .stock-ticker {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .ticker-symbol {
+            color: var(--accent-cyan);
             font-weight: 600;
         }
 
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+        .ticker-price {
+            color: var(--text-white);
+            font-weight: 600;
         }
 
-        .market-card {
-            background: var(--bg-secondary);
-            border-radius: 8px;
+        .ticker-change {
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        .ticker-change.up { color: var(--accent-green); }
+        .ticker-change.down { color: var(--accent-red); }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--accent-green); }
+            50% { opacity: 0.5; box-shadow: none; }
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .panel-header {
+            background: var(--bg-header);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header .tag {
+            font-size: 9px;
+            padding: 2px 6px;
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        .panel-body {
+            padding: 12px;
+        }
+
+        /* Kaz Era - Full Width */
+        .kaz-panel {
+            grid-column: 1 / -1;
+            background: linear-gradient(90deg, rgba(0,255,65,0.05) 0%, transparent 50%, rgba(0,255,65,0.05) 100%);
+            border-color: var(--accent-green);
+        }
+
+        .kaz-panel .panel-header {
+            background: rgba(0,255,65,0.1);
+            color: var(--accent-green);
+        }
+
+        .kaz-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .kaz-metric {
+            padding: 10px;
+        }
+
+        .kaz-metric .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .kaz-metric .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-shadow: 0 0 20px rgba(0,255,65,0.5);
+        }
+
+        .kaz-metric .detail {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        /* KPI Row */
+        .kpi-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+
+        .kpi-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
             padding: 15px;
             text-align: center;
         }
 
-        .market-card .state {
-            font-size: 1.5rem;
+        .kpi-card .label {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .kpi-card .value {
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            color: var(--text-white);
         }
 
-        .market-card .count {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .kpi-card .value.green { color: var(--accent-green); }
+        .kpi-card .value.red { color: var(--accent-red); }
+        .kpi-card .value.yellow { color: var(--accent-yellow); }
+
+        .kpi-card .change {
+            font-size: 10px;
+            margin-top: 4px;
         }
 
-        .alert-banner {
-            background: #ef444422;
-            border: 1px solid #ef444444;
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin-bottom: 20px;
+        /* Guidance Panel */
+        .guidance-panel {
+            grid-column: 1 / -1;
+        }
+
+        .guidance-content {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .guidance-stat {
+            text-align: center;
+        }
+
+        .guidance-stat .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .guidance-stat .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .progress-container {
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 24px;
+            background: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+            position: relative;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--text-white);
+            box-shadow: 0 0 10px var(--text-white);
+        }
+
+        .progress-label {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .progress-label span {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        /* Chart Panels */
+        .chart-panel {
+            min-height: 280px;
+        }
+
+        .chart-container {
+            height: 220px;
+        }
+
+        /* Cohort Table */
+        .cohort-table {
+            width: 100%;
+            font-size: 12px;
+        }
+
+        .cohort-table th {
+            text-align: left;
+            padding: 8px 10px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cohort-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cohort-table tr:hover {
+            background: rgba(0,255,65,0.03);
+        }
+
+        .cohort-name {
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        .cohort-name.toxic {
+            color: var(--accent-red);
+        }
+
+        .win-rate {
+            font-weight: 600;
+        }
+
+        .win-rate.high { color: var(--accent-green); }
+        .win-rate.medium { color: var(--accent-yellow); }
+        .win-rate.low { color: var(--accent-red); }
+
+        .profit-cell {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .profit-cell.positive { color: var(--accent-green); }
+        .profit-cell.negative { color: var(--accent-red); }
+
+        /* Span 2 columns */
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        /* ASCII Art style borders */
+        .ascii-box {
+            position: relative;
+        }
+
+        .ascii-box::before {
+            content: "┌" attr(data-title) "─";
+            position: absolute;
+            top: -1px;
+            left: 10px;
+            background: var(--bg-terminal);
+            padding: 0 5px;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Alerts */
+        .alert-bar {
+            grid-column: 1 / -1;
+            background: rgba(255,51,51,0.1);
+            border: 1px solid var(--accent-red);
+            padding: 10px 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 12px;
         }
 
-        .alert-banner .icon { font-size: 1.2rem; }
-
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: var(--text-secondary);
+        .alert-bar::before {
+            content: "⚠";
+            color: var(--accent-red);
         }
 
-        .timestamp {
+        /* Footer */
+        .footer {
+            grid-column: 1 / -1;
             text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            padding: 15px;
+            font-size: 10px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 10px;
+        }
+
+        .footer span {
+            color: var(--text-dim);
+        }
+
+        /* Market mini cards */
+        .market-mini {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .market-item {
+            background: var(--border);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .market-item .state {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .market-item .count {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .kaz-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .kpi-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            .kaz-era-banner {
+            .main-grid {
                 grid-template-columns: 1fr;
             }
-            .chart-grid {
+            .span-2 {
+                grid-column: span 1;
+            }
+            .kaz-grid, .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .guidance-content {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>GLASS HOUSE</h1>
-        <div class="subtitle">$OPEN Operational Intelligence Dashboard</div>
-        <div class="stock-price" id="stockPrice">Loading...</div>
+    <div class="terminal">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">GLASS<span>//</span>HOUSE</div>
+                <div class="stock-ticker">
+                    <span class="ticker-symbol">$OPEN</span>
+                    <span class="ticker-price" id="stockPrice">$5.87</span>
+                    <span class="ticker-change down" id="stockChange">-46.0% FROM 52W HIGH</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>LIVE</span>
+                </div>
+                <span id="timestamp">2026-01-27 14:45:00</span>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Alert Bar -->
+            <div class="alert-bar" id="alertBar" style="display: none;"></div>
+
+            <!-- Kaz Era Panel -->
+            <div class="panel kaz-panel">
+                <div class="panel-header">
+                    <span>■ KAZ-ERA PERFORMANCE // NEW CEO STRATEGY SINCE NOV 2025</span>
+                    <span class="tag">LEADING INDICATOR</span>
+                </div>
+                <div class="panel-body">
+                    <div class="kaz-grid">
+                        <div class="kaz-metric">
+                            <div class="label">Sold Win Rate</div>
+                            <div class="value" id="kazSoldRate">95.3%</div>
+                            <div class="detail" id="kazSoldDetail">41/43 profitable</div>
+                        </div>
+                        <div class="kaz-metric">
+                            <div class="label">On Market Health</div>
+                            <div class="value" id="kazMarketRate">97.1%</div>
+                            <div class="detail" id="kazMarketDetail">100/103 above water</div>
+                        </div>
+                        <div class="kaz-metric">
+                            <div class="label">Total Kaz-Era</div>
+                            <div class="value" id="kazTotal">146</div>
+                            <div class="detail">homes</div>
+                        </div>
+                        <div class="kaz-metric">
+                            <div class="label">Overall Health</div>
+                            <div class="value" id="kazHealth">96.6%</div>
+                            <div class="detail">combined</div>
+                        </div>
+                        <div class="kaz-metric">
+                            <div class="label">vs Legacy</div>
+                            <div class="value" id="kazImprovement">+31pp</div>
+                            <div class="detail">improvement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="label">Overall Win Rate</div>
+                    <div class="value" id="kpiWinRate">68.7%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Q1 Revenue</div>
+                    <div class="value green" id="kpiRevenue">$119.7M</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Homes Sold</div>
+                    <div class="value" id="kpiSold">319</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Inventory</div>
+                    <div class="value" id="kpiInventory">764</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Toxic Remaining</div>
+                    <div class="value red" id="kpiToxic">84</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Avg DOM</div>
+                    <div class="value yellow" id="kpiDom">228d</div>
+                </div>
+            </div>
+
+            <!-- Q1 Guidance -->
+            <div class="panel guidance-panel">
+                <div class="panel-header">
+                    <span>■ Q1 2026 GUIDANCE TRACKING</span>
+                    <span class="tag" id="guidancePace">BEHIND</span>
+                </div>
+                <div class="panel-body">
+                    <div class="guidance-content">
+                        <div class="guidance-stat">
+                            <div class="label">Revenue to Date</div>
+                            <div class="value" id="guidanceRevenue">$119.7M</div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="guidanceBar" style="width: 20.1%;"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span id="guidancePct">20.1%</span> of $595M target // Projected: <span id="guidanceProjected">$409.6M</span>
+                            </div>
+                        </div>
+                        <div class="guidance-stat">
+                            <div class="label">Days Remaining</div>
+                            <div class="value" id="guidanceDays">62</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Win Rate Chart -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <span>■ WIN RATE TREND</span>
+                    <span class="tag">30D</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container" id="chartWinRate"></div>
+                </div>
+            </div>
+
+            <!-- Kaz Era Chart -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <span>■ KAZ-ERA HEALTH</span>
+                    <span class="tag">DAILY</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container" id="chartKazEra"></div>
+                </div>
+            </div>
+
+            <!-- Revenue Chart -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <span>■ REVENUE ACCUMULATION</span>
+                    <span class="tag">Q1</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container" id="chartRevenue"></div>
+                </div>
+            </div>
+
+            <!-- Cohort Table -->
+            <div class="panel span-2">
+                <div class="panel-header">
+                    <span>■ COHORT PERFORMANCE MATRIX</span>
+                    <span class="tag">CURRENT</span>
+                </div>
+                <div class="panel-body">
+                    <table class="cohort-table">
+                        <thead>
+                            <tr>
+                                <th>Cohort</th>
+                                <th>Count</th>
+                                <th>Win Rate</th>
+                                <th>Avg Profit</th>
+                                <th>Margin</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cohortTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Toxic Countdown -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <span>■ TOXIC COUNTDOWN</span>
+                    <span class="tag" id="toxicPct">33.9%</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container" id="chartToxic"></div>
+                </div>
+            </div>
+
+            <!-- Inventory Aging -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <span>■ INVENTORY AGING</span>
+                    <span class="tag">764 HOMES</span>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container" id="chartInventory"></div>
+                </div>
+            </div>
+
+            <!-- Markets -->
+            <div class="panel span-2">
+                <div class="panel-header">
+                    <span>■ MARKET DISTRIBUTION</span>
+                    <span class="tag">TOP 8</span>
+                </div>
+                <div class="panel-body">
+                    <div class="market-mini" id="marketGrid"></div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                GLASS//HOUSE TERMINAL v1.0 // DATA: PARCL LABS + YAHOO FINANCE + SEC EDGAR //
+                <span>REFRESH: 5MIN</span> //
+                BUILT FOR <span>$OPEN</span> INTELLIGENCE
+            </div>
+        </div>
     </div>
-
-    <div id="alertBanner"></div>
-
-    <!-- Kaz-Era Banner -->
-    <div class="kaz-era-banner" id="kazEraBanner">
-        <div class="kaz-section">
-            <div class="title">Realized (Sold)</div>
-            <div class="big-number" id="kazSoldWin">--</div>
-            <div class="detail" id="kazSoldDetail">-- profitable</div>
-        </div>
-        <div class="kaz-section">
-            <div class="title">Unrealized (On Market)</div>
-            <div class="big-number" id="kazMarketWin">--</div>
-            <div class="detail" id="kazMarketDetail">-- above water</div>
-        </div>
-        <div class="kaz-section">
-            <div class="title">vs Legacy</div>
-            <div class="big-number" id="kazImprovement">--</div>
-            <div class="detail">Kaz-Era Performance</div>
-        </div>
-    </div>
-
-    <!-- KPIs -->
-    <div class="kpi-row" id="kpiRow">
-        <div class="kpi-card">
-            <div class="label">Win Rate</div>
-            <div class="value" id="kpiWinRate">--</div>
-        </div>
-        <div class="kpi-card">
-            <div class="label">Q1 Revenue</div>
-            <div class="value" id="kpiRevenue">--</div>
-        </div>
-        <div class="kpi-card">
-            <div class="label">Homes Sold</div>
-            <div class="value" id="kpiSold">--</div>
-        </div>
-        <div class="kpi-card">
-            <div class="label">Inventory</div>
-            <div class="value" id="kpiInventory">--</div>
-        </div>
-        <div class="kpi-card">
-            <div class="label">Toxic Remaining</div>
-            <div class="value" id="kpiToxic">--</div>
-        </div>
-    </div>
-
-    <!-- Q1 Guidance -->
-    <div class="section">
-        <div class="section-title"><span class="icon">📊</span> Q1 2026 Guidance Progress</div>
-        <div class="chart-card">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span>$<span id="guidanceRevenue">0</span>M of $595M</span>
-                <span id="guidancePct">0%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="guidanceBar" style="width: 0%; background: linear-gradient(90deg, #22c55e, #3b82f6);"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 15px; color: var(--text-secondary); font-size: 0.9rem;">
-                <span>Projected: $<span id="guidanceProjected">0</span>M</span>
-                <span id="guidancePace">--</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts -->
-    <div class="section">
-        <div class="section-title"><span class="icon">📈</span> Historical Trends</div>
-        <div class="chart-grid">
-            <div class="chart-card">
-                <h3>Win Rate Over Time</h3>
-                <div id="chartWinRate"></div>
-            </div>
-            <div class="chart-card">
-                <h3>Kaz-Era Health</h3>
-                <div id="chartKazEra"></div>
-            </div>
-            <div class="chart-card">
-                <h3>Revenue Accumulation</h3>
-                <div id="chartRevenue"></div>
-            </div>
-            <div class="chart-card">
-                <h3>Toxic Countdown</h3>
-                <div id="chartToxic"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cohorts -->
-    <div class="section">
-        <div class="section-title"><span class="icon">📋</span> Cohort Performance</div>
-        <div class="chart-card">
-            <table class="cohort-table">
-                <thead>
-                    <tr>
-                        <th>Cohort</th>
-                        <th>Count</th>
-                        <th>Win Rate</th>
-                        <th>Avg Profit</th>
-                        <th>Margin</th>
-                    </tr>
-                </thead>
-                <tbody id="cohortTable">
-                    <tr><td colspan="5" class="loading">Loading...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Cohort Chart -->
-    <div class="section">
-        <div class="chart-grid">
-            <div class="chart-card">
-                <h3>Cohort Win Rates</h3>
-                <div id="chartCohorts"></div>
-            </div>
-            <div class="chart-card">
-                <h3>Inventory Aging</h3>
-                <div id="chartInventory"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Markets -->
-    <div class="section">
-        <div class="section-title"><span class="icon">🗺️</span> Market Distribution</div>
-        <div class="chart-card">
-            <div id="chartMarkets"></div>
-        </div>
-    </div>
-
-    <div class="timestamp" id="timestamp">Last updated: --</div>
 
     <script>
-        // Plotly dark theme
-        const plotlyLayout = {
+        // Terminal-style Plotly theme
+        const terminalLayout = {
             paper_bgcolor: 'rgba(0,0,0,0)',
             plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#a1a1aa', family: '-apple-system, BlinkMacSystemFont, sans-serif' },
-            margin: { t: 20, r: 20, b: 40, l: 50 },
+            font: {
+                color: '#00aa2a',
+                family: 'JetBrains Mono, monospace',
+                size: 10
+            },
+            margin: { t: 10, r: 10, b: 30, l: 40 },
             xaxis: {
-                gridcolor: '#27272a',
-                linecolor: '#27272a',
+                gridcolor: '#1a1a1a',
+                linecolor: '#1a1a1a',
+                tickfont: { size: 9 },
+                showgrid: true,
+                gridwidth: 1,
             },
             yaxis: {
-                gridcolor: '#27272a',
-                linecolor: '#27272a',
+                gridcolor: '#1a1a1a',
+                linecolor: '#1a1a1a',
+                tickfont: { size: 9 },
+                showgrid: true,
+                gridwidth: 1,
             },
+            showlegend: false,
         };
 
         const colors = {
-            green: '#22c55e',
-            red: '#ef4444',
-            yellow: '#eab308',
-            blue: '#3b82f6',
-            purple: '#a855f7',
+            green: '#00ff41',
+            dimGreen: '#00aa2a',
+            red: '#ff3333',
+            yellow: '#ffcc00',
+            cyan: '#00ffff',
+            blue: '#00aaff',
         };
 
         // Load data
         async function loadData() {
             try {
-                // Try to load from outputs directory
                 const response = await fetch('outputs/dashboard_data.json');
                 if (!response.ok) throw new Error('Data not found');
                 return await response.json();
             } catch (e) {
-                console.log('Loading sample data...');
-                return getSampleData();
+                console.log('Using embedded data');
+                return getEmbeddedData();
             }
         }
 
-        function getSampleData() {
-            // Sample data structure - will be replaced by real data
+        function getEmbeddedData() {
             return {
                 current: {
                     date: "2026-01-27",
                     stock_price: 5.87,
-                    performance: {
-                        win_rate: 68.7,
-                        homes_sold_total: 319,
-                        revenue_total: 119653700,
-                        contribution_margin: 7.02,
-                    },
-                    inventory: {
-                        total: 764,
-                        fresh_count: 54,
-                        normal_count: 91,
-                        stale_count: 164,
-                        very_stale_count: 371,
-                        toxic_count: 84,
-                    },
+                    performance: { win_rate: 68.7, homes_sold_total: 319, revenue_total: 119653700 },
+                    inventory: { total: 764, fresh_count: 54, normal_count: 91, stale_count: 164, very_stale_count: 371, toxic_count: 84, avg_dom: 228 },
                     cohort_new: { count: 72, win_rate: 90.3, avg_profit: 40700, contribution_margin: 10.4 },
                     cohort_mid: { count: 104, win_rate: 84.6, avg_profit: 36900, contribution_margin: 10.0 },
                     cohort_old: { count: 100, win_rate: 53.0, avg_profit: 21700, contribution_margin: 5.4 },
@@ -495,96 +825,105 @@
                     kaz_era: {
                         realized: { count: 43, profitable: 41, win_rate: 95.3, avg_profit: 43200 },
                         unrealized: { count: 103, above_water: 100, above_water_pct: 97.1, underwater: 3 },
-                        total: 146,
-                        overall_health_pct: 96.6,
-                        vs_legacy_improvement: 31,
+                        total: 146, overall_health_pct: 96.6, vs_legacy_improvement: 31,
                     },
-                    guidance: {
-                        q1_target: 595000000,
-                        revenue_to_date: 119653700,
-                        pct_to_target: 20.1,
-                        projected_quarter_revenue: 409580000,
-                        pace_vs_required: "behind",
-                    },
+                    guidance: { revenue_to_date: 119653700, pct_to_target: 20.1, projected_quarter_revenue: 409580000, pace_vs_required: "behind", days_remaining: 62 },
                     alerts: ["New cohort win rate dropped to 90.3% (target: >95%)"],
                 },
                 history: [],
             };
         }
 
-        function formatCurrency(val, short = true) {
-            if (val >= 1000000000) return '$' + (val / 1000000000).toFixed(2) + 'B';
-            if (val >= 1000000) return '$' + (val / 1000000).toFixed(1) + 'M';
-            if (val >= 1000) return '$' + (val / 1000).toFixed(1) + 'K';
+        function formatCurrency(val) {
+            if (Math.abs(val) >= 1e9) return '$' + (val / 1e9).toFixed(2) + 'B';
+            if (Math.abs(val) >= 1e6) return '$' + (val / 1e6).toFixed(1) + 'M';
+            if (Math.abs(val) >= 1e3) return '$' + (val / 1e3).toFixed(1) + 'K';
             return '$' + val.toFixed(0);
-        }
-
-        function getWinBadge(rate) {
-            if (rate >= 90) return `<span class="win-badge high">${rate.toFixed(1)}%</span>`;
-            if (rate >= 70) return `<span class="win-badge medium">${rate.toFixed(1)}%</span>`;
-            return `<span class="win-badge low">${rate.toFixed(1)}%</span>`;
         }
 
         function renderDashboard(data) {
             const d = data.current;
+            const kaz = d.kaz_era || {};
+            const g = d.guidance || {};
+            const inv = d.inventory || {};
+            const toxic = d.toxic || {};
 
-            // Stock price
-            document.getElementById('stockPrice').innerHTML = `$OPEN: $${d.stock_price?.toFixed(2) || '5.87'}`;
+            // Timestamp
+            document.getElementById('timestamp').textContent = new Date().toISOString().replace('T', ' ').slice(0, 19);
 
             // Alerts
             if (d.alerts && d.alerts.length > 0) {
-                document.getElementById('alertBanner').innerHTML = d.alerts.map(a =>
-                    `<div class="alert-banner"><span class="icon">⚠️</span> ${a}</div>`
-                ).join('');
+                const alertBar = document.getElementById('alertBar');
+                alertBar.style.display = 'flex';
+                alertBar.textContent = d.alerts[0];
             }
 
-            // Kaz-Era Banner
-            const kaz = d.kaz_era || {};
-            document.getElementById('kazSoldWin').textContent = `${kaz.realized?.win_rate?.toFixed(1) || 0}%`;
+            // Kaz Era
+            document.getElementById('kazSoldRate').textContent = (kaz.realized?.win_rate || 0).toFixed(1) + '%';
             document.getElementById('kazSoldDetail').textContent = `${kaz.realized?.profitable || 0}/${kaz.realized?.count || 0} profitable`;
-            document.getElementById('kazMarketWin').textContent = `${kaz.unrealized?.above_water_pct?.toFixed(1) || 0}%`;
+            document.getElementById('kazMarketRate').textContent = (kaz.unrealized?.above_water_pct || 0).toFixed(1) + '%';
             document.getElementById('kazMarketDetail').textContent = `${kaz.unrealized?.above_water || 0}/${kaz.unrealized?.count || 0} above water`;
-            document.getElementById('kazImprovement').textContent = `+${kaz.vs_legacy_improvement || 0}pp`;
+            document.getElementById('kazTotal').textContent = kaz.total || 0;
+            document.getElementById('kazHealth').textContent = (kaz.overall_health_pct || 0).toFixed(1) + '%';
+            document.getElementById('kazImprovement').textContent = '+' + (kaz.vs_legacy_improvement || 0) + 'pp';
 
             // KPIs
-            document.getElementById('kpiWinRate').textContent = `${d.performance?.win_rate?.toFixed(1) || 0}%`;
+            document.getElementById('kpiWinRate').textContent = (d.performance?.win_rate || 0).toFixed(1) + '%';
             document.getElementById('kpiRevenue').textContent = formatCurrency(d.performance?.revenue_total || 0);
             document.getElementById('kpiSold').textContent = d.performance?.homes_sold_total || 0;
-            document.getElementById('kpiInventory').textContent = d.inventory?.total || 0;
-            document.getElementById('kpiToxic').textContent = d.toxic?.remaining_count || 0;
+            document.getElementById('kpiInventory').textContent = inv.total || 0;
+            document.getElementById('kpiToxic').textContent = toxic.remaining_count || 0;
+            document.getElementById('kpiDom').textContent = (inv.avg_dom || 0).toFixed(0) + 'd';
 
             // Guidance
-            const g = d.guidance || {};
-            const revM = (g.revenue_to_date || 0) / 1000000;
-            const projM = (g.projected_quarter_revenue || 0) / 1000000;
-            document.getElementById('guidanceRevenue').textContent = revM.toFixed(1);
-            document.getElementById('guidancePct').textContent = `${g.pct_to_target?.toFixed(1) || 0}%`;
-            document.getElementById('guidanceBar').style.width = `${Math.min(g.pct_to_target || 0, 100)}%`;
-            document.getElementById('guidanceProjected').textContent = projM.toFixed(0);
-            const paceEmoji = g.pace_vs_required === 'ahead' ? '🟢' : g.pace_vs_required === 'on_track' ? '🟡' : '🔴';
-            document.getElementById('guidancePace').textContent = `${paceEmoji} ${(g.pace_vs_required || 'unknown').toUpperCase()}`;
+            document.getElementById('guidanceRevenue').textContent = formatCurrency(g.revenue_to_date || 0);
+            document.getElementById('guidancePct').textContent = (g.pct_to_target || 0).toFixed(1) + '%';
+            document.getElementById('guidanceBar').style.width = Math.min(g.pct_to_target || 0, 100) + '%';
+            document.getElementById('guidanceProjected').textContent = formatCurrency(g.projected_quarter_revenue || 0);
+            document.getElementById('guidanceDays').textContent = g.days_remaining || 0;
+            document.getElementById('guidancePace').textContent = (g.pace_vs_required || 'UNKNOWN').toUpperCase();
+            document.getElementById('toxicPct').textContent = (toxic.clearance_pct || 0).toFixed(1) + '%';
 
             // Cohort Table
             const cohorts = [
-                { name: 'NEW (<90d)', data: d.cohort_new, signal: true },
-                { name: 'MID (90-180d)', data: d.cohort_mid },
-                { name: 'OLD (180-365d)', data: d.cohort_old },
-                { name: 'TOXIC (>365d)', data: d.cohort_toxic, toxic: true },
+                { name: 'NEW (<90d)', data: d.cohort_new, status: '● SIGNAL' },
+                { name: 'MID (90-180d)', data: d.cohort_mid, status: '○' },
+                { name: 'OLD (180-365d)', data: d.cohort_old, status: '○' },
+                { name: 'TOXIC (>365d)', data: d.cohort_toxic, status: '▼ CLEAR', toxic: true },
             ];
-            document.getElementById('cohortTable').innerHTML = cohorts.map(c => `
-                <tr>
-                    <td><strong>${c.name}</strong></td>
-                    <td>${c.data?.count || 0}</td>
-                    <td>${getWinBadge(c.data?.win_rate || 0)}</td>
-                    <td>${formatCurrency(c.data?.avg_profit || 0)}</td>
-                    <td>${(c.data?.contribution_margin || 0).toFixed(1)}%</td>
-                </tr>
+
+            document.getElementById('cohortTable').innerHTML = cohorts.map(c => {
+                const wr = c.data?.win_rate || 0;
+                const wrClass = wr >= 90 ? 'high' : wr >= 70 ? 'medium' : 'low';
+                const profit = c.data?.avg_profit || 0;
+                const profitClass = profit >= 0 ? 'positive' : 'negative';
+                return `
+                    <tr>
+                        <td class="cohort-name ${c.toxic ? 'toxic' : ''}">${c.name}</td>
+                        <td>${c.data?.count || 0}</td>
+                        <td class="win-rate ${wrClass}">${wr.toFixed(1)}%</td>
+                        <td class="profit-cell ${profitClass}">${formatCurrency(profit)}</td>
+                        <td>${(c.data?.contribution_margin || 0).toFixed(1)}%</td>
+                        <td style="color: ${c.toxic ? colors.red : colors.dimGreen}">${c.status}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Markets
+            const markets = [
+                { state: 'NC', count: 127 }, { state: 'GA', count: 102 },
+                { state: 'TX', count: 89 }, { state: 'FL', count: 85 },
+                { state: 'SC', count: 61 }, { state: 'AZ', count: 59 },
+                { state: 'CA', count: 47 }, { state: 'CO', count: 34 },
+            ];
+            document.getElementById('marketGrid').innerHTML = markets.map(m => `
+                <div class="market-item">
+                    <div class="state">${m.state}</div>
+                    <div class="count">${m.count} homes</div>
+                </div>
             `).join('');
 
-            // Timestamp
-            document.getElementById('timestamp').textContent = `Last updated: ${d.date || new Date().toISOString().split('T')[0]}`;
-
-            // Render charts
+            // Render Charts
             renderCharts(data);
         }
 
@@ -595,120 +934,86 @@
             // Win Rate Chart
             if (history.length > 1) {
                 const dates = history.map(h => h.date);
-                const winRates = history.map(h => h.performance?.win_rate || 0);
-                const newCohortRates = history.map(h => h.cohort_new?.win_rate || 0);
+                const overall = history.map(h => h.performance?.win_rate || 0);
+                const newCohort = history.map(h => h.cohort_new?.win_rate || 0);
 
                 Plotly.newPlot('chartWinRate', [
-                    { x: dates, y: winRates, name: 'Overall', line: { color: colors.blue, width: 2 } },
-                    { x: dates, y: newCohortRates, name: 'New Cohort', line: { color: colors.green, width: 2 } },
-                ], { ...plotlyLayout, showlegend: true, legend: { x: 0, y: 1.1, orientation: 'h' } }, { responsive: true });
+                    { x: dates, y: overall, name: 'Overall', line: { color: colors.cyan, width: 2 }, fill: 'tozeroy', fillcolor: 'rgba(0,170,255,0.1)' },
+                    { x: dates, y: newCohort, name: 'New Cohort', line: { color: colors.green, width: 2, dash: 'dot' } },
+                ], { ...terminalLayout, showlegend: true, legend: { x: 0, y: 1.15, orientation: 'h', font: { size: 9 } } }, { responsive: true, displayModeBar: false });
             } else {
-                document.getElementById('chartWinRate').innerHTML = '<p style="text-align:center;color:#666;padding:50px;">Run daily to accumulate history</p>';
+                document.getElementById('chartWinRate').innerHTML = '<div style="color:#006618;text-align:center;padding:80px 20px;">ACCUMULATING DATA...</div>';
             }
 
-            // Kaz-Era Chart
+            // Kaz Era Chart
             if (history.length > 1) {
                 const dates = history.map(h => h.date);
-                const kazHealth = history.map(h => h.kaz_era?.overall_health_pct || 0);
-                const kazSold = history.map(h => h.kaz_era?.realized?.win_rate || 0);
+                const health = history.map(h => h.kaz_era?.overall_health_pct || 0);
 
-                Plotly.newPlot('chartKazEra', [
-                    { x: dates, y: kazHealth, name: 'Overall Health', line: { color: colors.green, width: 3 } },
-                    { x: dates, y: kazSold, name: 'Sold Win Rate', line: { color: colors.blue, width: 2, dash: 'dot' } },
-                ], { ...plotlyLayout, showlegend: true, legend: { x: 0, y: 1.1, orientation: 'h' } }, { responsive: true });
+                Plotly.newPlot('chartKazEra', [{
+                    x: dates, y: health,
+                    line: { color: colors.green, width: 3 },
+                    fill: 'tozeroy',
+                    fillcolor: 'rgba(0,255,65,0.15)',
+                }], { ...terminalLayout, yaxis: { ...terminalLayout.yaxis, range: [0, 100] } }, { responsive: true, displayModeBar: false });
             } else {
-                // Show current as bar chart
                 const kaz = current.kaz_era || {};
                 Plotly.newPlot('chartKazEra', [{
                     type: 'bar',
-                    x: ['Sold Win Rate', 'On Market Above Water', 'Overall Health'],
+                    x: ['SOLD', 'ON MKT', 'HEALTH'],
                     y: [kaz.realized?.win_rate || 0, kaz.unrealized?.above_water_pct || 0, kaz.overall_health_pct || 0],
-                    marker: { color: [colors.green, colors.blue, colors.purple] },
-                }], { ...plotlyLayout, yaxis: { ...plotlyLayout.yaxis, range: [0, 100] } }, { responsive: true });
+                    marker: { color: [colors.green, colors.cyan, colors.green] },
+                }], { ...terminalLayout, yaxis: { ...terminalLayout.yaxis, range: [0, 100] } }, { responsive: true, displayModeBar: false });
             }
 
             // Revenue Chart
             if (history.length > 1) {
                 const dates = history.map(h => h.date);
-                const revenue = history.map(h => (h.performance?.revenue_total || 0) / 1000000);
+                const revenue = history.map(h => (h.performance?.revenue_total || 0) / 1e6);
 
                 Plotly.newPlot('chartRevenue', [{
-                    x: dates,
-                    y: revenue,
+                    x: dates, y: revenue,
                     fill: 'tozeroy',
-                    fillcolor: 'rgba(34, 197, 94, 0.2)',
+                    fillcolor: 'rgba(0,255,65,0.2)',
                     line: { color: colors.green, width: 2 },
-                }], { ...plotlyLayout, yaxis: { ...plotlyLayout.yaxis, title: 'Revenue ($M)' } }, { responsive: true });
+                }], { ...terminalLayout, yaxis: { ...terminalLayout.yaxis, title: { text: '$M', font: { size: 9 } } } }, { responsive: true, displayModeBar: false });
             } else {
-                document.getElementById('chartRevenue').innerHTML = '<p style="text-align:center;color:#666;padding:50px;">Run daily to accumulate history</p>';
+                document.getElementById('chartRevenue').innerHTML = '<div style="color:#006618;text-align:center;padding:80px 20px;">ACCUMULATING DATA...</div>';
             }
 
-            // Toxic Countdown
+            // Toxic Donut
             const toxic = current.toxic || {};
             Plotly.newPlot('chartToxic', [{
                 type: 'pie',
                 values: [toxic.sold_count || 0, toxic.remaining_count || 0],
-                labels: ['Cleared', 'Remaining'],
-                marker: { colors: [colors.green, colors.red] },
-                hole: 0.6,
+                labels: ['CLEARED', 'REMAINING'],
+                marker: { colors: [colors.green, colors.red], line: { color: '#0c0c0c', width: 2 } },
+                hole: 0.65,
                 textinfo: 'value',
+                textfont: { color: '#c0c0c0', size: 12 },
             }], {
-                ...plotlyLayout,
+                ...terminalLayout,
                 annotations: [{
-                    text: `${toxic.clearance_pct?.toFixed(0) || 0}%`,
+                    text: (toxic.clearance_pct || 0).toFixed(0) + '%',
                     showarrow: false,
-                    font: { size: 24, color: '#fff' },
+                    font: { size: 20, color: colors.green, family: 'JetBrains Mono' },
                 }],
-            }, { responsive: true });
+            }, { responsive: true, displayModeBar: false });
 
-            // Cohort Bar Chart
-            const cohortData = [
-                { name: 'New', rate: current.cohort_new?.win_rate || 0 },
-                { name: 'Mid', rate: current.cohort_mid?.win_rate || 0 },
-                { name: 'Old', rate: current.cohort_old?.win_rate || 0 },
-                { name: 'Toxic', rate: current.cohort_toxic?.win_rate || 0 },
-            ];
-            Plotly.newPlot('chartCohorts', [{
-                type: 'bar',
-                x: cohortData.map(c => c.name),
-                y: cohortData.map(c => c.rate),
-                marker: {
-                    color: cohortData.map(c => c.rate >= 90 ? colors.green : c.rate >= 70 ? colors.yellow : colors.red),
-                },
-            }], { ...plotlyLayout, yaxis: { ...plotlyLayout.yaxis, range: [0, 100], title: 'Win Rate %' } }, { responsive: true });
-
-            // Inventory Pie
+            // Inventory Breakdown
             const inv = current.inventory || {};
             Plotly.newPlot('chartInventory', [{
-                type: 'pie',
-                values: [inv.fresh_count, inv.normal_count, inv.stale_count, inv.very_stale_count, inv.toxic_count],
-                labels: ['Fresh (<60d)', 'Normal (60-120d)', 'Stale (120-180d)', 'Very Stale (180-365d)', 'Toxic (>365d)'],
-                marker: { colors: [colors.green, colors.blue, colors.yellow, '#f97316', colors.red] },
-            }], plotlyLayout, { responsive: true });
-
-            // Markets Chart (simplified)
-            const markets = [
-                { state: 'NC', count: 127 },
-                { state: 'GA', count: 102 },
-                { state: 'TX', count: 89 },
-                { state: 'FL', count: 85 },
-                { state: 'SC', count: 61 },
-                { state: 'AZ', count: 59 },
-                { state: 'CA', count: 47 },
-                { state: 'CO', count: 34 },
-            ];
-            Plotly.newPlot('chartMarkets', [{
                 type: 'bar',
-                x: markets.map(m => m.state),
-                y: markets.map(m => m.count),
-                marker: { color: colors.blue },
-            }], { ...plotlyLayout, yaxis: { ...plotlyLayout.yaxis, title: 'Inventory Count' } }, { responsive: true });
+                x: ['FRESH', 'NORMAL', 'STALE', 'V.STALE', 'TOXIC'],
+                y: [inv.fresh_count, inv.normal_count, inv.stale_count, inv.very_stale_count, inv.toxic_count],
+                marker: { color: [colors.green, colors.cyan, colors.yellow, '#ff6600', colors.red] },
+            }], terminalLayout, { responsive: true, displayModeBar: false });
         }
 
         // Initialize
         loadData().then(renderDashboard);
 
-        // Auto-refresh every 5 minutes
+        // Auto-refresh
         setInterval(() => loadData().then(renderDashboard), 300000);
     </script>
 </body>

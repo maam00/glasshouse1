@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-27T17:15:56.769353",
+  "generated_at": "2026-01-27T17:27:48.829292",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -7,10 +7,10 @@
   },
   "as_of": "2026-01-26",
   "velocity": {
-    "q1_sales": 710,
-    "q1_revenue": 272444700.0,
-    "daily_avg_sales": 21.8,
-    "daily_avg_revenue": 8294230.76923077,
+    "q1_sales": 708,
+    "q1_revenue": 271490700.0,
+    "daily_avg_sales": 21.7,
+    "daily_avg_revenue": 8257692.307692308,
     "best_day": "2026-01-20",
     "best_day_sales": 41
   },
@@ -21,7 +21,7 @@
     "total_realized": 8401357.0,
     "wins": 219,
     "losses": 58,
-    "coverage_pct": 39.0
+    "coverage_pct": 39.1
   },
   "revenue_chart": [
     {
@@ -202,9 +202,9 @@
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
-      "revenue": 13240000.0,
-      "revenue_millions": 13.24,
-      "sales_count": 34
+      "revenue": 12290000.0,
+      "revenue_millions": 12.29,
+      "sales_count": 32
     }
   ],
   "sales_chart": [
@@ -361,16 +361,16 @@
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
-      "count": 34,
-      "moving_avg": 20.8
+      "count": 32,
+      "moving_avg": 20.7
     }
   ],
   "data_quality": {
-    "total_records": 710,
+    "total_records": 708,
     "matched_records": "175",
-    "singularity_only": "391",
+    "singularity_only": "389",
     "parcl_only": "144",
-    "pnl_coverage": 39.0,
+    "pnl_coverage": 39.1,
     "details_coverage": 79.7
   },
   "top_cities": {
@@ -392,13 +392,6 @@
   },
   "geographic": [
     {
-      "avg_lat": 32.23560317391305,
-      "avg_lon": -110.95409208695649,
-      "avg_price": 292608.6956521739,
-      "city": "Tucson",
-      "listing_count": 23
-    },
-    {
       "avg_lat": 33.54129704761904,
       "avg_lon": -112.11839623809526,
       "avg_price": 439190.4761904762,
@@ -413,17 +406,24 @@
       "listing_count": 18
     },
     {
-      "avg_lat": 35.84801792857143,
-      "avg_lon": -78.62620749999999,
-      "avg_price": 451857.14285714284,
-      "city": "Raleigh",
-      "listing_count": 14
+      "avg_lat": 32.23678866666667,
+      "avg_lon": -110.9507608333333,
+      "avg_price": 289833.3333333333,
+      "city": "Tucson",
+      "listing_count": 18
     },
     {
       "avg_lat": 39.785576999999996,
       "avg_lon": -86.10914407692309,
       "avg_price": 271000.0,
       "city": "Indianapolis",
+      "listing_count": 13
+    },
+    {
+      "avg_lat": 35.8496276923077,
+      "avg_lon": -78.62134361538462,
+      "avg_price": 444384.6153846154,
+      "city": "Raleigh",
       "listing_count": 13
     },
     {
@@ -455,13 +455,6 @@
       "listing_count": 12
     },
     {
-      "avg_lat": 36.11172527272728,
-      "avg_lon": -115.1785679090909,
-      "avg_price": 415454.54545454547,
-      "city": "Las Vegas",
-      "listing_count": 11
-    },
-    {
       "avg_lat": 33.7352299,
       "avg_lon": -84.42877510000001,
       "avg_price": 286700.0,
@@ -487,6 +480,13 @@
       "avg_lon": -94.56048180000002,
       "avg_price": 290500.0,
       "city": "Kansas City",
+      "listing_count": 10
+    },
+    {
+      "avg_lat": 36.1108287,
+      "avg_lon": -115.1523205,
+      "avg_price": 403900.0,
+      "city": "Las Vegas",
       "listing_count": 10
     },
     {
@@ -518,17 +518,17 @@
       "listing_count": 8
     },
     {
+      "avg_lat": 35.028531,
+      "avg_lon": -80.94160774999999,
+      "avg_price": 551250.0,
+      "city": "Fort Mill",
+      "listing_count": 8
+    },
+    {
       "avg_lat": 33.056067999999996,
       "avg_lon": -112.02991275000001,
       "avg_price": 344375.0,
       "city": "Maricopa",
-      "listing_count": 8
-    },
-    {
-      "avg_lat": 33.415673375,
-      "avg_lon": -111.67522075000001,
-      "avg_price": 537500.0,
-      "city": "Mesa",
       "listing_count": 8
     }
   ],
@@ -559,9 +559,9 @@
     }
   },
   "this_week": {
-    "sales": 205,
-    "revenue": 77980000.0,
-    "daily_avg": 29.3
+    "sales": 203,
+    "revenue": 77030000.0,
+    "daily_avg": 29.0
   },
   "last_week": {
     "sales": 151,
@@ -569,18 +569,18 @@
     "daily_avg": 21.6
   },
   "wow_change": {
-    "sales_pct": 35.8,
-    "revenue_pct": 37.4
+    "sales_pct": 34.4,
+    "revenue_pct": 35.7
   },
   "guidance": {
     "q1_target": 1000000000,
-    "current_revenue": 272444700.0,
+    "current_revenue": 271490700.0,
     "days_elapsed": 26,
     "days_remaining": 64,
     "daily_target": 11111111,
-    "daily_actual": 10478642,
-    "projected_revenue": 943077808,
-    "pacing_pct": 94.3,
+    "daily_actual": 10441950,
+    "projected_revenue": 939775500,
+    "pacing_pct": 94.0,
     "on_track": false
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-27T17:27:48.829292",
+  "generated_at": "2026-01-27T18:00:17.130251",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -399,6 +399,13 @@
       "listing_count": 21
     },
     {
+      "avg_lat": 32.24114173684211,
+      "avg_lon": -110.9555039473684,
+      "avg_price": 290947.36842105264,
+      "city": "Tucson",
+      "listing_count": 19
+    },
+    {
       "avg_lat": 35.21752272222223,
       "avg_lon": -80.82555077777779,
       "avg_price": 341722.22222222225,
@@ -406,24 +413,17 @@
       "listing_count": 18
     },
     {
-      "avg_lat": 32.23678866666667,
-      "avg_lon": -110.9507608333333,
-      "avg_price": 289833.3333333333,
-      "city": "Tucson",
-      "listing_count": 18
+      "avg_lat": 35.84801792857143,
+      "avg_lon": -78.62620749999999,
+      "avg_price": 451857.14285714284,
+      "city": "Raleigh",
+      "listing_count": 14
     },
     {
       "avg_lat": 39.785576999999996,
       "avg_lon": -86.10914407692309,
       "avg_price": 271000.0,
       "city": "Indianapolis",
-      "listing_count": 13
-    },
-    {
-      "avg_lat": 35.8496276923077,
-      "avg_lon": -78.62134361538462,
-      "avg_price": 444384.6153846154,
-      "city": "Raleigh",
       "listing_count": 13
     },
     {
@@ -518,17 +518,17 @@
       "listing_count": 8
     },
     {
-      "avg_lat": 35.028531,
-      "avg_lon": -80.94160774999999,
-      "avg_price": 551250.0,
-      "city": "Fort Mill",
-      "listing_count": 8
-    },
-    {
       "avg_lat": 33.056067999999996,
       "avg_lon": -112.02991275000001,
       "avg_price": 344375.0,
       "city": "Maricopa",
+      "listing_count": 8
+    },
+    {
+      "avg_lat": 33.415673375,
+      "avg_lon": -111.67522075000001,
+      "avg_price": 537500.0,
+      "city": "Mesa",
       "listing_count": 8
     }
   ],

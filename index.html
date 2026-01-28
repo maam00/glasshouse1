@@ -1113,6 +1113,10 @@
                 <span class="acquisition-trend__week">287</span>
             </div>
         </div>
+
+        <div class="insight-text" data-metric="acquisition-insight" style="margin-top: 12px;">
+            Loading acquisition insight...
+        </div>
     </section>
 
     <!-- ============================================================
@@ -1181,6 +1185,10 @@
                     <span class="product-item__date">9/29</span>
                 </div>
             </div>
+        </div>
+
+        <div class="insight-text" data-metric="product-insight" style="margin-top: 16px;">
+            Loading product insight...
         </div>
     </section>
 
@@ -1936,6 +1944,8 @@ function updateDashboardMetrics(data) {
         updateText('[data-metric="velocity-insight"]', data.ai_insights.velocity_insight);
         updateText('[data-metric="guidance-insight"]', data.ai_insights.guidance_insight);
         updateText('[data-metric="pattern-insight"]', data.ai_insights.pattern_insight);
+        updateText('[data-metric="acquisition-insight"]', data.ai_insights.acquisition_insight);
+        updateText('[data-metric="product-insight"]', data.ai_insights.product_insight);
     }
 
     // Update Top Markets table

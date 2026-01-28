@@ -599,5 +599,110 @@
     "product_insight": "100% Lower 48 zip coverage eliminates geographic constraints, expanding addressable market significantly.",
     "pattern_insight": "78.9% win rate with $46,427 average profit per win signals strong pricing discipline.",
     "generated_at": "2026-01-28T11:11:28.420644"
+  },
+  "market_intel": {
+    "generated_at": "2026-01-28T12:14:26.533032",
+    "earnings": {
+      "next_earnings_date": null,
+      "days_until_earnings": null,
+      "analyst_estimates": {},
+      "recent_history": [],
+      "source": "yahoo_finance"
+    },
+    "mortgage_rates": {
+      "rate_30yr": 6.89,
+      "rate_15yr": 6.12,
+      "rate_change_1w": -0.03,
+      "rate_change_1m": -0.15,
+      "as_of": "2026-01-28",
+      "source": "estimate",
+      "historical": []
+    },
+    "news": {
+      "headlines": [],
+      "fed_news": [
+        {
+          "title": "Apple\u2019s first quarter earnings will focus on iPhone sales, AI outlook",
+          "publisher": "Yahoo Finance",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "Natus introduces AVEMG innovation in launch of latest edition of Natus Elite software",
+          "publisher": "PR Newswire",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "Avnet (AVT) Q2 2026 Earnings Call Transcript",
+          "publisher": "Motley Fool",
+          "date": "2026-01-28"
+        }
+      ],
+      "housing_news": [
+        {
+          "title": "Apple\u2019s first quarter earnings will focus on iPhone sales, AI outlook",
+          "publisher": "Yahoo Finance",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "Natus introduces AVEMG innovation in launch of latest edition of Natus Elite software",
+          "publisher": "PR Newswire",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "Avnet (AVT) Q2 2026 Earnings Call Transcript",
+          "publisher": "Motley Fool",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "FRN Variable Rate Fix",
+          "publisher": "Business Wire",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "1 Fintech Stock Set to Rebound in 2026",
+          "publisher": "Motley Fool",
+          "date": "2026-01-28"
+        }
+      ],
+      "opendoor_news": [
+        {
+          "title": "This Unstoppable Stock Soared by 264% in 2025. Here's What Could Happen in 2026.",
+          "publisher": "Motley Fool",
+          "link": "https://finance.yahoo.com/m/dd869ad3-4bad-3f8f-b69e-5b3a87b4944e/this-unstoppable-stock-soared.html",
+          "date": "2026-01-27"
+        },
+        {
+          "title": "Meme Stocks Turn 5. Will There Ever Be Another GameStop?",
+          "publisher": "Barrons.com",
+          "link": "https://finance.yahoo.com/m/155e4c07-a4a9-3b4f-89fa-e2b059cdf9dd/meme-stocks-turn-5.-will.html",
+          "date": "2026-01-24"
+        },
+        {
+          "title": "Trump Is Doing 'An Excellent Job' On Housing Affordability, Says Opendoor CEO: Calls America's Housing Market 'Deeply Unfair'",
+          "publisher": "Benzinga",
+          "link": "https://finance.yahoo.com/news/trump-doing-excellent-job-housing-163110242.html",
+          "date": "2026-01-23"
+        },
+        {
+          "title": "BC-Most Active Stocks",
+          "publisher": "Associated Press Finance",
+          "link": "https://finance.yahoo.com/news/bc-most-active-stocks-153017784.html",
+          "date": "2026-01-23"
+        },
+        {
+          "title": "A Look At Opendoor Technologies (OPEN) Valuation As New Stake And Policy Support Refocus Investor Attention",
+          "publisher": "Simply Wall St.",
+          "link": "https://finance.yahoo.com/news/look-opendoor-technologies-open-valuation-121256590.html",
+          "date": "2026-01-23"
+        }
+      ]
+    },
+    "market_brief": {
+      "market_brief": "Mortgage rates declined 15 basis points this month to 6.89%, providing tailwinds as OPEN maintains strong operational momentum with a 78.9% win rate and 22.2 homes sold daily. The company is tracking at 96% of its Q1 revenue target with 63 days remaining, positioning for another solid quarter execution. CEO commentary praising Trump's housing affordability efforts signals management confidence in the policy environment, while problem inventory remains contained at $58.6M in unrealized losses. Operational excellence continues despite elevated rate environment, with critical risk exposure limited to just one market.",
+      "sentiment": "bullish",
+      "key_risk": "Problem inventory of 455 aging homes could pressure margins if market conditions deteriorate or sales pace slows.",
+      "key_catalyst": "Continued mortgage rate decline below 6.5% would significantly expand buyer pool and accelerate inventory turnover.",
+      "generated_at": "2026-01-28T12:14:26.532995"
+    }
   }
 }

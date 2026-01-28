@@ -858,6 +858,143 @@
         }
 
         /* ============================================================
+           MARKET INTELLIGENCE
+           ============================================================ */
+        .market-intel {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .market-intel__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .market-intel__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+        }
+
+        .market-intel__sentiment {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .market-intel__sentiment.bullish { background: var(--green-dim); color: var(--green); }
+        .market-intel__sentiment.bearish { background: var(--red-dim); color: var(--red); }
+        .market-intel__sentiment.neutral { background: rgba(255, 255, 255, 0.1); color: var(--text-2); }
+
+        .market-intel__metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .market-intel__metrics {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        .market-intel__metric {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .market-intel__metric-label {
+            font-size: 10px;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .market-intel__metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .market-intel__metric-change {
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .market-intel__metric-change.down { color: var(--green); }
+        .market-intel__metric-change.up { color: var(--red); }
+
+        .market-intel__brief {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .market-intel__brief-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-2);
+        }
+
+        .market-intel__risks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .market-intel__risks {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .market-intel__risk-item {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .market-intel__risk-item.risk {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid var(--red);
+            color: var(--text-2);
+        }
+
+        .market-intel__risk-item.catalyst {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid var(--green);
+            color: var(--text-2);
+        }
+
+        .market-intel__risk-label {
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .market-intel__risk-item.risk .market-intel__risk-label { color: var(--red); }
+        .market-intel__risk-item.catalyst .market-intel__risk-label { color: var(--green); }
+
+        /* ============================================================
            VELOCITY / METRICS (V3)
            ============================================================ */
         .metrics-row {
@@ -1167,6 +1304,51 @@
             &#9888; <span data-metric="days-remaining">64</span> days left in Q1.
             Velocity needs to increase ~9% to hit guidance.
         </p>
+    </section>
+
+    <!-- ============================================================
+         MARKET INTELLIGENCE
+         ============================================================ -->
+    <section class="market-intel">
+        <div class="market-intel__header">
+            <div class="market-intel__title">Daily Market Brief</div>
+            <div class="market-intel__sentiment bullish" id="mi-sentiment">BULLISH</div>
+        </div>
+
+        <div class="market-intel__metrics">
+            <div class="market-intel__metric">
+                <div class="market-intel__metric-label">30-Year Mortgage</div>
+                <div class="market-intel__metric-value" id="mi-rate">6.89%</div>
+                <div class="market-intel__metric-change down" id="mi-rate-change">-0.15% this month</div>
+            </div>
+            <div class="market-intel__metric">
+                <div class="market-intel__metric-label">Next Earnings</div>
+                <div class="market-intel__metric-value" id="mi-earnings">--</div>
+                <div class="market-intel__metric-change" id="mi-earnings-sub">Q1 2026</div>
+            </div>
+            <div class="market-intel__metric">
+                <div class="market-intel__metric-label">Analyst Target</div>
+                <div class="market-intel__metric-value" id="mi-target">--</div>
+                <div class="market-intel__metric-change" id="mi-target-sub">--</div>
+            </div>
+        </div>
+
+        <div class="market-intel__brief">
+            <div class="market-intel__brief-text" id="mi-brief">
+                Loading market intelligence...
+            </div>
+        </div>
+
+        <div class="market-intel__risks">
+            <div class="market-intel__risk-item risk">
+                <div class="market-intel__risk-label">Key Risk</div>
+                <div id="mi-risk">Loading...</div>
+            </div>
+            <div class="market-intel__risk-item catalyst">
+                <div class="market-intel__risk-label">Key Catalyst</div>
+                <div id="mi-catalyst">Loading...</div>
+            </div>
+        </div>
     </section>
 
     <!-- ============================================================
@@ -2168,6 +2350,89 @@ async function init() {
 
     // Load problem homes data
     loadProblemHomesData();
+
+    // Load market intelligence
+    loadMarketIntel();
+}
+
+// Load and display market intelligence data
+async function loadMarketIntel() {
+    try {
+        const r = await fetch('outputs/market_intel_' + new Date().toISOString().split('T')[0] + '.json');
+        if (r.ok) {
+            const data = await r.json();
+            updateMarketIntel(data);
+        }
+    } catch (e) {
+        console.log('Market intel not available:', e);
+    }
+}
+
+function updateMarketIntel(data) {
+    if (!data) return;
+
+    // Update mortgage rate
+    const rates = data.mortgage_rates || {};
+    const rateEl = document.getElementById('mi-rate');
+    if (rateEl && rates.rate_30yr) {
+        rateEl.textContent = rates.rate_30yr.toFixed(2) + '%';
+    }
+
+    const rateChangeEl = document.getElementById('mi-rate-change');
+    if (rateChangeEl && rates.rate_change_1m !== null) {
+        const change = rates.rate_change_1m;
+        const direction = change < 0 ? 'down' : 'up';
+        rateChangeEl.className = 'market-intel__metric-change ' + direction;
+        rateChangeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '% this month';
+    }
+
+    // Update earnings
+    const earnings = data.earnings || {};
+    const earningsEl = document.getElementById('mi-earnings');
+    const earningsSubEl = document.getElementById('mi-earnings-sub');
+
+    if (earnings.days_until_earnings !== null && earnings.next_earnings_date) {
+        if (earningsEl) earningsEl.textContent = earnings.days_until_earnings + ' days';
+        if (earningsSubEl) earningsSubEl.textContent = earnings.next_earnings_date;
+    } else {
+        if (earningsEl) earningsEl.textContent = 'TBD';
+        if (earningsSubEl) earningsSubEl.textContent = 'Q1 2026';
+    }
+
+    // Update analyst target
+    const targets = earnings.analyst_estimates?.price_targets || {};
+    const targetEl = document.getElementById('mi-target');
+    const targetSubEl = document.getElementById('mi-target-sub');
+
+    if (targets.target_mean) {
+        if (targetEl) targetEl.textContent = '$' + targets.target_mean.toFixed(2);
+        const rec = targets.recommendation || '';
+        if (targetSubEl) targetSubEl.textContent = rec.toUpperCase() || '--';
+    }
+
+    // Update market brief
+    const brief = data.market_brief || {};
+
+    const sentimentEl = document.getElementById('mi-sentiment');
+    if (sentimentEl && brief.sentiment) {
+        sentimentEl.className = 'market-intel__sentiment ' + brief.sentiment;
+        sentimentEl.textContent = brief.sentiment.toUpperCase();
+    }
+
+    const briefEl = document.getElementById('mi-brief');
+    if (briefEl && brief.market_brief) {
+        briefEl.textContent = brief.market_brief;
+    }
+
+    const riskEl = document.getElementById('mi-risk');
+    if (riskEl && brief.key_risk) {
+        riskEl.textContent = brief.key_risk;
+    }
+
+    const catalystEl = document.getElementById('mi-catalyst');
+    if (catalystEl && brief.key_catalyst) {
+        catalystEl.textContent = brief.key_catalyst;
+    }
 }
 
 async function fetchStockPrice() {

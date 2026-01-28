@@ -550,12 +550,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 8px;
+        }
+
+        .product-item__name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: help;
+            position: relative;
+        }
+
+        .product-item__name:hover {
+            color: var(--green);
+        }
+
+        /* Tooltip on hover */
+        .product-item__name[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            left: 0;
+            bottom: 100%;
+            background: #1a1a1a;
+            color: var(--text);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            margin-bottom: 4px;
         }
 
         .product-item__date {
             font-family: 'JetBrains Mono', monospace;
             font-size: 10px;
             color: var(--text-3);
+            flex-shrink: 0;
         }
 
         /* ============================================================
@@ -1129,15 +1162,15 @@
             <div class="product-category ai">
                 <div class="product-category__title">AI & Automation <span class="product-category__count">(4)</span></div>
                 <div class="product-item">
-                    <span>In-House Vision Model</span>
+                    <span class="product-item__name" title="In-House Vision Model">In-House Vision Model</span>
                     <span class="product-item__date">12/12</span>
                 </div>
                 <div class="product-item">
-                    <span>AI Home Scoping</span>
+                    <span class="product-item__name" title="End-to-End AI Home Scoping">AI Home Scoping</span>
                     <span class="product-item__date">10/17</span>
                 </div>
                 <div class="product-item">
-                    <span>Automating Title & Escrow</span>
+                    <span class="product-item__name" title="Automating Title & Escrow">Automating Title & Escrow</span>
                     <span class="product-item__date">10/15</span>
                 </div>
             </div>
@@ -1145,11 +1178,11 @@
             <div class="product-category seller">
                 <div class="product-category__title">Seller Experience <span class="product-category__count">(2)</span></div>
                 <div class="product-item">
-                    <span>100% Zip Coverage (Lower 48)</span>
+                    <span class="product-item__name" title="100% Zip Coverage in Lower 48 States">100% Zip Coverage (Lower 48)</span>
                     <span class="product-item__date">12/19</span>
                 </div>
                 <div class="product-item">
-                    <span>Seattle, Baltimore, Chicago, Philly</span>
+                    <span class="product-item__name" title="Market Expansion: Seattle, Baltimore, Chicago, Philadelphia">Seattle, Baltimore, Chicago, Philly</span>
                     <span class="product-item__date">11/5</span>
                 </div>
             </div>
@@ -1157,15 +1190,15 @@
             <div class="product-category buyer">
                 <div class="product-category__title">Buyer Experience <span class="product-category__count">(3)</span></div>
                 <div class="product-item">
-                    <span>Revamped Mortgage Experience</span>
+                    <span class="product-item__name" title="Revamped Mortgage Experience">Revamped Mortgage Experience</span>
                     <span class="product-item__date">12/8</span>
                 </div>
                 <div class="product-item">
-                    <span>USDC Payment Acceptance</span>
+                    <span class="product-item__name" title="USDC Payment Acceptance">USDC Payment Acceptance</span>
                     <span class="product-item__date">11/6</span>
                 </div>
                 <div class="product-item">
-                    <span>Buyer Peace of Mind Guarantee</span>
+                    <span class="product-item__name" title="Buyer Peace of Mind Guarantee - 100-day warranty and 7-day home test drive">Buyer Peace of Mind Guarantee</span>
                     <span class="product-item__date">10/1</span>
                 </div>
             </div>
@@ -1173,15 +1206,15 @@
             <div class="product-category acquisitions">
                 <div class="product-category__title">Faster Acquisitions <span class="product-category__count">(3)</span></div>
                 <div class="product-item">
-                    <span>New Homes Directory (SEO)</span>
+                    <span class="product-item__name" title="New Homes Directory - SEO strategy for high-intent keywords">New Homes Directory (SEO)</span>
                     <span class="product-item__date">11/13</span>
                 </div>
                 <div class="product-item">
-                    <span>Cash Plus Nationwide</span>
+                    <span class="product-item__name" title="Cash Plus Pricing Unblocked Nationwide - Risk-aware pricing across all 50 states">Cash Plus Nationwide</span>
                     <span class="product-item__date">9/30</span>
                 </div>
                 <div class="product-item">
-                    <span>True Seller Model v2</span>
+                    <span class="product-item__name" title="True Seller Model v2 - Improved targeting increasing direct mail effectiveness 5x">True Seller Model v2</span>
                     <span class="product-item__date">9/29</span>
                 </div>
             </div>
@@ -1850,9 +1883,8 @@ function updateProductUpdates(products) {
                 ${displayItems.map(item => {
                     const dateParts = item.date.split('/');
                     const shortDate = dateParts.length >= 2 ? `${dateParts[0]}/${dateParts[1]}` : item.date;
-                    const shortName = item.name.length > 30 ? item.name.substring(0, 28) + '...' : item.name;
                     return `<div class="product-item">
-                        <span>${shortName}</span>
+                        <span class="product-item__name" title="${item.name}">${item.name}</span>
                         <span class="product-item__date">${shortDate}</span>
                     </div>`;
                 }).join('')}

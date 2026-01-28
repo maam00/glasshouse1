@@ -3,34 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opendoor Stock Tracker | $OPEN Real-Time Sales Intelligence Dashboard</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Track Opendoor ($OPEN) real-time home sales, revenue, win rates, and Q1 2026 guidance pacing. Live data from 700+ sales showing daily velocity, P&L metrics, and market trends.">
-    <meta name="keywords" content="Opendoor, OPEN stock, Opendoor tracker, Opendoor sales, iBuyer analytics, real estate stock, Opendoor revenue, home sales tracker">
-    <meta name="author" content="Glass House Analytics">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://opendoor-tracker.com/">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://opendoor-tracker.com/">
-    <meta property="og:title" content="Opendoor Stock Tracker | $OPEN Real-Time Sales Dashboard">
-    <meta property="og:description" content="Track Opendoor ($OPEN) real-time home sales, revenue, and Q1 guidance pacing. Live data from 700+ sales with daily velocity and P&L metrics.">
-    <meta property="og:image" content="https://opendoor-tracker.com/og-image.png">
-    <meta property="og:site_name" content="Opendoor Tracker">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://opendoor-tracker.com/">
-    <meta name="twitter:title" content="Opendoor Stock Tracker | $OPEN Real-Time Sales Dashboard">
-    <meta name="twitter:description" content="Track Opendoor ($OPEN) real-time home sales, revenue, and Q1 guidance pacing. Live data from 700+ sales.">
-    <meta name="twitter:image" content="https://opendoor-tracker.com/og-image.png">
-
-    <!-- Additional SEO -->
-    <meta name="theme-color" content="#22c55e">
-    <meta name="apple-mobile-web-app-title" content="OPEN Tracker">
-
+    <title>Glass House — $OPEN Intelligence</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
@@ -691,6 +664,7 @@
         <div class="header__right">
             <span class="header__ticker">$OPEN $5.90</span>
             <span class="header__timestamp" id="timestamp">Jan 27, 2026 • 4:15 PM</span>
+            <button class="header__btn" onclick="toggleScreenshotMode()">&#128247; Screenshot</button>
         </div>
     </header>
 
@@ -959,10 +933,6 @@
         <div class="chart-container">
             <div id="revenue-chart"></div>
         </div>
-
-        <div class="insight-text" data-metric="velocity-insight">
-            Daily velocity trending at 21.7 homes/day, on pace to meet Q1 guidance targets.
-        </div>
     </section>
 
     <!-- ============================================================
@@ -989,7 +959,7 @@
             </tbody>
         </table>
 
-        <div class="insight-text" data-metric="pattern-insight">
+        <div class="insight-text">
             The gradient is clear: newer cohorts outperform on every metric. This proves the strategy pivot is working.
         </div>
     </section>
@@ -1035,7 +1005,7 @@
                         <tr><td class="name">Legacy</td><td class="red">96%</td><td class="red">11.8%</td><td class="red">570</td></tr>
                     </tbody>
                 </table>
-                <div class="insight-text" style="margin-top: 12px;" data-metric="guidance-insight">
+                <div class="insight-text" style="margin-top: 12px;">
                     Legacy taking the pain. Kaz-era cuts are healthy price discovery.
                 </div>
             </div>
@@ -1342,13 +1312,6 @@ function updateDashboardMetrics(data) {
     if (data.data_quality) {
         updateText('[data-metric="data-coverage"]',
             `${data.data_quality.total_records} sales (${data.data_quality.pnl_coverage}% with P&L)`);
-    }
-
-    // Update AI insights
-    if (data.ai_insights) {
-        updateText('[data-metric="velocity-insight"]', data.ai_insights.velocity_insight);
-        updateText('[data-metric="guidance-insight"]', data.ai_insights.guidance_insight);
-        updateText('[data-metric="pattern-insight"]', data.ai_insights.pattern_insight);
     }
 }
 

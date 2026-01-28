@@ -28,22 +28,29 @@ cd "$PROJECT_DIR"
 source venv/bin/activate
 
 # Step 1: Scrape Singularity (FREE - always runs)
-echo "[1/3] Scraping Singularity..." >> "$LOG_FILE"
+echo "[1/4] Scraping Singularity..." >> "$LOG_FILE"
 python scripts/scrape_singularity.py >> "$LOG_FILE" 2>&1
 
 # Step 2: Merge datasets (uses latest Parcl CSV if available)
-echo "[2/3] Merging datasets..." >> "$LOG_FILE"
+echo "[2/4] Merging datasets..." >> "$LOG_FILE"
 python scripts/merge_datasets.py >> "$LOG_FILE" 2>&1
 
 # Step 3: Generate dashboard data
-echo "[3/3] Generating dashboard data..." >> "$LOG_FILE"
+echo "[3/5] Generating dashboard data..." >> "$LOG_FILE"
 python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1
+
+# Step 4: Generate AI insights
+echo "[4/5] Generating AI insights..." >> "$LOG_FILE"
+python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1
+
+# Step 5: Push to GitHub Pages
+echo "[5/5] Deploying to GitHub Pages..." >> "$LOG_FILE"
+git add outputs/unified_dashboard_data.json >> "$LOG_FILE" 2>&1
+git commit -m "Daily data refresh $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1 || true
+git push origin master >> "$LOG_FILE" 2>&1
 
 echo "" >> "$LOG_FILE"
 echo "Refresh complete: $(date)" >> "$LOG_FILE"
 echo "========================================" >> "$LOG_FILE"
-
-# Optional: Copy to web server location
-# cp "$PROJECT_DIR/outputs/unified_dashboard_data.json" /var/www/html/data/
 
 echo "Done! Dashboard data refreshed."

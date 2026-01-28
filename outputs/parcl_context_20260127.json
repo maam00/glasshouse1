@@ -1,0 +1,134 @@
+{
+  "markets": {
+    "NC": {
+      "name": "Charlotte",
+      "parcl_id": 2900078,
+      "active_listings": 15677,
+      "median_list_price": 925000.0,
+      "median_sale_price": 962500.0,
+      "sales_count": 7946,
+      "months_supply": 1.9729423609363201
+    },
+    "GA": {
+      "name": "Atlanta",
+      "parcl_id": 2900012,
+      "active_listings": 5039,
+      "median_list_price": 325000.0,
+      "median_sale_price": 335212.0,
+      "sales_count": 5289,
+      "months_supply": 0.9527320854603895
+    },
+    "TX": {
+      "name": "Dallas",
+      "parcl_id": 2900098,
+      "active_listings": 211,
+      "median_list_price": 199900.0,
+      "median_sale_price": 185000.0,
+      "sales_count": 217,
+      "months_supply": 0.9723502304147466
+    },
+    "FL": {
+      "name": "Tampa",
+      "parcl_id": 2900464,
+      "active_listings": 52,
+      "median_list_price": 180000.0,
+      "median_sale_price": 160000.0,
+      "sales_count": 32,
+      "months_supply": 1.625
+    },
+    "AZ": {
+      "name": "Phoenix",
+      "parcl_id": 2900038,
+      "active_listings": 623,
+      "median_list_price": 219900.0,
+      "median_sale_price": 199500.0,
+      "sales_count": 213,
+      "months_supply": 2.924882629107981
+    },
+    "CA": {
+      "name": "Los Angeles",
+      "parcl_id": 2900278,
+      "active_listings": 99,
+      "median_list_price": 350000.0,
+      "median_sale_price": 375000.0,
+      "sales_count": 39,
+      "months_supply": 2.5384615384615383
+    },
+    "CO": {
+      "name": "Denver",
+      "parcl_id": 2900116,
+      "active_listings": 2098,
+      "median_list_price": 263450.0,
+      "median_sale_price": 229515.0,
+      "sales_count": 854,
+      "months_supply": 2.4566744730679155
+    },
+    "TN": {
+      "name": "Nashville",
+      "parcl_id": 2900350,
+      "active_listings": 63,
+      "median_list_price": 200250.0,
+      "median_sale_price": 210000.0,
+      "sales_count": 35,
+      "months_supply": 1.8
+    },
+    "SC": {
+      "name": "Charlotte-adjacent",
+      "parcl_id": 2900078,
+      "active_listings": 15677,
+      "median_list_price": 925000.0,
+      "median_sale_price": 962500.0,
+      "sales_count": 7946,
+      "months_supply": 1.9729423609363201
+    }
+  },
+  "investor_activity": {
+    "NC": {
+      "large_purchases": 1686,
+      "large_sales": 1133,
+      "large_net": 553
+    },
+    "GA": {
+      "large_purchases": 1474,
+      "large_sales": 983,
+      "large_net": 491
+    },
+    "TX": {
+      "large_purchases": 39,
+      "large_sales": 30,
+      "large_net": 9
+    },
+    "FL": {
+      "large_purchases": 1,
+      "large_sales": 3,
+      "large_net": -2
+    },
+    "AZ": {
+      "large_purchases": 17,
+      "large_sales": 25,
+      "large_net": -8
+    },
+    "CA": {
+      "large_purchases": 0,
+      "large_sales": 0,
+      "large_net": 0
+    },
+    "CO": {
+      "large_purchases": 109,
+      "large_sales": 108,
+      "large_net": 1
+    },
+    "TN": {
+      "large_purchases": 0,
+      "large_sales": 6,
+      "large_net": -6
+    },
+    "SC": {
+      "large_purchases": 1686,
+      "large_sales": 1133,
+      "large_net": 553
+    }
+  },
+  "credit_usage": 225,
+  "timestamp": "2026-01-27T15:17:14.924782"
+}

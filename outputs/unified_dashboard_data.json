@@ -582,5 +582,11 @@
     "projected_revenue": 939775500,
     "pacing_pct": 94.0,
     "on_track": false
+  },
+  "ai_insights": {
+    "velocity_insight": "Sales accelerated 34.4% week-over-week to 203 homes this week.",
+    "guidance_insight": "Q1 pacing at 94% suggests missing $1B revenue target.",
+    "pattern_insight": "Strong 79.1% win rate with $46K average profit per win.",
+    "generated_at": "2026-01-28T09:53:23.717720"
   }
 }

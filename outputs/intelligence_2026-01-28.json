@@ -1,0 +1,449 @@
+{
+  "date": "2026-01-28",
+  "operational": {
+    "date": "2026-01-28",
+    "cohort_new": {
+      "name": "New (<90d)",
+      "count": 72,
+      "win_rate": 90.3,
+      "avg_profit": 40698.81,
+      "total_profit": 2930314.0,
+      "contribution_margin": 10.44
+    },
+    "cohort_mid": {
+      "name": "Mid (90-180d)",
+      "count": 104,
+      "win_rate": 84.6,
+      "avg_profit": 36910.99,
+      "total_profit": 3838743.0,
+      "contribution_margin": 9.98
+    },
+    "cohort_old": {
+      "name": "Old (180-365d)",
+      "count": 100,
+      "win_rate": 53.0,
+      "avg_profit": 21708.0,
+      "total_profit": 2170800.0,
+      "contribution_margin": 5.43
+    },
+    "cohort_toxic": {
+      "name": "Toxic (>365d)",
+      "count": 43,
+      "win_rate": 30.2,
+      "avg_profit": -12523.26,
+      "total_profit": -538500.0,
+      "contribution_margin": -4.09
+    },
+    "toxic": {
+      "sold_count": 43,
+      "sold_avg_loss": -12523.26,
+      "remaining_count": 84,
+      "clearance_pct": 33.9,
+      "weeks_to_clear": 8.4
+    },
+    "inventory": {
+      "total": 764,
+      "fresh_count": 54,
+      "normal_count": 91,
+      "stale_count": 164,
+      "very_stale_count": 371,
+      "toxic_count": 84,
+      "legacy_pct": 59.6,
+      "avg_dom": 228.0,
+      "avg_list_price": 397223.17,
+      "total_unrealized_pnl": 58612244.0
+    },
+    "performance": {
+      "win_rate": 68.7,
+      "contribution_margin": 7.02,
+      "avg_profit": 26336.54,
+      "homes_sold_total": 319,
+      "homes_sold_today": 0,
+      "revenue_total": 119653700.0,
+      "revenue_today": 0.0,
+      "homes_listed_today": 0,
+      "net_inventory_change": 0
+    },
+    "geographic": {
+      "sales_by_state": {},
+      "inventory_by_state": {
+        "NC": 127,
+        "GA": 102,
+        "TX": 89,
+        "FL": 85,
+        "SC": 61,
+        "AZ": 59,
+        "CA": 47,
+        "CO": 34,
+        "TN": 29,
+        "MO": 22,
+        "MN": 15,
+        "OH": 12,
+        "OR": 10,
+        "NV": 10,
+        "IN": 10,
+        "VA": 9,
+        "NM": 8,
+        "MD": 8,
+        "AL": 6,
+        "MI": 4,
+        "OK": 3,
+        "WA": 3,
+        "UT": 3,
+        "KS": 3,
+        "NJ": 3,
+        "MA": 2
+      },
+      "win_rate_by_state": {}
+    },
+    "alerts": [
+      "New cohort win rate dropped to 90.3% (target: >95%)"
+    ]
+  },
+  "advanced": {
+    "velocity": {
+      "avg_days_to_sale": 207.0,
+      "median_days_to_sale": 158.0,
+      "sales_per_day_avg": 15.2,
+      "sales_last_7_days": 25,
+      "sales_last_30_days": 319,
+      "inventory_turnover_days": 50.0
+    },
+    "pricing": {
+      "avg_list_to_sale_ratio": 0,
+      "avg_price_cut_pct": 11.2,
+      "homes_with_price_cuts": 668,
+      "homes_with_price_cuts_pct": 87.4,
+      "avg_cuts_per_home": 6.4,
+      "avg_initial_vs_final_list": -9.8,
+      "avg_spread": 30329.808664259926,
+      "spread_trend": "unknown"
+    },
+    "markets": [
+      {
+        "state": "NC",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 127,
+        "toxic_count": 6,
+        "avg_dom": 198.0,
+        "concentration_pct": 16.6
+      },
+      {
+        "state": "GA",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 102,
+        "toxic_count": 17,
+        "avg_dom": 279.0,
+        "concentration_pct": 13.4
+      },
+      {
+        "state": "TX",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 89,
+        "toxic_count": 11,
+        "avg_dom": 252.0,
+        "concentration_pct": 11.6
+      },
+      {
+        "state": "FL",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 85,
+        "toxic_count": 16,
+        "avg_dom": 266.0,
+        "concentration_pct": 11.1
+      },
+      {
+        "state": "SC",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 61,
+        "toxic_count": 4,
+        "avg_dom": 155.0,
+        "concentration_pct": 8.0
+      },
+      {
+        "state": "AZ",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 59,
+        "toxic_count": 7,
+        "avg_dom": 179.0,
+        "concentration_pct": 7.7
+      },
+      {
+        "state": "CA",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 47,
+        "toxic_count": 7,
+        "avg_dom": 255.0,
+        "concentration_pct": 6.2
+      },
+      {
+        "state": "CO",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 34,
+        "toxic_count": 4,
+        "avg_dom": 260.0,
+        "concentration_pct": 4.5
+      },
+      {
+        "state": "TN",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 29,
+        "toxic_count": 3,
+        "avg_dom": 188.0,
+        "concentration_pct": 3.8
+      },
+      {
+        "state": "MO",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 22,
+        "toxic_count": 1,
+        "avg_dom": 206.0,
+        "concentration_pct": 2.9
+      },
+      {
+        "state": "MN",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 15,
+        "toxic_count": 0,
+        "avg_dom": 188.0,
+        "concentration_pct": 2.0
+      },
+      {
+        "state": "OH",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 12,
+        "toxic_count": 1,
+        "avg_dom": 242.0,
+        "concentration_pct": 1.6
+      },
+      {
+        "state": "OR",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 10,
+        "toxic_count": 4,
+        "avg_dom": 345.0,
+        "concentration_pct": 1.3
+      },
+      {
+        "state": "NV",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 10,
+        "toxic_count": 1,
+        "avg_dom": 172.0,
+        "concentration_pct": 1.3
+      },
+      {
+        "state": "IN",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 10,
+        "toxic_count": 0,
+        "avg_dom": 198.0,
+        "concentration_pct": 1.3
+      },
+      {
+        "state": "VA",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 9,
+        "toxic_count": 0,
+        "avg_dom": 238.0,
+        "concentration_pct": 1.2
+      },
+      {
+        "state": "NM",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 8,
+        "toxic_count": 0,
+        "avg_dom": 215.0,
+        "concentration_pct": 1.0
+      },
+      {
+        "state": "MD",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 8,
+        "toxic_count": 0,
+        "avg_dom": 209.0,
+        "concentration_pct": 1.0
+      },
+      {
+        "state": "AL",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 6,
+        "toxic_count": 0,
+        "avg_dom": 270.0,
+        "concentration_pct": 0.8
+      },
+      {
+        "state": "MI",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 4,
+        "toxic_count": 1,
+        "avg_dom": 290.0,
+        "concentration_pct": 0.5
+      },
+      {
+        "state": "OK",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 3,
+        "toxic_count": 0,
+        "avg_dom": 148.0,
+        "concentration_pct": 0.4
+      },
+      {
+        "state": "WA",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 3,
+        "toxic_count": 1,
+        "avg_dom": 248.0,
+        "concentration_pct": 0.4
+      },
+      {
+        "state": "UT",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 3,
+        "toxic_count": 0,
+        "avg_dom": 258.0,
+        "concentration_pct": 0.4
+      },
+      {
+        "state": "KS",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 3,
+        "toxic_count": 0,
+        "avg_dom": 208.0,
+        "concentration_pct": 0.4
+      },
+      {
+        "state": "NJ",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 3,
+        "toxic_count": 0,
+        "avg_dom": 223.0,
+        "concentration_pct": 0.4
+      },
+      {
+        "state": "MA",
+        "sales_count": 0,
+        "win_rate": 0,
+        "avg_profit": 0,
+        "avg_days_held": 0,
+        "inventory_count": 2,
+        "toxic_count": 0,
+        "avg_dom": 210.0,
+        "concentration_pct": 0.3
+      }
+    ],
+    "guidance": {
+      "q1_target": 595000000,
+      "revenue_to_date": 119653700.0,
+      "pct_to_target": 20.1,
+      "days_elapsed": 27,
+      "days_remaining": 61,
+      "required_daily_revenue": 7792562.0,
+      "current_daily_revenue": 4431619.0,
+      "pace_vs_required": "behind",
+      "projected_quarter_revenue": 394414048.0
+    },
+    "risk": {
+      "underwater_count": 193,
+      "underwater_total_exposure": 5079798.0,
+      "underwater_pct": 30.4,
+      "aged_underwater_count": 181,
+      "top_concentration_market": "NC",
+      "top_concentration_pct": 16.6,
+      "markets_above_10pct": 4
+    },
+    "kaz_era": {
+      "realized": {
+        "count": 43,
+        "profitable": 41,
+        "win_rate": 95.3,
+        "avg_profit": 43237.0
+      },
+      "unrealized": {
+        "count": 103,
+        "above_water": 100,
+        "above_water_pct": 97.1,
+        "underwater": 3
+      },
+      "total": 146,
+      "overall_health_pct": 96.6,
+      "vs_legacy_improvement": 30.9
+    }
+  },
+  "market": {}
+}

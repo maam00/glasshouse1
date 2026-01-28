@@ -14,7 +14,22 @@ def load_dashboard_data(path: Path) -> dict:
     with open(path) as f:
         return json.load(f)
 
-def generate_insights(data: dict) -> dict:
+def load_acquisition_data(output_dir: Path) -> dict:
+    """Load the latest acquisition data if available."""
+    # Try today's file first
+    today = datetime.now().strftime("%Y-%m-%d")
+    acq_path = output_dir / f"accountability_{today}.json"
+    if acq_path.exists():
+        with open(acq_path) as f:
+            return json.load(f)
+    # Fallback: look for any recent file
+    acq_files = sorted(output_dir.glob("accountability_*.json"), reverse=True)
+    if acq_files:
+        with open(acq_files[0]) as f:
+            return json.load(f)
+    return {}
+
+def generate_insights(data: dict, acquisition_data: dict = None) -> dict:
     """Call Claude API to generate insights from dashboard data."""
 
     client = anthropic.Anthropic()
@@ -28,6 +43,10 @@ def generate_insights(data: dict) -> dict:
     # Get top market if available
     top_market = data.get('top_markets', [{}])[0] if data.get('top_markets') else {}
     market_concentration = data.get('market_concentration', {})
+
+    # Get acquisition metrics
+    acq_latest = acquisition_data.get('latest', {}) if acquisition_data else {}
+    acq_contracts = acquisition_data.get('weekly_contracts', []) if acquisition_data else []
 
     # Prepare context for Claude
     context = f"""You are an expert equity analyst writing for Opendoor ($OPEN) shareholders.
@@ -63,17 +82,24 @@ GEOGRAPHIC:
 - Top Market: {top_market.get('city', 'N/A')} ({top_market.get('listings', 0)} listings, ${top_market.get('avg_price', 0)/1000:.0f}K avg)
 - Market Spread: {market_concentration.get('total_markets', 0)} cities
 - Concentration: Top 5 = {market_concentration.get('top5_pct', 0)}% of inventory
+
+ACQUISITIONS (Inflow - homes Opendoor is BUYING):
+- Latest Week: {acq_latest.get('contracts', 'N/A')} contracts (week of {acq_latest.get('week', 'N/A')})
+- WoW Change: {acq_latest.get('wow_change', acq_latest.get('wow_display', 'N/A'))}%
+- 4-Week Average: {acq_latest.get('avg_4w', 'N/A')} contracts/week
+- Q1 Total: {acq_latest.get('q1_total', 'N/A')} contracts over {acq_latest.get('q1_weeks', 'N/A')} weeks
 """
 
-    prompt = """Generate 3 insights for shareholders. Each insight should:
+    prompt = """Generate 4 insights for shareholders. Each insight should:
 - Be exactly 1 sentence (10-18 words)
 - Include specific numbers from the data
 - Be actionable/interpretive, not just restating facts
 
-The 3 insights must cover:
+The 4 insights must cover:
 1. VELOCITY: Is daily sales pace accelerating or decelerating? How does it compare to the 29/day needed?
 2. GUIDANCE RISK: Will they hit $1B? What would need to change? Be direct about probability.
-3. SIGNAL: One bullish OR bearish signal from the data (profitability, pricing, geographic, or weekly trend)
+3. ACQUISITIONS: Are they ramping acquisitions? What does the inflow pipeline signal about future inventory?
+4. SIGNAL: One bullish OR bearish signal from the data (profitability, pricing, geographic, or weekly trend)
 
 Tone: Direct, analytical, no hedge words like "may" or "could". State conclusions confidently.
 
@@ -81,6 +107,7 @@ Return ONLY valid JSON:
 {
     "velocity_insight": "...",
     "guidance_insight": "...",
+    "acquisition_insight": "...",
     "pattern_insight": "..."
 }"""
 
@@ -129,13 +156,21 @@ def main():
     print("Loading dashboard data...")
     data = load_dashboard_data(dashboard_path)
 
+    print("Loading acquisition data...")
+    acq_data = load_acquisition_data(output_dir)
+    if acq_data:
+        print(f"  Found acquisition data: {acq_data.get('latest', {}).get('contracts', 0)} contracts this week")
+    else:
+        print("  No acquisition data available")
+
     print("Generating AI insights...")
-    insights = generate_insights(data)
+    insights = generate_insights(data, acq_data)
 
     print("\nGenerated Insights:")
-    print(f"  Velocity: {insights['velocity_insight']}")
-    print(f"  Guidance: {insights['guidance_insight']}")
-    print(f"  Pattern:  {insights['pattern_insight']}")
+    print(f"  Velocity:    {insights['velocity_insight']}")
+    print(f"  Guidance:    {insights['guidance_insight']}")
+    print(f"  Acquisition: {insights.get('acquisition_insight', 'N/A')}")
+    print(f"  Pattern:     {insights['pattern_insight']}")
 
     update_dashboard_data(dashboard_path, insights)
 

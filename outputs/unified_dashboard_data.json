@@ -593,9 +593,11 @@
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Daily sales at 22.2 homes remains 23% below the 29/day needed for guidance.",
-    "guidance_insight": "Missing $1B guidance is likely unless sales accelerate 31% above current pace.",
-    "pattern_insight": "Strong 78.9% win rate generating $8.4M profit signals effective pricing discipline this quarter.",
-    "generated_at": "2026-01-28T10:27:19.074814"
+    "velocity_insight": "Daily sales accelerated 21.2% this week but remain 23.4% below the 29/day needed.",
+    "guidance_insight": "Opendoor will miss $1B guidance by $36M unless daily sales increase 31% immediately.",
+    "acquisition_insight": "Weekly acquisitions grew 7.9% to 287 contracts, building inventory pipeline for Q2 sales.",
+    "product_insight": "100% Lower 48 zip coverage eliminates geographic constraints, expanding addressable market significantly.",
+    "pattern_insight": "78.9% win rate with $46,427 average profit per win signals strong pricing discipline.",
+    "generated_at": "2026-01-28T11:11:28.420644"
   }
 }

@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-01-27T18:00:17.130251",
+  "generated_at": "2026-01-28T09:57:14.695911",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
     "note": "Unified dataset combining both sources"
   },
-  "as_of": "2026-01-26",
+  "as_of": "2026-01-27",
   "velocity": {
-    "q1_sales": 708,
-    "q1_revenue": 271490700.0,
-    "daily_avg_sales": 21.7,
-    "daily_avg_revenue": 8257692.307692308,
-    "best_day": "2026-01-20",
-    "best_day_sales": 41
+    "q1_sales": 744,
+    "q1_revenue": 288469700.0,
+    "daily_avg_sales": 22.2,
+    "daily_avg_revenue": 8581481.481481481,
+    "best_day": "2026-01-27",
+    "best_day_sales": 43
   },
   "pnl": {
     "win_rate": 79.1,
@@ -21,7 +21,7 @@
     "total_realized": 8401357.0,
     "wins": 219,
     "losses": 58,
-    "coverage_pct": 39.1
+    "coverage_pct": 37.2
   },
   "revenue_chart": [
     {
@@ -62,9 +62,9 @@
     {
       "date": "Jan 06",
       "date_full": "2026-01-06",
-      "revenue": 6930000.0,
-      "revenue_millions": 6.93,
-      "sales_count": 19
+      "revenue": 6390000.0,
+      "revenue_millions": 6.39,
+      "sales_count": 18
     },
     {
       "date": "Jan 07",
@@ -146,9 +146,9 @@
     {
       "date": "Jan 18",
       "date_full": "2026-01-18",
-      "revenue": 5090000.0,
-      "revenue_millions": 5.09,
-      "sales_count": 14
+      "revenue": 4780000.0,
+      "revenue_millions": 4.78,
+      "sales_count": 13
     },
     {
       "date": "Jan 19",
@@ -167,23 +167,23 @@
     {
       "date": "Jan 21",
       "date_full": "2026-01-21",
-      "revenue": 13270000.0,
-      "revenue_millions": 13.27,
-      "sales_count": 33
+      "revenue": 12700000.0,
+      "revenue_millions": 12.7,
+      "sales_count": 31
     },
     {
       "date": "Jan 22",
       "date_full": "2026-01-22",
-      "revenue": 15810000.0,
-      "revenue_millions": 15.81,
-      "sales_count": 40
+      "revenue": 15510000.0,
+      "revenue_millions": 15.51,
+      "sales_count": 39
     },
     {
       "date": "Jan 23",
       "date_full": "2026-01-23",
-      "revenue": 12930000.0,
-      "revenue_millions": 12.93,
-      "sales_count": 31
+      "revenue": 12080000.0,
+      "revenue_millions": 12.08,
+      "sales_count": 30
     },
     {
       "date": "Jan 24",
@@ -195,9 +195,9 @@
     {
       "date": "Jan 25",
       "date_full": "2026-01-25",
-      "revenue": 5680000.0,
-      "revenue_millions": 5.68,
-      "sales_count": 17
+      "revenue": 5460000.0,
+      "revenue_millions": 5.46,
+      "sales_count": 16
     },
     {
       "date": "Jan 26",
@@ -205,6 +205,13 @@
       "revenue": 12290000.0,
       "revenue_millions": 12.29,
       "sales_count": 32
+    },
+    {
+      "date": "Jan 27",
+      "date_full": "2026-01-27",
+      "revenue": 19790000.0,
+      "revenue_millions": 19.79,
+      "sales_count": 43
     }
   ],
   "sales_chart": [
@@ -241,8 +248,8 @@
     {
       "date": "Jan 06",
       "date_full": "2026-01-06",
-      "count": 19,
-      "moving_avg": 15.8
+      "count": 18,
+      "moving_avg": 15.7
     },
     {
       "date": "Jan 07",
@@ -254,13 +261,13 @@
       "date": "Jan 08",
       "date_full": "2026-01-08",
       "count": 20,
-      "moving_avg": 15.9
+      "moving_avg": 15.8
     },
     {
       "date": "Jan 09",
       "date_full": "2026-01-09",
       "count": 26,
-      "moving_avg": 15.8
+      "moving_avg": 15.7
     },
     {
       "date": "Jan 10",
@@ -308,19 +315,19 @@
       "date": "Jan 17",
       "date_full": "2026-01-17",
       "count": 9,
-      "moving_avg": 16.0
+      "moving_avg": 15.9
     },
     {
       "date": "Jan 18",
       "date_full": "2026-01-18",
-      "count": 14,
+      "count": 13,
       "moving_avg": 15.6
     },
     {
       "date": "Jan 19",
       "date_full": "2026-01-19",
       "count": 24,
-      "moving_avg": 16.2
+      "moving_avg": 16.1
     },
     {
       "date": "Jan 20",
@@ -331,64 +338,70 @@
     {
       "date": "Jan 21",
       "date_full": "2026-01-21",
-      "count": 33,
-      "moving_avg": 17.9
+      "count": 31,
+      "moving_avg": 17.8
     },
     {
       "date": "Jan 22",
       "date_full": "2026-01-22",
-      "count": 40,
-      "moving_avg": 18.5
+      "count": 39,
+      "moving_avg": 18.4
     },
     {
       "date": "Jan 23",
       "date_full": "2026-01-23",
-      "count": 31,
-      "moving_avg": 19.3
+      "count": 30,
+      "moving_avg": 19.1
     },
     {
       "date": "Jan 24",
       "date_full": "2026-01-24",
       "count": 9,
-      "moving_avg": 19.5
+      "moving_avg": 19.3
     },
     {
       "date": "Jan 25",
       "date_full": "2026-01-25",
-      "count": 17,
-      "moving_avg": 19.9
+      "count": 16,
+      "moving_avg": 19.7
     },
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
       "count": 32,
-      "moving_avg": 20.7
+      "moving_avg": 20.5
+    },
+    {
+      "date": "Jan 27",
+      "date_full": "2026-01-27",
+      "count": 43,
+      "moving_avg": 21.6
     }
   ],
   "data_quality": {
-    "total_records": 708,
+    "total_records": 744,
     "matched_records": "175",
-    "singularity_only": "389",
+    "singularity_only": "425",
     "parcl_only": "144",
-    "pnl_coverage": 39.1,
-    "details_coverage": 79.7
+    "pnl_coverage": 37.2,
+    "details_coverage": 80.6
   },
   "top_cities": {
     "Indianapolis": 11,
     "Phoenix": 11,
     "Kansas City": 10,
+    "Charlotte": 9,
     "Columbia": 9,
-    "Charlotte": 8,
-    "Jacksonville": 7,
+    "Tucson": 8,
+    "Jacksonville": 8,
+    "Las Vegas": 7,
     "Albuquerque": 7,
     "Atlanta": 7,
     "Cincinnati": 6,
     "Houston": 6,
-    "Durham": 5,
-    "Las Vegas": 5,
-    "Surprise": 5,
-    "Sarasota": 4,
-    "Dallas": 4
+    "Raleigh": 5,
+    "Colorado Springs": 5,
+    "Dallas": 5
   },
   "geographic": [
     {
@@ -399,13 +412,6 @@
       "listing_count": 21
     },
     {
-      "avg_lat": 32.24114173684211,
-      "avg_lon": -110.9555039473684,
-      "avg_price": 290947.36842105264,
-      "city": "Tucson",
-      "listing_count": 19
-    },
-    {
       "avg_lat": 35.21752272222223,
       "avg_lon": -80.82555077777779,
       "avg_price": 341722.22222222225,
@@ -413,11 +419,11 @@
       "listing_count": 18
     },
     {
-      "avg_lat": 35.84801792857143,
-      "avg_lon": -78.62620749999999,
-      "avg_price": 451857.14285714284,
-      "city": "Raleigh",
-      "listing_count": 14
+      "avg_lat": 32.24361338888889,
+      "avg_lon": -110.9610367222222,
+      "avg_price": 292500.0,
+      "city": "Tucson",
+      "listing_count": 18
     },
     {
       "avg_lat": 39.785576999999996,
@@ -427,11 +433,11 @@
       "listing_count": 13
     },
     {
-      "avg_lat": 38.87429016666666,
-      "avg_lon": -104.76831541666665,
-      "avg_price": 396916.6666666667,
-      "city": "Colorado Springs",
-      "listing_count": 12
+      "avg_lat": 35.8496276923077,
+      "avg_lon": -78.62134361538462,
+      "avg_price": 444384.6153846154,
+      "city": "Raleigh",
+      "listing_count": 13
     },
     {
       "avg_lat": 34.345985250000005,
@@ -459,6 +465,13 @@
       "avg_lon": -84.42877510000001,
       "avg_price": 286700.0,
       "city": "Atlanta",
+      "listing_count": 10
+    },
+    {
+      "avg_lat": 38.8889618,
+      "avg_lon": -104.76222250000001,
+      "avg_price": 405800.0,
+      "city": "Colorado Springs",
       "listing_count": 10
     },
     {
@@ -497,13 +510,6 @@
       "listing_count": 9
     },
     {
-      "avg_lat": 30.34795011111111,
-      "avg_lon": -81.69685155555555,
-      "avg_price": 268888.8888888889,
-      "city": "Jacksonville",
-      "listing_count": 9
-    },
-    {
       "avg_lat": 30.080652444444443,
       "avg_lon": -95.46603977777778,
       "avg_price": 351888.8888888889,
@@ -518,6 +524,13 @@
       "listing_count": 8
     },
     {
+      "avg_lat": 30.348737875000005,
+      "avg_lon": -81.68457974999998,
+      "avg_price": 258750.0,
+      "city": "Jacksonville",
+      "listing_count": 8
+    },
+    {
       "avg_lat": 33.056067999999996,
       "avg_lon": -112.02991275000001,
       "avg_price": 344375.0,
@@ -525,11 +538,11 @@
       "listing_count": 8
     },
     {
-      "avg_lat": 33.415673375,
-      "avg_lon": -111.67522075000001,
-      "avg_price": 537500.0,
-      "city": "Mesa",
-      "listing_count": 8
+      "avg_lat": 35.02544842857143,
+      "avg_lon": -80.9442597142857,
+      "avg_price": 556857.1428571428,
+      "city": "Fort Mill",
+      "listing_count": 7
     }
   ],
   "cohorts": {
@@ -559,34 +572,34 @@
     }
   },
   "this_week": {
-    "sales": 203,
-    "revenue": 77030000.0,
-    "daily_avg": 29.0
+    "sales": 200,
+    "revenue": 80610000.0,
+    "daily_avg": 28.6
   },
   "last_week": {
-    "sales": 151,
-    "revenue": 56760000.00000001,
-    "daily_avg": 21.6
+    "sales": 165,
+    "revenue": 60879999.99999999,
+    "daily_avg": 23.6
   },
   "wow_change": {
-    "sales_pct": 34.4,
-    "revenue_pct": 35.7
+    "sales_pct": 21.2,
+    "revenue_pct": 32.4
   },
   "guidance": {
     "q1_target": 1000000000,
-    "current_revenue": 271490700.0,
-    "days_elapsed": 26,
-    "days_remaining": 64,
+    "current_revenue": 288469700.0,
+    "days_elapsed": 27,
+    "days_remaining": 63,
     "daily_target": 11111111,
-    "daily_actual": 10441950,
-    "projected_revenue": 939775500,
-    "pacing_pct": 94.0,
-    "on_track": false
+    "daily_actual": 10684063,
+    "projected_revenue": 961565667,
+    "pacing_pct": 96.2,
+    "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Sales accelerated 34.4% week-over-week to 203 homes this week.",
-    "guidance_insight": "Q1 pacing at 94% suggests missing $1B revenue target.",
-    "pattern_insight": "Strong 79.1% win rate with $46K average profit per win.",
-    "generated_at": "2026-01-28T09:53:23.717720"
+    "velocity_insight": "Sales velocity accelerated 21.2% week-over-week to 200 homes sold.",
+    "guidance_insight": "Revenue tracking 96.2% to Q1 target with 63 days remaining.",
+    "pattern_insight": "79.1% win rate generates $46,407 average profit per successful transaction.",
+    "generated_at": "2026-01-28T09:57:18.978090"
   }
 }

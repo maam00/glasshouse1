@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T10:08:49.284172",
+  "generated_at": "2026-01-28T10:20:10.484389",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -446,6 +446,27 @@
     "pnl_coverage": 37.2,
     "details_coverage": 80.6
   },
+  "methodology": {
+    "margin_note": "Realized Net from Parcl includes all costs: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price.",
+    "win_rate_note": "Win = Realized Net > $0. Based on sales with P&L data from Parcl.",
+    "guidance_target": "$1B Q1 revenue from Opendoor guidance. 29 homes/day based on $388K avg price."
+  },
+  "inventory": {
+    "total_listings": 764,
+    "avg_days_on_market": 228.0,
+    "max_days_on_market": 812,
+    "avg_price_cuts": 6.4,
+    "homes_with_3plus_cuts": 571,
+    "avg_listing_price": 397223,
+    "total_inventory_value": 303478500,
+    "by_state": {
+      "NC": 127,
+      "GA": 102,
+      "TX": 89,
+      "FL": 85,
+      "SC": 61
+    }
+  },
   "top_markets": [
     {
       "city": "Phoenix",
@@ -572,9 +593,9 @@
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Daily sales at 22.2 homes trail the required 29-home pace by 23.4%, creating significant execution pressure.",
-    "guidance_insight": "Missing $1B guidance appears likely unless daily sales accelerate 31% above current 22.2 home average.",
-    "pattern_insight": "Strong 79.1% win rate generating $46,407 average profits demonstrates pricing discipline is protecting unit economics.",
-    "generated_at": "2026-01-28T10:15:04.677417"
+    "velocity_insight": "Daily sales at 22.2 homes trails the 29-home target by 23.4%, requiring immediate acceleration.",
+    "guidance_insight": "Current $962M projection falls $38M short of $1B guidance, demanding 30% velocity increase.",
+    "pattern_insight": "Strong 79.1% win rate with $46K average profits demonstrates effective pricing discipline amid challenges.",
+    "generated_at": "2026-01-28T10:20:14.825620"
   }
 }

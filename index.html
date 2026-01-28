@@ -1288,8 +1288,8 @@ function renderSalesPriceChart(data) {
     const avgPrices = chartData.map(d => d.avg_price || 0);
     const movingAvg = chartData.map(d => d.moving_avg);
 
-    // Target: 1000 homes / 90 days = ~11.1 homes/day for Q1
-    const SALES_TARGET = 11;
+    // Target: $1B guidance / $388K avg price / 90 days = ~29 homes/day
+    const SALES_TARGET = 29;
 
     // Colors for bars based on target
     const barColors = salesCounts.map(s => s >= SALES_TARGET ? '#16a34a' : '#d97706');
@@ -1329,6 +1329,17 @@ function renderSalesPriceChart(data) {
             line: { color: '#a855f7', width: 2 },
             hovertemplate: '%{x}<br>Avg: $%{y:,.0f}<extra></extra>',
             yaxis: 'y2'
+        },
+        // Target line at 29 homes/day
+        {
+            x: [dates[0], dates[dates.length - 1]],
+            y: [SALES_TARGET, SALES_TARGET],
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Target (29/day)',
+            line: { color: '#f59e0b', width: 2, dash: 'dash' },
+            hoverinfo: 'skip',
+            yaxis: 'y'
         }
     ];
 
@@ -1377,7 +1388,16 @@ function renderSalesPriceChart(data) {
             tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#a855f7' },
             ticks: 'outside',
             tickcolor: '#333'
-        }
+        },
+        annotations: [{
+            x: dates[Math.floor(dates.length * 0.7)],
+            y: SALES_TARGET,
+            text: '29/day needed for $1B guidance',
+            showarrow: false,
+            xanchor: 'left',
+            yanchor: 'bottom',
+            font: { size: 10, color: '#f59e0b', family: 'Inter, sans-serif' }
+        }]
     };
 
     Plotly.newPlot(el, traces, layout, { displayModeBar: false, responsive: true });

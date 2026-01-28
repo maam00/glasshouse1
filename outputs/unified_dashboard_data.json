@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T10:20:10.484389",
+  "generated_at": "2026-01-28T10:27:12.683665",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -7,22 +7,22 @@
   },
   "as_of": "2026-01-27",
   "velocity": {
-    "q1_sales": 744,
-    "q1_revenue": 288469700.0,
+    "q1_sales": 747,
+    "q1_revenue": 289336700.0,
     "daily_avg_sales": 22.2,
     "daily_avg_revenue": 8581481.481481481,
-    "avg_home_price": 387728,
+    "avg_home_price": 387332,
     "best_day": "2026-01-27",
     "best_day_sales": 43
   },
   "pnl": {
-    "win_rate": 79.1,
-    "avg_profit": 46407,
-    "avg_loss": -30374,
-    "total_realized": 8401357.0,
-    "wins": 219,
-    "losses": 58,
-    "coverage_pct": 37.2
+    "win_rate": 78.9,
+    "avg_profit": 46427,
+    "avg_loss": -29915,
+    "total_realized": 8449057.0,
+    "wins": 220,
+    "losses": 59,
+    "coverage_pct": 37.3
   },
   "revenue_chart": [
     {
@@ -439,12 +439,12 @@
     21.6
   ],
   "data_quality": {
-    "total_records": 744,
+    "total_records": 747,
     "matched_records": "175",
     "singularity_only": "425",
-    "parcl_only": "144",
-    "pnl_coverage": 37.2,
-    "details_coverage": 80.6
+    "parcl_only": "147",
+    "pnl_coverage": 37.3,
+    "details_coverage": 80.3
   },
   "methodology": {
     "margin_note": "Realized Net from Parcl includes all costs: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price.",
@@ -543,10 +543,10 @@
   },
   "cohorts": {
     "new": {
-      "count": 70,
-      "win_rate": 98.5,
-      "avg_profit": 44399,
-      "total_realized": 2930314
+      "count": 71,
+      "win_rate": 97.0,
+      "avg_profit": 43687,
+      "total_realized": 2927014
     },
     "mid": {
       "count": 104,
@@ -555,10 +555,10 @@
       "total_realized": 3838743
     },
     "old": {
-      "count": 100,
-      "win_rate": 63.9,
-      "avg_profit": 26154,
-      "total_realized": 2170800
+      "count": 102,
+      "win_rate": 64.3,
+      "avg_profit": 26450,
+      "total_realized": 2221800
     },
     "toxic": {
       "count": 43,
@@ -583,19 +583,19 @@
   },
   "guidance": {
     "q1_target": 1000000000,
-    "current_revenue": 288469700.0,
+    "current_revenue": 289336700.0,
     "days_elapsed": 27,
     "days_remaining": 63,
     "daily_target": 11111111,
-    "daily_actual": 10684063,
-    "projected_revenue": 961565667,
-    "pacing_pct": 96.2,
+    "daily_actual": 10716174,
+    "projected_revenue": 964455667,
+    "pacing_pct": 96.4,
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Daily sales at 22.2 homes trails the 29-home target by 23.4%, requiring immediate acceleration.",
-    "guidance_insight": "Current $962M projection falls $38M short of $1B guidance, demanding 30% velocity increase.",
-    "pattern_insight": "Strong 79.1% win rate with $46K average profits demonstrates effective pricing discipline amid challenges.",
-    "generated_at": "2026-01-28T10:20:14.825620"
+    "velocity_insight": "Daily sales at 22.2 homes remains 23% below the 29/day needed for guidance.",
+    "guidance_insight": "Missing $1B guidance is likely unless sales accelerate 31% above current pace.",
+    "pattern_insight": "Strong 78.9% win rate generating $8.4M profit signals effective pricing discipline this quarter.",
+    "generated_at": "2026-01-28T10:27:19.074814"
   }
 }

@@ -690,7 +690,7 @@
         <div class="header__brand">Glass House</div>
         <div class="header__right">
             <span class="header__ticker">$OPEN $5.90</span>
-            <span class="header__timestamp" id="timestamp">Jan 27, 2026 • 4:15 PM</span>
+            <span class="header__timestamp" id="timestamp">Loading...</span>
         </div>
     </header>
 
@@ -1056,7 +1056,7 @@
         <div class="this-week">
             <div class="this-week__header">
                 <span class="this-week__title">This Week</span>
-                <span class="this-week__date">Jan 20-27</span>
+                <span class="this-week__date" id="this-week-date">This Week</span>
             </div>
 
             <div class="this-week__group">
@@ -1450,9 +1450,22 @@ function updateDashboardMetrics(data) {
     // Update timestamp
     const tsEl = document.querySelector('.header__timestamp');
     if (tsEl && data.as_of) {
-        tsEl.textContent = `Data: ${data.as_of}`;
+        const asOf = new Date(data.as_of + 'T12:00:00');
+        const formatted = asOf.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        tsEl.textContent = `Data: ${formatted}`;
     }
     updateText('[data-metric="as-of"]', data.as_of);
+
+    // Update "This Week" date range
+    if (data.as_of) {
+        const endDate = new Date(data.as_of + 'T12:00:00');
+        const startDate = new Date(endDate);
+        startDate.setDate(startDate.getDate() - 6);
+        const startStr = startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const endStr = endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const weekEl = document.getElementById('this-week-date');
+        if (weekEl) weekEl.textContent = `${startStr} - ${endStr}`;
+    }
 
     // Update velocity metrics
     if (data.velocity) {

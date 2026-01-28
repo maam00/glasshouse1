@@ -1452,7 +1452,7 @@ function updateDashboardMetrics(data) {
     if (tsEl && data.as_of) {
         const asOf = new Date(data.as_of + 'T12:00:00');
         const formatted = asOf.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        tsEl.textContent = `Data: ${formatted}`;
+        tsEl.textContent = `Data as of ${formatted}`;
     }
     updateText('[data-metric="as-of"]', data.as_of);
 

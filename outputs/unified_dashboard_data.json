@@ -629,7 +629,7 @@
     ]
   },
   "market_intel": {
-    "generated_at": "2026-01-28T14:40:47.839347",
+    "generated_at": "2026-01-28T14:49:51.329136",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -652,36 +652,73 @@
       "last_meeting": "Jan 29",
       "next_meeting": "Mar 18-19",
       "ytd_cuts": 0,
-      "ytd_hikes": 0
+      "ytd_hikes": 0,
+      "polymarket": {
+        "cuts_2026": [
+          {
+            "cuts": 3,
+            "probability": 24.5
+          },
+          {
+            "cuts": 2,
+            "probability": 23.0
+          },
+          {
+            "cuts": 4,
+            "probability": 16.0
+          },
+          {
+            "cuts": 1,
+            "probability": 12.0
+          },
+          {
+            "cuts": 2026,
+            "probability": 9.7
+          },
+          {
+            "cuts": 5,
+            "probability": 7.5
+          }
+        ],
+        "most_likely_cuts": 3,
+        "most_likely_pct": 24.5,
+        "volume": 3511392,
+        "source": "polymarket"
+      }
     },
     "news": {
       "headlines": [],
       "fed_news": [
         {
-          "title": "Quick Custom Intelligence Marks Record Growth with 100 New Customer Engagements in 2025",
-          "publisher": "GlobeNewswire",
+          "title": "Hertz Energy Inc. Options 100% Interest in High-Grade District-Scale Crag and Rod Properties in Yukon",
+          "publisher": "TMX Newsfile",
           "date": "2026-01-28"
         },
         {
-          "title": "Cache 2025 Review Details How the Cache Exchange Fund Platform Scaled From $290M to Over $1B While Maintaining 98\u201399% Benchmark Correlation",
-          "publisher": "Business Wire",
+          "title": "Rubio details how the Trump administration will control Venezuela's oil money",
+          "publisher": "Associated Press Finance",
           "date": "2026-01-28"
         },
         {
-          "title": "Aegis Capital Corp. Announces the Hiring of a New Managing Director",
-          "publisher": "ACCESS Newswire",
+          "title": "5 Reasons to Buy Sirius XM Stock Like There's No Tomorrow",
+          "publisher": "Motley Fool",
           "date": "2026-01-28"
         }
       ],
       "housing_news": [
         {
-          "title": "Cache 2025 Review Details How the Cache Exchange Fund Platform Scaled From $290M to Over $1B While Maintaining 98\u201399% Benchmark Correlation",
-          "publisher": "Business Wire",
+          "title": "Hertz Energy Inc. Options 100% Interest in High-Grade District-Scale Crag and Rod Properties in Yukon",
+          "publisher": "TMX Newsfile",
           "date": "2026-01-28"
         },
         {
-          "title": "Aegis Capital Corp. Announces the Hiring of a New Managing Director",
-          "publisher": "ACCESS Newswire",
+          "title": "Rubio details how the Trump administration will control Venezuela's oil money",
+          "publisher": "Associated Press Finance",
+          "date": "2026-01-28"
+        },
+        {
+          "title": "5 Reasons to Buy Sirius XM Stock Like There's No Tomorrow",
+          "publisher": "Motley Fool",
           "date": "2026-01-28"
         },
         {
@@ -690,13 +727,8 @@
           "date": "2026-01-28"
         },
         {
-          "title": "Mein Street\u00ae Asian Eats Wins in the 62nd GDUSA Design Awards\u2122 for Branding",
-          "publisher": "PR Newswire",
-          "date": "2026-01-28"
-        },
-        {
-          "title": "U.S. quietly authorizes eight Boeing planes for flights to Russia",
-          "publisher": "TheStreet",
+          "title": "Uber takes another step in returning to the self-driving car race",
+          "publisher": "Pitchbook",
           "date": "2026-01-28"
         }
       ],
@@ -734,11 +766,11 @@
       ]
     },
     "market_brief": {
-      "market_brief": "Mortgage rates declined for the third consecutive week to 6.89%, providing a modest tailwind as the Fed maintains its hawkish pause with Powell speaking today. Opendoor's Q1 execution remains strong with 96% revenue pacing toward the $1B target and a solid 78.9% win rate, though 84 toxic homes are creating $58.6M in unrealized losses that need clearing. The company benefits from CEO Caruso's high-profile Trump housing comments generating positive momentum, but inventory management becomes critical with 63 days left in Q1. Powell's commentary today could shift rate expectations and impact OPEN's transaction velocity heading into February.",
-      "sentiment": "neutral",
-      "key_risk": "The 84 toxic homes sitting over 365 days represent significant margin compression risk if market conditions deteriorate before liquidation.",
-      "key_catalyst": "Continued mortgage rate decline below 6.8% would accelerate buyer demand and help clear problem inventory while driving transaction volume.",
-      "generated_at": "2026-01-28T14:40:45.384609"
+      "market_brief": "Mortgage rates declined 15 basis points this month to 6.89%, providing favorable tailwinds as Opendoor maintains strong operational momentum with 22.2 homes sold daily and a 78.9% win rate. The company sits at 96% pacing toward its Q1 revenue target of $1B, indicating robust demand despite elevated rate environment. CEO Carnie's public comments supporting Trump's housing affordability initiatives signal potential policy alignment that could benefit iBuying adoption. With 63 days left in Q1, Opendoor appears well-positioned to meet guidance while inventory optimization continues.",
+      "sentiment": "bullish",
+      "key_risk": "Problem inventory carrying $58.6M in unrealized losses could pressure margins if market conditions deteriorate or liquidation accelerates.",
+      "key_catalyst": "Continued mortgage rate decline toward 6.5% would significantly expand buyer pool and accelerate inventory turnover heading into spring selling season.",
+      "generated_at": "2026-01-28T14:49:48.877064"
     }
   },
   "ai_insights": {

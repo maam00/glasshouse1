@@ -1254,6 +1254,11 @@
             <span class="rate-watch__label">Next FOMC</span>
             <span class="rate-watch__value" id="next-fomc">--</span>
         </div>
+        <div class="rate-watch__item">
+            <span class="rate-watch__label">2026 Cuts</span>
+            <span class="rate-watch__value" id="polymarket-cuts">--</span>
+            <span class="rate-watch__change" id="polymarket-pct">--</span>
+        </div>
     </div>
 
 
@@ -2731,6 +2736,19 @@ function updateRateWatch(data) {
     const nextFomc = document.getElementById('next-fomc');
     if (nextFomc) {
         nextFomc.textContent = fedData.next_meeting || 'Mar 18-19';
+    }
+
+    // Polymarket 2026 Rate Cuts
+    const polymarket = fedData.polymarket || {};
+    const polymarketCuts = document.getElementById('polymarket-cuts');
+    const polymarketPct = document.getElementById('polymarket-pct');
+    if (polymarketCuts && polymarket.most_likely_cuts !== null) {
+        const cuts = polymarket.most_likely_cuts;
+        polymarketCuts.textContent = cuts === 0 ? 'None' : cuts === 1 ? '1 cut' : `${cuts} cuts`;
+    }
+    if (polymarketPct && polymarket.most_likely_pct) {
+        polymarketPct.textContent = `${polymarket.most_likely_pct}%`;
+        polymarketPct.className = 'rate-watch__change';
     }
 }
 

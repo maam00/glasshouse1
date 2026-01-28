@@ -245,6 +245,74 @@ def fetch_housing_news():
     return news_data
 
 
+def fetch_polymarket_fed_data():
+    """Fetch Fed rate cut predictions from Polymarket."""
+
+    polymarket_data = {
+        'cuts_2026': [],
+        'most_likely_cuts': None,
+        'most_likely_pct': None,
+        'volume': None,
+        'source': 'polymarket'
+    }
+
+    try:
+        url = "https://gamma-api.polymarket.com/events?slug=how-many-fed-rate-cuts-in-2026"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
+            if data:
+                event = data[0] if isinstance(data, list) else data
+                polymarket_data['volume'] = int(float(event.get('volume', 0)))
+
+                markets = event.get('markets', [])
+                results = []
+
+                for m in markets:
+                    q = m.get('question', '')
+                    prices_str = m.get('outcomePrices', '[]')
+                    try:
+                        import json as json_mod
+                        prices = json_mod.loads(prices_str)
+                        yes_price = float(prices[0]) * 100 if prices else 0
+
+                        # Extract number of cuts
+                        if 'no cut' in q.lower() or '0 cut' in q.lower():
+                            num_cuts = 0
+                        elif '12 or more' in q.lower():
+                            num_cuts = 12
+                        else:
+                            # Extract number from question
+                            import re as re_mod
+                            match = re_mod.search(r'(\d+)', q)
+                            num_cuts = int(match.group(1)) if match else -1
+
+                        if num_cuts >= 0 and yes_price >= 1:
+                            results.append({
+                                'cuts': num_cuts,
+                                'probability': round(yes_price, 1)
+                            })
+                    except:
+                        pass
+
+                # Sort by probability
+                results.sort(key=lambda x: -x['probability'])
+                polymarket_data['cuts_2026'] = results[:6]  # Top 6
+
+                if results:
+                    polymarket_data['most_likely_cuts'] = results[0]['cuts']
+                    polymarket_data['most_likely_pct'] = results[0]['probability']
+
+                print(f"Fetched Polymarket: {polymarket_data['most_likely_cuts']} cuts at {polymarket_data['most_likely_pct']}%")
+
+    except Exception as e:
+        print(f"Error fetching Polymarket data: {e}")
+
+    return polymarket_data
+
+
 def generate_market_brief(dashboard_data, earnings_data, rates_data, news_data, problem_homes_data=None):
     """Generate AI-powered daily market brief with macro context."""
 
@@ -481,11 +549,15 @@ def main():
             problem_data = json.load(f)
 
     # 5. Generate AI market brief
-    print("\n[5/6] Generating AI market brief...")
+    print("\n[5/7] Generating AI market brief...")
     market_brief = generate_market_brief(dashboard_data, earnings_data, rates_data, news_data, problem_data)
 
-    # 6. Generate short news bullets
-    print("\n[6/6] Generating news bullets...")
+    # 6. Fetch Polymarket Fed predictions
+    print("\n[6/7] Fetching Polymarket data...")
+    polymarket_data = fetch_polymarket_fed_data()
+
+    # 7. Generate short news bullets (keeping for backup)
+    print("\n[7/7] Generating news bullets...")
     news_bullets = generate_news_bullets(news_data, rates_data)
 
     # Fed data (2026 FOMC schedule)
@@ -496,7 +568,8 @@ def main():
         'last_meeting': 'Jan 29',
         'next_meeting': 'Mar 18-19',
         'ytd_cuts': 0,
-        'ytd_hikes': 0
+        'ytd_hikes': 0,
+        'polymarket': polymarket_data
     }
 
     # Compile all market intelligence

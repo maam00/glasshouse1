@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T09:57:14.695911",
+  "generated_at": "2026-01-28T10:01:52.967453",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -11,6 +11,7 @@
     "q1_revenue": 288469700.0,
     "daily_avg_sales": 22.2,
     "daily_avg_revenue": 8581481.481481481,
+    "avg_home_price": 387728,
     "best_day": "2026-01-27",
     "best_day_sales": 43
   },
@@ -378,6 +379,38 @@
       "moving_avg": 21.6
     }
   ],
+  "moving_avg_30d": [
+    14.8,
+    15.0,
+    14.9,
+    14.9,
+    14.6,
+    14.4,
+    15.0,
+    15.7,
+    15.7,
+    15.8,
+    15.8,
+    15.7,
+    15.4,
+    14.8,
+    15.4,
+    16.1,
+    16.4,
+    16.4,
+    16.3,
+    15.9,
+    15.6,
+    16.1,
+    17.3,
+    17.8,
+    18.4,
+    19.1,
+    19.3,
+    19.7,
+    20.5,
+    21.6
+  ],
   "data_quality": {
     "total_records": 744,
     "matched_records": "175",
@@ -385,6 +418,63 @@
     "parcl_only": "144",
     "pnl_coverage": 37.2,
     "details_coverage": 80.6
+  },
+  "top_markets": [
+    {
+      "city": "Phoenix",
+      "listings": 21,
+      "avg_price": 439190
+    },
+    {
+      "city": "Charlotte",
+      "listings": 18,
+      "avg_price": 341722
+    },
+    {
+      "city": "Tucson",
+      "listings": 18,
+      "avg_price": 292500
+    },
+    {
+      "city": "Indianapolis",
+      "listings": 13,
+      "avg_price": 271000
+    },
+    {
+      "city": "Raleigh",
+      "listings": 13,
+      "avg_price": 444385
+    },
+    {
+      "city": "Columbia",
+      "listings": 12,
+      "avg_price": 289333
+    },
+    {
+      "city": "Houston",
+      "listings": 12,
+      "avg_price": 331667
+    },
+    {
+      "city": "San Antonio",
+      "listings": 12,
+      "avg_price": 294500
+    },
+    {
+      "city": "Atlanta",
+      "listings": 10,
+      "avg_price": 286700
+    },
+    {
+      "city": "Colorado Springs",
+      "listings": 10,
+      "avg_price": 405800
+    }
+  ],
+  "market_concentration": {
+    "top5_pct": 7.6,
+    "total_markets": 477,
+    "total_listings": 1093
   },
   "top_cities": {
     "Indianapolis": 11,
@@ -403,148 +493,6 @@
     "Colorado Springs": 5,
     "Dallas": 5
   },
-  "geographic": [
-    {
-      "avg_lat": 33.54129704761904,
-      "avg_lon": -112.11839623809526,
-      "avg_price": 439190.4761904762,
-      "city": "Phoenix",
-      "listing_count": 21
-    },
-    {
-      "avg_lat": 35.21752272222223,
-      "avg_lon": -80.82555077777779,
-      "avg_price": 341722.22222222225,
-      "city": "Charlotte",
-      "listing_count": 18
-    },
-    {
-      "avg_lat": 32.24361338888889,
-      "avg_lon": -110.9610367222222,
-      "avg_price": 292500.0,
-      "city": "Tucson",
-      "listing_count": 18
-    },
-    {
-      "avg_lat": 39.785576999999996,
-      "avg_lon": -86.10914407692309,
-      "avg_price": 271000.0,
-      "city": "Indianapolis",
-      "listing_count": 13
-    },
-    {
-      "avg_lat": 35.8496276923077,
-      "avg_lon": -78.62134361538462,
-      "avg_price": 444384.6153846154,
-      "city": "Raleigh",
-      "listing_count": 13
-    },
-    {
-      "avg_lat": 34.345985250000005,
-      "avg_lon": -81.9788195,
-      "avg_price": 289333.3333333333,
-      "city": "Columbia",
-      "listing_count": 12
-    },
-    {
-      "avg_lat": 29.790684749999997,
-      "avg_lon": -95.38882525000001,
-      "avg_price": 331666.6666666667,
-      "city": "Houston",
-      "listing_count": 12
-    },
-    {
-      "avg_lat": 29.4928105,
-      "avg_lon": -98.59317166666669,
-      "avg_price": 294500.0,
-      "city": "San Antonio",
-      "listing_count": 12
-    },
-    {
-      "avg_lat": 33.7352299,
-      "avg_lon": -84.42877510000001,
-      "avg_price": 286700.0,
-      "city": "Atlanta",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 38.8889618,
-      "avg_lon": -104.76222250000001,
-      "avg_price": 405800.0,
-      "city": "Colorado Springs",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 33.248805499999996,
-      "avg_lon": -91.99764889999999,
-      "avg_price": 346500.0,
-      "city": "Dallas",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 35.9975029,
-      "avg_lon": -78.8725815,
-      "avg_price": 330400.0,
-      "city": "Durham",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 39.144761300000006,
-      "avg_lon": -94.56048180000002,
-      "avg_price": 290500.0,
-      "city": "Kansas City",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 36.1108287,
-      "avg_lon": -115.1523205,
-      "avg_price": 403900.0,
-      "city": "Las Vegas",
-      "listing_count": 10
-    },
-    {
-      "avg_lat": 35.107640999999994,
-      "avg_lon": -106.57658244444444,
-      "avg_price": 325000.0,
-      "city": "Albuquerque",
-      "listing_count": 9
-    },
-    {
-      "avg_lat": 30.080652444444443,
-      "avg_lon": -95.46603977777778,
-      "avg_price": 351888.8888888889,
-      "city": "Spring",
-      "listing_count": 9
-    },
-    {
-      "avg_lat": 36.587182,
-      "avg_lon": -87.355788875,
-      "avg_price": 313000.0,
-      "city": "Clarksville",
-      "listing_count": 8
-    },
-    {
-      "avg_lat": 30.348737875000005,
-      "avg_lon": -81.68457974999998,
-      "avg_price": 258750.0,
-      "city": "Jacksonville",
-      "listing_count": 8
-    },
-    {
-      "avg_lat": 33.056067999999996,
-      "avg_lon": -112.02991275000001,
-      "avg_price": 344375.0,
-      "city": "Maricopa",
-      "listing_count": 8
-    },
-    {
-      "avg_lat": 35.02544842857143,
-      "avg_lon": -80.9442597142857,
-      "avg_price": 556857.1428571428,
-      "city": "Fort Mill",
-      "listing_count": 7
-    }
-  ],
   "cohorts": {
     "new": {
       "count": 70,
@@ -597,9 +545,9 @@
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Sales velocity accelerated 21.2% week-over-week to 200 homes sold.",
+    "velocity_insight": "Sales accelerated 21.2% week-over-week to 200 homes, strongest momentum yet.",
     "guidance_insight": "Revenue tracking 96.2% to Q1 target with 63 days remaining.",
-    "pattern_insight": "79.1% win rate generates $46,407 average profit per successful transaction.",
-    "generated_at": "2026-01-28T09:57:18.978090"
+    "pattern_insight": "79.1% win rate generating $46K average profit per successful transaction.",
+    "generated_at": "2026-01-28T10:01:56.595799"
   }
 }

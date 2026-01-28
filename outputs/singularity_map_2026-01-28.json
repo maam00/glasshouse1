@@ -1,0 +1,3334 @@
+[
+  {
+    "avg_lat": 33.53188142857142,
+    "avg_lon": -112.11971271428573,
+    "avg_price": 436047.61904761905,
+    "city": "Phoenix",
+    "listing_count": 21
+  },
+  {
+    "avg_lat": 35.215748000000005,
+    "avg_lon": -80.82670233333334,
+    "avg_price": 340055.55555555556,
+    "city": "Charlotte",
+    "listing_count": 18
+  },
+  {
+    "avg_lat": 32.24361338888889,
+    "avg_lon": -110.9610367222222,
+    "avg_price": 292500.0,
+    "city": "Tucson",
+    "listing_count": 18
+  },
+  {
+    "avg_lat": 39.785576999999996,
+    "avg_lon": -86.10914407692309,
+    "avg_price": 271000.0,
+    "city": "Indianapolis",
+    "listing_count": 13
+  },
+  {
+    "avg_lat": 35.8496276923077,
+    "avg_lon": -78.62134361538462,
+    "avg_price": 444384.6153846154,
+    "city": "Raleigh",
+    "listing_count": 13
+  },
+  {
+    "avg_lat": 34.345985250000005,
+    "avg_lon": -81.9788195,
+    "avg_price": 289333.3333333333,
+    "city": "Columbia",
+    "listing_count": 12
+  },
+  {
+    "avg_lat": 35.99693245454545,
+    "avg_lon": -78.87351990909092,
+    "avg_price": 333545.45454545453,
+    "city": "Durham",
+    "listing_count": 11
+  },
+  {
+    "avg_lat": 29.794807454545456,
+    "avg_lon": -95.3712571818182,
+    "avg_price": 334454.54545454547,
+    "city": "Houston",
+    "listing_count": 11
+  },
+  {
+    "avg_lat": 29.483770727272724,
+    "avg_lon": -98.60772181818183,
+    "avg_price": 293181.8181818182,
+    "city": "San Antonio",
+    "listing_count": 11
+  },
+  {
+    "avg_lat": 33.7352299,
+    "avg_lon": -84.42877510000001,
+    "avg_price": 286700.0,
+    "city": "Atlanta",
+    "listing_count": 10
+  },
+  {
+    "avg_lat": 38.8889618,
+    "avg_lon": -104.76222250000001,
+    "avg_price": 405800.0,
+    "city": "Colorado Springs",
+    "listing_count": 10
+  },
+  {
+    "avg_lat": 33.248805499999996,
+    "avg_lon": -91.99764889999999,
+    "avg_price": 346500.0,
+    "city": "Dallas",
+    "listing_count": 10
+  },
+  {
+    "avg_lat": 36.1108287,
+    "avg_lon": -115.1523205,
+    "avg_price": 403900.0,
+    "city": "Las Vegas",
+    "listing_count": 10
+  },
+  {
+    "avg_lat": 30.085104599999994,
+    "avg_lon": -95.4601492,
+    "avg_price": 351600.0,
+    "city": "Spring",
+    "listing_count": 10
+  },
+  {
+    "avg_lat": 35.107640999999994,
+    "avg_lon": -106.57658244444444,
+    "avg_price": 325000.0,
+    "city": "Albuquerque",
+    "listing_count": 9
+  },
+  {
+    "avg_lat": 39.16363733333334,
+    "avg_lon": -94.55814966666668,
+    "avg_price": 297777.77777777775,
+    "city": "Kansas City",
+    "listing_count": 9
+  },
+  {
+    "avg_lat": 36.587182,
+    "avg_lon": -87.355788875,
+    "avg_price": 313000.0,
+    "city": "Clarksville",
+    "listing_count": 8
+  },
+  {
+    "avg_lat": 30.348737875000005,
+    "avg_lon": -81.68457974999998,
+    "avg_price": 258750.0,
+    "city": "Jacksonville",
+    "listing_count": 8
+  },
+  {
+    "avg_lat": 33.056067999999996,
+    "avg_lon": -112.02991275000001,
+    "avg_price": 344375.0,
+    "city": "Maricopa",
+    "listing_count": 8
+  },
+  {
+    "avg_lat": 32.800633714285716,
+    "avg_lon": -97.38029985714286,
+    "avg_price": 333571.4285714286,
+    "city": "Fort Worth",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 31.074225285714284,
+    "avg_lon": -97.76310128571428,
+    "avg_price": 236428.57142857142,
+    "city": "Killeen",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 35.47654042857143,
+    "avg_lon": -97.56352342857143,
+    "avg_price": 185714.2857142857,
+    "city": "Oklahoma City",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 28.476802142857142,
+    "avg_lon": -81.38164742857143,
+    "avg_price": 366714.28571428574,
+    "city": "Orlando",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 35.281570714285714,
+    "avg_lon": -106.65469014285713,
+    "avg_price": 369285.71428571426,
+    "city": "Rio Rancho",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 34.953860428571424,
+    "avg_lon": -81.04641485714286,
+    "avg_price": 460000.0,
+    "city": "Rock Hill",
+    "listing_count": 7
+  },
+  {
+    "avg_lat": 33.4668,
+    "avg_lon": -112.55801166666667,
+    "avg_price": 402333.3333333333,
+    "city": "Buckeye",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 34.510542666666666,
+    "avg_lon": -80.80324133333335,
+    "avg_price": 303500.0,
+    "city": "Fayetteville",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 35.02495966666667,
+    "avg_lon": -80.93989433333333,
+    "avg_price": 537166.6666666666,
+    "city": "Fort Mill",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 35.60219783333333,
+    "avg_lon": -78.782861,
+    "avg_price": 523000.0,
+    "city": "Fuquay Varina",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 30.6309835,
+    "avg_lon": -97.729959,
+    "avg_price": 406833.3333333333,
+    "city": "Georgetown",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 36.032248333333335,
+    "avg_lon": -115.05126466666667,
+    "avg_price": 574666.6666666666,
+    "city": "Henderson",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 28.14588566666666,
+    "avg_lon": -81.45784916666666,
+    "avg_price": 291166.6666666667,
+    "city": "Kissimmee",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.96015983333333,
+    "avg_lon": -84.01948633333333,
+    "avg_price": 386000.0,
+    "city": "Lawrenceville",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.941258,
+    "avg_lon": -81.22000516666667,
+    "avg_price": 288833.3333333333,
+    "city": "Lexington",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.96593549999999,
+    "avg_lon": -84.5414095,
+    "avg_price": 457833.3333333333,
+    "city": "Marietta",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.4203615,
+    "avg_lon": -111.69841050000001,
+    "avg_price": 585000.0,
+    "city": "Mesa",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 34.93245700000001,
+    "avg_lon": -83.54475333333333,
+    "avg_price": 366833.3333333333,
+    "city": "Richmond",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 32.85715733333333,
+    "avg_lon": -117.13061383333333,
+    "avg_price": 784166.6666666666,
+    "city": "San Diego",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.180968666666665,
+    "avg_lon": -111.55035383333332,
+    "avg_price": 367000.0,
+    "city": "San Tan Valley",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.78814833333333,
+    "avg_lon": -84.173354,
+    "avg_price": 336166.6666666667,
+    "city": "Stone Mountain",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 32.971109000000006,
+    "avg_lon": -80.17483800000001,
+    "avg_price": 328500.0,
+    "city": "Summerville",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.61680666666667,
+    "avg_lon": -112.27810466666665,
+    "avg_price": 294000.0,
+    "city": "Sun City",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 33.60740233333333,
+    "avg_lon": -112.41230016666668,
+    "avg_price": 434666.6666666667,
+    "city": "Surprise",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 28.04065966666667,
+    "avg_lon": -82.43405416666667,
+    "avg_price": 369000.0,
+    "city": "Tampa",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 39.354534166666674,
+    "avg_lon": -84.43836650000001,
+    "avg_price": 385333.3333333333,
+    "city": "West Chester",
+    "listing_count": 6
+  },
+  {
+    "avg_lat": 39.6564844,
+    "avg_lon": -104.7616834,
+    "avg_price": 559800.0,
+    "city": "Aurora",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 35.6532064,
+    "avg_lon": -78.40163279999999,
+    "avg_price": 353000.0,
+    "city": "Clayton",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 34.22644559999999,
+    "avg_lon": -84.148312,
+    "avg_price": 506400.0,
+    "city": "Cumming",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 33.595359,
+    "avg_lon": -86.9013928,
+    "avg_price": 249600.0,
+    "city": "Decatur",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 34.808999799999995,
+    "avg_lon": -82.5643732,
+    "avg_price": 336200.0,
+    "city": "Easley",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 35.21660060000001,
+    "avg_lon": -81.1511824,
+    "avg_price": 371400.0,
+    "city": "Gastonia",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 33.5426738,
+    "avg_lon": -112.2105178,
+    "avg_price": 350400.0,
+    "city": "Glendale",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 36.071963999999994,
+    "avg_lon": -79.80319399999999,
+    "avg_price": 323400.0,
+    "city": "Greensboro",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 34.2673526,
+    "avg_lon": -83.9937612,
+    "avg_price": 349000.0,
+    "city": "Lancaster",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 33.449911400000005,
+    "avg_lon": -84.1547112,
+    "avg_price": 320000.0,
+    "city": "McDonough",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 33.061387,
+    "avg_lon": -96.72814819999999,
+    "avg_price": 417600.0,
+    "city": "Plano",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 38.612261000000004,
+    "avg_lon": -121.4624654,
+    "avg_price": 493200.0,
+    "city": "Sacramento",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 36.0852966,
+    "avg_lon": -80.259309,
+    "avg_price": 249800.0,
+    "city": "Winston Salem",
+    "listing_count": 5
+  },
+  {
+    "avg_lat": 36.057188249999996,
+    "avg_lon": -86.61072250000001,
+    "avg_price": 346750.0,
+    "city": "Antioch",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 30.21137625,
+    "avg_lon": -97.681514,
+    "avg_price": 400000.0,
+    "city": "Austin",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 30.050281750000003,
+    "avg_lon": -97.822993,
+    "avg_price": 260750.0,
+    "city": "Buda",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 32.54849475,
+    "avg_lon": -97.34423100000001,
+    "avg_price": 375500.0,
+    "city": "Burleson",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 36.08053275,
+    "avg_lon": -79.50715550000001,
+    "avg_price": 382000.0,
+    "city": "Burlington",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 34.241234250000005,
+    "avg_lon": -84.50969025,
+    "avg_price": 402250.0,
+    "city": "Canton",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 32.91996275,
+    "avg_lon": -111.7068965,
+    "avg_price": 292500.0,
+    "city": "Casa Grande",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 33.313001,
+    "avg_lon": -111.89359725,
+    "avg_price": 463250.0,
+    "city": "Chandler",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 32.86669575,
+    "avg_lon": -80.0620905,
+    "avg_price": 474250.0,
+    "city": "Charleston",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 29.998459,
+    "avg_lon": -95.67820375,
+    "avg_price": 395000.0,
+    "city": "Cypress",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 33.70843075,
+    "avg_lon": -84.77962174999999,
+    "avg_price": 341250.0,
+    "city": "Douglasville",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 34.1313075,
+    "avg_lon": -81.2162195,
+    "avg_price": 304000.0,
+    "city": "Irmo",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 29.76778325,
+    "avg_lon": -95.80564050000001,
+    "avg_price": 380750.0,
+    "city": "Katy",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 29.981750499999997,
+    "avg_lon": -97.8540765,
+    "avg_price": 278000.0,
+    "city": "Kyle",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 33.2007485,
+    "avg_lon": -96.7128375,
+    "avg_price": 504500.0,
+    "city": "McKinney",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 31.39832525,
+    "avg_lon": -82.53988125000001,
+    "avg_price": 310750.0,
+    "city": "Riverview",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 33.4966995,
+    "avg_lon": -111.91558425,
+    "avg_price": 480250.0,
+    "city": "Scottsdale",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 34.76070175,
+    "avg_lon": -82.26239175,
+    "avg_price": 363750.0,
+    "city": "Simpsonville",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 31.0654375,
+    "avg_lon": -97.37132700000001,
+    "avg_price": 262750.0,
+    "city": "Temple",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 34.1146905,
+    "avg_lon": -84.49660675,
+    "avg_price": 441000.0,
+    "city": "Woodstock",
+    "listing_count": 4
+  },
+  {
+    "avg_lat": 33.09800933333333,
+    "avg_lon": -96.67886700000001,
+    "avg_price": 556000.0,
+    "city": "Allen",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.729815333333335,
+    "avg_lon": -78.89779166666666,
+    "avg_price": 678000.0,
+    "city": "Apex",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 28.699226333333332,
+    "avg_lon": -81.50011733333334,
+    "avg_price": 329000.0,
+    "city": "Apopka",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 44.747706666666666,
+    "avg_lon": -93.20406200000001,
+    "avg_price": 396666.6666666667,
+    "city": "Apple Valley",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 32.69921733333333,
+    "avg_lon": -97.16488700000001,
+    "avg_price": 302666.6666666667,
+    "city": "Arlington",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.119534666666674,
+    "avg_lon": -83.783355,
+    "avg_price": 380000.0,
+    "city": "Braselton",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.09637566666667,
+    "avg_lon": -83.94052066666667,
+    "avg_price": 485666.6666666667,
+    "city": "Buford",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.18193,
+    "avg_lon": -84.83510633333334,
+    "avg_price": 307666.6666666667,
+    "city": "Cartersville",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.78608566666667,
+    "avg_lon": -78.83514033333334,
+    "avg_price": 654000.0,
+    "city": "Cary",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.13665733333333,
+    "avg_lon": -81.296634,
+    "avg_price": 297333.3333333333,
+    "city": "Chapin",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 28.54294833333333,
+    "avg_lon": -81.770088,
+    "avg_price": 394000.0,
+    "city": "Clermont",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 40.047274666666674,
+    "avg_lon": -82.96200533333332,
+    "avg_price": 223666.66666666666,
+    "city": "Columbus",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 39.895680999999996,
+    "avg_lon": -104.78921533333333,
+    "avg_price": 508666.6666666667,
+    "city": "Commerce City",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.539912666666666,
+    "avg_lon": -83.926933,
+    "avg_price": 287000.0,
+    "city": "Covington",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 39.818258333333326,
+    "avg_lon": -104.96030400000001,
+    "avg_price": 374666.6666666667,
+    "city": "Denver",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 44.83624433333333,
+    "avg_lon": -93.465523,
+    "avg_price": 437666.6666666667,
+    "city": "Eden Prairie",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.649868999999995,
+    "avg_lon": -78.57215066666667,
+    "avg_price": 374333.3333333333,
+    "city": "Garner",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.01445066666667,
+    "avg_lon": -80.05965300000001,
+    "avg_price": 315000.0,
+    "city": "Goose Creek",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.99174366666667,
+    "avg_lon": -82.23285,
+    "avg_price": 326666.6666666667,
+    "city": "Greer",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.43342766666667,
+    "avg_lon": -80.81739233333333,
+    "avg_price": 546666.6666666666,
+    "city": "Huntersville",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.050690333333336,
+    "avg_lon": -82.07227133333335,
+    "avg_price": 281666.6666666667,
+    "city": "Inman",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.493551000000004,
+    "avg_lon": -84.31820599999999,
+    "avg_price": 285666.6666666667,
+    "city": "Jonesboro",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.46585166666667,
+    "avg_lon": -80.60729300000001,
+    "avg_price": 325666.6666666667,
+    "city": "Kannapolis",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 36.08642766666667,
+    "avg_lon": -80.123,
+    "avg_price": 304333.3333333333,
+    "city": "Kernersville",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 32.98412966666666,
+    "avg_lon": -80.127178,
+    "avg_price": 302000.0,
+    "city": "Ladson",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.207266,
+    "avg_lon": -96.93740766666666,
+    "avg_price": 324666.6666666667,
+    "city": "Little Elm",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 45.08008833333333,
+    "avg_lon": -93.478721,
+    "avg_price": 459333.3333333333,
+    "city": "Maple Grove",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.076068,
+    "avg_lon": -80.69308933333333,
+    "avg_price": 610333.3333333334,
+    "city": "Matthews",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 32.770631,
+    "avg_lon": -96.57060166666666,
+    "avg_price": 293333.3333333333,
+    "city": "Mesquite",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 34.613146666666665,
+    "avg_lon": -81.63903333333333,
+    "avg_price": 412666.6666666667,
+    "city": "Monroe",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.033660999999995,
+    "avg_lon": -87.16093899999998,
+    "avg_price": 267333.3333333333,
+    "city": "Moore",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.40820566666667,
+    "avg_lon": -84.78657633333333,
+    "avg_price": 512666.6666666667,
+    "city": "Newnan",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.899950999999994,
+    "avg_lon": -84.212534,
+    "avg_price": 199000.0,
+    "city": "Norcross",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 32.90820233333333,
+    "avg_lon": -80.10181366666666,
+    "avg_price": 344666.6666666667,
+    "city": "North Charleston",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 35.122051,
+    "avg_lon": -85.09569966666668,
+    "avg_price": 353000.0,
+    "city": "Ooltewah",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 29.566541,
+    "avg_lon": -95.274764,
+    "avg_price": 414333.3333333333,
+    "city": "Pearland",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.58876433333333,
+    "avg_lon": -112.237713,
+    "avg_price": 375333.3333333333,
+    "city": "Peoria",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 27.994954333333336,
+    "avg_lon": -82.112257,
+    "avg_price": 354000.0,
+    "city": "Plant City",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 38.570737666666666,
+    "avg_lon": -121.25887166666666,
+    "avg_price": 570000.0,
+    "city": "Rancho Cordova",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 38.73670966666666,
+    "avg_lon": -90.558674,
+    "avg_price": 380333.3333333333,
+    "city": "Saint Charles",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 27.814887,
+    "avg_lon": -82.726961,
+    "avg_price": 381000.0,
+    "city": "Saint Petersburg",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 33.75324733333333,
+    "avg_lon": -84.90781333333334,
+    "avg_price": 297000.0,
+    "city": "Villa Rica",
+    "listing_count": 3
+  },
+  {
+    "avg_lat": 38.807596000000004,
+    "avg_lon": -77.127399,
+    "avg_price": 595000.0,
+    "city": "Alexandria",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.038400499999995,
+    "avg_lon": -84.21604099999999,
+    "avg_price": 369500.0,
+    "city": "Amelia",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.332059,
+    "avg_lon": -96.547342,
+    "avg_price": 347000.0,
+    "city": "Anna",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.743162,
+    "avg_lon": -86.391816,
+    "avg_price": 392000.0,
+    "city": "Avon",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.813057999999998,
+    "avg_lon": -94.8645935,
+    "avg_price": 265000.0,
+    "city": "Baytown",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.5776565,
+    "avg_lon": -86.7842505,
+    "avg_price": 188000.0,
+    "city": "Birmingham",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 45.190574,
+    "avg_lon": -93.256189,
+    "avg_price": 427500.0,
+    "city": "Blaine",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 27.955873500000003,
+    "avg_lon": -82.302572,
+    "avg_price": 364000.0,
+    "city": "Brandon",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.9225425,
+    "avg_lon": -79.048574,
+    "avg_price": 307000.0,
+    "city": "Chapel Hill",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.0420875,
+    "avg_lon": -85.189302,
+    "avg_price": 253500.0,
+    "city": "Chattanooga",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.2180005,
+    "avg_lon": -84.4886545,
+    "avg_price": 216500.0,
+    "city": "Cincinnati",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.856144,
+    "avg_lon": -88.3910305,
+    "avg_price": 204500.0,
+    "city": "Cleveland",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 30.2973875,
+    "avg_lon": -95.515685,
+    "avg_price": 309000.0,
+    "city": "Conroe",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.681685,
+    "avg_lon": -84.019945,
+    "avg_price": 168500.0,
+    "city": "Conyers",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 28.9252865,
+    "avg_lon": -81.2043965,
+    "avg_price": 338000.0,
+    "city": "Deltona",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.921257,
+    "avg_lon": -82.1120335,
+    "avg_price": 330500.0,
+    "city": "Duncan",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.621700000000004,
+    "avg_lon": -84.297787,
+    "avg_price": 340000.0,
+    "city": "Ellenwood",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.362842,
+    "avg_lon": -96.6285435,
+    "avg_price": 247000.0,
+    "city": "Ennis",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.1031995,
+    "avg_lon": -111.4658975,
+    "avg_price": 299500.0,
+    "city": "Florence",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.031428,
+    "avg_lon": -97.0610225,
+    "avg_price": 438500.0,
+    "city": "Flower Mound",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 38.305966,
+    "avg_lon": -77.524579,
+    "avg_price": 392500.0,
+    "city": "Fredericksburg",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.284387499999994,
+    "avg_lon": -83.8166295,
+    "avg_price": 344500.0,
+    "city": "Gainesville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.9461385,
+    "avg_lon": -96.6147355,
+    "avg_price": 512500.0,
+    "city": "Garland",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.450735,
+    "avg_lon": -112.3910995,
+    "avg_price": 367500.0,
+    "city": "Goodyear",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.264015,
+    "avg_lon": -84.2613975,
+    "avg_price": 228000.0,
+    "city": "Griffin",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.39632,
+    "avg_lon": -84.328104,
+    "avg_price": 303000.0,
+    "city": "Hampton",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.973914999999998,
+    "avg_lon": -95.198059,
+    "avg_price": 235000.0,
+    "city": "Humble",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.336649,
+    "avg_lon": -83.99595450000001,
+    "avg_price": 260500.0,
+    "city": "Jackson",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 30.06318,
+    "avg_lon": -95.22072,
+    "avg_price": 280000.0,
+    "city": "Kingwood",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.962998999999996,
+    "avg_lon": -83.8683235,
+    "avg_price": 275500.0,
+    "city": "Knoxville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 36.105090000000004,
+    "avg_lon": -80.4087175,
+    "avg_price": 331000.0,
+    "city": "Lewisville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.681923,
+    "avg_lon": -84.1474685,
+    "avg_price": 257500.0,
+    "city": "Lithonia",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.524797500000005,
+    "avg_lon": -105.09575699999999,
+    "avg_price": 814500.0,
+    "city": "Littleton",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.354096,
+    "avg_lon": -84.1925265,
+    "avg_price": 356000.0,
+    "city": "Locust Grove",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 30.2086265,
+    "avg_lon": -95.6904315,
+    "avg_price": 233500.0,
+    "city": "Magnolia",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.308368,
+    "avg_lon": -84.283191,
+    "avg_price": 286000.0,
+    "city": "Maineville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.433195,
+    "avg_lon": -111.21392900000001,
+    "avg_price": 333500.0,
+    "city": "Marana",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 36.08573,
+    "avg_lon": -79.2525865,
+    "avg_price": 326500.0,
+    "city": "Mebane",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.696175499999995,
+    "avg_lon": -117.16427350000001,
+    "avg_price": 631000.0,
+    "city": "Menifee",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.469482,
+    "avg_lon": -84.3726925,
+    "avg_price": 408500.0,
+    "city": "Middletown",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.553835,
+    "avg_lon": -95.525328,
+    "avg_price": 521500.0,
+    "city": "Missouri City",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.3356025,
+    "avg_lon": -81.01179350000001,
+    "avg_price": 377500.0,
+    "city": "Mount Holly",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.034550499999995,
+    "avg_lon": -96.618279,
+    "avg_price": 641500.0,
+    "city": "Murphy",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.667817499999998,
+    "avg_lon": -98.101565,
+    "avg_price": 280500.0,
+    "city": "New Braunfels",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 40.009926500000006,
+    "avg_lon": -86.026706,
+    "avg_price": 422000.0,
+    "city": "Noblesville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.984833,
+    "avg_lon": -86.6431555,
+    "avg_price": 379500.0,
+    "city": "Nolensville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.218349,
+    "avg_lon": -97.436167,
+    "avg_price": 268000.0,
+    "city": "Norman",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 44.97949,
+    "avg_lon": -92.9773015,
+    "avg_price": 277000.0,
+    "city": "Oakdale",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.100569,
+    "avg_lon": -82.12234950000001,
+    "avg_price": 226500.0,
+    "city": "Ocala",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 29.570677500000002,
+    "avg_lon": -81.2386955,
+    "avg_price": 323000.0,
+    "city": "Palm Coast",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.371632,
+    "avg_lon": -84.5427605,
+    "avg_price": 459000.0,
+    "city": "Peachtree City",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 39.899526,
+    "avg_lon": -82.7706465,
+    "avg_price": 425000.0,
+    "city": "Pickerington",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 27.275019,
+    "avg_lon": -80.33567149999999,
+    "avg_price": 306500.0,
+    "city": "Port Saint Lucie",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 41.096921,
+    "avg_lon": -104.5199155,
+    "avg_price": 356500.0,
+    "city": "Portland",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.822349,
+    "avg_lon": -84.70222949999999,
+    "avg_price": 351500.0,
+    "city": "Powder Springs",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.588718,
+    "avg_lon": -84.2769255,
+    "avg_price": 250500.0,
+    "city": "Rex",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.047512499999996,
+    "avg_lon": -97.431132,
+    "avg_price": 271500.0,
+    "city": "Rhome",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.907432,
+    "avg_lon": -85.1552035,
+    "avg_price": 365500.0,
+    "city": "Ringgold",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.561683,
+    "avg_lon": -84.43012350000001,
+    "avg_price": 219500.0,
+    "city": "Riverdale",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.988317,
+    "avg_lon": -97.241918,
+    "avg_price": 415500.0,
+    "city": "Roanoke",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 30.493936,
+    "avg_lon": -97.669738,
+    "avg_price": 373000.0,
+    "city": "Round Rock",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.8936865,
+    "avg_lon": -96.52516,
+    "avg_price": 430500.0,
+    "city": "Rowlett",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 31.990688499999997,
+    "avg_lon": -110.977947,
+    "avg_price": 299000.0,
+    "city": "Sahuarita",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 38.5496975,
+    "avg_lon": -90.330027,
+    "avg_price": 243000.0,
+    "city": "Saint Louis",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.491535,
+    "avg_lon": -79.1832535,
+    "avg_price": 300500.0,
+    "city": "Sanford",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 44.772459999999995,
+    "avg_lon": -93.3332495,
+    "avg_price": 210500.0,
+    "city": "Savage",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.369808500000005,
+    "avg_lon": -84.657689,
+    "avg_price": 547000.0,
+    "city": "Sharpsburg",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 37.505286999999996,
+    "avg_lon": -86.1077705,
+    "avg_price": 263500.0,
+    "city": "Shelbyville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.8055025,
+    "avg_lon": -84.0238565,
+    "avg_price": 330000.0,
+    "city": "Snellville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.954974,
+    "avg_lon": -81.959637,
+    "avg_price": 501000.0,
+    "city": "Spartanburg",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 38.6119025,
+    "avg_lon": -80.6039485,
+    "avg_price": 360000.0,
+    "city": "Springfield",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.025248500000004,
+    "avg_lon": -84.0846095,
+    "avg_price": 474000.0,
+    "city": "Suwanee",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 28.82423,
+    "avg_lon": -81.7002905,
+    "avg_price": 299000.0,
+    "city": "Tavares",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.918674499999995,
+    "avg_lon": -82.318228,
+    "avg_price": 328500.0,
+    "city": "Taylors",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.3901685,
+    "avg_lon": -111.914002,
+    "avg_price": 311000.0,
+    "city": "Tempe",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.565177,
+    "avg_lon": -84.5321145,
+    "avg_price": 246000.0,
+    "city": "Union City",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 27.912453,
+    "avg_lon": -82.257446,
+    "avg_price": 390000.0,
+    "city": "Valrico",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 45.6632485,
+    "avg_lon": -122.6302255,
+    "avg_price": 369000.0,
+    "city": "Vancouver",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.481153000000006,
+    "avg_lon": -117.3891725,
+    "avg_price": 463500.0,
+    "city": "Victorville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 38.646435499999995,
+    "avg_lon": -76.92638550000001,
+    "avg_price": 380000.0,
+    "city": "Waldorf",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 32.830884499999996,
+    "avg_lon": -97.66948049999999,
+    "avg_price": 498000.0,
+    "city": "Weatherford",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 38.582415999999995,
+    "avg_lon": -76.935937,
+    "avg_price": 407500.0,
+    "city": "White Plains",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 36.1661595,
+    "avg_lon": -80.3682175,
+    "avg_price": 271000.0,
+    "city": "Winston-Salem",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 33.001999,
+    "avg_lon": -96.555001,
+    "avg_price": 402500.0,
+    "city": "Wylie",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 36.021405,
+    "avg_lon": -78.4890195,
+    "avg_price": 557500.0,
+    "city": "Youngsville",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 35.8382815,
+    "avg_lon": -78.33296250000001,
+    "avg_price": 340500.0,
+    "city": "Zebulon",
+    "listing_count": 2
+  },
+  {
+    "avg_lat": 34.065634,
+    "avg_lon": -84.586266,
+    "avg_price": 365000.0,
+    "city": "Acworth",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.372634,
+    "avg_lon": -84.915967,
+    "avg_price": 220000.0,
+    "city": "Adairsville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.539207,
+    "avg_lon": -117.407274,
+    "avg_price": 416000.0,
+    "city": "Adelanto",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 41.132305,
+    "avg_lon": -81.550073,
+    "avg_price": 225000.0,
+    "city": "Akron",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.037352,
+    "avg_lon": -84.276726,
+    "avg_price": 990000.0,
+    "city": "Alpharetta",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.676474,
+    "avg_lon": -81.400965,
+    "avg_price": 420000.0,
+    "city": "Altamonte Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.841401,
+    "avg_lon": -117.746487,
+    "avg_price": 1020000.0,
+    "city": "Anaheim",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.479159,
+    "avg_lon": -78.769369,
+    "avg_price": 278000.0,
+    "city": "Angier",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.179084,
+    "avg_lon": -95.406046,
+    "avg_price": 190000.0,
+    "city": "Angleton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.819978,
+    "avg_lon": -105.086568,
+    "avg_price": 600000.0,
+    "city": "Arvada",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.044816,
+    "avg_lon": -83.366021,
+    "avg_price": 305000.0,
+    "city": "Athens",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.040623,
+    "avg_lon": -83.872825,
+    "avg_price": 513000.0,
+    "city": "Auburn",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.077716,
+    "avg_lon": -81.813598,
+    "avg_price": 270000.0,
+    "city": "Auburndale",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.491566,
+    "avg_lon": -112.288948,
+    "avg_price": 335000.0,
+    "city": "Avondale",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.74301,
+    "avg_lon": -96.606814,
+    "avg_price": 244000.0,
+    "city": "Balch Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.591018,
+    "avg_lon": -90.555708,
+    "avg_price": 285000.0,
+    "city": "Ballwin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.951428,
+    "avg_lon": -116.991343,
+    "avg_price": 565000.0,
+    "city": "Beaumont",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.455269,
+    "avg_lon": -76.98501,
+    "avg_price": 370000.0,
+    "city": "Bel Alton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.354853,
+    "avg_lon": -71.62868,
+    "avg_price": 425000.0,
+    "city": "Berlin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.348319,
+    "avg_lon": -86.987687,
+    "avg_price": 251000.0,
+    "city": "Bessemer",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.150039,
+    "avg_lon": -97.673033,
+    "avg_price": 320000.0,
+    "city": "Blanchard",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 44.836605,
+    "avg_lon": -93.290792,
+    "avg_price": 309000.0,
+    "city": "Bloomington",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.991532,
+    "avg_lon": -94.264836,
+    "avg_price": 275000.0,
+    "city": "Blue Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.06825,
+    "avg_lon": -81.957912,
+    "avg_price": 310000.0,
+    "city": "Boiling Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.57618,
+    "avg_lon": -74.527416,
+    "avg_price": 482000.0,
+    "city": "Bound Brook",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.438077,
+    "avg_lon": -82.583867,
+    "avg_price": 309000.0,
+    "city": "Bradenton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.941202,
+    "avg_lon": -76.95651,
+    "avg_price": 400000.0,
+    "city": "Brentwood",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.103448,
+    "avg_lon": -93.380818,
+    "avg_price": 365000.0,
+    "city": "Brooklyn Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.525449,
+    "avg_lon": -82.291911,
+    "avg_price": 253000.0,
+    "city": "Brooksville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.948589,
+    "avg_lon": -105.051707,
+    "avg_price": 1050000.0,
+    "city": "Broomfield",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.794279,
+    "avg_lon": -98.414171,
+    "avg_price": 665000.0,
+    "city": "Bulverde",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.913801,
+    "avg_lon": -82.817382,
+    "avg_price": 317000.0,
+    "city": "Canal Winchester",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.982443,
+    "avg_lon": -96.884603,
+    "avg_price": 354000.0,
+    "city": "Carrollton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.760104,
+    "avg_lon": -111.969718,
+    "avg_price": 935000.0,
+    "city": "Cave Creek",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.609668,
+    "avg_lon": -96.90877,
+    "avg_price": 310000.0,
+    "city": "Cedar Hill",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.51938,
+    "avg_lon": -97.847239,
+    "avg_price": 312000.0,
+    "city": "Cedar Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.57846,
+    "avg_lon": -104.950227,
+    "avg_price": 374000.0,
+    "city": "Centennial",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.789181,
+    "avg_lon": -95.139332,
+    "avg_price": 180000.0,
+    "city": "Channelview",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.093222,
+    "avg_lon": -81.953463,
+    "avg_price": 405000.0,
+    "city": "Chesnee",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.34331,
+    "avg_lon": -77.418273,
+    "avg_price": 317000.0,
+    "city": "Chester",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.962207,
+    "avg_lon": -117.715481,
+    "avg_price": 855000.0,
+    "city": "Chino Hills",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.584626,
+    "avg_lon": -98.215634,
+    "avg_price": 255000.0,
+    "city": "Cibolo",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.703974,
+    "avg_lon": -121.299738,
+    "avg_price": 340000.0,
+    "city": "Citrus Heights",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.708483,
+    "avg_lon": -83.431411,
+    "avg_price": 447000.0,
+    "city": "Clarkston",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.866543,
+    "avg_lon": -82.693419,
+    "avg_price": 256000.0,
+    "city": "Clearwater",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.575555,
+    "avg_lon": -74.298707,
+    "avg_price": 509000.0,
+    "city": "Colonia",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.261095,
+    "avg_lon": -77.408964,
+    "avg_price": 302000.0,
+    "city": "Colonial Heights",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.394772,
+    "avg_lon": -80.671562,
+    "avg_price": 537000.0,
+    "city": "Concord",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.490331,
+    "avg_lon": -98.323994,
+    "avg_price": 205000.0,
+    "city": "Converse",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 31.144526,
+    "avg_lon": -97.927006,
+    "avg_price": 178000.0,
+    "city": "Copperas Cove",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.723961,
+    "avg_lon": -117.416889,
+    "avg_price": 730000.0,
+    "city": "Corona",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 44.838831,
+    "avg_lon": -92.948253,
+    "avg_price": 376000.0,
+    "city": "Cottage Grove",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.111393,
+    "avg_lon": -78.677567,
+    "avg_price": 327000.0,
+    "city": "Creedmoor",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.558083,
+    "avg_lon": -97.375418,
+    "avg_price": 304000.0,
+    "city": "Crowley",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.024936,
+    "avg_lon": -93.364796,
+    "avg_price": 312000.0,
+    "city": "Crystal",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.239365,
+    "avg_lon": -90.391052,
+    "avg_price": 274000.0,
+    "city": "Crystal City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.033267,
+    "avg_lon": -83.895773,
+    "avg_price": 524000.0,
+    "city": "Dacula",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.774055,
+    "avg_lon": -90.746554,
+    "avg_price": 430000.0,
+    "city": "Dardenne Prairie",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.320365,
+    "avg_lon": -81.673872,
+    "avg_price": 360000.0,
+    "city": "Davenport",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.461247,
+    "avg_lon": -80.766684,
+    "avg_price": 600000.0,
+    "city": "Davidson",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.559541,
+    "avg_lon": -121.697851,
+    "avg_price": 715000.0,
+    "city": "Davis",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.398826,
+    "avg_lon": -83.990529,
+    "avg_price": 715000.0,
+    "city": "Dawsonville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.565908,
+    "avg_lon": -96.846027,
+    "avg_price": 268000.0,
+    "city": "DeSoto",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.025371,
+    "avg_lon": -81.277842,
+    "avg_price": 255000.0,
+    "city": "Deland",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.290915,
+    "avg_lon": -83.095973,
+    "avg_price": 338000.0,
+    "city": "Delaware",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.083639,
+    "avg_lon": -83.101894,
+    "avg_price": 432000.0,
+    "city": "Dublin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.565812,
+    "avg_lon": -77.335654,
+    "avg_price": 470000.0,
+    "city": "Dumfries",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.661347,
+    "avg_lon": -96.936674,
+    "avg_price": 510000.0,
+    "city": "Duncanville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.431744,
+    "avg_lon": -74.369988,
+    "avg_price": 739000.0,
+    "city": "East Brunswick",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.765749,
+    "avg_lon": -74.197219,
+    "avg_price": 455000.0,
+    "city": "East Orange",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.630277,
+    "avg_lon": -97.638007,
+    "avg_price": 230000.0,
+    "city": "Edmond",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.598921,
+    "avg_lon": -112.327832,
+    "avg_price": 401000.0,
+    "city": "El Mirage",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.15058,
+    "avg_lon": -80.859377,
+    "avg_price": 220000.0,
+    "city": "Elgin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.451382,
+    "avg_lon": -121.342806,
+    "avg_price": 760000.0,
+    "city": "Elk Grove",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.086028,
+    "avg_lon": -79.509733,
+    "avg_price": 421000.0,
+    "city": "Elon",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.830614,
+    "avg_lon": -81.657497,
+    "avg_price": 305000.0,
+    "city": "Eustis",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.379387,
+    "avg_lon": -104.701285,
+    "avg_price": 385000.0,
+    "city": "Evans",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.66135,
+    "avg_lon": -121.256291,
+    "avg_price": 462000.0,
+    "city": "Fair Oaks",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.543925,
+    "avg_lon": -122.437346,
+    "avg_price": 450000.0,
+    "city": "Fairview",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 44.637149,
+    "avg_lon": -93.136447,
+    "avg_price": 315000.0,
+    "city": "Farmington",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.227224,
+    "avg_lon": -90.400734,
+    "avg_price": 186000.0,
+    "city": "Festus",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.991596,
+    "avg_lon": -85.990606,
+    "avg_price": 316000.0,
+    "city": "Fishers",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.793413,
+    "avg_lon": -90.284158,
+    "avg_price": 184000.0,
+    "city": "Florissant",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.12888,
+    "avg_lon": -83.893234,
+    "avg_price": 336000.0,
+    "city": "Flowery Branch",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.638673,
+    "avg_lon": -84.344461,
+    "avg_price": 206000.0,
+    "city": "Forest Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.680428,
+    "avg_lon": -96.448783,
+    "avg_price": 330000.0,
+    "city": "Forney",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.60015,
+    "avg_lon": -105.00352,
+    "avg_price": 475000.0,
+    "city": "Fort Collins",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 26.193331,
+    "avg_lon": -80.213722,
+    "avg_price": 552000.0,
+    "city": "Fort Lauderdale",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.947865,
+    "avg_lon": -85.256037,
+    "avg_price": 216000.0,
+    "city": "Fort Oglethorpe",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.365594,
+    "avg_lon": -80.305484,
+    "avg_price": 297000.0,
+    "city": "Fort Pierce",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.505266,
+    "avg_lon": -121.94563,
+    "avg_price": 1270000.0,
+    "city": "Fremont",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.545992,
+    "avg_lon": -95.488961,
+    "avg_price": 310000.0,
+    "city": "Fresno",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.403656,
+    "avg_lon": -86.4268,
+    "avg_price": 348000.0,
+    "city": "Gallatin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.256097,
+    "avg_lon": -94.8682,
+    "avg_price": 296000.0,
+    "city": "Galveston",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.213274,
+    "avg_lon": -77.240762,
+    "avg_price": 634000.0,
+    "city": "Germantown",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.341884,
+    "avg_lon": -111.822158,
+    "avg_price": 599000.0,
+    "city": "Gilbert",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.027494,
+    "avg_lon": -117.316183,
+    "avg_price": 610000.0,
+    "city": "Grand Terrace",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.260618,
+    "avg_lon": -84.808565,
+    "avg_price": 284000.0,
+    "city": "Grantville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.967678,
+    "avg_lon": -81.423749,
+    "avg_price": 409000.0,
+    "city": "Green",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.045317,
+    "avg_lon": -81.768566,
+    "avg_price": 380000.0,
+    "city": "Green Cove Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 31.842297,
+    "avg_lon": -110.996137,
+    "avg_price": 253000.0,
+    "city": "Green Valley",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.797311,
+    "avg_lon": -85.741014,
+    "avg_price": 283000.0,
+    "city": "Greenfield",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.859304,
+    "avg_lon": -82.479763,
+    "avg_price": 190000.0,
+    "city": "Greenville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.631982,
+    "avg_lon": -86.104081,
+    "avg_price": 240000.0,
+    "city": "Greenwood",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.554556,
+    "avg_lon": -81.855142,
+    "avg_price": 320000.0,
+    "city": "Groveland",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.826046,
+    "avg_lon": -74.816698,
+    "avg_price": 650000.0,
+    "city": "Hackettstown",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.413305,
+    "avg_lon": -84.568311,
+    "avg_price": 186000.0,
+    "city": "Hamilton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.162208,
+    "avg_lon": -93.681842,
+    "avg_price": 425000.0,
+    "city": "Hanover",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.312423,
+    "avg_lon": -80.660532,
+    "avg_price": 600000.0,
+    "city": "Harrisburg",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.687391,
+    "avg_lon": -96.449699,
+    "avg_price": 228000.0,
+    "city": "Heartland",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.753765,
+    "avg_lon": -116.90216,
+    "avg_price": 455000.0,
+    "city": "Hemet",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.327864,
+    "avg_lon": -86.617441,
+    "avg_price": 435000.0,
+    "city": "Hendersonville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.643152,
+    "avg_lon": -77.64207,
+    "avg_price": 714000.0,
+    "city": "Henrico",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.192172,
+    "avg_lon": -86.641448,
+    "avg_price": 635000.0,
+    "city": "Hermitage",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.485092,
+    "avg_lon": -112.008734,
+    "avg_price": 695000.0,
+    "city": "Herriman",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.029605,
+    "avg_lon": -79.991788,
+    "avg_price": 321000.0,
+    "city": "High Point",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.520696,
+    "avg_lon": -104.951483,
+    "avg_price": 780000.0,
+    "city": "Highlands Ranch",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.861082,
+    "avg_lon": -84.76721,
+    "avg_price": 280000.0,
+    "city": "Hiram",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.186464,
+    "avg_lon": -85.204372,
+    "avg_price": 315000.0,
+    "city": "Hixson",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.192715,
+    "avg_lon": -71.442585,
+    "avg_price": 1070000.0,
+    "city": "Holliston",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.641073,
+    "avg_lon": -78.846603,
+    "avg_price": 535000.0,
+    "city": "Holly Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.760346,
+    "avg_lon": -80.153149,
+    "avg_price": 915000.0,
+    "city": "Hollywood",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.293955,
+    "avg_lon": -77.310702,
+    "avg_price": 260000.0,
+    "city": "Hopewell",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.092687,
+    "avg_lon": -83.705643,
+    "avg_price": 470000.0,
+    "city": "Hoschton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.538276,
+    "avg_lon": -97.547076,
+    "avg_price": 320000.0,
+    "city": "Hutto",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.809617,
+    "avg_lon": -97.600189,
+    "avg_price": 288000.0,
+    "city": "Jarrell",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.14176,
+    "avg_lon": -83.578837,
+    "avg_price": 395000.0,
+    "city": "Jefferson",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.365606,
+    "avg_lon": -86.975255,
+    "avg_price": 330000.0,
+    "city": "Joelton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 41.018962,
+    "avg_lon": -111.968685,
+    "avg_price": 845000.0,
+    "city": "Kaysville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 31.058455,
+    "avg_lon": -97.91226,
+    "avg_price": 376000.0,
+    "city": "Kempner",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.047023,
+    "avg_lon": -84.643141,
+    "avg_price": 410000.0,
+    "city": "Kennesaw",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.29995,
+    "avg_lon": -81.433371,
+    "avg_price": 385000.0,
+    "city": "Kings Mountain",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.771692,
+    "avg_lon": -78.441717,
+    "avg_price": 276000.0,
+    "city": "Knightdale",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.397931,
+    "avg_lon": -95.049277,
+    "avg_price": 235000.0,
+    "city": "La Marque",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.786325,
+    "avg_lon": -116.995969,
+    "avg_price": 539000.0,
+    "city": "La Mesa",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.984763,
+    "avg_lon": -86.595543,
+    "avg_price": 385000.0,
+    "city": "La Vergne",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.4325,
+    "avg_lon": -98.002957,
+    "avg_price": 362000.0,
+    "city": "Lago Vista",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.118226,
+    "avg_lon": -81.750745,
+    "avg_price": 358000.0,
+    "city": "Lake Alfred",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.673591,
+    "avg_lon": -117.683107,
+    "avg_price": 1334000.0,
+    "city": "Lake Forest",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.976557,
+    "avg_lon": -81.54426,
+    "avg_price": 267000.0,
+    "city": "Lake Wales",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.495258,
+    "avg_lon": -95.118693,
+    "avg_price": 265000.0,
+    "city": "League City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.628257,
+    "avg_lon": -97.868621,
+    "avg_price": 350000.0,
+    "city": "Leander",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.923619,
+    "avg_lon": -94.327002,
+    "avg_price": 524000.0,
+    "city": "Lees Summit",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.779085,
+    "avg_lon": -84.231934,
+    "avg_price": 415000.0,
+    "city": "Lenoir City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.168181,
+    "avg_lon": -82.980997,
+    "avg_price": 530000.0,
+    "city": "Lewis Center",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.23699,
+    "avg_lon": -94.441935,
+    "avg_price": 260000.0,
+    "city": "Liberty",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.495189,
+    "avg_lon": -81.235168,
+    "avg_price": 295000.0,
+    "city": "Lincolnton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.85262,
+    "avg_lon": -83.944628,
+    "avg_price": 352000.0,
+    "city": "Loganville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.200322,
+    "avg_lon": -105.115868,
+    "avg_price": 488000.0,
+    "city": "Longmont",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 41.429774,
+    "avg_lon": -82.109381,
+    "avg_price": 141000.0,
+    "city": "Lorain",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.211878,
+    "avg_lon": -84.231479,
+    "avg_price": 415000.0,
+    "city": "Loveland",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.980447,
+    "avg_lon": -82.184021,
+    "avg_price": 335000.0,
+    "city": "Lyman",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.50329,
+    "avg_lon": -70.975188,
+    "avg_price": 630000.0,
+    "city": "Lynn",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.844737,
+    "avg_lon": -84.594979,
+    "avg_price": 512000.0,
+    "city": "Mableton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.342414,
+    "avg_lon": -97.531049,
+    "avg_price": 222000.0,
+    "city": "Manor",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.002366,
+    "avg_lon": -93.045384,
+    "avg_price": 290000.0,
+    "city": "Maplewood",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.725916,
+    "avg_lon": -90.449536,
+    "avg_price": 185000.0,
+    "city": "Maryland Heights",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.392427,
+    "avg_lon": -84.310183,
+    "avg_price": 610000.0,
+    "city": "Mason",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.765004,
+    "avg_lon": -82.309464,
+    "avg_price": 317000.0,
+    "city": "Mauldin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.289933,
+    "avg_lon": -87.102469,
+    "avg_price": 170000.0,
+    "city": "Mc Calla",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 25.845463,
+    "avg_lon": -80.222527,
+    "avg_price": 448000.0,
+    "city": "Miami",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 25.960235,
+    "avg_lon": -80.249118,
+    "avg_price": 390000.0,
+    "city": "Miami Gardens",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.087736,
+    "avg_lon": -81.751588,
+    "avg_price": 295000.0,
+    "city": "Middleburg",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.256705,
+    "avg_lon": -80.509178,
+    "avg_price": 405000.0,
+    "city": "Midland",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.378483,
+    "avg_lon": -95.647859,
+    "avg_price": 209000.0,
+    "city": "Montgomery",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.582647,
+    "avg_lon": -80.83551,
+    "avg_price": 459000.0,
+    "city": "Mooresville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.182131,
+    "avg_lon": -86.569468,
+    "avg_price": 495000.0,
+    "city": "Mount Juliet",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.503698,
+    "avg_lon": -86.763134,
+    "avg_price": 599000.0,
+    "city": "Mountain Brk",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.937697,
+    "avg_lon": -82.009863,
+    "avg_price": 338000.0,
+    "city": "Mulberry",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.579472,
+    "avg_lon": -117.137507,
+    "avg_price": 690000.0,
+    "city": "Murrieta",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.14681,
+    "avg_lon": -86.636311,
+    "avg_price": 390000.0,
+    "city": "Nashville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.268526,
+    "avg_lon": -82.684554,
+    "avg_price": 283000.0,
+    "city": "New Port Richey",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.422071,
+    "avg_lon": -77.454679,
+    "avg_price": 388000.0,
+    "city": "North Chesterfield",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.229956,
+    "avg_lon": -115.169951,
+    "avg_price": 405000.0,
+    "city": "North Las Vegas",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.074919,
+    "avg_lon": -82.180612,
+    "avg_price": 288000.0,
+    "city": "North Port",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.885257,
+    "avg_lon": -97.231982,
+    "avg_price": 365000.0,
+    "city": "North Richland Hills",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.489915,
+    "avg_lon": -83.550882,
+    "avg_price": 580000.0,
+    "city": "Novi",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.822616,
+    "avg_lon": -90.702565,
+    "avg_price": 264000.0,
+    "city": "O Fallon",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.64711,
+    "avg_lon": -86.483663,
+    "avg_price": 392000.0,
+    "city": "Odenville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 41.212998,
+    "avg_lon": -111.977928,
+    "avg_price": 285000.0,
+    "city": "Ogden",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.889396,
+    "avg_lon": -94.827387,
+    "avg_price": 271000.0,
+    "city": "Olathe",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.271724,
+    "avg_lon": -86.664756,
+    "avg_price": 335000.0,
+    "city": "Old Hickory",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.780331,
+    "avg_lon": -117.861322,
+    "avg_price": 610000.0,
+    "city": "Orange",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.180117,
+    "avg_lon": -81.846766,
+    "avg_price": 185000.0,
+    "city": "Orange Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.95692,
+    "avg_lon": -94.696813,
+    "avg_price": 361000.0,
+    "city": "Overland Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.614245,
+    "avg_lon": -81.183435,
+    "avg_price": 506000.0,
+    "city": "Oviedo",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.82698,
+    "avg_lon": -76.979616,
+    "avg_price": 449000.0,
+    "city": "Oxon Hill",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.901068,
+    "avg_lon": -81.780532,
+    "avg_price": 390000.0,
+    "city": "Pacolet",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.432696,
+    "avg_lon": -96.67252,
+    "avg_price": 285000.0,
+    "city": "Palmer",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.681243,
+    "avg_lon": -95.201089,
+    "avg_price": 193000.0,
+    "city": "Pasadena",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 26.002243,
+    "avg_lon": -80.361898,
+    "avg_price": 1070000.0,
+    "city": "Pembroke Pines",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.461911,
+    "avg_lon": -97.564783,
+    "avg_price": 410000.0,
+    "city": "Pflugerville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.705745,
+    "avg_lon": -82.417424,
+    "avg_price": 247000.0,
+    "city": "Piedmont",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.687416,
+    "avg_lon": -86.422468,
+    "avg_price": 360000.0,
+    "city": "Plainfield",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 45.027563,
+    "avg_lon": -93.468806,
+    "avg_price": 555000.0,
+    "city": "Plymouth",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.095063,
+    "avg_lon": -81.424228,
+    "avg_price": 845000.0,
+    "city": "Ponte Vedra",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.090939,
+    "avg_lon": -95.250856,
+    "avg_price": 483000.0,
+    "city": "Porter",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.589898,
+    "avg_lon": -112.354298,
+    "avg_price": 360000.0,
+    "city": "Prescott Valley",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.170834,
+    "avg_lon": -96.519913,
+    "avg_price": 255000.0,
+    "city": "Princeton",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.228051,
+    "avg_lon": -96.890898,
+    "avg_price": 368000.0,
+    "city": "Prosper",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.237406,
+    "avg_lon": -96.961887,
+    "avg_price": 291000.0,
+    "city": "Providence Village",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 26.987425,
+    "avg_lon": -82.063667,
+    "avg_price": 275000.0,
+    "city": "Punta Gorda",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.249464,
+    "avg_lon": -111.619954,
+    "avg_price": 470000.0,
+    "city": "Queen Creek",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.535106,
+    "avg_lon": -117.599589,
+    "avg_price": 1075000.0,
+    "city": "Rancho Mission Viejo",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.89499,
+    "avg_lon": -80.25896,
+    "avg_price": 407000.0,
+    "city": "Ravenel",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.79736,
+    "avg_lon": -94.487665,
+    "avg_price": 386000.0,
+    "city": "Raymore",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.999128,
+    "avg_lon": -94.471738,
+    "avg_price": 224000.0,
+    "city": "Raytown",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.500154,
+    "avg_lon": -96.884746,
+    "avg_price": 650000.0,
+    "city": "Red Oak",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.96516,
+    "avg_lon": -82.788387,
+    "avg_price": 474000.0,
+    "city": "Reynoldsburg",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.953472,
+    "avg_lon": -96.74131,
+    "avg_price": 450000.0,
+    "city": "Richardson",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.871107,
+    "avg_lon": -85.013694,
+    "avg_price": 270000.0,
+    "city": "Rockmart",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 44.747191,
+    "avg_lon": -93.087346,
+    "avg_price": 594000.0,
+    "city": "Rosemount",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.512159,
+    "avg_lon": -95.819553,
+    "avg_price": 260000.0,
+    "city": "Rosenberg",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.466239,
+    "avg_lon": -95.461706,
+    "avg_price": 263000.0,
+    "city": "Rosharon",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 41.158515,
+    "avg_lon": -112.073815,
+    "avg_price": 410000.0,
+    "city": "Roy",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.997928,
+    "avg_lon": -96.253952,
+    "avg_price": 390000.0,
+    "city": "Royse City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.241772,
+    "avg_lon": -80.249642,
+    "avg_price": 245000.0,
+    "city": "Rural Hall",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.314564,
+    "avg_lon": -84.719351,
+    "avg_price": 338000.0,
+    "city": "Rydal",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.937929,
+    "avg_lon": -81.359577,
+    "avg_price": 366000.0,
+    "city": "Saint Augustine",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.236578,
+    "avg_lon": -81.253797,
+    "avg_price": 410000.0,
+    "city": "Saint Cloud",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.879845,
+    "avg_lon": -90.740904,
+    "avg_price": 409000.0,
+    "city": "Saint Paul",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.742761,
+    "avg_lon": -90.559943,
+    "avg_price": 261000.0,
+    "city": "Saint Peters",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.608256,
+    "avg_lon": -80.468514,
+    "avg_price": 322000.0,
+    "city": "Salisbury",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.73374,
+    "avg_lon": -111.869368,
+    "avg_price": 560000.0,
+    "city": "Salt Lake City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.307653,
+    "avg_lon": -121.933212,
+    "avg_price": 600000.0,
+    "city": "San Jose",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.380414,
+    "avg_lon": -97.161187,
+    "avg_price": 324000.0,
+    "city": "Sanger",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.402841,
+    "avg_lon": -111.924779,
+    "avg_price": 388000.0,
+    "city": "Saratoga Springs",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 42.476323,
+    "avg_lon": -71.017337,
+    "avg_price": 819000.0,
+    "city": "Saugus",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.614184,
+    "avg_lon": -98.248907,
+    "avg_price": 326000.0,
+    "city": "Schertz",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.613169,
+    "avg_lon": -97.973369,
+    "avg_price": 220000.0,
+    "city": "Seguin",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.020989,
+    "avg_lon": -77.063877,
+    "avg_price": 710000.0,
+    "city": "Silver Spring",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.882307,
+    "avg_lon": -84.489795,
+    "avg_price": 215000.0,
+    "city": "Smyrna",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.434196,
+    "avg_lon": -74.291089,
+    "avg_price": 591000.0,
+    "city": "South Amboy",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.113327,
+    "avg_lon": -111.645563,
+    "avg_price": 400000.0,
+    "city": "Spanish Fork",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.235864,
+    "avg_lon": -78.964501,
+    "avg_price": 193000.0,
+    "city": "Spring Lake",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.444399,
+    "avg_lon": -77.375269,
+    "avg_price": 515000.0,
+    "city": "Stafford",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.798626,
+    "avg_lon": -80.815279,
+    "avg_price": 542000.0,
+    "city": "Statesville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.683897,
+    "avg_lon": -112.382577,
+    "avg_price": 388000.0,
+    "city": "Sun City West",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.383325,
+    "avg_lon": -122.044175,
+    "avg_price": 1087000.0,
+    "city": "Sunnyvale",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.467676,
+    "avg_lon": -117.126798,
+    "avg_price": 820000.0,
+    "city": "Temecula",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 35.586549,
+    "avg_lon": -80.968266,
+    "avg_price": 590000.0,
+    "city": "Terrell",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.416979,
+    "avg_lon": -95.033677,
+    "avg_price": 235000.0,
+    "city": "Texas City",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.569313,
+    "avg_lon": -104.975964,
+    "avg_price": 570000.0,
+    "city": "Timnath",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.422105,
+    "avg_lon": -112.241471,
+    "avg_price": 400000.0,
+    "city": "Tolleson",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 30.058534,
+    "avg_lon": -95.600197,
+    "avg_price": 266000.0,
+    "city": "Tomball",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.534935,
+    "avg_lon": -112.281136,
+    "avg_price": 380000.0,
+    "city": "Tooele",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.950809,
+    "avg_lon": -82.450438,
+    "avg_price": 661000.0,
+    "city": "Travelers Rest",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.549395,
+    "avg_lon": -77.315102,
+    "avg_price": 778000.0,
+    "city": "Triangle",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.954976,
+    "avg_lon": -90.989381,
+    "avg_price": 310000.0,
+    "city": "Troy",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.835381,
+    "avg_lon": -84.21069,
+    "avg_price": 215000.0,
+    "city": "Tucker",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.433968,
+    "avg_lon": -118.536486,
+    "avg_price": 840000.0,
+    "city": "Valencia",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.418584,
+    "avg_lon": -96.581265,
+    "avg_price": 296000.0,
+    "city": "Van Alstyne",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.087159,
+    "avg_lon": -82.384228,
+    "avg_price": 475000.0,
+    "city": "Venice",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.265886,
+    "avg_lon": -98.587061,
+    "avg_price": 235000.0,
+    "city": "Von Ormy",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 36.012323,
+    "avg_lon": -78.579553,
+    "avg_price": 832000.0,
+    "city": "Wake Forest",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 37.911893,
+    "avg_lon": -122.09436,
+    "avg_price": 1300000.0,
+    "city": "Walnut Creek",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 32.415715,
+    "avg_lon": -96.834066,
+    "avg_price": 259000.0,
+    "city": "Waxahachie",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.967836,
+    "avg_lon": -80.676255,
+    "avg_price": 695000.0,
+    "city": "Waxhaw",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 29.532391,
+    "avg_lon": -95.102514,
+    "avg_price": 460000.0,
+    "city": "Webster",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.567648,
+    "avg_lon": -82.532461,
+    "avg_price": 430000.0,
+    "city": "Weeki Wachee",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.939902,
+    "avg_lon": -82.105015,
+    "avg_price": 250000.0,
+    "city": "Wellford",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 38.860771,
+    "avg_lon": -90.896562,
+    "avg_price": 370000.0,
+    "city": "Wentzville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.959901,
+    "avg_lon": -81.148239,
+    "avg_price": 258000.0,
+    "city": "West Columbia",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.131512,
+    "avg_lon": -82.897741,
+    "avg_price": 407000.0,
+    "city": "Westerville",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 39.880229,
+    "avg_lon": -105.127527,
+    "avg_price": 537000.0,
+    "city": "Westminster",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 33.693944,
+    "avg_lon": -84.819179,
+    "avg_price": 495000.0,
+    "city": "Winston",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 27.983491,
+    "avg_lon": -81.652757,
+    "avg_price": 300000.0,
+    "city": "Winter Haven",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 28.607464,
+    "avg_lon": -81.380417,
+    "avg_price": 381000.0,
+    "city": "Winter Park",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 34.17356,
+    "avg_lon": -118.609857,
+    "avg_price": 1275000.0,
+    "city": "Woodland Hills",
+    "listing_count": 1
+  },
+  {
+    "avg_lat": 40.077005,
+    "avg_lon": -83.011036,
+    "avg_price": 330000.0,
+    "city": "Worthington",
+    "listing_count": 1
+  }
+]

@@ -7,6 +7,14 @@ import json
 import os
 from pathlib import Path
 from datetime import datetime
+
+# Load .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
+
 import anthropic
 
 def load_dashboard_data(path: Path) -> dict:

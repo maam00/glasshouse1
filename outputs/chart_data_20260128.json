@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T09:49:10.108772",
+  "generated_at": "2026-01-28T14:26:15.950819",
   "time_series": {
     "win_rate": [
       {
@@ -96,7 +96,7 @@
       },
       {
         "date": "2026-01-28",
-        "value": 68.7
+        "value": 68.3
       }
     ],
     "new_cohort_win_rate": [
@@ -194,7 +194,7 @@
       },
       {
         "date": "2026-01-28",
-        "value": 90.3
+        "value": 89.0
       }
     ],
     "contribution_margin": [
@@ -292,7 +292,7 @@
       },
       {
         "date": "2026-01-28",
-        "value": 7.02
+        "value": 7.01
       }
     ],
     "toxic_remaining": [
@@ -586,7 +586,7 @@
       },
       {
         "date": "2026-01-28",
-        "value": 319
+        "value": 322
       }
     ],
     "revenue": [
@@ -684,27 +684,27 @@
       },
       {
         "date": "2026-01-28",
-        "value": 119653700.0
+        "value": 120520700.0
       }
     ]
   },
   "changes": {
     "win_rate": {
-      "current": 68.7,
-      "dod": 0.0,
-      "wow": 0.0,
+      "current": 68.3,
+      "dod": -0.582241630276573,
+      "wow": -0.582241630276573,
       "mom": null
     },
     "contribution_margin": {
-      "current": 7.02,
-      "dod": 0.0,
-      "wow": -1.2658227848101369,
+      "current": 7.01,
+      "dod": -0.14245014245013943,
+      "wow": -1.406469760900148,
       "mom": null
     },
     "new_cohort_win_rate": {
-      "current": 90.3,
-      "dod": 0.0,
-      "wow": 1.0067114093959635,
+      "current": 89.0,
+      "dod": -1.4396456256921342,
+      "wow": -0.44742729306488327,
       "mom": null
     },
     "toxic_remaining": {

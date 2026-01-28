@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T12:14:26.533032",
+  "generated_at": "2026-01-28T14:26:48.959015",
   "earnings": {
     "next_earnings_date": null,
     "days_until_earnings": null,
@@ -20,45 +20,45 @@
     "headlines": [],
     "fed_news": [
       {
-        "title": "Apple\u2019s first quarter earnings will focus on iPhone sales, AI outlook",
-        "publisher": "Yahoo Finance",
+        "title": "IPX1031 Releases 2026 Trends: Key Insights for the CRE Market and 1031 Exchanges",
+        "publisher": "GlobeNewswire",
         "date": "2026-01-28"
       },
       {
-        "title": "Natus introduces AVEMG innovation in launch of latest edition of Natus Elite software",
-        "publisher": "PR Newswire",
+        "title": "Metavista3D Recognized in Netzwelt's CES 2026 Highlights Coverage",
+        "publisher": "TMX Newsfile",
         "date": "2026-01-28"
       },
       {
-        "title": "Avnet (AVT) Q2 2026 Earnings Call Transcript",
-        "publisher": "Motley Fool",
+        "title": "Bitcoin, Ethereum Steady as Fed Leaves Interest Rates Unchanged",
+        "publisher": "decrypt",
         "date": "2026-01-28"
       }
     ],
     "housing_news": [
       {
-        "title": "Apple\u2019s first quarter earnings will focus on iPhone sales, AI outlook",
-        "publisher": "Yahoo Finance",
+        "title": "IPX1031 Releases 2026 Trends: Key Insights for the CRE Market and 1031 Exchanges",
+        "publisher": "GlobeNewswire",
         "date": "2026-01-28"
       },
       {
-        "title": "Natus introduces AVEMG innovation in launch of latest edition of Natus Elite software",
-        "publisher": "PR Newswire",
+        "title": "Metavista3D Recognized in Netzwelt's CES 2026 Highlights Coverage",
+        "publisher": "TMX Newsfile",
         "date": "2026-01-28"
       },
       {
-        "title": "Avnet (AVT) Q2 2026 Earnings Call Transcript",
-        "publisher": "Motley Fool",
+        "title": "Bitcoin, Ethereum Steady as Fed Leaves Interest Rates Unchanged",
+        "publisher": "decrypt",
         "date": "2026-01-28"
       },
       {
-        "title": "FRN Variable Rate Fix",
-        "publisher": "Business Wire",
+        "title": "Toll Brothers Announces New Luxury Home Community Coming Soon to Cumming, Georgia",
+        "publisher": "GlobeNewswire",
         "date": "2026-01-28"
       },
       {
-        "title": "1 Fintech Stock Set to Rebound in 2026",
-        "publisher": "Motley Fool",
+        "title": "Fed Stands Pat, With Hawkish Tweak; Will Powell Move The S&P 500? (Live Coverage)",
+        "publisher": "Investor's Business Daily",
         "date": "2026-01-28"
       }
     ],
@@ -95,11 +95,25 @@
       }
     ]
   },
+  "news_bullets": [
+    {
+      "text": "Fed holds rates steady, Bitcoin and Ethereum remain stable",
+      "type": "fed"
+    },
+    {
+      "text": "30-year mortgage rates drop to 6.89%, down 0.15% monthly",
+      "type": "housing"
+    },
+    {
+      "text": "Opendoor CEO praises Trump housing policy, stock soared 264%",
+      "type": "open"
+    }
+  ],
   "market_brief": {
-    "market_brief": "Mortgage rates declined 15 basis points this month to 6.89%, providing tailwinds as OPEN maintains strong operational momentum with a 78.9% win rate and 22.2 homes sold daily. The company is tracking at 96% of its Q1 revenue target with 63 days remaining, positioning for another solid quarter execution. CEO commentary praising Trump's housing affordability efforts signals management confidence in the policy environment, while problem inventory remains contained at $58.6M in unrealized losses. Operational excellence continues despite elevated rate environment, with critical risk exposure limited to just one market.",
+    "market_brief": "Mortgage rates continued their gradual decline, dropping 15 basis points over the past month to 6.89%, creating a more favorable environment for iBuying operations. Opendoor is capitalizing on improved conditions with a strong 78.9% win rate and daily sales pace of 22.2 homes, putting Q1 revenue 96% on track toward the $1B target with 63 days remaining. The operational momentum is solid, but the company still carries $58.6M in unrealized losses from 455 stale properties that need resolution. Management's optimistic commentary on Trump's housing policies signals confidence in the regulatory and market environment ahead.",
     "sentiment": "bullish",
-    "key_risk": "Problem inventory of 455 aging homes could pressure margins if market conditions deteriorate or sales pace slows.",
-    "key_catalyst": "Continued mortgage rate decline below 6.5% would significantly expand buyer pool and accelerate inventory turnover.",
-    "generated_at": "2026-01-28T12:14:26.532995"
+    "key_risk": "The $58.6M in unrealized losses from aging inventory could pressure margins if these 455 stale properties don't clear quickly in Q1.",
+    "key_catalyst": "Continued mortgage rate declines below 6.5% would significantly expand the addressable buyer pool and accelerate inventory turnover.",
+    "generated_at": "2026-01-28T14:26:46.519089"
   }
 }

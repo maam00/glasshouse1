@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-01-28T09:49:10.713927",
+  "generated_at": "2026-01-28T14:26:16.035934",
   "current": {
     "date": "2026-01-28",
     "cohort_new": {
       "name": "New (<90d)",
-      "count": 72,
-      "win_rate": 90.3,
-      "avg_profit": 40698.81,
-      "total_profit": 2930314.0,
-      "contribution_margin": 10.44
+      "count": 73,
+      "win_rate": 89.0,
+      "avg_profit": 40096.08,
+      "total_profit": 2927014.0,
+      "contribution_margin": 10.35
     },
     "cohort_mid": {
       "name": "Mid (90-180d)",
@@ -20,11 +20,11 @@
     },
     "cohort_old": {
       "name": "Old (180-365d)",
-      "count": 100,
-      "win_rate": 53.0,
-      "avg_profit": 21708.0,
-      "total_profit": 2170800.0,
-      "contribution_margin": 5.43
+      "count": 102,
+      "win_rate": 52.9,
+      "avg_profit": 21782.35,
+      "total_profit": 2221800.0,
+      "contribution_margin": 5.47
     },
     "cohort_toxic": {
       "name": "Toxic (>365d)",
@@ -54,12 +54,12 @@
       "total_unrealized_pnl": 58612244.0
     },
     "performance": {
-      "win_rate": 68.7,
-      "contribution_margin": 7.02,
-      "avg_profit": 26336.54,
-      "homes_sold_total": 319,
+      "win_rate": 68.3,
+      "contribution_margin": 7.01,
+      "avg_profit": 26239.31,
+      "homes_sold_total": 322,
       "homes_sold_today": 0,
-      "revenue_total": 119653700.0,
+      "revenue_total": 120520700.0,
       "revenue_today": 0.0,
       "homes_listed_today": 0,
       "net_inventory_change": 0
@@ -97,14 +97,14 @@
       "win_rate_by_state": {}
     },
     "alerts": [
-      "New cohort win rate dropped to 90.3% (target: >95%)"
+      "New cohort win rate dropped to 89.0% (target: >95%)"
     ],
     "kaz_era": {
       "realized": {
-        "count": 43,
+        "count": 44,
         "profitable": 41,
-        "win_rate": 95.3,
-        "avg_profit": 43237.0
+        "win_rate": 93.2,
+        "avg_profit": 42180.0
       },
       "unrealized": {
         "count": 103,
@@ -112,27 +112,27 @@
         "above_water_pct": 97.1,
         "underwater": 3
       },
-      "total": 146,
-      "overall_health_pct": 96.6,
-      "vs_legacy_improvement": 30.9
+      "total": 147,
+      "overall_health_pct": 95.9,
+      "vs_legacy_improvement": 28.8
     },
     "guidance": {
       "q1_target": 595000000,
-      "revenue_to_date": 119653700.0,
-      "pct_to_target": 20.1,
+      "revenue_to_date": 120520700.0,
+      "pct_to_target": 20.3,
       "days_elapsed": 27,
       "days_remaining": 61,
-      "required_daily_revenue": 7792562.0,
-      "current_daily_revenue": 4431619.0,
+      "required_daily_revenue": 7778349.0,
+      "current_daily_revenue": 4463730.0,
       "pace_vs_required": "behind",
-      "projected_quarter_revenue": 394414048.0
+      "projected_quarter_revenue": 397271937.0
     },
     "velocity": {
       "avg_days_to_sale": 207.0,
-      "median_days_to_sale": 158.0,
-      "sales_per_day_avg": 15.2,
-      "sales_last_7_days": 25,
-      "sales_last_30_days": 319,
+      "median_days_to_sale": 158.5,
+      "sales_per_day_avg": 15.3,
+      "sales_last_7_days": 28,
+      "sales_last_30_days": 322,
       "inventory_turnover_days": 50.0
     },
     "pricing": {
@@ -142,7 +142,7 @@
       "homes_with_price_cuts_pct": 87.4,
       "avg_cuts_per_home": 6.4,
       "avg_initial_vs_final_list": -9.8,
-      "avg_spread": 30329.808664259926,
+      "avg_spread": 30283.35842293907,
       "spread_trend": "unknown"
     },
     "risk": {
@@ -448,10 +448,10 @@
       "portfolio": {
         "kaz_era": {
           "era": "kaz_era",
-          "sold_count": 43,
-          "sold_win_rate": 95.3,
-          "sold_avg_profit": 43237.0,
-          "sold_total_realized": 1859209.0,
+          "sold_count": 44,
+          "sold_win_rate": 93.2,
+          "sold_avg_profit": 42180.0,
+          "sold_total_realized": 1855909.0,
           "listed_count": 103,
           "listed_above_water": 100,
           "listed_above_water_pct": 97.1,
@@ -461,15 +461,15 @@
           "listed_with_cuts": 36,
           "listed_with_cuts_pct": 35.0,
           "avg_cut_amount": 9917.0,
-          "total_homes": 146,
-          "net_position": 6443874.0
+          "total_homes": 147,
+          "net_position": 6440574.0
         },
         "legacy": {
           "era": "legacy",
-          "sold_count": 276,
-          "sold_win_rate": 64.5,
-          "sold_avg_profit": 23703.0,
-          "sold_total_realized": 6542148.0,
+          "sold_count": 278,
+          "sold_win_rate": 64.4,
+          "sold_avg_profit": 23716.0,
+          "sold_total_realized": 6593148.0,
           "listed_count": 661,
           "listed_above_water": 471,
           "listed_above_water_pct": 71.3,
@@ -479,16 +479,16 @@
           "listed_with_cuts": 632,
           "listed_with_cuts_pct": 95.6,
           "avg_cut_amount": 51517.0,
-          "total_homes": 937,
-          "net_position": 13767927.0
+          "total_homes": 939,
+          "net_position": 13818927.0
         }
       },
       "days_to_sale": [
         {
           "cohort": "New (<90d)",
-          "sold_count": 70,
+          "sold_count": 71,
           "avg_days_to_sale": 65.0,
-          "median_days_to_sale": 68.0
+          "median_days_to_sale": 69.0
         },
         {
           "cohort": "Mid (90-180d)",
@@ -498,7 +498,7 @@
         },
         {
           "cohort": "Old (180-365d)",
-          "sold_count": 100,
+          "sold_count": 102,
           "avg_days_to_sale": 262.0,
           "median_days_to_sale": 265.0
         },
@@ -565,12 +565,12 @@
       "cohort_margins": [
         {
           "cohort": "New (<90d)",
-          "sold_count": 70,
-          "win_rate": 92.9,
-          "total_revenue": 27436800.0,
-          "total_profit": 2930314.0,
-          "contribution_margin": 10.7,
-          "avg_profit": 41862.0
+          "sold_count": 71,
+          "win_rate": 91.5,
+          "total_revenue": 27636800.0,
+          "total_profit": 2927014.0,
+          "contribution_margin": 10.6,
+          "avg_profit": 41226.0
         },
         {
           "cohort": "Mid (90-180d)",
@@ -583,12 +583,12 @@
         },
         {
           "cohort": "Old (180-365d)",
-          "sold_count": 100,
-          "win_rate": 53.0,
-          "total_revenue": 39948000.0,
-          "total_profit": 2170800.0,
-          "contribution_margin": 5.4,
-          "avg_profit": 21708.0
+          "sold_count": 102,
+          "win_rate": 52.9,
+          "total_revenue": 40615000.0,
+          "total_profit": 2221800.0,
+          "contribution_margin": 5.5,
+          "avg_profit": 21782.0
         },
         {
           "cohort": "Toxic (>365d)",
@@ -2269,11 +2269,11 @@
       "date": "2026-01-28",
       "cohort_new": {
         "name": "New (<90d)",
-        "count": 72,
-        "win_rate": 90.3,
-        "avg_profit": 40698.81,
-        "total_profit": 2930314.0,
-        "contribution_margin": 10.44
+        "count": 73,
+        "win_rate": 89.0,
+        "avg_profit": 40096.08,
+        "total_profit": 2927014.0,
+        "contribution_margin": 10.35
       },
       "cohort_mid": {
         "name": "Mid (90-180d)",
@@ -2285,11 +2285,11 @@
       },
       "cohort_old": {
         "name": "Old (180-365d)",
-        "count": 100,
-        "win_rate": 53.0,
-        "avg_profit": 21708.0,
-        "total_profit": 2170800.0,
-        "contribution_margin": 5.43
+        "count": 102,
+        "win_rate": 52.9,
+        "avg_profit": 21782.35,
+        "total_profit": 2221800.0,
+        "contribution_margin": 5.47
       },
       "cohort_toxic": {
         "name": "Toxic (>365d)",
@@ -2319,12 +2319,12 @@
         "total_unrealized_pnl": 58612244.0
       },
       "performance": {
-        "win_rate": 68.7,
-        "contribution_margin": 7.02,
-        "avg_profit": 26336.54,
-        "homes_sold_total": 319,
+        "win_rate": 68.3,
+        "contribution_margin": 7.01,
+        "avg_profit": 26239.31,
+        "homes_sold_total": 322,
         "homes_sold_today": 0,
-        "revenue_total": 119653700.0,
+        "revenue_total": 120520700.0,
         "revenue_today": 0.0,
         "homes_listed_today": 0,
         "net_inventory_change": 0
@@ -2362,14 +2362,14 @@
         "win_rate_by_state": {}
       },
       "alerts": [
-        "New cohort win rate dropped to 90.3% (target: >95%)"
+        "New cohort win rate dropped to 89.0% (target: >95%)"
       ],
       "kaz_era": {
         "realized": {
-          "count": 43,
+          "count": 44,
           "profitable": 41,
-          "win_rate": 95.3,
-          "avg_profit": 43237.0
+          "win_rate": 93.2,
+          "avg_profit": 42180.0
         },
         "unrealized": {
           "count": 103,
@@ -2377,27 +2377,27 @@
           "above_water_pct": 97.1,
           "underwater": 3
         },
-        "total": 146,
-        "overall_health_pct": 96.6,
-        "vs_legacy_improvement": 30.9
+        "total": 147,
+        "overall_health_pct": 95.9,
+        "vs_legacy_improvement": 28.8
       },
       "guidance": {
         "q1_target": 595000000,
-        "revenue_to_date": 119653700.0,
-        "pct_to_target": 20.1,
+        "revenue_to_date": 120520700.0,
+        "pct_to_target": 20.3,
         "days_elapsed": 27,
         "days_remaining": 61,
-        "required_daily_revenue": 7792562.0,
-        "current_daily_revenue": 4431619.0,
+        "required_daily_revenue": 7778349.0,
+        "current_daily_revenue": 4463730.0,
         "pace_vs_required": "behind",
-        "projected_quarter_revenue": 394414048.0
+        "projected_quarter_revenue": 397271937.0
       },
       "velocity": {
         "avg_days_to_sale": 207.0,
-        "median_days_to_sale": 158.0,
-        "sales_per_day_avg": 15.2,
-        "sales_last_7_days": 25,
-        "sales_last_30_days": 319,
+        "median_days_to_sale": 158.5,
+        "sales_per_day_avg": 15.3,
+        "sales_last_7_days": 28,
+        "sales_last_30_days": 322,
         "inventory_turnover_days": 50.0
       },
       "pricing": {
@@ -2407,7 +2407,7 @@
         "homes_with_price_cuts_pct": 87.4,
         "avg_cuts_per_home": 6.4,
         "avg_initial_vs_final_list": -9.8,
-        "avg_spread": 30329.808664259926,
+        "avg_spread": 30283.35842293907,
         "spread_trend": "unknown"
       },
       "risk": {
@@ -2713,10 +2713,10 @@
         "portfolio": {
           "kaz_era": {
             "era": "kaz_era",
-            "sold_count": 43,
-            "sold_win_rate": 95.3,
-            "sold_avg_profit": 43237.0,
-            "sold_total_realized": 1859209.0,
+            "sold_count": 44,
+            "sold_win_rate": 93.2,
+            "sold_avg_profit": 42180.0,
+            "sold_total_realized": 1855909.0,
             "listed_count": 103,
             "listed_above_water": 100,
             "listed_above_water_pct": 97.1,
@@ -2726,15 +2726,15 @@
             "listed_with_cuts": 36,
             "listed_with_cuts_pct": 35.0,
             "avg_cut_amount": 9917.0,
-            "total_homes": 146,
-            "net_position": 6443874.0
+            "total_homes": 147,
+            "net_position": 6440574.0
           },
           "legacy": {
             "era": "legacy",
-            "sold_count": 276,
-            "sold_win_rate": 64.5,
-            "sold_avg_profit": 23703.0,
-            "sold_total_realized": 6542148.0,
+            "sold_count": 278,
+            "sold_win_rate": 64.4,
+            "sold_avg_profit": 23716.0,
+            "sold_total_realized": 6593148.0,
             "listed_count": 661,
             "listed_above_water": 471,
             "listed_above_water_pct": 71.3,
@@ -2744,16 +2744,16 @@
             "listed_with_cuts": 632,
             "listed_with_cuts_pct": 95.6,
             "avg_cut_amount": 51517.0,
-            "total_homes": 937,
-            "net_position": 13767927.0
+            "total_homes": 939,
+            "net_position": 13818927.0
           }
         },
         "days_to_sale": [
           {
             "cohort": "New (<90d)",
-            "sold_count": 70,
+            "sold_count": 71,
             "avg_days_to_sale": 65.0,
-            "median_days_to_sale": 68.0
+            "median_days_to_sale": 69.0
           },
           {
             "cohort": "Mid (90-180d)",
@@ -2763,7 +2763,7 @@
           },
           {
             "cohort": "Old (180-365d)",
-            "sold_count": 100,
+            "sold_count": 102,
             "avg_days_to_sale": 262.0,
             "median_days_to_sale": 265.0
           },
@@ -2830,12 +2830,12 @@
         "cohort_margins": [
           {
             "cohort": "New (<90d)",
-            "sold_count": 70,
-            "win_rate": 92.9,
-            "total_revenue": 27436800.0,
-            "total_profit": 2930314.0,
-            "contribution_margin": 10.7,
-            "avg_profit": 41862.0
+            "sold_count": 71,
+            "win_rate": 91.5,
+            "total_revenue": 27636800.0,
+            "total_profit": 2927014.0,
+            "contribution_margin": 10.6,
+            "avg_profit": 41226.0
           },
           {
             "cohort": "Mid (90-180d)",
@@ -2848,12 +2848,12 @@
           },
           {
             "cohort": "Old (180-365d)",
-            "sold_count": 100,
-            "win_rate": 53.0,
-            "total_revenue": 39948000.0,
-            "total_profit": 2170800.0,
-            "contribution_margin": 5.4,
-            "avg_profit": 21708.0
+            "sold_count": 102,
+            "win_rate": 52.9,
+            "total_revenue": 40615000.0,
+            "total_profit": 2221800.0,
+            "contribution_margin": 5.5,
+            "avg_profit": 21782.0
           },
           {
             "cohort": "Toxic (>365d)",
@@ -2871,18 +2871,18 @@
   "trends": {
     "wow_deltas": {
       "win_rate": {
-        "current": 68.7,
+        "current": 68.3,
         "previous": 68.7,
-        "absolute": 0.0,
-        "percentage": 0.0,
-        "direction": "flat"
+        "absolute": -0.4,
+        "percentage": -0.58,
+        "direction": "down"
       },
       "kaz_win_rate": {
-        "current": 95.3,
+        "current": 93.2,
         "previous": 94.6,
-        "absolute": 0.7,
-        "percentage": 0.74,
-        "direction": "up"
+        "absolute": -1.4,
+        "percentage": -1.48,
+        "direction": "down"
       },
       "toxic_remaining": {
         "current": 84,
@@ -2899,17 +2899,17 @@
         "direction": "flat"
       },
       "revenue": {
-        "current": 119653700.0,
+        "current": 120520700.0,
         "previous": 109582900,
-        "absolute": 10070800.0,
-        "percentage": 9.19,
+        "absolute": 10937800.0,
+        "percentage": 9.98,
         "direction": "up"
       },
       "homes_sold": {
-        "current": 319,
+        "current": 322,
         "previous": 294,
-        "absolute": 25,
-        "percentage": 8.5,
+        "absolute": 28,
+        "percentage": 9.52,
         "direction": "up"
       },
       "comparison_date": "2026-01-21",
@@ -2964,7 +2964,7 @@
       },
       {
         "date": "2026-01-28",
-        "revenue": 119653700.0,
+        "revenue": 120520700.0,
         "above_target": true
       }
     ],
@@ -3201,7 +3201,7 @@
         },
         {
           "date": "2026-01-28",
-          "win_rate": 95.3
+          "win_rate": 93.2
         }
       ],
       "legacy": [
@@ -3451,21 +3451,21 @@
     ],
     "summary": {
       "current_date": "2026-01-28",
-      "kaz_win_rate": 95.3,
-      "overall_win_rate": 68.7,
+      "kaz_win_rate": 93.2,
+      "overall_win_rate": 68.3,
       "toxic_remaining": 84,
       "toxic_clear_date": "2026-03-28",
-      "win_rate_trending": "flat",
+      "win_rate_trending": "down",
       "toxic_trending": "flat",
       "health_status": "healthy",
       "days_of_history": 24
     },
-    "generated_at": "2026-01-28T09:49:10.705029",
+    "generated_at": "2026-01-28T14:26:16.035631",
     "chart_days": 14,
     "total_history_days": 24
   },
   "insights": {
-    "generated_at": "2026-01-28T09:49:10.713060",
+    "generated_at": "2026-01-28T14:26:16.035693",
     "overall_status": "critical",
     "anomalies": [
       {
@@ -3473,8 +3473,8 @@
         "change_pct": 100.0,
         "direction": "up",
         "severity": "critical",
-        "message": "Kaz-era win rate changed +100.0% WoW (0.0 -> 95.3)",
-        "current_value": 95.3,
+        "message": "Kaz-era win rate changed +100.0% WoW (0.0 -> 93.2)",
+        "current_value": 93.2,
         "previous_value": 0.0
       },
       {
@@ -3491,8 +3491,8 @@
         "change_pct": 100.0,
         "direction": "up",
         "severity": "critical",
-        "message": "Legacy win rate changed +100.0% WoW (0.0 -> 64.5)",
-        "current_value": 64.5,
+        "message": "Legacy win rate changed +100.0% WoW (0.0 -> 64.4)",
+        "current_value": 64.4,
         "previous_value": 0.0
       },
       {
@@ -3500,8 +3500,8 @@
         "change_pct": 100.0,
         "direction": "up",
         "severity": "critical",
-        "message": "Sales velocity changed +100.0% WoW (0.0 -> 15.2)",
-        "current_value": 15.2,
+        "message": "Sales velocity changed +100.0% WoW (0.0 -> 15.3)",
+        "current_value": 15.3,
         "previous_value": 0.0
       },
       {
@@ -3509,8 +3509,8 @@
         "change_pct": 100.0,
         "direction": "up",
         "severity": "critical",
-        "message": "Kaz-era homes sold changed +100.0% WoW (0.0 -> 43.0)",
-        "current_value": 43.0,
+        "message": "Kaz-era homes sold changed +100.0% WoW (0.0 -> 44.0)",
+        "current_value": 44.0,
         "previous_value": 0.0
       }
     ],
@@ -3518,9 +3518,9 @@
       {
         "checkpoint": "kaz_era_win_rate",
         "status": "pass",
-        "value": 95.3,
+        "value": 93.2,
         "target": 90.0,
-        "description": "Kaz-era sold win rate: 95.3%"
+        "description": "Kaz-era sold win rate: 93.2%"
       },
       {
         "checkpoint": "kaz_era_underwater",
@@ -3546,21 +3546,21 @@
       {
         "checkpoint": "q1_revenue_pace",
         "status": "fail",
-        "value": 20.1,
+        "value": 20.3,
         "target": 30.0,
-        "description": "Q1 revenue: 20.1% of target (expected: 30.0%)"
+        "description": "Q1 revenue: 20.3% of target (expected: 30.0%)"
       }
     ],
-    "summary": "SOLD: 319 homes (+0% WoW) for $8.4M revenue\nKAZ-ERA: 43 sold at 95.3% win rate, 3/103 listed underwater\nLEGACY: 276 sold at 64.5% win rate\nTOXIC: 43 cleared, 84 remaining (33.9% cleared)\nVELOCITY: 15.2 homes/day avg\nQ1 GUIDANCE: $119.7M (20.1% of $595M target, pace: behind)",
+    "summary": "SOLD: 322 homes (+0% WoW) for $8.4M revenue\nKAZ-ERA: 44 sold at 93.2% win rate, 3/103 listed underwater\nLEGACY: 278 sold at 64.4% win rate\nTOXIC: 43 cleared, 84 remaining (33.9% cleared)\nVELOCITY: 15.3 homes/day avg\nQ1 GUIDANCE: $120.5M (20.3% of $595M target, pace: behind)",
     "alerts": [
       {
         "alert_type": "anomaly",
         "severity": "critical",
         "title": "Anomaly: win_rate",
-        "message": "Kaz-era win rate changed +100.0% WoW (0.0 -> 95.3)",
+        "message": "Kaz-era win rate changed +100.0% WoW (0.0 -> 93.2)",
         "metric": "win_rate",
-        "value": 95.3,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "value": 93.2,
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "anomaly",
@@ -3569,34 +3569,34 @@
         "message": "Kaz-era underwater count changed +100.0% WoW (0.0 -> 3.0)",
         "metric": "underwater_count",
         "value": 3.0,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "anomaly",
         "severity": "critical",
         "title": "Anomaly: legacy_win_rate",
-        "message": "Legacy win rate changed +100.0% WoW (0.0 -> 64.5)",
+        "message": "Legacy win rate changed +100.0% WoW (0.0 -> 64.4)",
         "metric": "legacy_win_rate",
-        "value": 64.5,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "value": 64.4,
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "anomaly",
         "severity": "critical",
         "title": "Anomaly: velocity",
-        "message": "Sales velocity changed +100.0% WoW (0.0 -> 15.2)",
+        "message": "Sales velocity changed +100.0% WoW (0.0 -> 15.3)",
         "metric": "velocity",
-        "value": 15.2,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "value": 15.3,
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "anomaly",
         "severity": "critical",
         "title": "Anomaly: total_sold",
-        "message": "Kaz-era homes sold changed +100.0% WoW (0.0 -> 43.0)",
+        "message": "Kaz-era homes sold changed +100.0% WoW (0.0 -> 44.0)",
         "metric": "total_sold",
-        "value": 43.0,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "value": 44.0,
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "checkpoint_warn",
@@ -3605,7 +3605,7 @@
         "message": "Toxic clearance: 43 sold, 84 remaining (33.9%)",
         "metric": "legacy_toxic_declining",
         "value": 33.9,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "checkpoint_fail",
@@ -3614,16 +3614,16 @@
         "message": "Homes with price cuts: 87.4%",
         "metric": "price_discipline",
         "value": 87.4,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "timestamp": "2026-01-28T14:26:16.035693"
       },
       {
         "alert_type": "checkpoint_fail",
         "severity": "critical",
         "title": "Checkpoint Failed: q1_revenue_pace",
-        "message": "Q1 revenue: 20.1% of target (expected: 30.0%)",
+        "message": "Q1 revenue: 20.3% of target (expected: 30.0%)",
         "metric": "q1_revenue_pace",
-        "value": 20.1,
-        "timestamp": "2026-01-28T09:49:10.713060"
+        "value": 20.3,
+        "timestamp": "2026-01-28T14:26:16.035693"
       }
     ],
     "stats": {

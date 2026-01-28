@@ -11,11 +11,11 @@
         <string>/Users/mabramsky/glasshouse/scripts/daily_run.sh</string>
     </array>
 
-    <!-- Run daily at 7:00 AM -->
+    <!-- Run daily at 12:00 PM (noon) - after manual Parcl data drop at 9am -->
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>7</integer>
+        <integer>12</integer>
         <key>Minute</key>
         <integer>0</integer>
     </dict>

@@ -11,11 +11,26 @@ Usage:
 
 import sys
 import json
+import os
 from pathlib import Path
 from datetime import datetime, timedelta
 
 import pandas as pd
 import numpy as np
+
+# Load .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
+
+# Claude API for narrative generation
+try:
+    import anthropic
+    HAS_ANTHROPIC = True
+except ImportError:
+    HAS_ANTHROPIC = False
 
 def find_latest_file(directory: Path, pattern: str) -> Path:
     """Find the most recent file matching pattern."""
@@ -330,6 +345,199 @@ def main():
         'pacing_pct': round(pacing_pct, 1),
         'on_track': pacing_pct >= 95,
     }
+
+    # ==== TOXIC WEEKLY TREND ====
+    # Load dashboard_data.json for historical toxic counts
+    dashboard_data_file = output_dir / "dashboard_data.json"
+    toxic_weekly = []
+    if dashboard_data_file.exists():
+        try:
+            with open(dashboard_data_file) as f:
+                db_data = json.load(f)
+
+            history = db_data.get('history', [])
+            if history:
+                # Group by week (Sunday start)
+                weekly_toxic = {}
+                for entry in history:
+                    date_str = entry.get('date', '')
+                    if not date_str:
+                        continue
+                    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+                    # Get week number (ISO week)
+                    week_num = date_obj.isocalendar()[1]
+                    toxic_count = entry.get('inventory', {}).get('toxic_count', 0)
+                    # Keep the latest toxic count for each week
+                    weekly_toxic[week_num] = {
+                        'week': week_num,
+                        'date': date_str,
+                        'toxic_count': toxic_count
+                    }
+
+                # Sort by week number and take last 4 weeks
+                sorted_weeks = sorted(weekly_toxic.items(), key=lambda x: x[0])
+                for week_num, data in sorted_weeks[-4:]:
+                    toxic_weekly.append(data)
+        except Exception as e:
+            print(f"Warning: Could not load toxic history: {e}")
+
+    dashboard_data['toxic_weekly_trend'] = toxic_weekly
+
+    # ==== THIS WEEK NARRATIVE (AI-powered) ====
+    this_week_narrative = generate_this_week_narrative(dashboard_data, dashboard_data_file)
+    dashboard_data['this_week_narrative'] = this_week_narrative
+
+
+def generate_this_week_narrative(dashboard_data, dashboard_data_file):
+    """Generate 'This Week' narrative using Claude API or fallback to rules."""
+
+    # Prepare data context
+    context_data = {
+        'velocity': dashboard_data.get('velocity', {}),
+        'pnl': dashboard_data.get('pnl', {}),
+        'guidance': dashboard_data.get('guidance', {}),
+        'cohorts': dashboard_data.get('cohorts', {}),
+        'wow_change': dashboard_data.get('wow_change', {}),
+        'this_week': dashboard_data.get('this_week', {}),
+        'last_week': dashboard_data.get('last_week', {}),
+    }
+
+    # Try to get historical data for comparisons
+    curr_toxic = 84
+    prev_toxic = 89
+    curr_underwater = 190
+    prev_underwater = 198
+    kaz_win_rate = 95.3
+    kaz_underwater = 3
+
+    if dashboard_data_file.exists():
+        try:
+            with open(dashboard_data_file) as f:
+                db_data = json.load(f)
+            current = db_data.get('current', {})
+            history = db_data.get('history', [])
+            prev = history[-8] if len(history) >= 8 else (history[0] if history else {})
+
+            curr_toxic = current.get('inventory', {}).get('toxic_count', curr_toxic)
+            prev_toxic = prev.get('inventory', {}).get('toxic_count', prev_toxic)
+            v3 = current.get('v3', {}).get('portfolio', {})
+            curr_underwater = v3.get('legacy', {}).get('underwater', curr_underwater)
+            kaz_win_rate = v3.get('kaz_era', {}).get('win_rate', kaz_win_rate)
+            kaz_underwater = v3.get('kaz_era', {}).get('underwater', kaz_underwater)
+        except:
+            pass
+
+    context_data['toxic'] = {'current': curr_toxic, 'previous': prev_toxic}
+    context_data['underwater'] = {'current': curr_underwater, 'previous': prev_underwater}
+    context_data['kaz_era'] = {'win_rate': kaz_win_rate, 'underwater': kaz_underwater}
+
+    # Try Claude API for intelligent narrative
+    if HAS_ANTHROPIC and os.environ.get('ANTHROPIC_API_KEY'):
+        try:
+            narrative = generate_narrative_with_claude(context_data)
+            if narrative:
+                print("  Generated narrative with Claude API")
+                return narrative
+        except Exception as e:
+            print(f"  Claude API error: {e}, falling back to rules")
+
+    # Fallback to rule-based narrative
+    return generate_narrative_rules(context_data)
+
+
+def generate_narrative_with_claude(context):
+    """Use Claude to generate intelligent weekly narrative."""
+    client = anthropic.Anthropic()
+
+    prompt = f"""You are analyzing weekly operational data for Opendoor ($OPEN).
+
+DATA THIS WEEK:
+- Daily Sales: {context['velocity'].get('daily_avg_sales', 22)} homes/day (need 29 for guidance)
+- Q1 Revenue: ${context['velocity'].get('q1_revenue', 0)/1e6:.1f}M of $1B target
+- Win Rate: {context['pnl'].get('win_rate', 79)}%
+- Guidance Pacing: {context['guidance'].get('pacing_pct', 96)}%
+- WoW Sales Change: {context['wow_change'].get('sales_pct', 0):+.1f}%
+
+PORTFOLIO:
+- Toxic Inventory: {context['toxic']['current']} (was {context['toxic']['previous']} last week)
+- Legacy Underwater: {context['underwater']['current']} (was {context['underwater']['previous']})
+- Kaz-Era Win Rate: {context['kaz_era']['win_rate']}%
+- Kaz-Era Underwater: {context['kaz_era']['underwater']}
+
+COHORT PERFORMANCE:
+- New (<90d): {context['cohorts'].get('new', {}).get('win_rate', 97)}% win rate
+- Mid (90-180d): {context['cohorts'].get('mid', {}).get('win_rate', 95)}% win rate
+- Old (180-365d): {context['cohorts'].get('old', {}).get('win_rate', 64)}% win rate
+- Toxic (>365d): {context['cohorts'].get('toxic', {}).get('win_rate', 37)}% win rate
+
+Generate a weekly narrative with EXACTLY this JSON format:
+{{
+    "improving": ["2-3 short bullet points about positive trends"],
+    "stable": ["1-2 bullet points about metrics holding steady"],
+    "watching": ["1-2 bullet points about concerning trends to monitor"]
+}}
+
+Rules:
+- Each bullet should be 8-15 words, specific with numbers
+- Include arrows for changes (→ or ↑ or ↓)
+- Be direct and analytical, no fluff
+- Only include categories that have genuine items (can be empty)
+
+Return ONLY the JSON, no other text."""
+
+    response = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=400,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    text = response.content[0].text.strip()
+    # Handle markdown code blocks
+    if text.startswith("```"):
+        text = text.split("```")[1]
+        if text.startswith("json"):
+            text = text[4:]
+
+    return json.loads(text)
+
+
+def generate_narrative_rules(context):
+    """Fallback rule-based narrative generation."""
+    narrative = {'improving': [], 'stable': [], 'watching': []}
+
+    # IMPROVING
+    toxic_change = context['toxic']['previous'] - context['toxic']['current']
+    if toxic_change > 0:
+        narrative['improving'].append(
+            f"Toxic inventory down {toxic_change} homes ({context['toxic']['previous']} → {context['toxic']['current']})"
+        )
+
+    underwater_change = context['underwater']['previous'] - context['underwater']['current']
+    if underwater_change > 0:
+        narrative['improving'].append(
+            f"Legacy underwater down {underwater_change} homes"
+        )
+        exposure = underwater_change * 15000
+        if exposure > 0:
+            narrative['improving'].append(f"Underwater exposure improved ${exposure // 1000}K")
+
+    # STABLE
+    if context['kaz_era']['win_rate'] >= 94:
+        narrative['stable'].append(f"Kaz-era win rate holding ({context['kaz_era']['win_rate']}%)")
+
+    new_cohort = context['cohorts'].get('new', {})
+    if new_cohort.get('win_rate', 0) >= 95:
+        narrative['stable'].append(f"New cohort performance strong ({new_cohort['win_rate']}% WR)")
+
+    # WATCHING
+    daily_vel = context['velocity'].get('daily_avg_sales', 22)
+    if daily_vel < 27:
+        narrative['watching'].append(f"Daily velocity below target ({round(daily_vel)} vs 29 needed)")
+
+    if context['kaz_era']['underwater'] > 2:
+        narrative['watching'].append(f"Kaz-era underwater at {context['kaz_era']['underwater']} homes")
+
+    return narrative
 
     # Save
     output_file = output_dir / "unified_dashboard_data.json"

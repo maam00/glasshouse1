@@ -116,6 +116,12 @@
             color: var(--text-3);
         }
 
+        .header__refresh-note {
+            font-size: 10px;
+            color: var(--text-3);
+            opacity: 0.7;
+        }
+
         .header__btn {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -164,6 +170,40 @@
             padding-top: 12px;
             border-top: 1px solid var(--border);
         }
+
+        /* ============================================================
+           NEWS TICKER
+           ============================================================ */
+        .news-ticker {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+        }
+
+        .news-ticker__items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .news-ticker__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-2);
+            line-height: 1.4;
+        }
+
+        .news-ticker__bullet {
+            color: var(--green);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .news-ticker__bullet.fed { color: var(--amber); }
+        .news-ticker__bullet.open { color: var(--green); }
 
         /* ============================================================
            SECTION STYLES (V3)
@@ -433,9 +473,9 @@
         }
 
         .acquisition-metrics {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
             margin-bottom: 16px;
         }
 
@@ -989,6 +1029,11 @@
             height: 260px;
         }
 
+        #sales-price-chart {
+            width: 100%;
+            height: 260px;
+        }
+
         /* ============================================================
            THIS WEEK SECTION
            ============================================================ */
@@ -1144,6 +1189,7 @@
         <div class="header__right">
             <span class="header__ticker" id="stock-ticker">$OPEN --</span>
             <span class="header__timestamp" id="timestamp">Loading...</span>
+            <span class="header__refresh-note">Fresh data daily at 12pm PT</span>
         </div>
     </header>
 
@@ -1156,7 +1202,7 @@
             <strong><span data-metric="q1-sales">715</span> homes sold</strong> in Q1 so far, generating
             <strong><span data-metric="q1-revenue">$274.1M</span></strong> revenue.
             Running at <strong><span data-metric="daily-avg-sales">22.0</span> homes/day</strong> —
-            need ~24/day to hit $1B guidance.
+            need ~29/day to hit $1B guidance.
         </p>
         <p class="verdict__body">
             Win rate holding at <strong><span data-metric="win-rate">79.1%</span></strong> with
@@ -1165,9 +1211,17 @@
         </p>
         <p class="verdict__warning">
             &#9888; <span data-metric="days-remaining">64</span> days left in Q1.
-            Velocity needs to increase ~9% to hit guidance.
+            Velocity needs to increase ~32% to hit guidance.
         </p>
     </section>
+
+    <!-- ============================================================
+         MARKET NEWS TICKER
+         ============================================================ -->
+    <div class="news-ticker" id="news-ticker">
+        <div class="news-ticker__items" id="news-items"></div>
+    </div>
+
 
     <!-- ============================================================
          KAZ-ERA PORTFOLIO
@@ -1367,11 +1421,8 @@
             Clearing <strong><span id="clearance-rate">5</span> homes/week</strong> → Zero by early May
         </p>
 
-        <div class="toxic-clearance__trend">
-            Week 1: <span>89</span> →
-            Week 2: <span>85</span> →
-            Week 3: <span>84</span> →
-            Week 4: <span>84</span>
+        <div class="toxic-clearance__trend" id="toxic-weekly-trend">
+            <!-- Populated dynamically -->
         </div>
     </section>
 
@@ -1396,10 +1447,6 @@
                 <div class="acquisition-metric__label">Q1 Contracts</div>
                 <div class="acquisition-metric__delta" id="acq-q1-weeks" style="color: var(--text-3);">4 weeks</div>
             </div>
-            <div class="acquisition-metric">
-                <div class="acquisition-metric__value amber" id="acq-ratio">—</div>
-                <div class="acquisition-metric__label">Buy/Sell Ratio</div>
-            </div>
         </div>
 
         <div class="acquisition-trend">
@@ -1413,9 +1460,7 @@
             </div>
         </div>
 
-        <div class="insight-text" data-metric="acquisition-insight" style="margin-top: 12px;">
-            Loading acquisition insight...
-        </div>
+        <div class="insight-text" data-metric="acquisition-insight" style="margin-top: 12px;"></div>
     </section>
 
     <!-- ============================================================
@@ -1486,9 +1531,7 @@
             </div>
         </div>
 
-        <div class="insight-text" data-metric="product-insight" style="margin-top: 16px;">
-            Loading product insight...
-        </div>
+        <div class="insight-text" data-metric="product-insight" style="margin-top: 16px;"></div>
     </section>
 
     <!-- ============================================================
@@ -1676,9 +1719,7 @@
             <div id="sales-price-chart"></div>
         </div>
 
-        <div class="insight-text" data-metric="velocity-insight">
-            Daily velocity trending at 21.7 homes/day, on pace to meet Q1 guidance targets.
-        </div>
+        <div class="insight-text" data-metric="velocity-insight"></div>
     </section>
 
     <!-- ============================================================
@@ -1705,9 +1746,7 @@
             </tbody>
         </table>
 
-        <div class="insight-text" data-metric="pattern-insight">
-            The gradient is clear: newer cohorts outperform on every metric. This proves the strategy pivot is working.
-        </div>
+        <div class="insight-text" data-metric="pattern-insight"></div>
     </section>
 
     <!-- ============================================================
@@ -1752,9 +1791,7 @@
                         <tr><td class="name">Inventory Value</td><td id="inv-value">$303M</td></tr>
                     </tbody>
                 </table>
-                <div class="insight-text" style="margin-top: 12px;" data-metric="guidance-insight">
-                    Loading insight...
-                </div>
+                <div class="insight-text" style="margin-top: 12px;" data-metric="guidance-insight"></div>
             </div>
         </div>
     </section>
@@ -1769,50 +1806,19 @@
                 <span class="this-week__date" id="this-week-date">This Week</span>
             </div>
 
-            <div class="this-week__group">
+            <div class="this-week__group" id="this-week-improving">
                 <div class="this-week__group-label improving">Improving</div>
-                <div class="this-week__items">
-                    <div class="this-week__item improving">
-                        <span class="this-week__icon">&#10003;</span>
-                        <span>Toxic inventory down 5 homes (89 → 84)</span>
-                    </div>
-                    <div class="this-week__item improving">
-                        <span class="this-week__icon">&#10003;</span>
-                        <span>Legacy underwater down 8 homes (198 → 190)</span>
-                    </div>
-                    <div class="this-week__item improving">
-                        <span class="this-week__icon">&#10003;</span>
-                        <span>Underwater exposure improved $120K</span>
-                    </div>
-                </div>
+                <div class="this-week__items" id="this-week-improving-items"></div>
             </div>
 
-            <div class="this-week__group">
+            <div class="this-week__group" id="this-week-stable">
                 <div class="this-week__group-label stable">Stable</div>
-                <div class="this-week__items">
-                    <div class="this-week__item stable">
-                        <span class="this-week__icon">—</span>
-                        <span>Kaz-era win rate holding (95.3%)</span>
-                    </div>
-                    <div class="this-week__item stable">
-                        <span class="this-week__icon">—</span>
-                        <span>New cohort margin steady (10.7%)</span>
-                    </div>
-                </div>
+                <div class="this-week__items" id="this-week-stable-items"></div>
             </div>
 
-            <div class="this-week__group">
+            <div class="this-week__group" id="this-week-watching">
                 <div class="this-week__group-label watching">Watching</div>
-                <div class="this-week__items">
-                    <div class="this-week__item watching">
-                        <span class="this-week__icon">&#9888;</span>
-                        <span>Kaz-era underwater +1 home (Charlotte added)</span>
-                    </div>
-                    <div class="this-week__item watching">
-                        <span class="this-week__icon">&#9888;</span>
-                        <span>Daily velocity below target (15.2 vs 21 needed)</span>
-                    </div>
-                </div>
+                <div class="this-week__items" id="this-week-watching-items"></div>
             </div>
         </div>
     </section>
@@ -2147,6 +2153,9 @@ async function init() {
             renderRevenueChart(data);
             renderSalesPriceChart(data);
             updateDashboardMetrics(data);
+            updateThisWeekNarrative(data);
+            updateToxicWeeklyTrend(data);
+            updateNewsTicker(data);
         } else {
             renderRevenueChart(null);
         }
@@ -2168,6 +2177,9 @@ async function init() {
 
     // Load problem homes data
     loadProblemHomesData();
+
+    // Load portfolio data (Kaz-Era & Legacy)
+    loadPortfolioData();
 }
 
 async function fetchStockPrice() {
@@ -2551,6 +2563,30 @@ function updateDashboardMetrics(data) {
         if (concEl) concEl.textContent = data.market_concentration.top5_pct;
     }
 
+    // Update cohort table
+    if (data.cohorts) {
+        const cohortTable = document.getElementById('cohort-table');
+        if (cohortTable) {
+            const c = data.cohorts;
+            const avgPrice = data.velocity?.avg_home_price || 387000;
+            const formatProfit = (v) => v >= 0 ? '$' + (v/1000).toFixed(1) + 'K' : '-$' + Math.abs(v/1000).toFixed(1) + 'K';
+            const formatMargin = (profit) => {
+                const margin = (profit / avgPrice * 100);
+                return margin >= 0 ? margin.toFixed(1) + '%' : margin.toFixed(1) + '%';
+            };
+            const wrClass = (wr) => wr >= 80 ? 'green' : (wr >= 50 ? 'amber' : 'red');
+            const profitClass = (p) => p >= 30000 ? 'green' : (p >= 0 ? '' : 'red');
+            const marginClass = (p) => (p / avgPrice * 100) >= 8 ? 'green' : ((p / avgPrice * 100) >= 0 ? '' : 'red');
+
+            cohortTable.innerHTML = `
+                <tr><td class="name">New (&lt;90d)</td><td>${c.new.count}</td><td class="${wrClass(c.new.win_rate)}">${c.new.win_rate.toFixed(1)}%</td><td class="${marginClass(c.new.avg_profit)}">${formatMargin(c.new.avg_profit)}</td><td class="${profitClass(c.new.avg_profit)}">${formatProfit(c.new.avg_profit)}</td></tr>
+                <tr><td class="name">Mid (90-180d)</td><td>${c.mid.count}</td><td class="${wrClass(c.mid.win_rate)}">${c.mid.win_rate.toFixed(1)}%</td><td class="${marginClass(c.mid.avg_profit)}">${formatMargin(c.mid.avg_profit)}</td><td class="${profitClass(c.mid.avg_profit)}">${formatProfit(c.mid.avg_profit)}</td></tr>
+                <tr><td class="name">Old (180-365d)</td><td>${c.old.count}</td><td class="${wrClass(c.old.win_rate)}">${c.old.win_rate.toFixed(1)}%</td><td class="${marginClass(c.old.avg_profit)}">${formatMargin(c.old.avg_profit)}</td><td class="${profitClass(c.old.avg_profit)}">${formatProfit(c.old.avg_profit)}</td></tr>
+                <tr><td class="name">Toxic (&gt;365d)</td><td>${c.toxic.count}</td><td class="${wrClass(c.toxic.win_rate)}">${c.toxic.win_rate.toFixed(1)}%</td><td class="${marginClass(c.toxic.avg_profit)}">${formatMargin(c.toxic.avg_profit)}</td><td class="${profitClass(c.toxic.avg_profit)}">${formatProfit(c.toxic.avg_profit)}</td></tr>
+            `;
+        }
+    }
+
     // Update inventory metrics
     if (data.inventory) {
         const inv = data.inventory;
@@ -2569,6 +2605,225 @@ function updateDashboardMetrics(data) {
         const invValue = document.getElementById('inv-value');
         if (invValue) invValue.textContent = '$' + Math.round(inv.total_inventory_value / 1000000) + 'M';
     }
+}
+
+// Update "This Week" narrative section from data
+function updateThisWeekNarrative(data) {
+    const narrative = data.this_week_narrative;
+    if (!narrative) return;
+
+    const icons = {
+        improving: '&#10003;',
+        stable: '—',
+        watching: '&#9888;'
+    };
+
+    ['improving', 'stable', 'watching'].forEach(category => {
+        const container = document.getElementById(`this-week-${category}-items`);
+        const groupEl = document.getElementById(`this-week-${category}`);
+        const items = narrative[category] || [];
+
+        if (container && items.length > 0) {
+            container.innerHTML = items.map(text =>
+                `<div class="this-week__item ${category}">
+                    <span class="this-week__icon">${icons[category]}</span>
+                    <span>${text}</span>
+                </div>`
+            ).join('');
+            if (groupEl) groupEl.style.display = 'block';
+        } else if (groupEl && items.length === 0) {
+            groupEl.style.display = 'none';
+        }
+    });
+}
+
+// Update toxic weekly trend from data
+function updateToxicWeeklyTrend(data) {
+    const trend = data.toxic_weekly_trend || [];
+    const container = document.getElementById('toxic-weekly-trend');
+    if (!container) return;
+
+    if (trend.length === 0) {
+        // Fallback if no trend data
+        container.innerHTML = 'Week 1: <span>—</span> → Week 2: <span>—</span> → Week 3: <span>—</span> → Week 4: <span>—</span>';
+        return;
+    }
+
+    const trendHtml = trend.map((week, i) => {
+        const weekNum = i + 1;
+        const arrow = i < trend.length - 1 ? ' →' : '';
+        return `Week ${weekNum}: <span>${week.toxic_count}</span>${arrow}`;
+    }).join('\n            ');
+
+    container.innerHTML = trendHtml;
+}
+
+// Update News Ticker from market intel
+function updateNewsTicker(data) {
+    const intel = data.market_intel;
+    const container = document.getElementById('news-items');
+    if (!container) return;
+
+    // Get news bullets from AI-generated summary or raw news
+    const bullets = intel?.news_bullets || [];
+
+    if (bullets.length > 0) {
+        container.innerHTML = bullets.map(bullet =>
+            `<div class="news-ticker__item">
+                <span class="news-ticker__bullet ${bullet.type || ''}">•</span>
+                <span>${bullet.text}</span>
+            </div>`
+        ).join('');
+        return;
+    }
+
+    // Fallback: use raw news headlines if no bullets
+    const news = intel?.news || {};
+    const allNews = [
+        ...(news.fed_news || []).slice(0, 1).map(n => ({ ...n, type: 'fed' })),
+        ...(news.opendoor_news || []).slice(0, 2).map(n => ({ ...n, type: 'open' })),
+    ].filter(n => n.title);
+
+    if (allNews.length > 0) {
+        container.innerHTML = allNews.map(item =>
+            `<div class="news-ticker__item">
+                <span class="news-ticker__bullet ${item.type}">•</span>
+                <span>${item.title}</span>
+            </div>`
+        ).join('');
+    } else {
+        container.parentElement.style.display = 'none';
+    }
+}
+
+// Load and display portfolio data (Kaz-Era & Legacy)
+async function loadPortfolioData() {
+    try {
+        const r = await fetch('outputs/dashboard_data.json');
+        if (r.ok) {
+            const data = await r.json();
+            if (data.current) {
+                if (data.current.v3) {
+                    updatePortfolioSections(data.current.v3);
+                }
+                if (data.current.toxic) {
+                    updateToxicClearance(data.current.toxic);
+                }
+            }
+        }
+    } catch (e) {
+        console.log('Portfolio data not available:', e);
+    }
+}
+
+function updateToxicClearance(toxic) {
+    if (!toxic) return;
+
+    const cleared = toxic.sold_count || 43;
+    const remaining = toxic.remaining_count || 84;
+    const total = cleared + remaining;
+    const pct = (cleared / total * 100).toFixed(1);
+    const weeksToGo = toxic.weeks_to_clear || 8;
+
+    // Update numbers
+    updateEl('toxic-cleared', cleared);
+    updateEl('toxic-remaining', remaining);
+    updateEl('legacy-toxic-remaining', remaining);
+
+    // Update progress bar
+    const progressEl = document.getElementById('toxic-bar');
+    if (progressEl) {
+        progressEl.style.width = pct + '%';
+    }
+
+    // Calculate clearance rate (cleared over ~4 weeks of Q1 so far)
+    const weeksElapsed = 4;
+    const rate = Math.round(cleared / weeksElapsed);
+    updateEl('clearance-rate', rate);
+
+    // Update projection text
+    const projectionEl = document.querySelector('.toxic-clearance__projection');
+    if (projectionEl && weeksToGo) {
+        const weeksRounded = Math.ceil(weeksToGo);
+        const now = new Date();
+        const clearDate = new Date(now.getTime() + weeksRounded * 7 * 24 * 60 * 60 * 1000);
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const clearMonth = monthNames[clearDate.getMonth()];
+        projectionEl.innerHTML = `Clearing <strong>${rate} homes/week</strong> → Zero by ${weeksRounded <= 4 ? 'late ' : 'early '}${clearMonth}`;
+    }
+}
+
+function updatePortfolioSections(v3) {
+    if (!v3 || !v3.portfolio) return;
+
+    const kaz = v3.portfolio.kaz_era;
+    const legacy = v3.portfolio.legacy;
+
+    // Helper to format currency
+    const fmtK = (v) => {
+        if (v >= 1000000) return '+$' + (v/1000000).toFixed(1) + 'M';
+        if (v >= 1000) return '+$' + (v/1000).toFixed(1) + 'K';
+        return '+$' + v.toFixed(0);
+    };
+    const fmtNeg = (v) => '-$' + (Math.abs(v)/1000).toFixed(1) + 'K';
+
+    // === KAZ-ERA SOLD ===
+    updateEl('kaz-sold-count', kaz.sold_count);
+    updateEl('kaz-sold-wr', kaz.sold_win_rate.toFixed(1) + '%');
+    updateEl('kaz-sold-profit', '$' + (kaz.sold_avg_profit/1000).toFixed(1) + 'K');
+    updateEl('kaz-sold-total', fmtK(kaz.sold_total_realized));
+
+    // === KAZ-ERA LISTED ===
+    updateEl('kaz-listed-count', kaz.listed_count);
+    updateEl('kaz-listed-above', kaz.listed_above_water_pct.toFixed(1) + '% (' + kaz.listed_above_water + ')');
+    updateEl('kaz-listed-uw', kaz.listed_underwater_pct.toFixed(1) + '% (' + kaz.listed_underwater + ')');
+    updateEl('kaz-listed-cuts', kaz.listed_with_cuts_pct.toFixed(1) + '% (' + kaz.listed_with_cuts + ')');
+
+    // === KAZ-ERA EXPOSURE ===
+    updateEl('kaz-realized', fmtK(kaz.sold_total_realized));
+    updateEl('kaz-unrealized', fmtK(kaz.net_position - kaz.sold_total_realized));
+    updateEl('kaz-uw-exposure', fmtNeg(kaz.listed_underwater_exposure));
+
+    // === LEGACY SOLD ===
+    updateEl('legacy-sold-count', legacy.sold_count);
+    updateEl('legacy-sold-wr', legacy.sold_win_rate.toFixed(1) + '%');
+    updateEl('legacy-sold-profit', '$' + (legacy.sold_avg_profit/1000).toFixed(1) + 'K');
+    updateEl('legacy-sold-total', fmtK(legacy.sold_total_realized));
+
+    // === LEGACY LISTED ===
+    updateEl('legacy-listed-count', legacy.listed_count);
+    updateEl('legacy-listed-above', legacy.listed_above_water_pct.toFixed(1) + '% (' + legacy.listed_above_water + ')');
+    updateEl('legacy-listed-uw', legacy.listed_underwater_pct.toFixed(1) + '% (' + legacy.listed_underwater + ')');
+    updateEl('legacy-listed-cuts', legacy.listed_with_cuts_pct.toFixed(1) + '% (' + legacy.listed_with_cuts + ')');
+
+    // === LEGACY EXPOSURE ===
+    updateEl('legacy-uw-exposure', '-$' + (legacy.listed_underwater_exposure/1000000).toFixed(1) + 'M');
+
+    // === UNDERWATER WATCHLIST ===
+    if (v3.underwater_watchlist && v3.underwater_watchlist.length > 0) {
+        const watchlistBody = document.getElementById('watchlist-body');
+        if (watchlistBody) {
+            updateEl('uw-count', v3.underwater_watchlist.length);
+            const totalExposure = v3.underwater_watchlist.reduce((sum, h) => sum + h.underwater_amount, 0);
+            updateEl('uw-total', '-$' + (totalExposure/1000).toFixed(1) + 'K');
+
+            watchlistBody.innerHTML = v3.underwater_watchlist.map(h => {
+                const statusClass = h.status === 'Concern' ? 'concern' : 'watching';
+                return `<tr>
+                    <td class="name">${h.city}, ${h.state}</td>
+                    <td>${h.days_on_market}</td>
+                    <td class="red">-$${(h.underwater_amount/1000).toFixed(1)}K</td>
+                    <td>${h.price_cuts}</td>
+                    <td><span class="status-badge ${statusClass}">${h.status}</span></td>
+                </tr>`;
+            }).join('');
+        }
+    }
+}
+
+function updateEl(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined) el.textContent = value;
 }
 
 function updateText(selector, value) {

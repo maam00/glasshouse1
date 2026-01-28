@@ -15,6 +15,13 @@ import requests
 from pathlib import Path
 from datetime import datetime, timedelta
 
+# Load .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
+
 try:
     import anthropic
     HAS_ANTHROPIC = True
@@ -355,6 +362,89 @@ Return JSON:
     return None
 
 
+def generate_news_bullets(news_data, rates_data):
+    """Generate 3 short news bullets using Claude API."""
+
+    if not HAS_ANTHROPIC:
+        print("Anthropic library not available for news bullets")
+        return []
+
+    api_key = os.environ.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        print("No ANTHROPIC_API_KEY found for news bullets")
+        return []
+
+    # Collect all headlines
+    fed_headlines = [n['title'] for n in news_data.get('fed_news', [])[:5]]
+    housing_headlines = [n['title'] for n in news_data.get('housing_news', [])[:5]]
+    opendoor_headlines = [n['title'] for n in news_data.get('opendoor_news', [])[:5]]
+
+    # Rate context
+    rate_30yr = rates_data.get('rate_30yr', 'N/A')
+    rate_change_1w = rates_data.get('rate_change_1w', 0)
+    rate_change_1m = rates_data.get('rate_change_1m', 0)
+
+    prompt = f"""From these headlines and data, create exactly 3 SHORT news bullets (8-12 words each).
+
+FED/MACRO HEADLINES:
+{chr(10).join(['- ' + h for h in fed_headlines]) if fed_headlines else 'None available'}
+
+HOUSING/MORTGAGE HEADLINES:
+{chr(10).join(['- ' + h for h in housing_headlines]) if housing_headlines else 'None available'}
+
+OPENDOOR HEADLINES:
+{chr(10).join(['- ' + h for h in opendoor_headlines]) if opendoor_headlines else 'None available'}
+
+CURRENT RATES:
+- 30-Year Fixed: {rate_30yr}%
+- Weekly Change: {rate_change_1w:+.2f}%
+- Monthly Change: {rate_change_1m:+.2f}%
+
+Rules:
+1. Bullet 1: Fed/rates news (type: "fed")
+2. Bullet 2: Mortgage/housing market news (type: "housing")
+3. Bullet 3: Opendoor-specific news (type: "open")
+4. Each bullet must be 8-12 words max
+5. Be specific with numbers when available
+6. No hedge words like "may" or "could"
+
+Return ONLY valid JSON array:
+[
+  {{"text": "Fed holds rates steady at 4.25-4.5%, signals patience on cuts", "type": "fed"}},
+  {{"text": "30-year mortgage rates dip to 6.89%, down 0.15% this month", "type": "housing"}},
+  {{"text": "Opendoor CEO praises Trump housing policy, stock up 264% in 2025", "type": "open"}}
+]"""
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        response_text = response.content[0].text.strip()
+
+        # Handle markdown code blocks
+        if response_text.startswith("```"):
+            response_text = response_text.split("```")[1]
+            if response_text.startswith("json"):
+                response_text = response_text[4:]
+
+        # Parse JSON array
+        json_match = re.search(r'\[[\s\S]*\]', response_text)
+        if json_match:
+            bullets = json.loads(json_match.group())
+            print(f"Generated {len(bullets)} news bullets")
+            return bullets
+
+    except Exception as e:
+        print(f"Error generating news bullets: {e}")
+
+    return []
+
+
 def main():
     output_dir = Path(__file__).parent.parent / "outputs"
     today = datetime.now().strftime("%Y-%m-%d")
@@ -391,8 +481,12 @@ def main():
             problem_data = json.load(f)
 
     # 5. Generate AI market brief
-    print("\n[5/5] Generating AI market brief...")
+    print("\n[5/6] Generating AI market brief...")
     market_brief = generate_market_brief(dashboard_data, earnings_data, rates_data, news_data, problem_data)
+
+    # 6. Generate short news bullets
+    print("\n[6/6] Generating news bullets...")
+    news_bullets = generate_news_bullets(news_data, rates_data)
 
     # Compile all market intelligence
     market_intel = {
@@ -400,6 +494,7 @@ def main():
         'earnings': earnings_data,
         'mortgage_rates': rates_data,
         'news': news_data,
+        'news_bullets': news_bullets,
         'market_brief': market_brief
     }
 

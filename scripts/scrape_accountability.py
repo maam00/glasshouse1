@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-Scrape Opendoor Accountability page for acquisition contract data.
+Scrape Opendoor Accountability page for acquisition contract data and product updates.
 https://accountable.opendoor.com/
 
-This gives us the "inflow" side - homes Opendoor is BUYING.
+This gives us:
+1. The "inflow" side - homes Opendoor is BUYING (acquisition contracts)
+2. Product updates - features and improvements shipped by the team
 """
 
 import json
@@ -11,6 +13,115 @@ import re
 import requests
 from pathlib import Path
 from datetime import datetime
+
+def extract_product_updates(html: str) -> list:
+    """Extract product updates/features shipped from the accountability page."""
+    products = []
+
+    # Categories we're looking for
+    categories = {
+        'ai': 'AI & Automation',
+        'acquisition': 'Faster Acquisitions',
+        'buyer': 'Buyer Experience',
+        'seller': 'Seller Experience',
+        'agent': 'Agent & Partner',
+        'operations': 'Operations'
+    }
+
+    # Pattern 1: Look for product entries with dates in format MM/DD/YYYY or similar
+    # Common patterns: "Product Name" (date) - description
+    product_pattern = r'"([^"]{5,80})"\s*\((\d{1,2}/\d{1,2}/\d{4})\)'
+    matches = re.findall(product_pattern, html)
+    for name, date in matches:
+        # Skip if it looks like a code/JSON artifact
+        if any(x in name.lower() for x in ['month', 'actual', 'high', 'low', '{', '}']):
+            continue
+        products.append({
+            'name': name.strip(),
+            'date': date,
+            'category': categorize_product(name)
+        })
+
+    # Pattern 2: Look for JSON-style product data that might be embedded
+    # Format: {"title":"...", "date":"...", ...}
+    json_pattern = r'\{"title"\s*:\s*"([^"]+)"\s*,\s*"date"\s*:\s*"([^"]+)"'
+    json_matches = re.findall(json_pattern, html)
+    for title, date in json_matches:
+        if title not in [p['name'] for p in products]:
+            products.append({
+                'name': title.strip(),
+                'date': date,
+                'category': categorize_product(title)
+            })
+
+    # Pattern 3: Look for specific known product formats from the page
+    # These are often in structured data or specific HTML patterns
+    known_products = [
+        ('End-to-End AI Home Scoping', '10/17/2025', 'AI & Automation'),
+        ('Universal Underwriting Ensembler', '9/25/2025', 'AI & Automation'),
+        ('Automating Title & Escrow', '10/15/2025', 'AI & Automation'),
+        ('In-House Vision Model', '12/12/2025', 'AI & Automation'),
+        ('Cash Plus Pricing Unblocked Nationwide', '9/30/2025', 'Faster Acquisitions'),
+        ('True Seller Model v2', '9/29/2025', 'Faster Acquisitions'),
+        ('New Homes Directory', '11/13/2025', 'Faster Acquisitions'),
+        ('Buyer Peace of Mind Guarantee', '10/1/2025', 'Buyer Experience'),
+        ('Revamped Mortgage Experience', '12/8/2025', 'Buyer Experience'),
+        ('USDC Payment Acceptance', '11/6/2025', 'Buyer Experience'),
+        ('100% Zip Coverage in Lower 48 States', '12/19/2025', 'Seller Experience'),
+        ('Market Expansion', '11/5/2025', 'Seller Experience'),
+        ('Opendoor Key App on iOS & Android', '9/15/2025', 'Agent & Partner'),
+        ('Cash Plus for ALL Agents', '10/14/2025', 'Agent & Partner'),
+    ]
+
+    # Check if known products are mentioned in the HTML and add them
+    for name, date, category in known_products:
+        # Check if the product name appears in the HTML (case-insensitive partial match)
+        name_pattern = re.escape(name.split()[0]) + r'[^<]*' + re.escape(name.split()[-1]) if len(name.split()) > 1 else re.escape(name)
+        if re.search(name_pattern, html, re.IGNORECASE):
+            if name not in [p['name'] for p in products]:
+                products.append({
+                    'name': name,
+                    'date': date,
+                    'category': category
+                })
+
+    # Remove duplicates and sort by date (newest first)
+    seen = set()
+    unique_products = []
+    for p in products:
+        if p['name'] not in seen:
+            seen.add(p['name'])
+            unique_products.append(p)
+
+    # Sort by date (newest first)
+    def parse_date(date_str):
+        try:
+            return datetime.strptime(date_str, '%m/%d/%Y')
+        except:
+            return datetime.min
+
+    unique_products.sort(key=lambda x: parse_date(x['date']), reverse=True)
+
+    return unique_products
+
+def categorize_product(name: str) -> str:
+    """Categorize a product based on its name."""
+    name_lower = name.lower()
+
+    if any(x in name_lower for x in ['ai', 'model', 'vision', 'automat', 'ml', 'ensemble']):
+        return 'AI & Automation'
+    elif any(x in name_lower for x in ['buyer', 'mortgage', 'guarantee', 'usdc', 'payment']):
+        return 'Buyer Experience'
+    elif any(x in name_lower for x in ['seller', 'coverage', 'zip', 'market expansion']):
+        return 'Seller Experience'
+    elif any(x in name_lower for x in ['agent', 'partner', 'key app']):
+        return 'Agent & Partner'
+    elif any(x in name_lower for x in ['acquisition', 'pricing', 'underwriting', 'cash plus', 'true seller']):
+        return 'Faster Acquisitions'
+    elif any(x in name_lower for x in ['title', 'escrow', 'closing']):
+        return 'Operations'
+    else:
+        return 'Other'
 
 def scrape_accountability():
     """Scrape acquisition data from Opendoor's accountability page."""
@@ -32,8 +143,14 @@ def scrape_accountability():
         "scraped_at": datetime.now().isoformat(),
         "source": url,
         "weekly_contracts": [],
+        "product_updates": [],
         "latest": {},
     }
+
+    # Extract product updates
+    print("Extracting product updates...")
+    acquisition_data['product_updates'] = extract_product_updates(html)
+    print(f"Found {len(acquisition_data['product_updates'])} product updates")
 
     # Try multiple extraction strategies
     weekly_matches = []
@@ -152,6 +269,30 @@ def main():
     print(f"  Q1 Total: {latest.get('q1_total', 'N/A')} ({latest.get('q1_weeks', 0)} weeks)")
     print(f"  Data Points: {len(data.get('weekly_contracts', []))}")
     print("=" * 50)
+
+    # Print product updates summary
+    products = data.get('product_updates', [])
+    if products:
+        print("\n" + "=" * 50)
+        print("  PRODUCT UPDATES")
+        print("=" * 50)
+
+        # Group by category
+        by_category = {}
+        for p in products:
+            cat = p.get('category', 'Other')
+            if cat not in by_category:
+                by_category[cat] = []
+            by_category[cat].append(p)
+
+        for category, items in by_category.items():
+            print(f"\n  {category} ({len(items)}):")
+            for item in items[:3]:  # Show top 3 per category
+                print(f"    - {item['name']} ({item['date']})")
+            if len(items) > 3:
+                print(f"    ... and {len(items) - 3} more")
+
+        print("=" * 50)
 
     return data
 

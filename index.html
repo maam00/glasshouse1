@@ -486,6 +486,79 @@
         }
 
         /* ============================================================
+           PRODUCT UPDATES SECTION
+           ============================================================ */
+        .product-updates {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 48px;
+        }
+
+        .product-updates__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .product-updates__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .product-updates__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-category {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border-left: 3px solid var(--green);
+        }
+
+        .product-category.ai { border-left-color: #8b5cf6; }
+        .product-category.buyer { border-left-color: #06b6d4; }
+        .product-category.seller { border-left-color: #22c55e; }
+        .product-category.agent { border-left-color: #f59e0b; }
+        .product-category.acquisitions { border-left-color: #ef4444; }
+
+        .product-category__title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-2);
+            margin-bottom: 8px;
+        }
+
+        .product-category__count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-3);
+            margin-left: 4px;
+        }
+
+        .product-item {
+            font-size: 12px;
+            color: var(--text);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item__date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-3);
+        }
+
+        /* ============================================================
            VELOCITY / METRICS (V3)
            ============================================================ */
         .metrics-row {
@@ -1038,6 +1111,75 @@
                 <span class="acquisition-trend__week">260</span> →
                 <span class="acquisition-trend__week">266</span> →
                 <span class="acquisition-trend__week">287</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PRODUCT UPDATES
+         ============================================================ -->
+    <section class="product-updates">
+        <div class="product-updates__title">Recent Product Launches</div>
+
+        <div class="product-updates__grid" id="product-grid">
+            <div class="product-category ai">
+                <div class="product-category__title">AI & Automation <span class="product-category__count">(4)</span></div>
+                <div class="product-item">
+                    <span>In-House Vision Model</span>
+                    <span class="product-item__date">12/12</span>
+                </div>
+                <div class="product-item">
+                    <span>AI Home Scoping</span>
+                    <span class="product-item__date">10/17</span>
+                </div>
+                <div class="product-item">
+                    <span>Automating Title & Escrow</span>
+                    <span class="product-item__date">10/15</span>
+                </div>
+            </div>
+
+            <div class="product-category seller">
+                <div class="product-category__title">Seller Experience <span class="product-category__count">(2)</span></div>
+                <div class="product-item">
+                    <span>100% Zip Coverage (Lower 48)</span>
+                    <span class="product-item__date">12/19</span>
+                </div>
+                <div class="product-item">
+                    <span>Seattle, Baltimore, Chicago, Philly</span>
+                    <span class="product-item__date">11/5</span>
+                </div>
+            </div>
+
+            <div class="product-category buyer">
+                <div class="product-category__title">Buyer Experience <span class="product-category__count">(3)</span></div>
+                <div class="product-item">
+                    <span>Revamped Mortgage Experience</span>
+                    <span class="product-item__date">12/8</span>
+                </div>
+                <div class="product-item">
+                    <span>USDC Payment Acceptance</span>
+                    <span class="product-item__date">11/6</span>
+                </div>
+                <div class="product-item">
+                    <span>Buyer Peace of Mind Guarantee</span>
+                    <span class="product-item__date">10/1</span>
+                </div>
+            </div>
+
+            <div class="product-category acquisitions">
+                <div class="product-category__title">Faster Acquisitions <span class="product-category__count">(3)</span></div>
+                <div class="product-item">
+                    <span>New Homes Directory (SEO)</span>
+                    <span class="product-item__date">11/13</span>
+                </div>
+                <div class="product-item">
+                    <span>Cash Plus Nationwide</span>
+                    <span class="product-item__date">9/30</span>
+                </div>
+                <div class="product-item">
+                    <span>True Seller Model v2</span>
+                    <span class="product-item__date">9/29</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1658,6 +1800,59 @@ function updateAcquisitionSection(data) {
         ).join('');
         acqTrend.innerHTML = trendHtml;
     }
+
+    // Update product updates section
+    const products = data.product_updates || [];
+    if (products.length > 0) {
+        updateProductUpdates(products);
+    }
+}
+
+function updateProductUpdates(products) {
+    const grid = document.getElementById('product-grid');
+    if (!grid || !products.length) return;
+
+    // Group by category
+    const byCategory = {};
+    const categoryColors = {
+        'AI & Automation': 'ai',
+        'Buyer Experience': 'buyer',
+        'Seller Experience': 'seller',
+        'Agent & Partner': 'agent',
+        'Faster Acquisitions': 'acquisitions',
+        'Operations': 'ai',
+        'Other': 'agent'
+    };
+
+    for (const p of products) {
+        const cat = p.category || 'Other';
+        if (!byCategory[cat]) byCategory[cat] = [];
+        byCategory[cat].push(p);
+    }
+
+    // Build HTML
+    let html = '';
+    for (const [category, items] of Object.entries(byCategory)) {
+        const colorClass = categoryColors[category] || 'agent';
+        const displayItems = items.slice(0, 3); // Show top 3 per category
+
+        html += `
+            <div class="product-category ${colorClass}">
+                <div class="product-category__title">${category} <span class="product-category__count">(${items.length})</span></div>
+                ${displayItems.map(item => {
+                    const dateParts = item.date.split('/');
+                    const shortDate = dateParts.length >= 2 ? `${dateParts[0]}/${dateParts[1]}` : item.date;
+                    const shortName = item.name.length > 30 ? item.name.substring(0, 28) + '...' : item.name;
+                    return `<div class="product-item">
+                        <span>${shortName}</span>
+                        <span class="product-item__date">${shortDate}</span>
+                    </div>`;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    grid.innerHTML = html;
 }
 
 // Update dashboard metrics from unified data

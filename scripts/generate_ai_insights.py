@@ -47,6 +47,16 @@ def generate_insights(data: dict, acquisition_data: dict = None) -> dict:
     # Get acquisition metrics
     acq_latest = acquisition_data.get('latest', {}) if acquisition_data else {}
     acq_contracts = acquisition_data.get('weekly_contracts', []) if acquisition_data else []
+    product_updates = acquisition_data.get('product_updates', []) if acquisition_data else []
+
+    # Format product updates for context
+    recent_products = product_updates[:10] if product_updates else []
+    products_by_category = {}
+    for p in recent_products:
+        cat = p.get('category', 'Other')
+        if cat not in products_by_category:
+            products_by_category[cat] = []
+        products_by_category[cat].append(p['name'])
 
     # Prepare context for Claude
     context = f"""You are an expert equity analyst writing for Opendoor ($OPEN) shareholders.
@@ -88,18 +98,22 @@ ACQUISITIONS (Inflow - homes Opendoor is BUYING):
 - WoW Change: {acq_latest.get('wow_change', acq_latest.get('wow_display', 'N/A'))}%
 - 4-Week Average: {acq_latest.get('avg_4w', 'N/A')} contracts/week
 - Q1 Total: {acq_latest.get('q1_total', 'N/A')} contracts over {acq_latest.get('q1_weeks', 'N/A')} weeks
+
+RECENT PRODUCT UPDATES ({len(recent_products)} shipped):
+{chr(10).join([f"- {cat}: {', '.join(items)}" for cat, items in products_by_category.items()]) if products_by_category else "No recent product data available"}
 """
 
-    prompt = """Generate 4 insights for shareholders. Each insight should:
+    prompt = """Generate 5 insights for shareholders. Each insight should:
 - Be exactly 1 sentence (10-18 words)
 - Include specific numbers from the data
 - Be actionable/interpretive, not just restating facts
 
-The 4 insights must cover:
+The 5 insights must cover:
 1. VELOCITY: Is daily sales pace accelerating or decelerating? How does it compare to the 29/day needed?
 2. GUIDANCE RISK: Will they hit $1B? What would need to change? Be direct about probability.
 3. ACQUISITIONS: Are they ramping acquisitions? What does the inflow pipeline signal about future inventory?
-4. SIGNAL: One bullish OR bearish signal from the data (profitability, pricing, geographic, or weekly trend)
+4. PRODUCT: What's the most significant recent product launch? How does it improve unit economics or customer experience?
+5. SIGNAL: One bullish OR bearish signal from the data (profitability, pricing, geographic, or weekly trend)
 
 Tone: Direct, analytical, no hedge words like "may" or "could". State conclusions confidently.
 
@@ -108,6 +122,7 @@ Return ONLY valid JSON:
     "velocity_insight": "...",
     "guidance_insight": "...",
     "acquisition_insight": "...",
+    "product_insight": "...",
     "pattern_insight": "..."
 }"""
 
@@ -170,6 +185,7 @@ def main():
     print(f"  Velocity:    {insights['velocity_insight']}")
     print(f"  Guidance:    {insights['guidance_insight']}")
     print(f"  Acquisition: {insights.get('acquisition_insight', 'N/A')}")
+    print(f"  Product:     {insights.get('product_insight', 'N/A')}")
     print(f"  Pattern:     {insights['pattern_insight']}")
 
     update_dashboard_data(dashboard_path, insights)

@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-01-28T11:02:31.094818",
+  "scraped_at": "2026-01-28T11:08:28.365459",
   "source": "https://accountable.opendoor.com/",
   "weekly_contracts": [
     {
@@ -151,6 +151,78 @@
       "week": "2026-01-24",
       "actual": 287,
       "last_year": 0
+    }
+  ],
+  "product_updates": [
+    {
+      "name": "100% Zip Coverage in Lower 48 States",
+      "date": "12/19/2025",
+      "category": "Seller Experience"
+    },
+    {
+      "name": "In-House Vision Model",
+      "date": "12/12/2025",
+      "category": "AI & Automation"
+    },
+    {
+      "name": "Revamped Mortgage Experience",
+      "date": "12/8/2025",
+      "category": "Buyer Experience"
+    },
+    {
+      "name": "New Homes Directory",
+      "date": "11/13/2025",
+      "category": "Faster Acquisitions"
+    },
+    {
+      "name": "USDC Payment Acceptance",
+      "date": "11/6/2025",
+      "category": "Buyer Experience"
+    },
+    {
+      "name": "Market Expansion",
+      "date": "11/5/2025",
+      "category": "Seller Experience"
+    },
+    {
+      "name": "End-to-End AI Home Scoping",
+      "date": "10/17/2025",
+      "category": "AI & Automation"
+    },
+    {
+      "name": "Automating Title & Escrow",
+      "date": "10/15/2025",
+      "category": "AI & Automation"
+    },
+    {
+      "name": "Cash Plus for ALL Agents",
+      "date": "10/14/2025",
+      "category": "Agent & Partner"
+    },
+    {
+      "name": "Buyer Peace of Mind Guarantee",
+      "date": "10/1/2025",
+      "category": "Buyer Experience"
+    },
+    {
+      "name": "Cash Plus Pricing Unblocked Nationwide",
+      "date": "9/30/2025",
+      "category": "Faster Acquisitions"
+    },
+    {
+      "name": "True Seller Model v2",
+      "date": "9/29/2025",
+      "category": "Faster Acquisitions"
+    },
+    {
+      "name": "Universal Underwriting Ensembler",
+      "date": "9/25/2025",
+      "category": "AI & Automation"
+    },
+    {
+      "name": "Opendoor Key App on iOS & Android",
+      "date": "9/15/2025",
+      "category": "Agent & Partner"
     }
   ],
   "latest": {

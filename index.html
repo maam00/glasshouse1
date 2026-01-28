@@ -567,6 +567,110 @@
         }
 
         /* ============================================================
+           CAREERS SECTION
+           ============================================================ */
+        .careers-section {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 48px;
+        }
+
+        .careers-section__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .careers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .careers-total {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .careers-total__number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .careers-total__label {
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        .careers-signal {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .careers-signal.technology { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+        .careers-signal.growth { background: var(--green-dim); color: var(--green); }
+        .careers-signal.balanced { background: var(--amber-dim); color: var(--amber); }
+
+        .careers-departments {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .careers-departments {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .careers-dept {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .careers-dept__count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .careers-dept__name {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-top: 4px;
+        }
+
+        .careers-highlights {
+            display: flex;
+            gap: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-3);
+        }
+
+        .careers-highlights span {
+            color: var(--text-2);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ============================================================
            VELOCITY / METRICS (V3)
            ============================================================ */
         .metrics-row {
@@ -1201,6 +1305,54 @@
     </section>
 
     <!-- ============================================================
+         CAREERS / HIRING
+         ============================================================ -->
+    <section class="careers-section">
+        <div class="careers-section__title">Hiring Activity</div>
+
+        <div class="careers-header">
+            <div class="careers-total">
+                <span class="careers-total__number" id="careers-total">52</span>
+                <span class="careers-total__label">open positions</span>
+            </div>
+            <div class="careers-signal technology" id="careers-signal">Technology Focus</div>
+        </div>
+
+        <div class="careers-departments" id="careers-depts">
+            <div class="careers-dept">
+                <div class="careers-dept__count">19</div>
+                <div class="careers-dept__name">Engineering</div>
+            </div>
+            <div class="careers-dept">
+                <div class="careers-dept__count">13</div>
+                <div class="careers-dept__name">Sales</div>
+            </div>
+            <div class="careers-dept">
+                <div class="careers-dept__count">9</div>
+                <div class="careers-dept__name">Finance</div>
+            </div>
+            <div class="careers-dept">
+                <div class="careers-dept__count">4</div>
+                <div class="careers-dept__name">Marketing</div>
+            </div>
+            <div class="careers-dept">
+                <div class="careers-dept__count">5</div>
+                <div class="careers-dept__name">Other</div>
+            </div>
+            <div class="careers-dept">
+                <div class="careers-dept__count">2</div>
+                <div class="careers-dept__name">Operations</div>
+            </div>
+        </div>
+
+        <div class="careers-highlights">
+            <div>Senior Roles: <span id="careers-senior">23</span></div>
+            <div>AI/ML Roles: <span id="careers-ai">9</span></div>
+            <div>Top Location: <span id="careers-location">Phoenix (14)</span></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
          DAILY VELOCITY
          ============================================================ -->
     <section class="section">
@@ -1730,6 +1882,9 @@ async function init() {
 
     // Load acquisition data
     loadAcquisitionData();
+
+    // Load careers data
+    loadCareersData();
 }
 
 async function fetchStockPrice() {
@@ -1868,6 +2023,79 @@ function updateProductUpdates(products) {
     }
 
     grid.innerHTML = html;
+}
+
+// Load and display careers data
+async function loadCareersData() {
+    try {
+        const r = await fetch('outputs/careers_' + new Date().toISOString().split('T')[0] + '.json');
+        if (r.ok) {
+            const careersData = await r.json();
+            updateCareersSection(careersData);
+        }
+    } catch (e) {
+        console.log('Careers data not available:', e);
+    }
+}
+
+function updateCareersSection(data) {
+    if (!data || !data.summary) return;
+
+    const summary = data.summary;
+    const byDept = data.by_department || {};
+
+    // Update total
+    const totalEl = document.getElementById('careers-total');
+    if (totalEl) totalEl.textContent = summary.total_positions || 0;
+
+    // Update signal badge
+    const signalEl = document.getElementById('careers-signal');
+    if (signalEl && summary.hiring_signal) {
+        const focus = summary.hiring_signal.focus || 'balanced';
+        signalEl.className = 'careers-signal ' + focus;
+        signalEl.textContent = summary.hiring_signal.description || 'Active Hiring';
+    }
+
+    // Update departments grid
+    const deptsEl = document.getElementById('careers-depts');
+    if (deptsEl) {
+        const deptOrder = ['Engineering & Technology', 'Sales & Customer Experience', 'Finance & Operations', 'Marketing & Growth', 'Other', 'Operations'];
+        const shortNames = {
+            'Engineering & Technology': 'Engineering',
+            'Sales & Customer Experience': 'Sales',
+            'Finance & Operations': 'Finance',
+            'Marketing & Growth': 'Marketing',
+            'Product & Design': 'Product',
+            'Operations': 'Operations',
+            'Other': 'Other'
+        };
+
+        let html = '';
+        for (const dept of deptOrder) {
+            const info = byDept[dept];
+            if (info) {
+                html += `<div class="careers-dept">
+                    <div class="careers-dept__count">${info.count}</div>
+                    <div class="careers-dept__name">${shortNames[dept] || dept}</div>
+                </div>`;
+            }
+        }
+        deptsEl.innerHTML = html;
+    }
+
+    // Update highlights
+    const seniorEl = document.getElementById('careers-senior');
+    if (seniorEl) seniorEl.textContent = summary.senior_roles_count || 0;
+
+    const aiEl = document.getElementById('careers-ai');
+    if (aiEl) aiEl.textContent = summary.ai_ml_roles_count || 0;
+
+    const locationEl = document.getElementById('careers-location');
+    if (locationEl && summary.top_locations && summary.top_locations.length > 0) {
+        const top = summary.top_locations[0];
+        const shortLoc = top.name.split(',')[0].replace('Office - ', '').replace('Washington-', '');
+        locationEl.textContent = `${shortLoc} (${top.count})`;
+    }
 }
 
 // Update dashboard metrics from unified data

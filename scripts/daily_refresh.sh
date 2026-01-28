@@ -33,28 +33,32 @@ if [ -f .env ]; then
 fi
 
 # Step 1: Scrape Singularity (FREE - always runs)
-echo "[1/6] Scraping Singularity..." >> "$LOG_FILE"
+echo "[1/7] Scraping Singularity..." >> "$LOG_FILE"
 python scripts/scrape_singularity.py >> "$LOG_FILE" 2>&1
 
-# Step 2: Scrape Accountability (Acquisition contracts)
-echo "[2/6] Scraping Accountability page..." >> "$LOG_FILE"
+# Step 2: Scrape Accountability (Acquisition contracts + products)
+echo "[2/7] Scraping Accountability page..." >> "$LOG_FILE"
 python scripts/scrape_accountability.py >> "$LOG_FILE" 2>&1
 
-# Step 3: Merge datasets (uses latest Parcl CSV if available)
-echo "[3/6] Merging datasets..." >> "$LOG_FILE"
+# Step 3: Scrape Careers (Greenhouse API)
+echo "[3/7] Scraping Careers data..." >> "$LOG_FILE"
+python scripts/scrape_careers.py >> "$LOG_FILE" 2>&1
+
+# Step 4: Merge datasets (uses latest Parcl CSV if available)
+echo "[4/7] Merging datasets..." >> "$LOG_FILE"
 python scripts/merge_datasets.py >> "$LOG_FILE" 2>&1
 
-# Step 4: Generate dashboard data
-echo "[4/6] Generating dashboard data..." >> "$LOG_FILE"
+# Step 5: Generate dashboard data
+echo "[5/7] Generating dashboard data..." >> "$LOG_FILE"
 python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1
 
-# Step 5: Generate AI insights
-echo "[5/6] Generating AI insights..." >> "$LOG_FILE"
+# Step 6: Generate AI insights
+echo "[6/7] Generating AI insights..." >> "$LOG_FILE"
 python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1
 
-# Step 6: Push to GitHub Pages
-echo "[6/6] Deploying to GitHub Pages..." >> "$LOG_FILE"
-git add outputs/unified_dashboard_data.json outputs/accountability_*.json >> "$LOG_FILE" 2>&1
+# Step 7: Push to GitHub Pages
+echo "[7/7] Deploying to GitHub Pages..." >> "$LOG_FILE"
+git add outputs/unified_dashboard_data.json outputs/accountability_*.json outputs/careers_*.json >> "$LOG_FILE" 2>&1
 git commit -m "Daily data refresh $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1 || true
 git push origin master >> "$LOG_FILE" 2>&1
 

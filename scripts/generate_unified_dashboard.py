@@ -38,6 +38,10 @@ def main():
     map_file = find_latest_file(output_dir, "singularity_map_*.json")
     charts_file = find_latest_file(output_dir, "singularity_charts_*.json")
 
+    # Load Parcl listings for inventory metrics
+    parcl_dir = Path.home() / "Desktop" / "glasshouse"
+    listings_file = find_latest_file(parcl_dir, "*listing*.csv")
+
     if not all([sales_file, daily_file, metrics_file]):
         print("Error: Run merge_datasets.py first to create unified data")
         return 1
@@ -58,6 +62,12 @@ def main():
     if charts_file and charts_file.exists():
         with open(charts_file) as f:
             charts_data = json.load(f)
+
+    # Load Parcl listings for inventory metrics
+    listings_data = None
+    if listings_file and listings_file.exists():
+        listings_data = pd.read_csv(listings_file)
+        print(f"Loaded {len(listings_data)} listings for inventory metrics")
 
     # Parse dates
     sales['sale_date'] = pd.to_datetime(sales['sale_date'])
@@ -127,6 +137,13 @@ def main():
             "pnl_coverage": round(q1_metrics['pnl']['coverage_pct'], 1),
             "details_coverage": round(q1_metrics['property_details']['coverage_pct'], 1),
         },
+
+        # ==== METHODOLOGY NOTES ====
+        "methodology": {
+            "margin_note": "Realized Net from Parcl includes all costs: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price.",
+            "win_rate_note": "Win = Realized Net > $0. Based on sales with P&L data from Parcl.",
+            "guidance_target": "$1B Q1 revenue from Opendoor guidance. 29 homes/day based on $388K avg price.",
+        },
     }
 
     # Build daily chart data
@@ -151,6 +168,37 @@ def main():
             "avg_price": round(daily_avg_price),
             "moving_avg": round(row['sales_moving_avg'], 1) if pd.notna(row.get('sales_moving_avg')) else None,
         })
+
+    # ==== INVENTORY METRICS (from Parcl Listings) ====
+    if listings_data is not None and len(listings_data) > 0:
+        # Parse numeric columns
+        def parse_price(val):
+            if pd.isna(val) or val == '':
+                return np.nan
+            return float(str(val).replace('$', '').replace(',', ''))
+
+        listings_data['days_on_market'] = pd.to_numeric(listings_data['Days on Market'], errors='coerce')
+        listings_data['price_cuts'] = pd.to_numeric(listings_data['Price Cuts'], errors='coerce')
+        listings_data['latest_price'] = listings_data['Latest Listing Price'].apply(parse_price)
+        listings_data['original_price'] = listings_data['Original Purchase Price'].apply(parse_price)
+
+        # Calculate unrealized P&L where we have both prices
+        listings_with_cost = listings_data[listings_data['original_price'].notna() & listings_data['latest_price'].notna()]
+
+        dashboard_data['inventory'] = {
+            'total_listings': len(listings_data),
+            'avg_days_on_market': round(listings_data['days_on_market'].mean(), 1) if listings_data['days_on_market'].notna().any() else 0,
+            'max_days_on_market': int(listings_data['days_on_market'].max()) if listings_data['days_on_market'].notna().any() else 0,
+            'avg_price_cuts': round(listings_data['price_cuts'].mean(), 1) if listings_data['price_cuts'].notna().any() else 0,
+            'homes_with_3plus_cuts': int((listings_data['price_cuts'] >= 3).sum()),
+            'avg_listing_price': round(listings_data['latest_price'].mean()) if listings_data['latest_price'].notna().any() else 0,
+            'total_inventory_value': round(listings_data['latest_price'].sum()) if listings_data['latest_price'].notna().any() else 0,
+        }
+
+        # State breakdown
+        if 'State' in listings_data.columns:
+            state_counts = listings_data['State'].value_counts().head(5).to_dict()
+            dashboard_data['inventory']['by_state'] = state_counts
 
     # ==== GEOGRAPHIC DATA ====
     # Use Singularity map data for top markets (sorted by listing count)

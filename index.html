@@ -1027,20 +1027,23 @@
                 </div>
             </div>
 
-            <!-- Price Cut Severity -->
+            <!-- Inventory Health -->
             <div class="panel">
-                <div class="panel-title">Price Cut Severity</div>
+                <div class="panel-title">Inventory Health</div>
                 <table class="tbl">
                     <thead>
-                        <tr><th>Portfolio</th><th>% Cut</th><th>Avg Below</th><th>3+ Cuts</th></tr>
+                        <tr><th>Metric</th><th>Value</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td class="name">Kaz-Era</td><td class="green">35%</td><td>2.3%</td><td>1</td></tr>
-                        <tr><td class="name">Legacy</td><td class="red">96%</td><td class="red">11.8%</td><td class="red">570</td></tr>
+                        <tr><td class="name">Active Listings</td><td id="inv-total">764</td></tr>
+                        <tr><td class="name">Avg Days on Market</td><td class="red" id="inv-dom">228</td></tr>
+                        <tr><td class="name">Avg Price Cuts</td><td class="red" id="inv-cuts">6.4</td></tr>
+                        <tr><td class="name">Homes with 3+ Cuts</td><td class="red" id="inv-3plus">571</td></tr>
+                        <tr><td class="name">Inventory Value</td><td id="inv-value">$303M</td></tr>
                     </tbody>
                 </table>
                 <div class="insight-text" style="margin-top: 12px;" data-metric="guidance-insight">
-                    Legacy taking the pain. Kaz-era cuts are healthy price discovery.
+                    Loading insight...
                 </div>
             </div>
         </div>
@@ -1114,9 +1117,12 @@
             <strong>Q1 2026:</strong> <span data-metric="data-coverage">715 sales (38.7% with P&L)</span><br>
             <strong>Win Rate:</strong> <span data-metric="win-rate">79.1%</span> (from <span data-metric="pnl-sample">277</span> sales with P&L data)<br>
             <strong>Avg Profit:</strong> <span data-metric="avg-profit">$46,407</span> | <strong>Total Realized:</strong> <span data-metric="total-realized">$8.4M</span><br><br>
+            <strong>How Margin is Calculated:</strong><br>
+            Realized Net from Parcl includes <em>all costs</em>: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price. Win = Realized Net > $0.<br><br>
+            <strong>Guidance Target:</strong> $1B Q1 revenue. 29 homes/day target based on ~$388K avg price.<br><br>
             <strong>Data Sources:</strong><br>
             • Sales velocity & revenue: <a href="https://singularityresearchfund.com/opendoor-tracker" target="_blank" style="color: var(--text-2);">Singularity Research</a> (real-time)<br>
-            • P&L metrics: Parcl Research (38.7% coverage)<br><br>
+            • P&L & inventory metrics: Parcl Research<br><br>
             <span style="color: var(--text-3); font-size: 11px;">Data as of <span data-metric="as-of">Jan 26, 2026</span> | Unified dataset</span>
         </div>
     </div>
@@ -1521,6 +1527,25 @@ function updateDashboardMetrics(data) {
     if (data.market_concentration) {
         const concEl = document.getElementById('market-concentration');
         if (concEl) concEl.textContent = data.market_concentration.top5_pct;
+    }
+
+    // Update inventory metrics
+    if (data.inventory) {
+        const inv = data.inventory;
+        const invTotal = document.getElementById('inv-total');
+        if (invTotal) invTotal.textContent = inv.total_listings?.toLocaleString();
+
+        const invDom = document.getElementById('inv-dom');
+        if (invDom) invDom.textContent = inv.avg_days_on_market;
+
+        const invCuts = document.getElementById('inv-cuts');
+        if (invCuts) invCuts.textContent = inv.avg_price_cuts;
+
+        const inv3plus = document.getElementById('inv-3plus');
+        if (inv3plus) inv3plus.textContent = inv.homes_with_3plus_cuts?.toLocaleString();
+
+        const invValue = document.getElementById('inv-value');
+        if (invValue) invValue.textContent = '$' + Math.round(inv.total_inventory_value / 1000000) + 'M';
     }
 }
 

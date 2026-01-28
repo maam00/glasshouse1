@@ -488,13 +488,24 @@ def main():
     print("\n[6/6] Generating news bullets...")
     news_bullets = generate_news_bullets(news_data, rates_data)
 
+    # Fed data (2026 FOMC schedule)
+    # Next meetings: Jan 28-29, Mar 18-19, May 6-7, Jun 17-18, Jul 29-30, Sep 16-17, Nov 4-5, Dec 16-17
+    fed_data = {
+        'current_rate': '4.25-4.50%',
+        'last_action': 'hold',  # hold, cut, hike
+        'last_meeting': 'Jan 29',
+        'next_meeting': 'Mar 18-19',
+        'ytd_cuts': 0,
+        'ytd_hikes': 0
+    }
+
     # Compile all market intelligence
     market_intel = {
         'generated_at': datetime.now().isoformat(),
         'earnings': earnings_data,
         'mortgage_rates': rates_data,
+        'fed_data': fed_data,
         'news': news_data,
-        'news_bullets': news_bullets,
         'market_brief': market_brief
     }
 

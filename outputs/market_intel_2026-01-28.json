@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T14:26:48.959015",
+  "generated_at": "2026-01-28T14:40:47.839347",
   "earnings": {
     "next_earnings_date": null,
     "days_until_earnings": null,
@@ -16,49 +16,57 @@
     "source": "estimate",
     "historical": []
   },
+  "fed_data": {
+    "current_rate": "4.25-4.50%",
+    "last_action": "hold",
+    "last_meeting": "Jan 29",
+    "next_meeting": "Mar 18-19",
+    "ytd_cuts": 0,
+    "ytd_hikes": 0
+  },
   "news": {
     "headlines": [],
     "fed_news": [
       {
-        "title": "IPX1031 Releases 2026 Trends: Key Insights for the CRE Market and 1031 Exchanges",
+        "title": "Quick Custom Intelligence Marks Record Growth with 100 New Customer Engagements in 2025",
         "publisher": "GlobeNewswire",
         "date": "2026-01-28"
       },
       {
-        "title": "Metavista3D Recognized in Netzwelt's CES 2026 Highlights Coverage",
-        "publisher": "TMX Newsfile",
+        "title": "Cache 2025 Review Details How the Cache Exchange Fund Platform Scaled From $290M to Over $1B While Maintaining 98\u201399% Benchmark Correlation",
+        "publisher": "Business Wire",
         "date": "2026-01-28"
       },
       {
-        "title": "Bitcoin, Ethereum Steady as Fed Leaves Interest Rates Unchanged",
-        "publisher": "decrypt",
+        "title": "Aegis Capital Corp. Announces the Hiring of a New Managing Director",
+        "publisher": "ACCESS Newswire",
         "date": "2026-01-28"
       }
     ],
     "housing_news": [
       {
-        "title": "IPX1031 Releases 2026 Trends: Key Insights for the CRE Market and 1031 Exchanges",
-        "publisher": "GlobeNewswire",
+        "title": "Cache 2025 Review Details How the Cache Exchange Fund Platform Scaled From $290M to Over $1B While Maintaining 98\u201399% Benchmark Correlation",
+        "publisher": "Business Wire",
         "date": "2026-01-28"
       },
       {
-        "title": "Metavista3D Recognized in Netzwelt's CES 2026 Highlights Coverage",
-        "publisher": "TMX Newsfile",
+        "title": "Aegis Capital Corp. Announces the Hiring of a New Managing Director",
+        "publisher": "ACCESS Newswire",
         "date": "2026-01-28"
       },
       {
-        "title": "Bitcoin, Ethereum Steady as Fed Leaves Interest Rates Unchanged",
-        "publisher": "decrypt",
-        "date": "2026-01-28"
-      },
-      {
-        "title": "Toll Brothers Announces New Luxury Home Community Coming Soon to Cumming, Georgia",
-        "publisher": "GlobeNewswire",
-        "date": "2026-01-28"
-      },
-      {
-        "title": "Fed Stands Pat, With Hawkish Tweak; Will Powell Move The S&P 500? (Live Coverage)",
+        "title": "Fed Pauses, With Hawkish Tweak; Powell Speaking As S&P 500 Wavers (Live Coverage)",
         "publisher": "Investor's Business Daily",
+        "date": "2026-01-28"
+      },
+      {
+        "title": "Mein Street\u00ae Asian Eats Wins in the 62nd GDUSA Design Awards\u2122 for Branding",
+        "publisher": "PR Newswire",
+        "date": "2026-01-28"
+      },
+      {
+        "title": "U.S. quietly authorizes eight Boeing planes for flights to Russia",
+        "publisher": "TheStreet",
         "date": "2026-01-28"
       }
     ],
@@ -95,25 +103,11 @@
       }
     ]
   },
-  "news_bullets": [
-    {
-      "text": "Fed holds rates steady, Bitcoin and Ethereum remain stable",
-      "type": "fed"
-    },
-    {
-      "text": "30-year mortgage rates drop to 6.89%, down 0.15% monthly",
-      "type": "housing"
-    },
-    {
-      "text": "Opendoor CEO praises Trump housing policy, stock soared 264%",
-      "type": "open"
-    }
-  ],
   "market_brief": {
-    "market_brief": "Mortgage rates continued their gradual decline, dropping 15 basis points over the past month to 6.89%, creating a more favorable environment for iBuying operations. Opendoor is capitalizing on improved conditions with a strong 78.9% win rate and daily sales pace of 22.2 homes, putting Q1 revenue 96% on track toward the $1B target with 63 days remaining. The operational momentum is solid, but the company still carries $58.6M in unrealized losses from 455 stale properties that need resolution. Management's optimistic commentary on Trump's housing policies signals confidence in the regulatory and market environment ahead.",
-    "sentiment": "bullish",
-    "key_risk": "The $58.6M in unrealized losses from aging inventory could pressure margins if these 455 stale properties don't clear quickly in Q1.",
-    "key_catalyst": "Continued mortgage rate declines below 6.5% would significantly expand the addressable buyer pool and accelerate inventory turnover.",
-    "generated_at": "2026-01-28T14:26:46.519089"
+    "market_brief": "Mortgage rates declined for the third consecutive week to 6.89%, providing a modest tailwind as the Fed maintains its hawkish pause with Powell speaking today. Opendoor's Q1 execution remains strong with 96% revenue pacing toward the $1B target and a solid 78.9% win rate, though 84 toxic homes are creating $58.6M in unrealized losses that need clearing. The company benefits from CEO Caruso's high-profile Trump housing comments generating positive momentum, but inventory management becomes critical with 63 days left in Q1. Powell's commentary today could shift rate expectations and impact OPEN's transaction velocity heading into February.",
+    "sentiment": "neutral",
+    "key_risk": "The 84 toxic homes sitting over 365 days represent significant margin compression risk if market conditions deteriorate before liquidation.",
+    "key_catalyst": "Continued mortgage rate decline below 6.8% would accelerate buyer demand and help clear problem inventory while driving transaction volume.",
+    "generated_at": "2026-01-28T14:40:45.384609"
   }
 }

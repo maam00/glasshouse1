@@ -172,38 +172,59 @@
         }
 
         /* ============================================================
-           NEWS TICKER
+           RATE WATCH BAR
            ============================================================ */
-        .news-ticker {
+        .rate-watch {
             background: var(--surface);
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 14px 20px;
             margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
-        .news-ticker__items {
+        .rate-watch__item {
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 8px;
         }
 
-        .news-ticker__item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--text-2);
-            line-height: 1.4;
+        .rate-watch__label {
+            font-size: 11px;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .news-ticker__bullet {
-            color: var(--green);
-            font-weight: bold;
-            flex-shrink: 0;
+        .rate-watch__value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-1);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .news-ticker__bullet.fed { color: var(--amber); }
-        .news-ticker__bullet.open { color: var(--green); }
+        .rate-watch__change {
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rate-watch__change.down { color: var(--green); }
+        .rate-watch__change.up { color: var(--red); }
+        .rate-watch__change.flat { color: var(--text-3); }
+
+        .rate-watch__status {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .rate-watch__status.hold { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .rate-watch__status.cut { background: rgba(16, 185, 129, 0.15); color: var(--green); }
+        .rate-watch__status.hike { background: rgba(239, 68, 68, 0.15); color: var(--red); }
 
         /* ============================================================
            SECTION STYLES (V3)
@@ -1216,10 +1237,23 @@
     </section>
 
     <!-- ============================================================
-         MARKET NEWS TICKER
+         RATE WATCH BAR
          ============================================================ -->
-    <div class="news-ticker" id="news-ticker">
-        <div class="news-ticker__items" id="news-items"></div>
+    <div class="rate-watch" id="rate-watch">
+        <div class="rate-watch__item">
+            <span class="rate-watch__label">30Y Mortgage</span>
+            <span class="rate-watch__value" id="rate-30y">--</span>
+            <span class="rate-watch__change" id="rate-30y-change">--</span>
+        </div>
+        <div class="rate-watch__item">
+            <span class="rate-watch__label">Fed Funds</span>
+            <span class="rate-watch__value" id="fed-funds">--</span>
+            <span class="rate-watch__status hold" id="fed-status">HOLD</span>
+        </div>
+        <div class="rate-watch__item">
+            <span class="rate-watch__label">Next FOMC</span>
+            <span class="rate-watch__value" id="next-fomc">--</span>
+        </div>
     </div>
 
 
@@ -2155,7 +2189,7 @@ async function init() {
             updateDashboardMetrics(data);
             updateThisWeekNarrative(data);
             updateToxicWeeklyTrend(data);
-            updateNewsTicker(data);
+            updateRateWatch(data);
         } else {
             renderRevenueChart(null);
         }
@@ -2658,41 +2692,45 @@ function updateToxicWeeklyTrend(data) {
     container.innerHTML = trendHtml;
 }
 
-// Update News Ticker from market intel
-function updateNewsTicker(data) {
+// Update Rate Watch bar from market intel
+function updateRateWatch(data) {
     const intel = data.market_intel;
-    const container = document.getElementById('news-items');
-    if (!container) return;
+    if (!intel) return;
 
-    // Get news bullets from AI-generated summary or raw news
-    const bullets = intel?.news_bullets || [];
+    const rates = intel.mortgage_rates || {};
+    const fedData = intel.fed_data || {};
 
-    if (bullets.length > 0) {
-        container.innerHTML = bullets.map(bullet =>
-            `<div class="news-ticker__item">
-                <span class="news-ticker__bullet ${bullet.type || ''}">•</span>
-                <span>${bullet.text}</span>
-            </div>`
-        ).join('');
-        return;
+    // 30Y Mortgage Rate
+    const rate30y = document.getElementById('rate-30y');
+    const rate30yChange = document.getElementById('rate-30y-change');
+    if (rate30y && rates.rate_30yr) {
+        rate30y.textContent = rates.rate_30yr + '%';
+
+        // Show monthly change
+        const mtdChange = rates.rate_change_1m || 0;
+        const changeClass = mtdChange < 0 ? 'down' : mtdChange > 0 ? 'up' : 'flat';
+        const changeText = mtdChange < 0 ? `▼${Math.abs(mtdChange).toFixed(2)}% MTD` :
+                          mtdChange > 0 ? `▲${mtdChange.toFixed(2)}% MTD` : 'flat';
+        rate30yChange.textContent = changeText;
+        rate30yChange.className = 'rate-watch__change ' + changeClass;
     }
 
-    // Fallback: use raw news headlines if no bullets
-    const news = intel?.news || {};
-    const allNews = [
-        ...(news.fed_news || []).slice(0, 1).map(n => ({ ...n, type: 'fed' })),
-        ...(news.opendoor_news || []).slice(0, 2).map(n => ({ ...n, type: 'open' })),
-    ].filter(n => n.title);
+    // Fed Funds Rate
+    const fedFunds = document.getElementById('fed-funds');
+    const fedStatus = document.getElementById('fed-status');
+    if (fedFunds) {
+        fedFunds.textContent = fedData.current_rate || '4.25-4.50%';
+    }
+    if (fedStatus) {
+        const status = fedData.last_action || 'hold';
+        fedStatus.textContent = status.toUpperCase();
+        fedStatus.className = 'rate-watch__status ' + status.toLowerCase();
+    }
 
-    if (allNews.length > 0) {
-        container.innerHTML = allNews.map(item =>
-            `<div class="news-ticker__item">
-                <span class="news-ticker__bullet ${item.type}">•</span>
-                <span>${item.title}</span>
-            </div>`
-        ).join('');
-    } else {
-        container.parentElement.style.display = 'none';
+    // Next FOMC Meeting
+    const nextFomc = document.getElementById('next-fomc');
+    if (nextFomc) {
+        nextFomc.textContent = fedData.next_meeting || 'Mar 18-19';
     }
 }
 

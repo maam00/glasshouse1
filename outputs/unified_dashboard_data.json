@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T10:01:52.967453",
+  "generated_at": "2026-01-28T10:08:49.284172",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -220,162 +220,189 @@
       "date": "Jan 01",
       "date_full": "2026-01-01",
       "count": 9,
+      "avg_price": 426667,
       "moving_avg": 14.9
     },
     {
       "date": "Jan 02",
       "date_full": "2026-01-02",
       "count": 5,
+      "avg_price": 266000,
       "moving_avg": 14.6
     },
     {
       "date": "Jan 03",
       "date_full": "2026-01-03",
       "count": 14,
+      "avg_price": 352857,
       "moving_avg": 14.4
     },
     {
       "date": "Jan 04",
       "date_full": "2026-01-04",
       "count": 27,
+      "avg_price": 378519,
       "moving_avg": 15.0
     },
     {
       "date": "Jan 05",
       "date_full": "2026-01-05",
       "count": 25,
+      "avg_price": 362800,
       "moving_avg": 15.7
     },
     {
       "date": "Jan 06",
       "date_full": "2026-01-06",
       "count": 18,
+      "avg_price": 355000,
       "moving_avg": 15.7
     },
     {
       "date": "Jan 07",
       "date_full": "2026-01-07",
       "count": 20,
+      "avg_price": 454500,
       "moving_avg": 15.8
     },
     {
       "date": "Jan 08",
       "date_full": "2026-01-08",
       "count": 20,
+      "avg_price": 415500,
       "moving_avg": 15.8
     },
     {
       "date": "Jan 09",
       "date_full": "2026-01-09",
       "count": 26,
+      "avg_price": 375000,
       "moving_avg": 15.7
     },
     {
       "date": "Jan 10",
       "date_full": "2026-01-10",
       "count": 11,
+      "avg_price": 339091,
       "moving_avg": 15.4
     },
     {
       "date": "Jan 11",
       "date_full": "2026-01-11",
       "count": 9,
+      "avg_price": 317778,
       "moving_avg": 14.8
     },
     {
       "date": "Jan 12",
       "date_full": "2026-01-12",
       "count": 25,
+      "avg_price": 433600,
       "moving_avg": 15.4
     },
     {
       "date": "Jan 13",
       "date_full": "2026-01-13",
       "count": 26,
+      "avg_price": 378462,
       "moving_avg": 16.1
     },
     {
       "date": "Jan 14",
       "date_full": "2026-01-14",
       "count": 33,
+      "avg_price": 373333,
       "moving_avg": 16.4
     },
     {
       "date": "Jan 15",
       "date_full": "2026-01-15",
       "count": 20,
+      "avg_price": 418500,
       "moving_avg": 16.4
     },
     {
       "date": "Jan 16",
       "date_full": "2026-01-16",
       "count": 25,
+      "avg_price": 377200,
       "moving_avg": 16.3
     },
     {
       "date": "Jan 17",
       "date_full": "2026-01-17",
       "count": 9,
+      "avg_price": 353333,
       "moving_avg": 15.9
     },
     {
       "date": "Jan 18",
       "date_full": "2026-01-18",
       "count": 13,
+      "avg_price": 367692,
       "moving_avg": 15.6
     },
     {
       "date": "Jan 19",
       "date_full": "2026-01-19",
       "count": 24,
+      "avg_price": 355417,
       "moving_avg": 16.1
     },
     {
       "date": "Jan 20",
       "date_full": "2026-01-20",
       "count": 41,
+      "avg_price": 348049,
       "moving_avg": 17.3
     },
     {
       "date": "Jan 21",
       "date_full": "2026-01-21",
       "count": 31,
+      "avg_price": 409677,
       "moving_avg": 17.8
     },
     {
       "date": "Jan 22",
       "date_full": "2026-01-22",
       "count": 39,
+      "avg_price": 397692,
       "moving_avg": 18.4
     },
     {
       "date": "Jan 23",
       "date_full": "2026-01-23",
       "count": 30,
+      "avg_price": 402667,
       "moving_avg": 19.1
     },
     {
       "date": "Jan 24",
       "date_full": "2026-01-24",
       "count": 9,
+      "avg_price": 308889,
       "moving_avg": 19.3
     },
     {
       "date": "Jan 25",
       "date_full": "2026-01-25",
       "count": 16,
+      "avg_price": 341250,
       "moving_avg": 19.7
     },
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
       "count": 32,
+      "avg_price": 384062,
       "moving_avg": 20.5
     },
     {
       "date": "Jan 27",
       "date_full": "2026-01-27",
       "count": 43,
+      "avg_price": 460233,
       "moving_avg": 21.6
     }
   ],
@@ -545,9 +572,9 @@
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Sales accelerated 21.2% week-over-week to 200 homes, strongest momentum yet.",
-    "guidance_insight": "Revenue tracking 96.2% to Q1 target with 63 days remaining.",
-    "pattern_insight": "79.1% win rate generating $46K average profit per successful transaction.",
-    "generated_at": "2026-01-28T10:01:56.595799"
+    "velocity_insight": "Sales accelerated 21.2% week-over-week to 200 homes, strongest momentum this quarter.",
+    "guidance_insight": "Despite 96.2% pacing, $712M revenue gap requires 40% acceleration over remaining days.",
+    "pattern_insight": "79.1% win rate with $46K average profits demonstrates strong market selection discipline.",
+    "generated_at": "2026-01-28T10:08:53.703295"
   }
 }

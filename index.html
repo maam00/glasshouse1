@@ -670,6 +670,46 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
+        .careers-ai-insights {
+            margin-top: 16px;
+        }
+
+        .careers-ai-insights__title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-3);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .careers-ai-insights__title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #a78bfa;
+            border-radius: 50%;
+        }
+
+        .careers-insight {
+            padding: 12px 14px;
+            background: rgba(167, 139, 250, 0.06);
+            border-left: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-2);
+        }
+
+        .careers-insight:last-child {
+            margin-bottom: 0;
+        }
+
         /* ============================================================
            VELOCITY / METRICS (V3)
            ============================================================ */
@@ -1308,7 +1348,7 @@
          CAREERS / HIRING
          ============================================================ -->
     <section class="careers-section">
-        <div class="careers-section__title">Hiring Activity</div>
+        <div class="careers-section__title">Hiring Intelligence</div>
 
         <div class="careers-header">
             <div class="careers-total">
@@ -1318,37 +1358,18 @@
             <div class="careers-signal technology" id="careers-signal">Technology Focus</div>
         </div>
 
-        <div class="careers-departments" id="careers-depts">
-            <div class="careers-dept">
-                <div class="careers-dept__count">19</div>
-                <div class="careers-dept__name">Engineering</div>
-            </div>
-            <div class="careers-dept">
-                <div class="careers-dept__count">13</div>
-                <div class="careers-dept__name">Sales</div>
-            </div>
-            <div class="careers-dept">
-                <div class="careers-dept__count">9</div>
-                <div class="careers-dept__name">Finance</div>
-            </div>
-            <div class="careers-dept">
-                <div class="careers-dept__count">4</div>
-                <div class="careers-dept__name">Marketing</div>
-            </div>
-            <div class="careers-dept">
-                <div class="careers-dept__count">5</div>
-                <div class="careers-dept__name">Other</div>
-            </div>
-            <div class="careers-dept">
-                <div class="careers-dept__count">2</div>
-                <div class="careers-dept__name">Operations</div>
-            </div>
+        <div class="careers-ai-insights" id="careers-ai-insights">
+            <div class="careers-ai-insights__title">AI Strategic Analysis</div>
+            <div class="careers-insight">Opendoor is heavily investing in multi-modal AI/ML capabilities with Research Scientists specifically focused on ConvNets and Transformers for processing both structured and unstructured data beyond just pricing models.</div>
+            <div class="careers-insight">The company has adopted a 'Default to AI' philosophy with specialized roles tasked to '10x data leverage' through AI agents that automate financial workflows, forecasting, and reporting.</div>
+            <div class="careers-insight">Expansion into adjacent revenue streams is materializing through dedicated roles for Treasury, Debt, and Adjacent Services operations and Directors focused on margin expansion through mortgage and insurance products.</div>
         </div>
 
         <div class="careers-highlights">
-            <div>Senior Roles: <span id="careers-senior">23</span></div>
-            <div>AI/ML Roles: <span id="careers-ai">9</span></div>
-            <div>Top Location: <span id="careers-location">Phoenix (14)</span></div>
+            <div>Eng: <span id="careers-eng">19</span></div>
+            <div>Sales: <span id="careers-sales">13</span></div>
+            <div>AI/ML: <span id="careers-ai">9</span></div>
+            <div>Top: <span id="careers-location">Phoenix</span></div>
         </div>
     </section>
 
@@ -2056,36 +2077,26 @@ function updateCareersSection(data) {
         signalEl.textContent = summary.hiring_signal.description || 'Active Hiring';
     }
 
-    // Update departments grid
-    const deptsEl = document.getElementById('careers-depts');
-    if (deptsEl) {
-        const deptOrder = ['Engineering & Technology', 'Sales & Customer Experience', 'Finance & Operations', 'Marketing & Growth', 'Other', 'Operations'];
-        const shortNames = {
-            'Engineering & Technology': 'Engineering',
-            'Sales & Customer Experience': 'Sales',
-            'Finance & Operations': 'Finance',
-            'Marketing & Growth': 'Marketing',
-            'Product & Design': 'Product',
-            'Operations': 'Operations',
-            'Other': 'Other'
-        };
-
-        let html = '';
-        for (const dept of deptOrder) {
-            const info = byDept[dept];
-            if (info) {
-                html += `<div class="careers-dept">
-                    <div class="careers-dept__count">${info.count}</div>
-                    <div class="careers-dept__name">${shortNames[dept] || dept}</div>
-                </div>`;
-            }
+    // Update AI insights
+    const insightsEl = document.getElementById('careers-ai-insights');
+    if (insightsEl && data.ai_insights && data.ai_insights.length > 0) {
+        let html = '<div class="careers-ai-insights__title">AI Strategic Analysis</div>';
+        for (const insight of data.ai_insights) {
+            html += `<div class="careers-insight">${insight}</div>`;
         }
-        deptsEl.innerHTML = html;
+        insightsEl.innerHTML = html;
     }
 
-    // Update highlights
-    const seniorEl = document.getElementById('careers-senior');
-    if (seniorEl) seniorEl.textContent = summary.senior_roles_count || 0;
+    // Update compact highlights
+    const engEl = document.getElementById('careers-eng');
+    if (engEl && byDept['Engineering & Technology']) {
+        engEl.textContent = byDept['Engineering & Technology'].count;
+    }
+
+    const salesEl = document.getElementById('careers-sales');
+    if (salesEl && byDept['Sales & Customer Experience']) {
+        salesEl.textContent = byDept['Sales & Customer Experience'].count;
+    }
 
     const aiEl = document.getElementById('careers-ai');
     if (aiEl) aiEl.textContent = summary.ai_ml_roles_count || 0;
@@ -2094,7 +2105,7 @@ function updateCareersSection(data) {
     if (locationEl && summary.top_locations && summary.top_locations.length > 0) {
         const top = summary.top_locations[0];
         const shortLoc = top.name.split(',')[0].replace('Office - ', '').replace('Washington-', '');
-        locationEl.textContent = `${shortLoc} (${top.count})`;
+        locationEl.textContent = shortLoc;
     }
 }
 

@@ -3,27 +3,36 @@
 Scrape Opendoor careers data from Greenhouse API.
 https://boards-api.greenhouse.io/v1/boards/opendoor/jobs
 
-Tracks hiring trends and provides insights on company health.
+Tracks hiring trends and provides AI-powered strategic insights.
 """
 
 import json
+import os
 import requests
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 
+try:
+    import anthropic
+    HAS_ANTHROPIC = True
+except ImportError:
+    HAS_ANTHROPIC = False
+
 GREENHOUSE_API = "https://boards-api.greenhouse.io/v1/boards/opendoor/jobs"
+GREENHOUSE_API_FULL = "https://boards-api.greenhouse.io/v1/boards/opendoor/jobs?content=true"
 
 def scrape_careers():
-    """Fetch job listings from Greenhouse API."""
+    """Fetch job listings from Greenhouse API with full content."""
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
         "Accept": "application/json",
     }
 
-    print(f"Fetching {GREENHOUSE_API}...")
-    response = requests.get(GREENHOUSE_API, headers=headers)
+    # Fetch with full content for AI analysis
+    print(f"Fetching {GREENHOUSE_API_FULL}...")
+    response = requests.get(GREENHOUSE_API_FULL, headers=headers)
     response.raise_for_status()
 
     data = response.json()
@@ -102,13 +111,17 @@ def scrape_careers():
         if 'listing partner' in title_lower or 'agent' in title_lower:
             department = 'Sales & Customer Experience'
 
+        # Get content/description if available
+        content = job.get('content', '')
+
         job_entry = {
             'id': job_id,
             'title': title,
             'department': department,
             'location': location,
             'url': absolute_url,
-            'updated_at': updated_at
+            'updated_at': updated_at,
+            'content': content[:2000] if content else ''  # Truncate for storage
         }
 
         careers_data['jobs'].append(job_entry)
@@ -164,6 +177,98 @@ def scrape_careers():
     return careers_data
 
 
+def analyze_careers_with_ai(careers_data):
+    """Use Claude to extract strategic insights from job listings."""
+
+    if not HAS_ANTHROPIC:
+        print("Anthropic library not available, skipping AI analysis")
+        return None
+
+    api_key = os.environ.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        print("No ANTHROPIC_API_KEY found, skipping AI analysis")
+        return None
+
+    # Prepare job data for analysis - focus on senior/strategic roles
+    strategic_jobs = []
+    for job in careers_data.get('jobs', []):
+        title_lower = job['title'].lower()
+        # Include leadership, AI/ML, and other strategic roles
+        is_strategic = any(x in title_lower for x in [
+            'director', 'head', 'vp', 'vice president', 'chief',
+            'senior', 'lead', 'principal', 'staff',
+            'ai', 'ml', 'machine learning', 'data scientist', 'research',
+            'strategy', 'analytics'
+        ])
+        if is_strategic and job.get('content'):
+            strategic_jobs.append({
+                'title': job['title'],
+                'department': job['department'],
+                'location': job['location'],
+                'description': job['content'][:1500]  # Keep descriptions focused
+            })
+
+    if not strategic_jobs:
+        print("No strategic jobs with descriptions found")
+        return None
+
+    # Build prompt for Claude
+    jobs_text = ""
+    for job in strategic_jobs[:20]:  # Limit to top 20 to manage token usage
+        jobs_text += f"\n---\nTITLE: {job['title']}\nDEPT: {job['department']}\nLOCATION: {job['location']}\nDESCRIPTION:\n{job['description']}\n"
+
+    prompt = f"""Analyze these Opendoor job listings and extract ONLY material strategic insights for shareholders/investors.
+
+DO NOT include:
+- Basic headcount numbers
+- Generic observations like "they're hiring engineers"
+- Obvious statements
+
+DO extract specific insights like:
+- Leadership hires that signal strategic shifts (e.g., "Hiring Head of AI Pricing suggests investment in algorithmic pricing")
+- Specific AI/ML capabilities being built (what KIND of AI work based on job requirements)
+- New market or product initiatives (based on new role types)
+- Compensation competitiveness signals if mentioned
+- Technology stack changes (specific technologies mentioned)
+- Organizational changes (new teams being formed)
+
+Format: Return 3-5 bullet points, each one sentence, focused on MATERIAL insights only. Start each with a clear signal/implication.
+
+JOB LISTINGS:
+{jobs_text}
+
+Return JSON format:
+{{"insights": ["insight 1", "insight 2", ...]}}"""
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        print("Analyzing job listings with Claude...")
+
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=1000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        response_text = response.content[0].text.strip()
+
+        # Parse JSON from response
+        import re
+        json_match = re.search(r'\{[\s\S]*\}', response_text)
+        if json_match:
+            result = json.loads(json_match.group())
+            insights = result.get('insights', [])
+            print(f"Generated {len(insights)} strategic insights")
+            return insights
+        else:
+            print("Could not parse AI response")
+            return None
+
+    except Exception as e:
+        print(f"AI analysis error: {e}")
+        return None
+
+
 def categorize_hiring(total_jobs, dept_counts):
     """Categorize hiring activity level and focus."""
 
@@ -204,6 +309,13 @@ def main():
     print("Scraping Opendoor careers...")
     data = scrape_careers()
 
+    # Run AI analysis for strategic insights
+    ai_insights = analyze_careers_with_ai(data)
+    if ai_insights:
+        data['ai_insights'] = ai_insights
+    else:
+        data['ai_insights'] = []
+
     # Save data
     timestamp = datetime.now().strftime("%Y-%m-%d")
     output_file = output_dir / f"careers_{timestamp}.json"
@@ -233,6 +345,14 @@ def main():
     print("\n  TOP LOCATIONS:")
     for loc_info in summary.get('top_locations', [])[:5]:
         print(f"    {loc_info['name']}: {loc_info['count']} positions")
+
+    # Print AI insights
+    if data.get('ai_insights'):
+        print("\n" + "=" * 50)
+        print("  AI STRATEGIC INSIGHTS")
+        print("=" * 50)
+        for insight in data['ai_insights']:
+            print(f"  • {insight}")
 
     print("=" * 50)
 

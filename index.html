@@ -930,20 +930,20 @@
 
         <div class="metrics-row">
             <div class="metric-card">
-                <div class="metric-value" id="vel-homes">15.2</div>
-                <div class="metric-label">Homes/Day (7d)</div>
+                <div class="metric-value" id="vel-homes">22.2</div>
+                <div class="metric-label">Homes/Day</div>
             </div>
             <div class="metric-card">
-                <div class="metric-value" id="vel-rev">$4.6M</div>
-                <div class="metric-label">Revenue/Day (7d)</div>
+                <div class="metric-value" id="vel-avg-price">$388K</div>
+                <div class="metric-label">Avg Home Price</div>
             </div>
             <div class="metric-card">
-                <div class="metric-value amber" id="vel-proj">$409M</div>
+                <div class="metric-value" id="vel-rev">$8.6M</div>
+                <div class="metric-label">Revenue/Day</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value amber" id="vel-proj">$962M</div>
                 <div class="metric-label">Q1 Projected</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value" id="vel-target">$595M</div>
-                <div class="metric-label">Q1 Guidance</div>
             </div>
         </div>
 
@@ -1001,25 +1001,23 @@
         <div class="section-title">Risk Monitoring</div>
 
         <div class="split">
-            <!-- Geographic Risk -->
+            <!-- Top Markets -->
             <div class="panel">
-                <div class="panel-title">Geographic Risk</div>
+                <div class="panel-title">Top Markets</div>
                 <table class="tbl">
                     <thead>
-                        <tr><th>State</th><th>Inv</th><th>UW</th><th>Rate</th></tr>
+                        <tr><th>City</th><th>Listings</th><th>Avg Price</th></tr>
                     </thead>
-                    <tbody>
-                        <tr><td class="name"><span class="risk-dot high"></span>FL</td><td>85</td><td>41</td><td class="red">48.2%</td></tr>
-                        <tr><td class="name"><span class="risk-dot high"></span>GA</td><td>102</td><td>45</td><td class="red">44.1%</td></tr>
-                        <tr><td class="name"><span class="risk-dot medium"></span>NC</td><td>127</td><td>38</td><td class="amber">29.9%</td></tr>
-                        <tr><td class="name"><span class="risk-dot medium"></span>TX</td><td>89</td><td>22</td><td class="amber">24.7%</td></tr>
-                        <tr><td class="name"><span class="risk-dot low"></span>AZ</td><td>59</td><td>12</td><td>20.3%</td></tr>
+                    <tbody id="top-markets-table">
+                        <tr><td class="name">Phoenix</td><td>21</td><td>$439K</td></tr>
+                        <tr><td class="name">Houston</td><td>18</td><td>$312K</td></tr>
+                        <tr><td class="name">San Antonio</td><td>16</td><td>$298K</td></tr>
+                        <tr><td class="name">Dallas</td><td>14</td><td>$405K</td></tr>
+                        <tr><td class="name">Atlanta</td><td>12</td><td>$378K</td></tr>
                     </tbody>
                 </table>
-                <div class="risk-legend">
-                    <span><span class="risk-dot high"></span>High (&gt;40%)</span>
-                    <span><span class="risk-dot medium"></span>Medium</span>
-                    <span><span class="risk-dot low"></span>Low (&lt;25%)</span>
+                <div style="font-size: 11px; color: var(--text-3); margin-top: 8px;">
+                    Top 5 markets = <span id="market-concentration">--</span>% of inventory
                 </div>
             </div>
 
@@ -1314,6 +1312,23 @@ function updateDashboardMetrics(data) {
         updateText('[data-metric="q1-sales"]', data.velocity.q1_sales?.toLocaleString());
         updateText('[data-metric="q1-revenue"]', '$' + (data.velocity.q1_revenue / 1000000).toFixed(1) + 'M');
         updateText('[data-metric="daily-avg-sales"]', data.velocity.daily_avg_sales?.toFixed(1));
+
+        // Update velocity cards
+        const velHomes = document.getElementById('vel-homes');
+        if (velHomes) velHomes.textContent = data.velocity.daily_avg_sales?.toFixed(1);
+
+        const velAvgPrice = document.getElementById('vel-avg-price');
+        if (velAvgPrice && data.velocity.avg_home_price) {
+            velAvgPrice.textContent = '$' + Math.round(data.velocity.avg_home_price / 1000) + 'K';
+        }
+
+        const velRev = document.getElementById('vel-rev');
+        if (velRev) velRev.textContent = '$' + (data.velocity.daily_avg_revenue / 1000000).toFixed(1) + 'M';
+
+        const velProj = document.getElementById('vel-proj');
+        if (velProj && data.guidance) {
+            velProj.textContent = '$' + Math.round(data.guidance.projected_revenue / 1000000) + 'M';
+        }
     }
 
     // Update P&L metrics
@@ -1349,6 +1364,22 @@ function updateDashboardMetrics(data) {
         updateText('[data-metric="velocity-insight"]', data.ai_insights.velocity_insight);
         updateText('[data-metric="guidance-insight"]', data.ai_insights.guidance_insight);
         updateText('[data-metric="pattern-insight"]', data.ai_insights.pattern_insight);
+    }
+
+    // Update Top Markets table
+    if (data.top_markets) {
+        const tableBody = document.getElementById('top-markets-table');
+        if (tableBody) {
+            tableBody.innerHTML = data.top_markets.slice(0, 5).map(m =>
+                `<tr><td class="name">${m.city}</td><td>${m.listings}</td><td>$${Math.round(m.avg_price / 1000)}K</td></tr>`
+            ).join('');
+        }
+    }
+
+    // Update market concentration
+    if (data.market_concentration) {
+        const concEl = document.getElementById('market-concentration');
+        if (concEl) concEl.textContent = data.market_concentration.top5_pct;
     }
 }
 

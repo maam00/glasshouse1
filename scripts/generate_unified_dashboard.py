@@ -36,6 +36,7 @@ def main():
 
     # Also load Singularity map data for geographic info
     map_file = find_latest_file(output_dir, "singularity_map_*.json")
+    charts_file = find_latest_file(output_dir, "singularity_charts_*.json")
 
     if not all([sales_file, daily_file, metrics_file]):
         print("Error: Run merge_datasets.py first to create unified data")
@@ -52,6 +53,11 @@ def main():
     if map_file and map_file.exists():
         with open(map_file) as f:
             map_data = json.load(f)
+
+    charts_data = {}
+    if charts_file and charts_file.exists():
+        with open(charts_file) as f:
+            charts_data = json.load(f)
 
     # Parse dates
     sales['sale_date'] = pd.to_datetime(sales['sale_date'])
@@ -87,6 +93,7 @@ def main():
             "q1_revenue": q1_metrics['revenue']['total'],
             "daily_avg_sales": round(q1_metrics['velocity']['daily_avg'], 1),
             "daily_avg_revenue": q1_metrics['revenue']['daily_avg'],
+            "avg_home_price": round(q1_metrics['revenue']['total'] / q1_metrics['sales']['total']) if q1_metrics['sales']['total'] > 0 else 0,
             "best_day": q1_metrics['velocity']['best_day'],
             "best_day_sales": q1_metrics['velocity']['best_day_count'],
         },
@@ -107,6 +114,9 @@ def main():
 
         # ==== SALES CHART DATA ====
         "sales_chart": [],
+
+        # ==== 30-DAY MOVING AVERAGE (from Singularity) ====
+        "moving_avg_30d": charts_data.get('daily_sales', {}).get('moving_avg', [])[-30:] if charts_data else [],
 
         # ==== DATA QUALITY ====
         "data_quality": {
@@ -139,17 +149,36 @@ def main():
         })
 
     # ==== GEOGRAPHIC DATA ====
-    # Aggregate sales by state from unified data
-    q1_sales_with_city = q1_sales[q1_sales['city'].notna() & (q1_sales['city'] != '')]
+    # Use Singularity map data for top markets (sorted by listing count)
+    if map_data:
+        # Sort by listing count descending
+        sorted_markets = sorted(map_data, key=lambda x: x.get('listing_count', 0), reverse=True)
 
+        # Top 10 markets with relevant data
+        top_markets = []
+        for market in sorted_markets[:10]:
+            top_markets.append({
+                'city': market.get('city', 'Unknown'),
+                'listings': market.get('listing_count', 0),
+                'avg_price': round(market.get('avg_price', 0)),
+            })
+
+        dashboard_data['top_markets'] = top_markets
+
+        # Calculate market concentration (top 5 vs total)
+        total_listings = sum(m.get('listing_count', 0) for m in map_data)
+        top5_listings = sum(m.get('listing_count', 0) for m in sorted_markets[:5])
+        dashboard_data['market_concentration'] = {
+            'top5_pct': round(top5_listings / total_listings * 100, 1) if total_listings > 0 else 0,
+            'total_markets': len(map_data),
+            'total_listings': total_listings,
+        }
+
+    # Also keep city counts from sales data
+    q1_sales_with_city = q1_sales[q1_sales['city'].notna() & (q1_sales['city'] != '')]
     if len(q1_sales_with_city) > 0:
-        # Get state from city (approximate - would need proper geocoding)
         city_counts = q1_sales_with_city['city'].value_counts().head(15)
         dashboard_data['top_cities'] = city_counts.to_dict()
-
-    # Use Singularity map data if available
-    if map_data:
-        dashboard_data['geographic'] = map_data[:20]  # Top 20 locations
 
     # ==== COHORT ANALYSIS ====
     # Calculate from sales with days_held data

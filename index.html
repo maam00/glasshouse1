@@ -177,49 +177,82 @@
         .rate-watch {
             background: var(--surface);
             border-radius: 8px;
-            padding: 14px 20px;
+            padding: 16px 24px;
             margin-bottom: 32px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+            align-items: stretch;
+            gap: 0;
         }
 
         .rate-watch__item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
+            flex: 1;
+            padding: 0 16px;
+            border-right: 1px solid var(--border);
+        }
+
+        .rate-watch__item:last-child {
+            border-right: none;
         }
 
         .rate-watch__label {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-3);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .rate-watch__value {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 600;
             color: var(--text-1);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .rate-watch__change {
-            font-size: 12px;
+        .rate-watch__sub {
+            font-size: 11px;
+            color: var(--text-3);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .rate-watch__change.down { color: var(--green); }
-        .rate-watch__change.up { color: var(--red); }
-        .rate-watch__change.flat { color: var(--text-3); }
+        .rate-watch__sub.down { color: var(--green); }
+        .rate-watch__sub.up { color: var(--red); }
 
         .rate-watch__status {
-            font-size: 11px;
-            padding: 3px 8px;
+            font-size: 10px;
+            padding: 2px 8px;
             border-radius: 4px;
-            font-weight: 500;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .rate-watch__status.hold { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .rate-watch__status.cut { background: rgba(16, 185, 129, 0.15); color: var(--green); }
+        .rate-watch__status.hike { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+
+        .rate-watch__source {
+            font-size: 9px;
+            color: var(--text-3);
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 600px) {
+            .rate-watch {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .rate-watch__item {
+                flex: 0 0 45%;
+                border-right: none;
+                padding: 8px;
+                background: rgba(255,255,255,0.02);
+                border-radius: 6px;
+            }
         }
 
         .rate-watch__status.hold { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
@@ -1243,7 +1276,7 @@
         <div class="rate-watch__item">
             <span class="rate-watch__label">30Y Mortgage</span>
             <span class="rate-watch__value" id="rate-30y">--</span>
-            <span class="rate-watch__change" id="rate-30y-change">--</span>
+            <span class="rate-watch__sub" id="rate-30y-change">--</span>
         </div>
         <div class="rate-watch__item">
             <span class="rate-watch__label">Fed Funds</span>
@@ -1253,11 +1286,13 @@
         <div class="rate-watch__item">
             <span class="rate-watch__label">Next FOMC</span>
             <span class="rate-watch__value" id="next-fomc">--</span>
+            <span class="rate-watch__sub">&nbsp;</span>
         </div>
         <div class="rate-watch__item">
             <span class="rate-watch__label">2026 Cuts</span>
             <span class="rate-watch__value" id="polymarket-cuts">--</span>
-            <span class="rate-watch__change" id="polymarket-pct">--</span>
+            <span class="rate-watch__sub" id="polymarket-pct">--</span>
+            <span class="rate-watch__source">Polymarket</span>
         </div>
     </div>
 
@@ -2713,11 +2748,11 @@ function updateRateWatch(data) {
 
         // Show monthly change
         const mtdChange = rates.rate_change_1m || 0;
-        const changeClass = mtdChange < 0 ? 'down' : mtdChange > 0 ? 'up' : 'flat';
+        const changeClass = mtdChange < 0 ? 'down' : mtdChange > 0 ? 'up' : '';
         const changeText = mtdChange < 0 ? `▼${Math.abs(mtdChange).toFixed(2)}% MTD` :
-                          mtdChange > 0 ? `▲${mtdChange.toFixed(2)}% MTD` : 'flat';
+                          mtdChange > 0 ? `▲${mtdChange.toFixed(2)}% MTD` : 'unchanged';
         rate30yChange.textContent = changeText;
-        rate30yChange.className = 'rate-watch__change ' + changeClass;
+        rate30yChange.className = 'rate-watch__sub ' + changeClass;
     }
 
     // Fed Funds Rate
@@ -2744,11 +2779,11 @@ function updateRateWatch(data) {
     const polymarketPct = document.getElementById('polymarket-pct');
     if (polymarketCuts && polymarket.most_likely_cuts !== null) {
         const cuts = polymarket.most_likely_cuts;
-        polymarketCuts.textContent = cuts === 0 ? 'None' : cuts === 1 ? '1 cut' : `${cuts} cuts`;
+        polymarketCuts.textContent = cuts === 0 ? '0' : String(cuts);
     }
     if (polymarketPct && polymarket.most_likely_pct) {
-        polymarketPct.textContent = `${polymarket.most_likely_pct}%`;
-        polymarketPct.className = 'rate-watch__change';
+        polymarketPct.textContent = `@ ${polymarket.most_likely_pct}% odds`;
+        polymarketPct.className = 'rate-watch__sub';
     }
 }
 

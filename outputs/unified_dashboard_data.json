@@ -572,9 +572,9 @@
     "on_track": true
   },
   "ai_insights": {
-    "velocity_insight": "Sales accelerated 21.2% week-over-week to 200 homes, strongest momentum this quarter.",
-    "guidance_insight": "Despite 96.2% pacing, $712M revenue gap requires 40% acceleration over remaining days.",
-    "pattern_insight": "79.1% win rate with $46K average profits demonstrates strong market selection discipline.",
-    "generated_at": "2026-01-28T10:08:53.703295"
+    "velocity_insight": "Daily sales at 22.2 homes trail the required 29-home pace by 23.4%, creating significant execution pressure.",
+    "guidance_insight": "Missing $1B guidance appears likely unless daily sales accelerate 31% above current 22.2 home average.",
+    "pattern_insight": "Strong 79.1% win rate generating $46,407 average profits demonstrates pricing discipline is protecting unit economics.",
+    "generated_at": "2026-01-28T10:15:04.677417"
   }
 }

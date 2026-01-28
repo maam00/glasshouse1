@@ -19,46 +19,65 @@ def generate_insights(data: dict) -> dict:
 
     client = anthropic.Anthropic()
 
+    # Calculate additional metrics
+    avg_price = data['velocity'].get('avg_home_price', 0)
+    homes_needed_per_day = 29  # $1B / $388K avg / 90 days
+    current_daily = data['velocity']['daily_avg_sales']
+    velocity_gap = ((current_daily / homes_needed_per_day) - 1) * 100
+
+    # Get top market if available
+    top_market = data.get('top_markets', [{}])[0] if data.get('top_markets') else {}
+    market_concentration = data.get('market_concentration', {})
+
     # Prepare context for Claude
-    context = f"""You are an expert stock analyst providing insights on Opendoor ($OPEN).
+    context = f"""You are an expert equity analyst writing for Opendoor ($OPEN) shareholders.
 
-Here is the current Q1 2026 dashboard data:
+CURRENT Q1 2026 DATA (as of {data['as_of']}):
 
-VELOCITY METRICS:
-- Q1 Sales: {data['velocity']['q1_sales']}
-- Q1 Revenue: ${data['velocity']['q1_revenue']:,.0f}
-- Daily Avg Sales: {data['velocity']['daily_avg_sales']:.1f} homes/day
-- Best Day: {data['velocity']['best_day']} ({data['velocity']['best_day_sales']} sales)
+VELOCITY (Key metric for guidance):
+- Daily Sales: {data['velocity']['daily_avg_sales']:.1f} homes/day
+- Target Needed: 29 homes/day to hit $1B guidance
+- Gap: {velocity_gap:+.1f}% vs target
+- This Week: {data['this_week']['sales']} homes ({data['wow_change']['sales_pct']:+.1f}% WoW)
+- Best Day: {data['velocity']['best_day_sales']} homes on {data['velocity']['best_day']}
 
 GUIDANCE TRACKING:
-- Q1 Revenue Target: ${data['guidance']['q1_target']:,.0f}
-- Current Pacing: {data['guidance']['pacing_pct']:.1f}%
-- Days Elapsed: {data['guidance']['days_elapsed']}
+- Q1 Target: $1B revenue
+- Current: ${data['velocity']['q1_revenue']/1e6:.1f}M ({data['guidance']['pacing_pct']:.1f}% pacing)
+- Days Elapsed: {data['guidance']['days_elapsed']} of 90
 - Days Remaining: {data['guidance']['days_remaining']}
-- On Track: {data['guidance']['on_track']}
+- Projected: ${data['guidance']['projected_revenue']/1e6:.0f}M at current pace
 
-P&L METRICS:
-- Win Rate: {data['pnl']['win_rate']:.1f}%
-- Avg Profit (wins): ${data['pnl']['avg_profit']:,.0f}
-- Avg Loss (losses): ${data['pnl']['avg_loss']:,.0f}
-- Total Realized: ${data['pnl']['total_realized']:,.0f}
+PRICING:
+- Avg Home Price: ${avg_price:,.0f}
+- Q1 Revenue: ${data['velocity']['q1_revenue']:,.0f}
+- Q1 Homes Sold: {data['velocity']['q1_sales']}
 
-WEEKLY COMPARISON:
-- This Week Sales: {data['this_week']['sales']}
-- Last Week Sales: {data['last_week']['sales']}
-- Week-over-Week Sales Change: {data['wow_change']['sales_pct']:.1f}%
-- Week-over-Week Revenue Change: {data['wow_change']['revenue_pct']:.1f}%
+PROFITABILITY:
+- Win Rate: {data['pnl']['win_rate']:.1f}% ({data['pnl']['wins']} wins, {data['pnl']['losses']} losses)
+- Avg Profit on Wins: ${data['pnl']['avg_profit']:,.0f}
+- Avg Loss on Losses: ${data['pnl']['avg_loss']:,.0f}
+- Total Realized P&L: ${data['pnl']['total_realized']:,.0f}
+
+GEOGRAPHIC:
+- Top Market: {top_market.get('city', 'N/A')} ({top_market.get('listings', 0)} listings, ${top_market.get('avg_price', 0)/1000:.0f}K avg)
+- Market Spread: {market_concentration.get('total_markets', 0)} cities
+- Concentration: Top 5 = {market_concentration.get('top5_pct', 0)}% of inventory
 """
 
-    prompt = """Based on this Opendoor data, generate 3 SHORT insights for the dashboard.
+    prompt = """Generate 3 insights for shareholders. Each insight should:
+- Be exactly 1 sentence (10-18 words)
+- Include specific numbers from the data
+- Be actionable/interpretive, not just restating facts
 
-Requirements:
-1. Each insight should be 1 sentence (max 15 words)
-2. Be specific with numbers
-3. Focus on: velocity trend, guidance risk, and one notable pattern
-4. Tone: professional, direct, no fluff
+The 3 insights must cover:
+1. VELOCITY: Is daily sales pace accelerating or decelerating? How does it compare to the 29/day needed?
+2. GUIDANCE RISK: Will they hit $1B? What would need to change? Be direct about probability.
+3. SIGNAL: One bullish OR bearish signal from the data (profitability, pricing, geographic, or weekly trend)
 
-Return ONLY valid JSON in this exact format:
+Tone: Direct, analytical, no hedge words like "may" or "could". State conclusions confidently.
+
+Return ONLY valid JSON:
 {
     "velocity_insight": "...",
     "guidance_insight": "...",

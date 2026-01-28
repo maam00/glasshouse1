@@ -698,7 +698,7 @@
     <header class="header">
         <div class="header__brand">Glass House</div>
         <div class="header__right">
-            <span class="header__ticker">$OPEN $5.90</span>
+            <span class="header__ticker" id="stock-ticker">$OPEN --</span>
             <span class="header__timestamp" id="timestamp">Loading...</span>
         </div>
     </header>
@@ -1449,6 +1449,42 @@ async function init() {
     } catch (e) {
         console.error('Failed to load dashboard data:', e);
         renderRevenueChart(null);
+    }
+
+    // Fetch stock price
+    fetchStockPrice();
+    // Refresh every 30 minutes
+    setInterval(fetchStockPrice, 30 * 60 * 1000);
+}
+
+async function fetchStockPrice() {
+    const ticker = document.getElementById('stock-ticker');
+    if (!ticker) return;
+
+    try {
+        // Use Yahoo Finance via a CORS proxy
+        const response = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/OPEN?interval=1d&range=1d');
+        if (response.ok) {
+            const data = await response.json();
+            const price = data.chart.result[0].meta.regularMarketPrice;
+            const prevClose = data.chart.result[0].meta.previousClose;
+            const change = ((price - prevClose) / prevClose * 100).toFixed(2);
+            const arrow = change >= 0 ? '▲' : '▼';
+            const color = change >= 0 ? '#22c55e' : '#ef4444';
+            ticker.innerHTML = `$OPEN <span style="color:${color}">$${price.toFixed(2)} ${arrow}${Math.abs(change)}%</span>`;
+        }
+    } catch (e) {
+        // Fallback: try alternative API
+        try {
+            const resp = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/OPEN?interval=1d&range=1d'));
+            if (resp.ok) {
+                const data = await resp.json();
+                const price = data.chart.result[0].meta.regularMarketPrice;
+                ticker.textContent = `$OPEN $${price.toFixed(2)}`;
+            }
+        } catch (e2) {
+            ticker.textContent = '$OPEN --';
+        }
     }
 }
 

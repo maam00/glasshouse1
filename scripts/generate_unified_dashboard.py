@@ -141,10 +141,14 @@ def main():
             "sales_count": int(row['sales_count']),
         })
 
+        # Calculate avg price for the day
+        daily_avg_price = (row['revenue_millions'] * 1_000_000) / row['sales_count'] if row['sales_count'] > 0 else 0
+
         dashboard_data['sales_chart'].append({
             "date": date_str,
             "date_full": row['date'].strftime('%Y-%m-%d'),
             "count": int(row['sales_count']),
+            "avg_price": round(daily_avg_price),
             "moving_avg": round(row['sales_moving_avg'], 1) if pd.notna(row.get('sales_moving_avg')) else None,
         })
 

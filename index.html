@@ -960,6 +960,12 @@
             <div id="revenue-chart"></div>
         </div>
 
+        <!-- Sales & Avg Price Chart -->
+        <div class="section-title" style="margin-top: 32px;">Homes Sold & Avg Price</div>
+        <div class="chart-container">
+            <div id="sales-price-chart"></div>
+        </div>
+
         <div class="insight-text" data-metric="velocity-insight">
             Daily velocity trending at 21.7 homes/day, on pace to meet Q1 guidance targets.
         </div>
@@ -1264,6 +1270,120 @@ function renderRevenueChart(data) {
 }
 
 // ============================================================
+// SALES & AVG PRICE CHART
+// ============================================================
+function renderSalesPriceChart(data) {
+    const el = document.getElementById('sales-price-chart');
+    if (!el) return;
+
+    let chartData;
+    if (data && data.sales_chart && data.sales_chart.length > 0) {
+        chartData = data.sales_chart;
+    } else {
+        return; // No fallback, need real data
+    }
+
+    const dates = chartData.map(d => d.date);
+    const salesCounts = chartData.map(d => d.count);
+    const avgPrices = chartData.map(d => d.avg_price || 0);
+    const movingAvg = chartData.map(d => d.moving_avg);
+
+    // Target: 1000 homes / 90 days = ~11.1 homes/day for Q1
+    const SALES_TARGET = 11;
+
+    // Colors for bars based on target
+    const barColors = salesCounts.map(s => s >= SALES_TARGET ? '#16a34a' : '#d97706');
+
+    const traces = [
+        // Bars for homes sold
+        {
+            x: dates,
+            y: salesCounts,
+            type: 'bar',
+            name: 'Homes Sold',
+            marker: {
+                color: barColors,
+                line: { color: barColors.map(c => c === '#16a34a' ? '#15803d' : '#b45309'), width: 1 }
+            },
+            hovertemplate: '%{x}<br>%{y} homes<extra></extra>',
+            yaxis: 'y'
+        },
+        // 30-day moving average line
+        {
+            x: dates,
+            y: movingAvg,
+            type: 'scatter',
+            mode: 'lines',
+            name: '30d Avg',
+            line: { color: '#3b82f6', width: 2 },
+            hovertemplate: '%{x}<br>30d avg: %{y:.1f}<extra></extra>',
+            yaxis: 'y'
+        },
+        // Avg price line (secondary axis)
+        {
+            x: dates,
+            y: avgPrices,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Avg Price',
+            line: { color: '#a855f7', width: 2 },
+            hovertemplate: '%{x}<br>Avg: $%{y:,.0f}<extra></extra>',
+            yaxis: 'y2'
+        }
+    ];
+
+    const layout = {
+        paper_bgcolor: '#141414',
+        plot_bgcolor: '#141414',
+        font: { color: '#a0a0a0', family: 'Inter, sans-serif', size: 11 },
+        margin: { t: 30, r: 70, b: 60, l: 50 },
+        showlegend: true,
+        legend: {
+            x: 0,
+            y: 1.15,
+            orientation: 'h',
+            font: { size: 10 }
+        },
+        bargap: 0.3,
+        xaxis: {
+            tickangle: -30,
+            gridcolor: 'transparent',
+            linecolor: '#333',
+            showline: true,
+            tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#888' },
+            ticks: 'outside',
+            tickcolor: '#333'
+        },
+        yaxis: {
+            title: { text: 'Homes Sold', font: { size: 10, color: '#888' } },
+            range: [0, 50],
+            showline: true,
+            gridcolor: '#262626',
+            linecolor: '#333',
+            tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#888' },
+            ticks: 'outside',
+            tickcolor: '#333'
+        },
+        yaxis2: {
+            title: { text: 'Avg Price', font: { size: 10, color: '#a855f7' } },
+            overlaying: 'y',
+            side: 'right',
+            range: [200000, 600000],
+            tickmode: 'array',
+            tickvals: [200000, 300000, 400000, 500000, 600000],
+            ticktext: ['$200K', '$300K', '$400K', '$500K', '$600K'],
+            showgrid: false,
+            linecolor: '#333',
+            tickfont: { size: 10, family: 'JetBrains Mono, monospace', color: '#a855f7' },
+            ticks: 'outside',
+            tickcolor: '#333'
+        }
+    };
+
+    Plotly.newPlot(el, traces, layout, { displayModeBar: false, responsive: true });
+}
+
+// ============================================================
 // SCREENSHOT MODE
 // ============================================================
 function toggleScreenshotMode() {
@@ -1286,6 +1406,7 @@ async function init() {
         if (r.ok) {
             const data = await r.json();
             renderRevenueChart(data);
+            renderSalesPriceChart(data);
             updateDashboardMetrics(data);
         } else {
             renderRevenueChart(null);

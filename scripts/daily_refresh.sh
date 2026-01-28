@@ -53,12 +53,16 @@ echo "[5/7] Generating dashboard data..." >> "$LOG_FILE"
 python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1
 
 # Step 6: Generate AI insights
-echo "[6/7] Generating AI insights..." >> "$LOG_FILE"
+echo "[6/8] Generating AI insights..." >> "$LOG_FILE"
 python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1
 
-# Step 7: Push to GitHub Pages
-echo "[7/7] Deploying to GitHub Pages..." >> "$LOG_FILE"
-git add outputs/unified_dashboard_data.json outputs/accountability_*.json outputs/careers_*.json >> "$LOG_FILE" 2>&1
+# Step 7: Generate Problem Homes analysis
+echo "[7/8] Generating Problem Homes analysis..." >> "$LOG_FILE"
+python scripts/generate_problem_homes.py >> "$LOG_FILE" 2>&1
+
+# Step 8: Push to GitHub Pages
+echo "[8/8] Deploying to GitHub Pages..." >> "$LOG_FILE"
+git add outputs/unified_dashboard_data.json outputs/accountability_*.json outputs/careers_*.json outputs/problem_homes_*.json >> "$LOG_FILE" 2>&1
 git commit -m "Daily data refresh $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1 || true
 git push origin master >> "$LOG_FILE" 2>&1
 

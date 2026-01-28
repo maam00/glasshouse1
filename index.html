@@ -711,6 +711,153 @@
         }
 
         /* ============================================================
+           PROBLEM HOMES SECTION
+           ============================================================ */
+        .problem-homes-section {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 48px;
+        }
+
+        .problem-homes__title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .problem-homes__summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .problem-homes__summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .problem-stat {
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+        }
+
+        .problem-stat__value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .problem-stat__value.toxic { color: var(--red); }
+        .problem-stat__value.stale { color: var(--amber); }
+        .problem-stat__value.pnl { color: var(--red); }
+
+        .problem-stat__label {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-top: 4px;
+        }
+
+        .problem-markets__title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-3);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .problem-markets__title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--red);
+            border-radius: 50%;
+        }
+
+        .problem-market {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(239, 68, 68, 0.06);
+            border-left: 3px solid;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 8px;
+        }
+
+        .problem-market.critical { border-color: var(--red); background: rgba(239, 68, 68, 0.08); }
+        .problem-market.high { border-color: var(--amber); background: rgba(245, 158, 11, 0.06); }
+        .problem-market.moderate { border-color: var(--text-3); background: rgba(255, 255, 255, 0.02); }
+
+        .problem-market__info {
+            flex: 1;
+        }
+
+        .problem-market__state {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .problem-market__stats {
+            font-size: 12px;
+            color: var(--text-3);
+            margin-top: 2px;
+        }
+
+        .problem-market__stats span {
+            color: var(--text-2);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .problem-market__risk {
+            text-align: right;
+        }
+
+        .problem-market__risk-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .problem-market.critical .problem-market__risk-score { color: var(--red); }
+        .problem-market.high .problem-market__risk-score { color: var(--amber); }
+
+        .problem-market__risk-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+        }
+
+        .problem-market__links {
+            margin-top: 6px;
+        }
+
+        .problem-market__link {
+            font-size: 11px;
+            color: var(--blue);
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .problem-market__link:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================================
            VELOCITY / METRICS (V3)
            ============================================================ */
         .metrics-row {
@@ -1345,6 +1492,118 @@
     </section>
 
     <!-- ============================================================
+         PROBLEM HOMES DEEP DIVE
+         ============================================================ -->
+    <section class="problem-homes-section">
+        <div class="problem-homes__title">Problem Homes Deep Dive</div>
+
+        <div class="problem-homes__summary">
+            <div class="problem-stat">
+                <div class="problem-stat__value toxic" id="ph-toxic">84</div>
+                <div class="problem-stat__label">Toxic (>365d)</div>
+            </div>
+            <div class="problem-stat">
+                <div class="problem-stat__value stale" id="ph-very-stale">371</div>
+                <div class="problem-stat__label">Very Stale (180-365d)</div>
+            </div>
+            <div class="problem-stat">
+                <div class="problem-stat__value" id="ph-avg-dom">228</div>
+                <div class="problem-stat__label">Avg Days on Market</div>
+            </div>
+            <div class="problem-stat">
+                <div class="problem-stat__value pnl" id="ph-pnl">$58.6M</div>
+                <div class="problem-stat__label">Unrealized P&L</div>
+            </div>
+        </div>
+
+        <div class="problem-markets__title">Highest Risk Markets</div>
+
+        <div id="problem-markets-list">
+            <div class="problem-market critical">
+                <div class="problem-market__info">
+                    <div class="problem-market__state">OR (Oregon)</div>
+                    <div class="problem-market__stats">
+                        <span>10</span> homes, <span>4</span> toxic (40%), <span>353</span> avg DOM
+                    </div>
+                    <div class="problem-market__links">
+                        <a href="https://www.opendoor.com/homes/portland" target="_blank" class="problem-market__link">Browse Portland</a>
+                    </div>
+                </div>
+                <div class="problem-market__risk">
+                    <div class="problem-market__risk-score">68</div>
+                    <div class="problem-market__risk-label">Critical</div>
+                </div>
+            </div>
+
+            <div class="problem-market high">
+                <div class="problem-market__info">
+                    <div class="problem-market__state">GA (Georgia)</div>
+                    <div class="problem-market__stats">
+                        <span>102</span> homes, <span>17</span> toxic (17%), <span>279</span> avg DOM
+                    </div>
+                    <div class="problem-market__links">
+                        <a href="https://www.opendoor.com/homes/atlanta" target="_blank" class="problem-market__link">Browse Atlanta</a>
+                    </div>
+                </div>
+                <div class="problem-market__risk">
+                    <div class="problem-market__risk-score">51</div>
+                    <div class="problem-market__risk-label">High</div>
+                </div>
+            </div>
+
+            <div class="problem-market high">
+                <div class="problem-market__info">
+                    <div class="problem-market__state">FL (Florida)</div>
+                    <div class="problem-market__stats">
+                        <span>85</span> homes, <span>16</span> toxic (19%), <span>266</span> avg DOM
+                    </div>
+                    <div class="problem-market__links">
+                        <a href="https://www.opendoor.com/homes/tampa" target="_blank" class="problem-market__link">Browse Tampa</a>
+                        <a href="https://www.opendoor.com/homes/orlando" target="_blank" class="problem-market__link">Browse Orlando</a>
+                    </div>
+                </div>
+                <div class="problem-market__risk">
+                    <div class="problem-market__risk-score">51</div>
+                    <div class="problem-market__risk-label">High</div>
+                </div>
+            </div>
+
+            <div class="problem-market high">
+                <div class="problem-market__info">
+                    <div class="problem-market__state">CA (California)</div>
+                    <div class="problem-market__stats">
+                        <span>47</span> homes, <span>7</span> toxic (15%), <span>255</span> avg DOM
+                    </div>
+                    <div class="problem-market__links">
+                        <a href="https://www.opendoor.com/homes/los-angeles" target="_blank" class="problem-market__link">Browse LA</a>
+                        <a href="https://www.opendoor.com/homes/sacramento" target="_blank" class="problem-market__link">Browse Sacramento</a>
+                    </div>
+                </div>
+                <div class="problem-market__risk">
+                    <div class="problem-market__risk-score">47</div>
+                    <div class="problem-market__risk-label">High</div>
+                </div>
+            </div>
+
+            <div class="problem-market high">
+                <div class="problem-market__info">
+                    <div class="problem-market__state">CO (Colorado)</div>
+                    <div class="problem-market__stats">
+                        <span>34</span> homes, <span>4</span> toxic (12%), <span>260</span> avg DOM
+                    </div>
+                    <div class="problem-market__links">
+                        <a href="https://www.opendoor.com/homes/denver" target="_blank" class="problem-market__link">Browse Denver</a>
+                    </div>
+                </div>
+                <div class="problem-market__risk">
+                    <div class="problem-market__risk-score">46</div>
+                    <div class="problem-market__risk-label">High</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
          CAREERS / HIRING
          ============================================================ -->
     <section class="careers-section">
@@ -1906,6 +2165,9 @@ async function init() {
 
     // Load careers data
     loadCareersData();
+
+    // Load problem homes data
+    loadProblemHomesData();
 }
 
 async function fetchStockPrice() {
@@ -2106,6 +2368,85 @@ function updateCareersSection(data) {
         const top = summary.top_locations[0];
         const shortLoc = top.name.split(',')[0].replace('Office - ', '').replace('Washington-', '');
         locationEl.textContent = shortLoc;
+    }
+}
+
+// Load and display problem homes data
+async function loadProblemHomesData() {
+    try {
+        const r = await fetch('outputs/problem_homes_' + new Date().toISOString().split('T')[0] + '.json');
+        if (r.ok) {
+            const data = await r.json();
+            updateProblemHomesSection(data);
+        }
+    } catch (e) {
+        console.log('Problem homes data not available:', e);
+    }
+}
+
+function updateProblemHomesSection(data) {
+    if (!data || !data.summary) return;
+
+    const summary = data.summary;
+
+    // Update summary stats
+    const toxicEl = document.getElementById('ph-toxic');
+    if (toxicEl) toxicEl.textContent = summary.total_toxic || 0;
+
+    const staleEl = document.getElementById('ph-very-stale');
+    if (staleEl) staleEl.textContent = summary.total_very_stale || 0;
+
+    const domEl = document.getElementById('ph-avg-dom');
+    if (domEl) domEl.textContent = summary.avg_dom || 0;
+
+    const pnlEl = document.getElementById('ph-pnl');
+    if (pnlEl) {
+        const pnl = summary.unrealized_pnl_millions || 0;
+        pnlEl.textContent = `$${Math.abs(pnl).toFixed(1)}M`;
+    }
+
+    // Update markets list
+    const marketsEl = document.getElementById('problem-markets-list');
+    if (marketsEl && data.top_problem_markets) {
+        const stateNames = {
+            'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 'FL': 'Florida',
+            'GA': 'Georgia', 'IN': 'Indiana', 'KS': 'Kansas', 'MD': 'Maryland',
+            'MI': 'Michigan', 'MN': 'Minnesota', 'MO': 'Missouri', 'NC': 'North Carolina',
+            'NV': 'Nevada', 'NJ': 'New Jersey', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'SC': 'South Carolina', 'TN': 'Tennessee', 'TX': 'Texas',
+            'UT': 'Utah', 'VA': 'Virginia', 'WA': 'Washington'
+        };
+
+        let html = '';
+        for (const market of data.top_problem_markets.slice(0, 5)) {
+            const stateName = stateNames[market.state] || market.state;
+            const riskClass = market.risk_level || 'moderate';
+
+            // Build links
+            let linksHtml = '';
+            if (market.opendoor_links) {
+                for (const link of market.opendoor_links.slice(0, 2)) {
+                    linksHtml += `<a href="${link.url}" target="_blank" class="problem-market__link">Browse ${link.name}</a>`;
+                }
+            }
+
+            html += `
+                <div class="problem-market ${riskClass}">
+                    <div class="problem-market__info">
+                        <div class="problem-market__state">${market.state} (${stateName})</div>
+                        <div class="problem-market__stats">
+                            <span>${market.inventory}</span> homes, <span>${market.toxic_count}</span> toxic (${market.toxic_pct}%), <span>${market.avg_dom}</span> avg DOM
+                        </div>
+                        <div class="problem-market__links">${linksHtml}</div>
+                    </div>
+                    <div class="problem-market__risk">
+                        <div class="problem-market__risk-score">${Math.round(market.risk_score)}</div>
+                        <div class="problem-market__risk-label">${market.risk_level}</div>
+                    </div>
+                </div>
+            `;
+        }
+        marketsEl.innerHTML = html;
     }
 }
 

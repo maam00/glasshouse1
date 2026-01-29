@@ -1,0 +1,154 @@
+{
+  "score": 65.4,
+  "grade": "D",
+  "signals": {
+    "guidance_pace": {
+      "name": "guidance_pace",
+      "value": 108.0,
+      "normalized": 82.9,
+      "delta_7d": 25.2,
+      "delta_28d": null,
+      "state": "G",
+      "confidence": "C",
+      "rationale": "On pace at 108% of daily target",
+      "weight_used": 0.075,
+      "coverage_pct": 100.0,
+      "sample_size": 30
+    },
+    "kaz_econ": {
+      "name": "kaz_econ",
+      "value": 100.0,
+      "normalized": 100,
+      "delta_7d": null,
+      "delta_28d": null,
+      "state": "G",
+      "confidence": "C",
+      "rationale": "Exceptional: 5/5 profitable (100.0% win rate)",
+      "weight_used": 0.018973665961010275,
+      "coverage_pct": 10.0,
+      "sample_size": 5
+    },
+    "legacy_burndown": {
+      "name": "legacy_burndown",
+      "value": 82.9,
+      "normalized": 65.7,
+      "delta_7d": null,
+      "delta_28d": null,
+      "state": "Y",
+      "confidence": "A",
+      "rationale": "Good progress: 17% legacy, burning down steadily",
+      "weight_used": 0.15,
+      "coverage_pct": 100,
+      "sample_size": 2668
+    },
+    "inventory_aging": {
+      "name": "inventory_aging",
+      "value": 69.5,
+      "normalized": 67.1,
+      "delta_7d": null,
+      "delta_28d": null,
+      "state": "Y",
+      "confidence": "A",
+      "rationale": "Healthy aging: 69 avg DOM",
+      "weight_used": 0.15,
+      "coverage_pct": 100,
+      "sample_size": 2668
+    },
+    "pricecut_stress": {
+      "name": "pricecut_stress",
+      "value": 28.4,
+      "normalized": 52.7,
+      "delta_7d": null,
+      "delta_28d": null,
+      "state": "G",
+      "confidence": "A",
+      "rationale": "Moderate stress: 28% with price cuts, 26% with multiple",
+      "weight_used": 0.15,
+      "coverage_pct": 100,
+      "sample_size": 2668
+    },
+    "underwater_exposure": {
+      "name": "underwater_exposure",
+      "value": 28.4,
+      "normalized": 43.1,
+      "delta_7d": null,
+      "delta_28d": null,
+      "state": "Y",
+      "confidence": "C",
+      "rationale": "Elevated risk: 200 homes (28.4%) underwater ($-5.5M)",
+      "weight_used": 0.01539947817414545,
+      "coverage_pct": 26.3,
+      "sample_size": 2668
+    }
+  },
+  "breakdown": [
+    {
+      "signal": "inventory_aging",
+      "value": 69.5,
+      "normalized": 67.1,
+      "state": "Y",
+      "confidence": "A",
+      "base_weight": 0.15,
+      "weight_used": 0.15,
+      "contribution": 10.06,
+      "pct_of_total": 27.5
+    },
+    {
+      "signal": "legacy_burndown",
+      "value": 82.9,
+      "normalized": 65.7,
+      "state": "Y",
+      "confidence": "A",
+      "base_weight": 0.15,
+      "weight_used": 0.15,
+      "contribution": 9.86,
+      "pct_of_total": 26.9
+    },
+    {
+      "signal": "pricecut_stress",
+      "value": 28.4,
+      "normalized": 52.7,
+      "state": "G",
+      "confidence": "A",
+      "base_weight": 0.15,
+      "weight_used": 0.15,
+      "contribution": 7.91,
+      "pct_of_total": 21.6
+    },
+    {
+      "signal": "guidance_pace",
+      "value": 108.0,
+      "normalized": 82.9,
+      "state": "G",
+      "confidence": "C",
+      "base_weight": 0.25,
+      "weight_used": 0.075,
+      "contribution": 6.22,
+      "pct_of_total": 17.0
+    },
+    {
+      "signal": "kaz_econ",
+      "value": 100.0,
+      "normalized": 100,
+      "state": "G",
+      "confidence": "C",
+      "base_weight": 0.2,
+      "weight_used": 0.019,
+      "contribution": 1.9,
+      "pct_of_total": 5.2
+    },
+    {
+      "signal": "underwater_exposure",
+      "value": 28.4,
+      "normalized": 43.1,
+      "state": "Y",
+      "confidence": "C",
+      "base_weight": 0.1,
+      "weight_used": 0.0154,
+      "contribution": 0.66,
+      "pct_of_total": 1.8
+    }
+  ],
+  "timestamp": "2026-01-29T17:56:40.031372",
+  "rationale": "Below-average operations requiring attention (3G/3Y/0R)"
+}

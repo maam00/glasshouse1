@@ -368,19 +368,32 @@ class SignalEngine:
         """
         Signal 3: Legacy Burndown
         How fast are we clearing old/toxic inventory?
-        Uses age_bucket to identify legacy inventory.
+        Uses days on market to identify legacy inventory (>180 days = legacy).
         """
         conn = self.db._get_conn()
         cursor = conn.cursor()
 
-        # Count legacy (old + toxic) listings still active
+        # Use property_daily_snapshot - legacy defined as >180 days on market
+        # Filter to latest snapshot only
         cursor.execute("""
             SELECT
                 COUNT(*) as total,
-                COUNT(CASE WHEN age_bucket IN ('old', 'toxic') THEN 1 END) as legacy_count
-            FROM listings_log
+                COUNT(CASE WHEN days_on_market > 180 THEN 1 END) as legacy_count
+            FROM property_daily_snapshot
+            WHERE status = 'FOR_SALE'
+              AND snapshot_date = (SELECT MAX(snapshot_date) FROM property_daily_snapshot)
         """)
         row = cursor.fetchone()
+
+        # If no data in property_daily_snapshot, try listings_log
+        if not row or row['total'] == 0:
+            cursor.execute("""
+                SELECT
+                    COUNT(*) as total,
+                    COUNT(CASE WHEN age_bucket IN ('old', 'toxic') THEN 1 END) as legacy_count
+                FROM listings_log
+            """)
+            row = cursor.fetchone()
         conn.close()
 
         total_active = row['total'] if row else 0
@@ -430,6 +443,7 @@ class SignalEngine:
         conn = self.db._get_conn()
         cursor = conn.cursor()
 
+        # Use property_daily_snapshot - filter to latest snapshot
         cursor.execute("""
             SELECT
                 COUNT(*) as total,
@@ -438,7 +452,9 @@ class SignalEngine:
                 COUNT(CASE WHEN days_on_market BETWEEN 90 AND 180 THEN 1 END) as stale,
                 COUNT(CASE WHEN days_on_market > 180 THEN 1 END) as very_stale,
                 AVG(days_on_market) as avg_dom
-            FROM listings_log
+            FROM property_daily_snapshot
+            WHERE status = 'FOR_SALE'
+              AND snapshot_date = (SELECT MAX(snapshot_date) FROM property_daily_snapshot)
         """)
         row = cursor.fetchone()
         conn.close()
@@ -498,20 +514,22 @@ class SignalEngine:
     def _calc_pricecut_stress(self) -> Signal:
         """
         Signal 5: Price Cut Stress
-        How much price reduction has occurred? (based on list vs purchase price)
+        How much price reduction has occurred? Uses price_cuts_count from snapshot.
         """
         conn = self.db._get_conn()
         cursor = conn.cursor()
 
-        # Calculate stress based on how much prices have been cut from purchase
+        # Use property_daily_snapshot - filter to latest snapshot
         cursor.execute("""
             SELECT
                 COUNT(*) as total,
-                COUNT(CASE WHEN list_price < purchase_price THEN 1 END) as with_cuts,
-                COUNT(CASE WHEN list_price < purchase_price * 0.95 THEN 1 END) as heavy_cuts,
-                AVG(CASE WHEN purchase_price > 0 THEN (purchase_price - list_price) / purchase_price * 100 ELSE 0 END) as avg_cut_pct
-            FROM listings_log
-            WHERE purchase_price > 0
+                COUNT(CASE WHEN price_cuts_count > 0 THEN 1 END) as with_cuts,
+                COUNT(CASE WHEN price_cuts_count >= 2 THEN 1 END) as heavy_cuts,
+                AVG(price_cuts_count) as avg_cuts,
+                AVG(CASE WHEN price_change < 0 THEN ABS(price_change) ELSE 0 END) as avg_cut_amount
+            FROM property_daily_snapshot
+            WHERE status = 'FOR_SALE'
+              AND snapshot_date = (SELECT MAX(snapshot_date) FROM property_daily_snapshot)
         """)
         row = cursor.fetchone()
         conn.close()
@@ -533,28 +551,29 @@ class SignalEngine:
 
         total = row['total']
         with_cuts = row['with_cuts'] or 0
-        heavy_cuts = row['heavy_cuts'] or 0
+        heavy_cuts = row['heavy_cuts'] or 0  # 2+ price cuts = heavy
 
-        # % with significant cuts (>5% below purchase) is the stress metric
+        # % with any cuts is the stress metric
+        cut_pct = (with_cuts / total * 100) if total > 0 else 0
         heavy_cut_pct = (heavy_cuts / total * 100) if total > 0 else 0
 
-        state = self._get_state(heavy_cut_pct, PRICE_CUT_GREEN_MAX, PRICE_CUT_YELLOW_MAX, 'lower_better')
+        state = self._get_state(cut_pct, PRICE_CUT_GREEN_MAX, PRICE_CUT_YELLOW_MAX, 'lower_better')
         coverage = min(100, total / 200 * 100)
         confidence = get_confidence_grade(coverage, total)
 
-        # Normalize: 0% heavy cuts = 100, 60% = 0
-        normalized = self._normalize_score(60 - heavy_cut_pct, 0, 60)
+        # Normalize: 0% cuts = 100, 60% = 0
+        normalized = self._normalize_score(60 - cut_pct, 0, 60)
 
-        if heavy_cut_pct <= 20:
-            rationale = f"Low stress: Only {heavy_cut_pct:.0f}% listed >5% below purchase"
-        elif heavy_cut_pct <= 40:
-            rationale = f"Moderate stress: {heavy_cut_pct:.0f}% with significant price cuts"
+        if cut_pct <= 20:
+            rationale = f"Low stress: Only {cut_pct:.0f}% have price cuts ({heavy_cuts} with 2+ cuts)"
+        elif cut_pct <= 40:
+            rationale = f"Moderate stress: {cut_pct:.0f}% with price cuts, {heavy_cut_pct:.0f}% with multiple"
         else:
-            rationale = f"High stress: {heavy_cut_pct:.0f}% heavily discounted"
+            rationale = f"High stress: {cut_pct:.0f}% have price cuts"
 
         return Signal(
             name='pricecut_stress',
-            value=round(heavy_cut_pct, 1),
+            value=round(cut_pct, 1),
             normalized=round(normalized, 1),
             delta_7d=None,
             delta_28d=None,
@@ -569,18 +588,22 @@ class SignalEngine:
     def _calc_underwater_exposure(self) -> Signal:
         """
         Signal 6: Underwater Exposure
-        What % of inventory is below purchase cost?
+        What % of inventory has negative unrealized P&L (list price < purchase price)?
         """
         conn = self.db._get_conn()
         cursor = conn.cursor()
 
+        # Use actual unrealized_pnl data - filter to latest snapshot
         cursor.execute("""
             SELECT
                 COUNT(*) as total,
                 COUNT(CASE WHEN unrealized_pnl < 0 THEN 1 END) as underwater,
+                COUNT(CASE WHEN unrealized_pnl IS NOT NULL THEN 1 END) as with_pnl_data,
                 SUM(CASE WHEN unrealized_pnl < 0 THEN unrealized_pnl ELSE 0 END) as total_underwater_value,
                 AVG(unrealized_pnl) as avg_unrealized
-            FROM listings_log
+            FROM property_daily_snapshot
+            WHERE status = 'FOR_SALE'
+              AND snapshot_date = (SELECT MAX(snapshot_date) FROM property_daily_snapshot)
         """)
         row = cursor.fetchone()
         conn.close()
@@ -602,23 +625,32 @@ class SignalEngine:
 
         total = row['total']
         underwater = row['underwater'] or 0
-        underwater_pct = (underwater / total * 100) if total > 0 else 0
+        with_pnl_data = row['with_pnl_data'] or 0
+        total_underwater_value = row['total_underwater_value'] or 0
+
+        # Calculate % underwater based on properties with P&L data
+        if with_pnl_data > 0:
+            underwater_pct = (underwater / with_pnl_data * 100)
+            coverage = min(100, with_pnl_data / total * 100) if total > 0 else 0
+            confidence = 'A' if coverage >= 80 else ('B' if coverage >= 50 else 'C')
+        else:
+            underwater_pct = 0
+            coverage = 0
+            confidence = 'C'
 
         # Lower underwater % is better
         # Ideal: <15%, Acceptable: <30%, Concerning: >30%
         state = self._get_state(underwater_pct, 15, 30, 'lower_better')
-        coverage = min(100, total / 200 * 100)
-        confidence = get_confidence_grade(coverage, total)
 
         # Normalize: 0% underwater = 100, 50% = 0
         normalized = self._normalize_score(50 - underwater_pct, 0, 50)
 
         if underwater_pct <= 10:
-            rationale = f"Minimal exposure: Only {underwater:.0f} homes ({underwater_pct:.1f}%) underwater"
+            rationale = f"Low exposure: {underwater:.0f} homes ({underwater_pct:.1f}%) underwater (${total_underwater_value/1e6:.1f}M)"
         elif underwater_pct <= 25:
-            rationale = f"Moderate exposure: {underwater:.0f} homes ({underwater_pct:.1f}%) underwater"
+            rationale = f"Moderate exposure: {underwater:.0f} homes ({underwater_pct:.1f}%) underwater (${total_underwater_value/1e6:.1f}M)"
         else:
-            rationale = f"Elevated risk: {underwater:.0f} homes ({underwater_pct:.1f}%) underwater"
+            rationale = f"Elevated risk: {underwater:.0f} homes ({underwater_pct:.1f}%) underwater (${total_underwater_value/1e6:.1f}M)"
 
         return Signal(
             name='underwater_exposure',

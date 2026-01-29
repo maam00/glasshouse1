@@ -1,0 +1,59 @@
+{
+  "scraped_at": "2026-01-29T15:31:50.424418",
+  "markets": [
+    "phoenix",
+    "dallas",
+    "houston",
+    "austin",
+    "san_antonio",
+    "atlanta",
+    "charlotte",
+    "raleigh",
+    "tampa",
+    "orlando",
+    "jacksonville",
+    "denver",
+    "las_vegas",
+    "nashville",
+    "sacramento",
+    "riverside",
+    "minneapolis",
+    "portland",
+    "salt_lake_city",
+    "tucson"
+  ],
+  "stats": {
+    "total_scraped": 1800,
+    "new_properties": 1216,
+    "updated_properties": 584,
+    "status_transitions": [],
+    "price_cuts": 0,
+    "by_market": {
+      "phoenix-az": 90,
+      "dallas-tx": 90,
+      "houston-tx": 90,
+      "austin-tx": 90,
+      "san-antonio-tx": 90,
+      "atlanta-ga": 90,
+      "charlotte-nc": 90,
+      "raleigh-nc": 90,
+      "tampa-fl": 90,
+      "orlando-fl": 90,
+      "jacksonville-fl": 90,
+      "denver-co": 90,
+      "las-vegas-nv": 90,
+      "nashville-tn": 90,
+      "sacramento-ca": 90,
+      "riverside-ca": 90,
+      "minneapolis-mn": 90,
+      "portland-or": 90,
+      "salt-lake-city-ut": 90,
+      "tucson-az": 90
+    },
+    "by_status": {
+      "FOR_SALE": 1800
+    }
+  },
+  "transitions": [],
+  "missing_count": 0
+}

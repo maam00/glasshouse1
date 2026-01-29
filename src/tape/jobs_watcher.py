@@ -252,6 +252,8 @@ class JobsWatcher:
                 'detail': f"New postings: {', '.join(j.title[:30] for j in ai_new[:3])}",
                 'bucket': 'ai_platform',
                 'timestamp': diff.timestamp,
+                'url': ai_new[0].url if ai_new else '',  # Link to first job
+                'source': 'Greenhouse',
             })
 
         if pricing_new:
@@ -263,6 +265,8 @@ class JobsWatcher:
                 'detail': f"New postings: {', '.join(j.title[:30] for j in pricing_new[:3])}",
                 'bucket': 'pricing_risk',
                 'timestamp': diff.timestamp,
+                'url': pricing_new[0].url if pricing_new else '',  # Link to first job
+                'source': 'Greenhouse',
             })
 
         # Net change signal
@@ -276,6 +280,8 @@ class JobsWatcher:
                 'detail': f"Total open positions: {diff.total_open}",
                 'bucket': 'workforce',
                 'timestamp': diff.timestamp,
+                'url': 'https://www.opendoor.com/careers',
+                'source': 'Greenhouse',
             })
 
         return items[:max_items]

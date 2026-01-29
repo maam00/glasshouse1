@@ -1,0 +1,546 @@
+{
+  "timestamp": "2026-01-29T18:04:20.984766",
+  "total": 54,
+  "jobs": [
+    {
+      "id": "bd1bc55b975f",
+      "title": "Account Executive - Home Sales Advisor",
+      "department": "",
+      "location": "Office - Arizona-Tempe",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4646996006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "9e0214a2575b",
+      "title": "Account Executive - Home Sales Advisor",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4644592006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "eadd538ffee3",
+      "title": "Agent Home Sales Advisor",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4616943006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "cc7263c56781",
+      "title": "AI/ML Platform Engineer",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4606011006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "829c4293f944",
+      "title": "Associate Manager, Customer Experience Advocate",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638410006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "23c113d603e6",
+      "title": "Corporate Senior Financial Analyst",
+      "department": "",
+      "location": "Miami, Florida, United States; Phoenix, Arizona, United States; Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4606901006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "ee90c77771f8",
+      "title": "Data Scientist",
+      "department": "",
+      "location": "Ontario",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4613845006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "bd493cb4d40d",
+      "title": "Data Scientist",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4619444006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "bd493cb4d40d",
+      "title": "Data Scientist",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4615429006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "bd493cb4d40d",
+      "title": "Data Scientist",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4613844006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "ec202c585ba9",
+      "title": "Director, Brand Design",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4613838006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "92a28288c61d",
+      "title": "Director, Brand Design",
+      "department": "",
+      "location": "Ontario",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4613839006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "68bad598dc92",
+      "title": "Director of Sales",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4627512006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "95da2afffdeb",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638493006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "f6bd98f401b3",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638521006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "f6bd98f401b3",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638431006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "95da2afffdeb",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638424006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "95da2afffdeb",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638417006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "ad593f814418",
+      "title": "Experience Advocate",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638574006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "cb7fbd4ffc61",
+      "title": "Growth Product Manager, Seller",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643051006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "8c3201d3f263",
+      "title": "IT Platform Engineer",
+      "department": "",
+      "location": "Seattle, Washington, United States; Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643098006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "4e97a88e5cca",
+      "title": "Listing Partner (Agent) ",
+      "department": "",
+      "location": "Office - Florida-Miami",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4646877006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "0c4c30a7bea7",
+      "title": "Manager, IT SOX & Internal Audit",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4621417006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "6c1ded38d1e1",
+      "title": "Manager, IT SOX & Internal Audit",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4621416006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "731599368ae7",
+      "title": "Organic Social Lead",
+      "department": "",
+      "location": "Office - Florida-Miami",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4625403006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "ac3b3baadd74",
+      "title": "Portfolio Manager",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4624126006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "4a67991acc5a",
+      "title": "Pricing Analyst",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638452006",
+      "bucket": "pricing_risk",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "5e291ad45f33",
+      "title": "Product Designer (UX)",
+      "department": "",
+      "location": "Office - Washington-Seattle; Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4597893006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "61704ff109fd",
+      "title": "Research Scientist",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4610036006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "d7387bc6925e",
+      "title": "Research Scientist",
+      "department": "",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4610030006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "a235d9e7812a",
+      "title": "Senior Accountant",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643062006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "fa97c49a9e9d",
+      "title": "Senior Accountant",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643063006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "e535a737745f",
+      "title": "Senior Finance Data Engineer",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4639044006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "7ca87d0f3f16",
+      "title": "Senior Manager, Growth Marketing Operations",
+      "department": "",
+      "location": "Office - Florida-Miami; Office - Washington-Seattle; Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4619436006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "2f48089965e7",
+      "title": "Senior Manager, Growth Marketing Operations",
+      "department": "",
+      "location": "Ontario",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4619437006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "f72fbd7c44b7",
+      "title": "Senior Manager, Home Sales Advisors",
+      "department": "",
+      "location": "Miami, Florida, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4618050006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "0cf5d9677b97",
+      "title": "Senior Manager, Performance Marketing",
+      "department": "",
+      "location": "Office - Florida-Miami; Office - Washington-Seattle; Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4648104006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "d7f3d2ee86c9",
+      "title": "Senior Manager, Performance Marketing",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4648105006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "fd8f536704ea",
+      "title": "Senior SOX & Internal Auditor",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4621410006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "7e1743811a03",
+      "title": "Senior SOX & Internal Auditor",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4621411006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "18af0c55ca7c",
+      "title": "Software Engineer \u2013 Backend, Pricing (Senior level or higher)",
+      "department": "",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4575823006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "3d5d0856fe5d",
+      "title": "Software Engineer, Corporate Engineering",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4607409006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "6a755dd62b1d",
+      "title": "Software Engineer, Corporate Engineering",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4600965006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "95bfe57d40a5",
+      "title": "Software Engineer, Financial Systems",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643080006",
+      "bucket": "ai_platform",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "802026cf0958",
+      "title": "Software Engineer - Frontend - Sr. Level or Higher",
+      "department": "",
+      "location": "Office - Washington-Seattle",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643068006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "6f6f7cecf431",
+      "title": "Software Engineer - FullStack",
+      "department": "",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643074006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "2df8ec30fabb",
+      "title": "Software Engineer, MLOps - Pricing (L4)",
+      "department": "",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4648098006",
+      "bucket": "pricing_risk",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "e82479bab326",
+      "title": "Software Engineer, Pricing MLOps",
+      "department": "",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4648092006",
+      "bucket": "pricing_risk",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "916d779b5893",
+      "title": "Technical Accounting and SEC Reporting Manager",
+      "department": "",
+      "location": "Phoenix, Arizona, United States; San Francisco, California, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4595520006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "202c0f2c165b",
+      "title": "Technical Accounting and SEC Reporting Manager",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4626245006",
+      "bucket": "sales",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "77923b1a39f0",
+      "title": "Trade Partner Manager",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4646321006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "77923b1a39f0",
+      "title": "Trade Partner Manager",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4646315006",
+      "bucket": "ga",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "41e2835bf187",
+      "title": "US Payroll and Stock Administration Specialist",
+      "department": "",
+      "location": "Phoenix, Arizona, United States",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4644851006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    },
+    {
+      "id": "b30a88e1b550",
+      "title": "US Payroll and Stock Administration Specialist",
+      "department": "",
+      "location": "Toronto",
+      "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4643086006",
+      "bucket": "ops",
+      "first_seen": "2026-01-29",
+      "last_seen": "2026-01-29"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "last_updated": "2026-01-29T18:04:21.417041",
+  "tapes": [
+    {
+      "date": "2026-01-29",
+      "summary": "3 update(s) from jobs, filing",
+      "generated_at": "2026-01-29T18:04:21.416860",
+      "items": [
+        {
+          "type": "jobs",
+          "category": "hiring",
+          "materiality": "medium",
+          "headline": "Opendoor posted 8 AI/Platform roles",
+          "detail": "New postings: AI/ML Platform Engineer, Data Scientist, Data Scientist",
+          "timestamp": "2026-01-29T18:04:20.984746",
+          "source": "Greenhouse",
+          "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4606011006"
+        },
+        {
+          "type": "jobs",
+          "category": "hiring",
+          "materiality": "medium",
+          "headline": "Opendoor posted 3 Pricing/Risk roles",
+          "detail": "New postings: Pricing Analyst, Software Engineer, MLOps - Pri, Software Engineer, Pricing MLO",
+          "timestamp": "2026-01-29T18:04:20.984746",
+          "source": "Greenhouse",
+          "url": "https://www.opendoor.com/careers/open-positions?gh_jid=4638452006"
+        },
+        {
+          "type": "filing",
+          "category": "8-K",
+          "materiality": "medium",
+          "headline": "SEC 8-K: 8-K filed with items: 7.01: Regulation FD Disclosure",
+          "detail": "Filed 2026-01-26. 7.01: Regulation FD Disclosure",
+          "timestamp": "2026-01-26",
+          "source": "",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001801169/000180116926000004/open-20260126.htm"
+        }
+      ]
+    }
+  ]
+}

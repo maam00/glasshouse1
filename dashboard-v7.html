@@ -751,6 +751,17 @@
             letter-spacing: 0.5px;
         }
 
+        .tape-item__link {
+            margin-left: 8px;
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .tape-item__link:hover {
+            color: var(--text-1);
+        }
+
         /* ============================================================
            RESPONSIVE
            ============================================================ */
@@ -1172,12 +1183,12 @@
                             <span class="card__badge signal__badge--a">A</span>
                         </div>
                         <div class="big-stat">
-                            <div class="big-stat__value green">95.3%</div>
-                            <div class="big-stat__label">Win Rate (47 sales with P&L)</div>
+                            <div class="big-stat__value green" id="new-book-winrate">95.3%</div>
+                            <div class="big-stat__label" id="new-book-label">Win Rate (47 sales with P&L)</div>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Avg Profit</span>
-                            <span class="stat-row__value green">$45.1K</span>
+                            <span class="stat-row__value green" id="new-book-pnl">$45.1K</span>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Still Listed</span>
@@ -1200,12 +1211,12 @@
                             <span class="card__badge signal__badge--b">B</span>
                         </div>
                         <div class="big-stat">
-                            <div class="big-stat__value amber">64.5%</div>
-                            <div class="big-stat__label">Win Rate (230 sales with P&L)</div>
+                            <div class="big-stat__value amber" id="legacy-book-winrate">64.5%</div>
+                            <div class="big-stat__label" id="legacy-book-label">Win Rate (230 sales with P&L)</div>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Avg Profit</span>
-                            <span class="stat-row__value">$23.7K</span>
+                            <span class="stat-row__value" id="legacy-book-pnl">$23.7K</span>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Still Listed</span>
@@ -1227,55 +1238,22 @@
             <div class="section">
                 <div class="section__title">Cohort Performance (by Days Held)</div>
                 <div class="card">
-                    <table class="tbl">
+                    <table class="tbl" id="cohort-table">
                         <thead>
                             <tr>
                                 <th>Cohort</th>
-                                <th>Sold</th>
+                                <th>Inventory</th>
                                 <th>Win Rate</th>
-                                <th>Margin</th>
+                                <th>Months Inv</th>
                                 <th>Avg Profit</th>
-                                <th>Confidence</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="name">New (&lt;90d)</td>
-                                <td>76</td>
-                                <td class="green">89.5%</td>
-                                <td class="green">10.7%</td>
-                                <td class="green">$42.0K</td>
-                                <td><span class="signal__badge signal__badge--b">B</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Mid (90-180d)</td>
-                                <td>106</td>
-                                <td>84.9%</td>
-                                <td>10.0%</td>
-                                <td>$36.8K</td>
-                                <td><span class="signal__badge signal__badge--b">B</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Old (180-365d)</td>
-                                <td>106</td>
-                                <td class="amber">53.8%</td>
-                                <td>5.6%</td>
-                                <td>$22.0K</td>
-                                <td><span class="signal__badge signal__badge--b">B</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Toxic (&gt;365d)</td>
-                                <td>45</td>
-                                <td class="red">31.1%</td>
-                                <td class="red">-3.7%</td>
-                                <td class="red">-$11.6K</td>
-                                <td><span class="signal__badge signal__badge--b">B</span></td>
-                            </tr>
+                            <!-- Populated dynamically by JavaScript -->
                         </tbody>
                     </table>
                     <div class="signal__footer" style="margin-top: 12px;">
-                        <div class="signal__source">Source: Parcl (P&L data)</div>
-                        <div class="signal__coverage">Coverage: 38.7% of Q1 sales have P&L</div>
+                        <div class="signal__source">Source: Property snapshot + sales data</div>
                     </div>
                 </div>
             </div>
@@ -1283,7 +1261,7 @@
             <div class="section">
                 <div class="section__title">Market Velocity</div>
                 <div class="card">
-                    <table class="tbl">
+                    <table class="tbl" id="market-velocity-table">
                         <thead>
                             <tr>
                                 <th>Market</th>
@@ -1294,60 +1272,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="name">Charlotte, NC</td>
-                                <td>30</td>
-                                <td class="green">6</td>
-                                <td class="green">20.0%</td>
-                                <td><span class="action-badge action-badge--grow">GROW</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Phoenix, AZ</td>
-                                <td>30</td>
-                                <td>5</td>
-                                <td>16.7%</td>
-                                <td><span class="action-badge action-badge--grow">GROW</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Raleigh, NC</td>
-                                <td>30</td>
-                                <td>5</td>
-                                <td>16.7%</td>
-                                <td><span class="action-badge action-badge--grow">GROW</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Dallas, TX</td>
-                                <td>30</td>
-                                <td>2</td>
-                                <td class="amber">6.7%</td>
-                                <td><span class="action-badge action-badge--hold">HOLD</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Atlanta, GA</td>
-                                <td>30</td>
-                                <td>2</td>
-                                <td class="amber">6.7%</td>
-                                <td><span class="action-badge action-badge--hold">HOLD</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Austin, TX</td>
-                                <td>30</td>
-                                <td class="red">0</td>
-                                <td class="red">0.0%</td>
-                                <td><span class="action-badge action-badge--pause">PAUSE</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">San Antonio, TX</td>
-                                <td>30</td>
-                                <td class="red">0</td>
-                                <td class="red">0.0%</td>
-                                <td><span class="action-badge action-badge--pause">PAUSE</span></td>
-                            </tr>
+                            <!-- Populated dynamically by JavaScript -->
                         </tbody>
                     </table>
                     <div class="signal__footer" style="margin-top: 12px;">
-                        <div class="signal__source">⚠️ Source: MLS scrape (agent matching)</div>
-                        <div class="signal__coverage">Coverage: Partial (~7% of actual sales)</div>
+                        <div class="signal__source">Source: Opendoor.com + Singularity MLS data</div>
                     </div>
                 </div>
             </div>
@@ -1395,59 +1324,23 @@
             </div>
 
             <div class="section">
-                <div class="section__title">Geographic Risk</div>
+                <div class="section__title">Geographic Risk (by City)</div>
                 <div class="card">
-                    <table class="tbl">
+                    <table class="tbl" id="geo-risk-table">
                         <thead>
                             <tr>
-                                <th>State</th>
+                                <th>Market</th>
                                 <th>Inventory</th>
                                 <th>Underwater</th>
                                 <th>UW Rate</th>
-                                <th>Risk</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="name">Florida</td>
-                                <td>98</td>
-                                <td class="red">41</td>
-                                <td class="red">41.8%</td>
-                                <td><span class="action-badge action-badge--exit">HIGH</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Georgia</td>
-                                <td>110</td>
-                                <td class="red">45</td>
-                                <td class="red">40.9%</td>
-                                <td><span class="action-badge action-badge--exit">HIGH</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">North Carolina</td>
-                                <td>128</td>
-                                <td>38</td>
-                                <td class="amber">29.7%</td>
-                                <td><span class="action-badge action-badge--pause">MED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Texas</td>
-                                <td>101</td>
-                                <td>22</td>
-                                <td class="amber">21.8%</td>
-                                <td><span class="action-badge action-badge--hold">MED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="name">Arizona</td>
-                                <td>71</td>
-                                <td>12</td>
-                                <td>16.9%</td>
-                                <td><span class="action-badge action-badge--grow">LOW</span></td>
-                            </tr>
+                            <!-- Populated dynamically by JavaScript -->
                         </tbody>
                     </table>
                     <div class="signal__footer" style="margin-top: 12px;">
-                        <div class="signal__source">Source: Parcl listings</div>
-                        <div class="signal__coverage">Coverage: 100%</div>
+                        <div class="signal__source">Source: Property snapshot with unrealized P&L</div>
                     </div>
                 </div>
             </div>
@@ -1460,8 +1353,8 @@
                             <div class="card__title">Total Underwater</div>
                         </div>
                         <div class="big-stat">
-                            <div class="big-stat__value red">200</div>
-                            <div class="big-stat__label">homes (23.5% of inventory)</div>
+                            <div class="big-stat__value red" id="underwater-count">200</div>
+                            <div class="big-stat__label" id="underwater-pct">homes (23.5% of inventory)</div>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Total Exposure</span>
@@ -1477,8 +1370,8 @@
                             <div class="card__title">Price Cut Severity</div>
                         </div>
                         <div class="big-stat">
-                            <div class="big-stat__value red">757</div>
-                            <div class="big-stat__label">homes with cuts (88.8%)</div>
+                            <div class="big-stat__value red" id="pricecuts-count">757</div>
+                            <div class="big-stat__label" id="pricecuts-pct">homes with cuts (88.8%)</div>
                         </div>
                         <div class="stat-row">
                             <span class="stat-row__label">Avg Cuts/Home</span>
@@ -1506,98 +1399,10 @@
                 </p>
 
                 <div class="tape-feed" id="tape-feed">
-                    <!-- Day 1 -->
-                    <div class="tape-day">
-                        <div class="tape-day__header">
-                            <span class="tape-day__date">Jan 29, 2026</span>
-                            <span class="tape-day__badge">Today</span>
-                        </div>
-                        <div class="tape-item tape-item--high">
-                            <div class="tape-item__icon">!!!</div>
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline">SEC 8-K: Results of Operations and Financial Condition</div>
-                                <div class="tape-item__detail">Filed Jan 29. Item 2.02: Q4 preliminary results announced</div>
-                            </div>
-                            <div class="tape-item__meta">
-                                <span class="tape-item__type">FILING</span>
-                            </div>
-                        </div>
-                        <div class="tape-item tape-item--medium">
-                            <div class="tape-item__icon">!!</div>
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline">Opendoor posted 3 AI/Platform roles</div>
-                                <div class="tape-item__detail">New postings: Sr. ML Engineer, Staff Data Scientist, Platform Arch</div>
-                            </div>
-                            <div class="tape-item__meta">
-                                <span class="tape-item__type">JOBS</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Day 2 -->
-                    <div class="tape-day">
-                        <div class="tape-day__header">
-                            <span class="tape-day__date">Jan 28, 2026</span>
-                        </div>
-                        <div class="tape-item tape-item--medium">
-                            <div class="tape-item__icon">!!</div>
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline">Opendoor posted 2 Pricing/Risk roles</div>
-                                <div class="tape-item__detail">New postings: Pricing Analyst, Risk Modeler</div>
-                            </div>
-                            <div class="tape-item__meta">
-                                <span class="tape-item__type">JOBS</span>
-                            </div>
-                        </div>
-                        <div class="tape-item tape-item--low">
-                            <div class="tape-item__icon">!</div>
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline">SEC Form 4: Insider transaction</div>
-                                <div class="tape-item__detail">CFO sold 15,000 shares at $2.47</div>
-                            </div>
-                            <div class="tape-item__meta">
-                                <span class="tape-item__type">FILING</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Day 3 -->
-                    <div class="tape-day">
-                        <div class="tape-day__header">
-                            <span class="tape-day__date">Jan 27, 2026</span>
-                        </div>
-                        <div class="tape-item tape-item--low">
-                            <div class="tape-item__icon">!</div>
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline">Opendoor removed 5 job postings net</div>
-                                <div class="tape-item__detail">Total open positions: 142</div>
-                            </div>
-                            <div class="tape-item__meta">
-                                <span class="tape-item__type">JOBS</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- No updates days -->
-                    <div class="tape-day tape-day--empty">
-                        <div class="tape-day__header">
-                            <span class="tape-day__date">Jan 26, 2026</span>
-                        </div>
-                        <div class="tape-item tape-item--none">
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline" style="color: var(--text-3);">No material updates</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tape-day tape-day--empty">
-                        <div class="tape-day__header">
-                            <span class="tape-day__date">Jan 25, 2026</span>
-                        </div>
-                        <div class="tape-item tape-item--none">
-                            <div class="tape-item__content">
-                                <div class="tape-item__headline" style="color: var(--text-3);">No material updates</div>
-                            </div>
+                    <!-- Populated dynamically by JavaScript -->
+                    <div class="tape-item tape-item--none">
+                        <div class="tape-item__content">
+                            <div class="tape-item__headline" style="color: var(--text-3);">Loading tape data...</div>
                         </div>
                     </div>
                 </div>
@@ -1757,17 +1562,246 @@ async function loadData() {
             updateDashboard(data);
         }
     } catch (e) {
-        console.log('Using default data');
+        console.log('Using default data', e);
     }
+}
+
+function getColorClass(value, greenThresh, yellowThresh, lowerBetter = false) {
+    if (lowerBetter) {
+        if (value <= greenThresh) return 'green';
+        if (value <= yellowThresh) return 'amber';
+        return 'red';
+    } else {
+        if (value >= greenThresh) return 'green';
+        if (value >= yellowThresh) return 'amber';
+        return 'red';
+    }
+}
+
+function formatCurrency(val, decimals = 0) {
+    if (Math.abs(val) >= 1000000) return '$' + (val / 1000000).toFixed(1) + 'M';
+    if (Math.abs(val) >= 1000) return '$' + (val / 1000).toFixed(decimals) + 'K';
+    return '$' + val.toFixed(decimals);
 }
 
 function updateDashboard(data) {
     // Update timestamp
     if (data.generated_at) {
-        document.getElementById('last-updated').textContent = 'Updated: ' + new Date(data.generated_at).toLocaleString();
+        const el = document.getElementById('last-updated');
+        if (el) el.textContent = 'Updated: ' + new Date(data.generated_at).toLocaleString();
     }
 
-    // Additional data binding would go here
+    // OPS Score
+    if (data.ops_score) {
+        const ops = data.ops_score;
+        const scoreClass = ops.score >= 70 ? 'green' : (ops.score >= 50 ? 'yellow' : 'red');
+
+        const headerScore = document.getElementById('header-score');
+        if (headerScore) {
+            headerScore.textContent = Math.round(ops.score);
+            headerScore.className = 'header__score-value ' + scoreClass;
+        }
+
+        const opsScoreValue = document.getElementById('ops-score-value');
+        if (opsScoreValue) {
+            opsScoreValue.textContent = Math.round(ops.score);
+            opsScoreValue.className = 'ops-score__number ' + scoreClass;
+        }
+
+        const opsGrade = document.getElementById('ops-grade');
+        if (opsGrade) opsGrade.textContent = ops.grade;
+
+        const opsRationale = document.getElementById('ops-rationale');
+        if (opsRationale) opsRationale.textContent = ops.rationale;
+
+        // OPS Breakdown table
+        const breakdownTable = document.getElementById('ops-breakdown-table');
+        if (breakdownTable && ops.breakdown) {
+            const tbody = breakdownTable.querySelector('tbody') || breakdownTable;
+            tbody.innerHTML = ops.breakdown.map(sig => {
+                const stateClass = sig.state === 'G' ? 'green' : (sig.state === 'Y' ? 'amber' : 'red');
+                const stateIcon = sig.state === 'G' ? '✓' : (sig.state === 'Y' ? '!' : '✗');
+                return `<tr>
+                    <td><span class="${stateClass}">${stateIcon}</span> ${sig.signal.replace(/_/g, ' ')}</td>
+                    <td>${sig.value.toFixed(1)}</td>
+                    <td>${sig.normalized.toFixed(0)}</td>
+                    <td>${sig.confidence}</td>
+                    <td>${sig.weight_used.toFixed(3)}</td>
+                    <td class="${stateClass}">${sig.contribution.toFixed(1)}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // Individual signals
+        if (ops.signals) {
+            for (const [key, sig] of Object.entries(ops.signals)) {
+                const el = document.getElementById('sig-' + key.replace(/_/g, '-'));
+                if (el) {
+                    el.textContent = sig.value.toFixed(1) + (key.includes('pct') || key.includes('rate') ? '%' : '');
+                    el.className = 'signal__value ' + (sig.state === 'G' ? 'green' : (sig.state === 'Y' ? 'amber' : 'red'));
+                }
+            }
+        }
+    }
+
+    // Portfolio Summary
+    if (data.portfolio) {
+        const p = data.portfolio;
+
+        // New Book
+        const newBookWin = document.getElementById('new-book-winrate');
+        if (newBookWin) {
+            newBookWin.textContent = p.new_book.win_rate.toFixed(1) + '%';
+            newBookWin.className = 'big-stat__value ' + getColorClass(p.new_book.win_rate, 90, 75);
+        }
+        const newBookLabel = document.getElementById('new-book-label');
+        if (newBookLabel) newBookLabel.textContent = `Win Rate (${p.new_book.sales_with_pnl} sales with P&L)`;
+
+        const newBookPnl = document.getElementById('new-book-pnl');
+        if (newBookPnl) {
+            newBookPnl.textContent = formatCurrency(p.new_book.avg_pnl, 1);
+            newBookPnl.className = 'stat-row__value ' + (p.new_book.avg_pnl >= 0 ? 'green' : 'red');
+        }
+
+        // Legacy Book
+        const legacyWin = document.getElementById('legacy-book-winrate');
+        if (legacyWin) {
+            legacyWin.textContent = p.legacy_book.win_rate.toFixed(1) + '%';
+            legacyWin.className = 'big-stat__value ' + getColorClass(p.legacy_book.win_rate, 70, 50);
+        }
+        const legacyLabel = document.getElementById('legacy-book-label');
+        if (legacyLabel) legacyLabel.textContent = `Win Rate (${p.legacy_book.sales_with_pnl} sales with P&L)`;
+
+        const legacyPnl = document.getElementById('legacy-book-pnl');
+        if (legacyPnl) {
+            legacyPnl.textContent = formatCurrency(p.legacy_book.avg_pnl, 1);
+            legacyPnl.className = 'stat-row__value ' + (p.legacy_book.avg_pnl >= 0 ? 'green' : 'red');
+        }
+
+        // Underwater
+        const underwaterCount = document.getElementById('underwater-count');
+        if (underwaterCount) underwaterCount.textContent = p.underwater.count;
+        const underwaterPct = document.getElementById('underwater-pct');
+        if (underwaterPct) underwaterPct.textContent = `homes (${p.underwater.pct}% of inventory)`;
+        const underwaterValue = document.getElementById('underwater-value');
+        if (underwaterValue) {
+            underwaterValue.textContent = '-$' + Math.abs(p.underwater.total_value).toFixed(1) + 'M';
+            underwaterValue.className = 'stat-row__value red';
+        }
+
+        // Price Cuts
+        const cutsCount = document.getElementById('pricecuts-count');
+        if (cutsCount) cutsCount.textContent = p.price_cuts.count;
+        const cutsPct = document.getElementById('pricecuts-pct');
+        if (cutsPct) cutsPct.textContent = `homes with cuts (${p.price_cuts.pct}%)`;
+    }
+
+    // Cohort Performance Table
+    if (data.cohorts && data.cohorts.cohorts) {
+        const table = document.getElementById('cohort-table');
+        if (table) {
+            const tbody = table.querySelector('tbody') || table;
+            tbody.innerHTML = data.cohorts.cohorts.map(c => {
+                const winClass = getColorClass(c.win_rate, 80, 60);
+                const pnlClass = c.avg_pnl >= 0 ? 'green' : 'red';
+                return `<tr>
+                    <td>${c.label}</td>
+                    <td>${c.inventory}</td>
+                    <td class="${winClass}">${c.win_rate.toFixed(1)}%</td>
+                    <td>${c.sold > 0 ? (c.inventory / (c.sold / 90) * 30).toFixed(1) + ' mo' : 'N/A'}</td>
+                    <td class="${pnlClass}">${formatCurrency(c.avg_pnl, 1)}</td>
+                </tr>`;
+            }).join('');
+        }
+    }
+
+    // Market Velocity Table
+    if (data.market_velocity && data.market_velocity.markets) {
+        const table = document.getElementById('market-velocity-table');
+        if (table) {
+            const tbody = table.querySelector('tbody') || table;
+            const markets = data.market_velocity.markets.slice(0, 15); // Top 15
+            tbody.innerHTML = markets.map(m => {
+                const turnClass = getColorClass(m.turnover, 15, 5);
+                const soldClass = m.sold_90d === 0 ? 'red' : (m.sold_90d < 5 ? 'amber' : 'green');
+                return `<tr>
+                    <td class="name">${m.city}, ${m.state}</td>
+                    <td>${m.active}</td>
+                    <td class="${soldClass}">${m.sold_90d}</td>
+                    <td class="${turnClass}">${m.turnover.toFixed(1)}%</td>
+                    <td><span class="action-badge action-badge--${m.action_class}">${m.action}</span></td>
+                </tr>`;
+            }).join('');
+        }
+    }
+
+    // Geographic Risk Table
+    if (data.risk && data.risk.geographic_risk) {
+        const table = document.getElementById('geo-risk-table');
+        if (table) {
+            const tbody = table.querySelector('tbody') || table;
+            tbody.innerHTML = data.risk.geographic_risk.map(r => {
+                const pctClass = getColorClass(r.underwater_pct, 20, 35, true);
+                return `<tr>
+                    <td>${r.city}, ${r.state}</td>
+                    <td>${r.total}</td>
+                    <td class="red">${r.underwater}</td>
+                    <td class="${pctClass}">${r.underwater_pct.toFixed(1)}%</td>
+                </tr>`;
+            }).join('');
+        }
+    }
+
+    // Intel Tape
+    if (data.tape && data.tape.tapes && data.tape.tapes.length > 0) {
+        const tapeContainer = document.getElementById('tape-feed');
+        if (tapeContainer) {
+            // Group items by date
+            const byDate = {};
+            data.tape.tapes.forEach(tape => {
+                if (!byDate[tape.date]) byDate[tape.date] = [];
+                tape.items.forEach(item => {
+                    byDate[tape.date].push(item);
+                });
+            });
+
+            const dates = Object.keys(byDate).sort().reverse();
+            const today = new Date().toISOString().split('T')[0];
+
+            tapeContainer.innerHTML = dates.map(date => {
+                const items = byDate[date];
+                const isToday = date === today;
+                const dateFormatted = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                const itemsHtml = items.map(item => {
+                    const matClass = item.materiality === 'high' ? 'high' : (item.materiality === 'medium' ? 'medium' : 'low');
+                    const matIcon = item.materiality === 'high' ? '!!!' : (item.materiality === 'medium' ? '!!' : '!');
+                    const linkHtml = item.url ?
+                        `<a href="${item.url}" target="_blank" class="tape-item__link" title="Open source">→</a>` : '';
+
+                    return `<div class="tape-item tape-item--${matClass}">
+                        <div class="tape-item__icon">${matIcon}</div>
+                        <div class="tape-item__content">
+                            <div class="tape-item__headline">${item.headline}</div>
+                            <div class="tape-item__detail">${item.detail || ''}</div>
+                        </div>
+                        <div class="tape-item__meta">
+                            <span class="tape-item__type">${item.type.toUpperCase()}</span>
+                            ${linkHtml}
+                        </div>
+                    </div>`;
+                }).join('');
+
+                return `<div class="tape-day">
+                    <div class="tape-day__header">
+                        <span class="tape-day__date">${dateFormatted}</span>
+                        ${isToday ? '<span class="tape-day__badge">Today</span>' : ''}
+                    </div>
+                    ${itemsHtml}
+                </div>`;
+            }).join('');
+        }
+    }
 }
 
 // Initialize

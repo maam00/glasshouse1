@@ -122,9 +122,21 @@ def normalize_address(address: str) -> str:
     addr = str(address).lower().strip()
 
     # Remove unit/apt designations for matching
-    for term in [' unit ', ' apt ', ' #', ' suite ']:
+    for term in [' unit ', ' apt ', ' apt.', ' #', ' suite ', ' ste ']:
         if term in addr:
             addr = addr.split(term)[0]
+
+    # Remove trailing unit numbers like ", Unit 101"
+    import re
+    addr = re.sub(r',?\s*(unit|apt|ste|suite|#)\s*\d+.*$', '', addr, flags=re.IGNORECASE)
+
+    # Standardize direction prefixes/suffixes
+    direction_map = {
+        'north': 'n', 'south': 's', 'east': 'e', 'west': 'w',
+        'northeast': 'ne', 'northwest': 'nw', 'southeast': 'se', 'southwest': 'sw',
+    }
+    for full, abbr in direction_map.items():
+        addr = re.sub(rf'\b{full}\b', abbr, addr)
 
     # Remove common abbreviations differences
     replacements = [
@@ -137,15 +149,54 @@ def normalize_address(address: str) -> str:
         ('court', 'ct'),
         ('place', 'pl'),
         ('circle', 'cir'),
+        ('terrace', 'ter'),
+        ('highway', 'hwy'),
+        ('parkway', 'pkwy'),
+        ('way', 'wy'),
     ]
 
     for full, abbr in replacements:
-        addr = addr.replace(full, abbr)
+        addr = re.sub(rf'\b{full}\b', abbr, addr)
+
+    # Remove periods and commas
+    addr = addr.replace('.', '').replace(',', '')
 
     # Remove extra whitespace
     addr = ' '.join(addr.split())
 
     return addr
+
+
+def fuzzy_address_match(addr1: str, addr2: str) -> bool:
+    """Check if two addresses likely match."""
+    # Handle NA/None/empty values
+    if pd.isna(addr1) or pd.isna(addr2):
+        return False
+    if not addr1 or not addr2:
+        return False
+
+    n1 = normalize_address(str(addr1))
+    n2 = normalize_address(str(addr2))
+
+    # Exact match after normalization
+    if n1 == n2:
+        return True
+
+    # Extract street number and check if it matches
+    import re
+    num1 = re.match(r'^(\d+)', n1)
+    num2 = re.match(r'^(\d+)', n2)
+
+    if num1 and num2 and num1.group(1) == num2.group(1):
+        # Same street number - check if street name is similar
+        street1 = n1[len(num1.group(1)):].strip()
+        street2 = n2[len(num2.group(1)):].strip()
+
+        # Check if one is substring of the other
+        if street1 in street2 or street2 in street1:
+            return True
+
+    return False
 
 
 def build_address_index(inventory_df: pd.DataFrame) -> Dict[str, dict]:
@@ -186,8 +237,8 @@ def build_address_index(inventory_df: pd.DataFrame) -> Dict[str, dict]:
 
 def scrape_market_listings(
     market: str,
-    listing_type: str = "pending",
-    past_days: int = 90,
+    listing_type: str = "sold",
+    past_days: int = 14,
 ) -> pd.DataFrame:
     """Scrape listings for a single market."""
     if not HAS_HOMEHARVEST:
@@ -250,7 +301,16 @@ def identify_opendoor_listings(
         if norm_addr in address_index:
             is_opendoor = True
             opendoor_data = address_index[norm_addr]
-            match_method = 'address'
+            match_method = 'address_exact'
+
+        # Method 1b: Fuzzy address match
+        if not is_opendoor:
+            for idx_addr, idx_data in address_index.items():
+                if fuzzy_address_match(street, idx_addr):
+                    is_opendoor = True
+                    opendoor_data = idx_data
+                    match_method = 'address_fuzzy'
+                    break
 
         # Method 2: Check agent/broker for Opendoor
         agent = str(row.get('agent_name', '')).lower()
@@ -458,19 +518,14 @@ def main():
     inventory_df = load_opendoor_inventory(output_dir)
     address_index = build_address_index(inventory_df)
 
-    # Scrape pending listings from each market
+    # Scrape sold listings from each market (pending not available via this API)
     all_scraped = []
 
     for market in markets:
-        # Scrape pending
-        pending_df = scrape_market_listings(market, "pending", args.past_days)
-        if not pending_df.empty:
-            all_scraped.append(pending_df)
-
-        # Also scrape active for comparison (smaller window)
-        # active_df = scrape_market_listings(market, "for_sale", 30)
-        # if not active_df.empty:
-        #     all_scraped.append(active_df)
+        # Scrape recent sales to validate against our data
+        sold_df = scrape_market_listings(market, "sold", min(args.past_days, 30))
+        if not sold_df.empty:
+            all_scraped.append(sold_df)
 
     if not all_scraped:
         print("No listings found across all markets")

@@ -950,29 +950,29 @@
                     </div>
                 </div>
 
-                <!-- Signal 4: Inventory Liquidity -->
+                <!-- Signal 4: Inventory Aging (DOM) -->
                 <div class="signal">
                     <div class="signal__header">
-                        <div class="signal__name">Inventory Liquidity</div>
+                        <div class="signal__name">Inventory Aging</div>
                         <div class="signal__confidence">
-                            <span class="signal__badge signal__badge--c">C</span>
+                            <span class="signal__badge signal__badge--a" id="sig-aging-conf">A</span>
                         </div>
                     </div>
                     <div class="signal__body">
-                        <div class="signal__value red" id="sig-liquidity">42.9</div>
+                        <div class="signal__value" id="sig-aging-value">—</div>
                         <div class="signal__meta">
                             <div class="signal__delta">
                                 <span class="signal__delta-value">—</span>
-                                <span class="signal__delta-label">mos inv</span>
+                                <span class="signal__delta-label">avg DOM</span>
                             </div>
                         </div>
                     </div>
-                    <div class="signal__status signal__status--red">PARTIAL DATA</div>
+                    <div class="signal__status" id="sig-aging-status">LOADING</div>
                     <div class="signal__footer">
                         <div class="signal__source">
-                            <span>⚠️</span> MLS scrape
+                            <span>📊</span> Property Snapshot
                         </div>
-                        <div class="signal__coverage">n=42 · ~7%</div>
+                        <div class="signal__coverage" id="sig-aging-coverage">—</div>
                     </div>
                 </div>
 
@@ -1632,13 +1632,54 @@ function updateDashboard(data) {
             }).join('');
         }
 
-        // Individual signals
+        // Individual signals - update the signal cards
         if (ops.signals) {
+            // Update signal cards with real data
+            const signalMap = {
+                'guidance_pace': { valueId: 'sig-pace', unit: '%', name: 'Q1 Guidance Pace' },
+                'kaz_econ': { valueId: 'sig-newbook', unit: '%', name: 'New Book Econ' },
+                'legacy_burndown': { valueId: 'sig-toxic', unit: '', name: 'Legacy Burn-down' },
+                'inventory_aging': { valueId: 'sig-aging-value', confId: 'sig-aging-conf', statusId: 'sig-aging-status', coverageId: 'sig-aging-coverage', unit: ' DOM', name: 'Inventory Aging' },
+                'pricecut_stress': { valueId: 'sig-cuts', unit: '%', name: 'Price Cut Stress' },
+                'underwater_exposure': { valueId: 'sig-underwater', unit: '%', name: 'Underwater' },
+            };
+
             for (const [key, sig] of Object.entries(ops.signals)) {
-                const el = document.getElementById('sig-' + key.replace(/_/g, '-'));
+                const mapping = signalMap[key];
+                if (!mapping) continue;
+
+                const el = document.getElementById(mapping.valueId);
                 if (el) {
-                    el.textContent = sig.value.toFixed(1) + (key.includes('pct') || key.includes('rate') ? '%' : '');
+                    el.textContent = sig.value.toFixed(1) + mapping.unit;
                     el.className = 'signal__value ' + (sig.state === 'G' ? 'green' : (sig.state === 'Y' ? 'amber' : 'red'));
+                }
+
+                // Update confidence badge if exists
+                if (mapping.confId) {
+                    const confEl = document.getElementById(mapping.confId);
+                    if (confEl) {
+                        confEl.textContent = sig.confidence;
+                        confEl.className = 'signal__badge signal__badge--' + sig.confidence.toLowerCase();
+                    }
+                }
+
+                // Update status if exists
+                if (mapping.statusId) {
+                    const statusEl = document.getElementById(mapping.statusId);
+                    if (statusEl) {
+                        const statusText = sig.state === 'G' ? 'HEALTHY' : (sig.state === 'Y' ? 'WATCH' : 'CONCERN');
+                        const statusClass = sig.state === 'G' ? 'green' : (sig.state === 'Y' ? 'yellow' : 'red');
+                        statusEl.textContent = statusText;
+                        statusEl.className = 'signal__status signal__status--' + statusClass;
+                    }
+                }
+
+                // Update coverage if exists
+                if (mapping.coverageId) {
+                    const covEl = document.getElementById(mapping.coverageId);
+                    if (covEl) {
+                        covEl.textContent = `n=${sig.sample_size} · ${sig.coverage_pct.toFixed(0)}%`;
+                    }
                 }
             }
         }

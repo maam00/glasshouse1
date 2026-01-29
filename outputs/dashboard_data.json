@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-29T18:12:48.306714",
+  "generated_at": "2026-01-29T18:21:36.691744",
   "ops_score": {
     "score": 65.4,
     "grade": "D",
@@ -151,11 +151,11 @@
         "pct_of_total": 1.8
       }
     ],
-    "timestamp": "2026-01-29T18:12:48.345183",
+    "timestamp": "2026-01-29T18:21:36.729643",
     "rationale": "Below-average operations requiring attention (3G/3Y/0R)"
   },
   "portfolio": {
-    "generated_at": "2026-01-29T18:12:48.348518",
+    "generated_at": "2026-01-29T18:21:36.732888",
     "total_active": 2668,
     "new_book": {
       "count": 279,
@@ -184,7 +184,7 @@
     "avg_dom": 69.5
   },
   "cohorts": {
-    "generated_at": "2026-01-29T18:12:48.353477",
+    "generated_at": "2026-01-29T18:21:36.737829",
     "cohorts": [
       {
         "cohort": "new",
@@ -229,7 +229,7 @@
     ]
   },
   "market_velocity": {
-    "generated_at": "2026-01-29T18:12:48.365399",
+    "generated_at": "2026-01-29T18:21:36.747801",
     "markets": [
       {
         "market": "charlotte-nc",
@@ -5499,7 +5499,7 @@
     ]
   },
   "risk": {
-    "generated_at": "2026-01-29T18:12:48.368288",
+    "generated_at": "2026-01-29T18:21:36.750891",
     "geographic_risk": [
       {
         "city": "CHARLOTTE",

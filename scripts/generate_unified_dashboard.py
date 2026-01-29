@@ -39,6 +39,7 @@ except ImportError:
 try:
     from src.metrics.unit_economics import UnitEconomicsCalculator
     from src.metrics.market_pnl import MarketPnLAnalyzer
+    from src.metrics.pending_tracker import PendingTracker, PendingMetrics
     from src.config import get_config
     HAS_ANALYTICS = True
 except ImportError:
@@ -458,6 +459,37 @@ def main():
         except Exception as e:
             print(f"  Warning: Could not analyze market P&L: {e}")
 
+    # ==== PENDING FUNNEL DATA ====
+    if HAS_ANALYTICS:
+        try:
+            # Look for latest pending data
+            pending_file = find_latest_file(output_dir, "pending_*.json")
+            if pending_file:
+                print("Loading pending funnel data...")
+                with open(pending_file) as f:
+                    pending_data = json.load(f)
+
+                pending_metrics = pending_data.get('metrics', {})
+                if pending_metrics:
+                    dashboard_data['pending_funnel'] = {
+                        'total_pending': pending_metrics.get('total_pending', 0),
+                        'kaz_era_pending': pending_metrics.get('kaz_era_pending', 0),
+                        'legacy_pending': pending_metrics.get('legacy_pending', 0),
+                        'avg_dom_at_pending': pending_metrics.get('avg_dom_at_pending', 0),
+                        'cohort_breakdown': pending_metrics.get('cohort_breakdown', {}),
+                        'toxic_pending_count': pending_metrics.get('toxic_pending_count', 0),
+                        'toxic_pending_pct': pending_metrics.get('toxic_pending_pct', 0),
+                        'by_state': pending_metrics.get('by_state', {}),
+                        'funnel_changes': pending_metrics.get('funnel_changes', {}),
+                        'scraped_at': pending_data.get('scraped_at', ''),
+                    }
+
+                    print(f"  Total Pending: {dashboard_data['pending_funnel']['total_pending']}")
+                    print(f"  Toxic Pending: {dashboard_data['pending_funnel']['toxic_pending_count']} "
+                          f"({dashboard_data['pending_funnel']['toxic_pending_pct']}%)")
+        except Exception as e:
+            print(f"  Warning: Could not load pending data: {e}")
+
     # ==== SAVE OUTPUT ====
     output_file = output_dir / "unified_dashboard_data.json"
     with open(output_file, 'w') as f:
@@ -487,6 +519,15 @@ def main():
         print(f"    GROW: {dashboard_data['market_pnl']['summary']['grow_count']} markets")
         print(f"    HOLD: {dashboard_data['market_pnl']['summary']['hold_count']} markets")
         print(f"    PAUSE/EXIT: {dashboard_data['market_pnl']['summary']['pause_count'] + dashboard_data['market_pnl']['summary']['exit_count']} markets")
+
+    if 'pending_funnel' in dashboard_data:
+        pf = dashboard_data['pending_funnel']
+        print(f"\n  Pending Funnel:")
+        print(f"    Total Pending: {pf['total_pending']}")
+        print(f"    Kaz-Era: {pf['kaz_era_pending']} | Legacy: {pf['legacy_pending']}")
+        cohorts = pf.get('cohort_breakdown', {})
+        if cohorts:
+            print(f"    Toxic Pending: {cohorts.get('toxic', 0)} ({pf['toxic_pending_pct']}%)")
 
     print("=" * 60 + "\n")
 

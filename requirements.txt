@@ -3,6 +3,7 @@ parcllabs>=0.3.0
 pandas>=2.0.0
 python-dotenv>=1.0.0
 anthropic>=0.40.0
+homeharvest>=0.3.0  # MLS listing scraper for pending data
 
 # Testing
 pytest>=7.0.0

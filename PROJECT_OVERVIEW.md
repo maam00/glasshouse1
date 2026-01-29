@@ -6,7 +6,7 @@ Glass House is a comprehensive operational intelligence platform for tracking Op
 
 **Core Thesis:** Opendoor's stock performance depends on their ability to:
 1. Clear legacy "toxic" inventory (homes held >365 days)
-2. Maintain profitability on newer acquisitions ("Kaz-era" - post Oct 2023)
+2. Maintain profitability on newer acquisitions ("Kaz-era" - post Sep 10, 2025)
 3. Hit quarterly revenue guidance (~$1B/quarter)
 4. Improve sales velocity across markets
 
@@ -58,8 +58,9 @@ Glass House is a comprehensive operational intelligence platform for tracking Op
 | Toxic | >365 days | Legacy problem inventory |
 
 ### Kaz-Era vs Legacy
-- **Kaz-Era:** Homes acquired after October 2023 (when CEO Kaz changed strategy)
-- **Legacy:** Pre-Kaz acquisitions, higher underwater rates, more price cuts
+- **Kaz-Era:** Homes acquired on or after September 10, 2025 (when CEO Kaz Nejatian took over)
+- **Legacy:** Pre-Kaz acquisitions (before Sep 10, 2025), higher underwater rates, more price cuts
+- **Note:** All date definitions are centralized in `src/config.py` (single source of truth)
 
 ### Key Metrics
 - **Win Rate:** % of sales with positive realized net profit
@@ -205,7 +206,7 @@ glasshouse1/
 - Watchlist: Individual underwater homes
 
 ### 3. Legacy Portfolio
-- Same structure as Kaz-Era but for pre-Oct 2023 acquisitions
+- Same structure as Kaz-Era but for pre-Sep 2025 acquisitions
 - Typically shows worse metrics (lower win rate, more underwater)
 
 ### 4. Toxic Inventory Clearance
@@ -281,26 +282,48 @@ open dashboard-v6.html
 
 ## Configuration (src/config.py)
 
+**IMPORTANT:** `src/config.py` is the SINGLE SOURCE OF TRUTH for all constants.
+Do not hardcode dates or thresholds elsewhere in the codebase.
+
 ```python
-# Cohort thresholds (days)
-NEW_COHORT_MAX = 90
-MID_COHORT_MAX = 180
-OLD_COHORT_MAX = 365
-# >365 = toxic
+from datetime import datetime
 
-# Kaz-era start date
-KAZ_ERA_START = datetime(2023, 10, 1)
+# =============================================================================
+# KAZ-ERA DEFINITION - SINGLE SOURCE OF TRUTH
+# =============================================================================
+# Kaz Nejatian became Opendoor CEO on September 10, 2025
+KAZ_ERA_START = datetime(2025, 9, 10)
+KAZ_ERA_START_STR = "Sep 2025"  # For display in UI
 
-# Unit economics assumptions
-RENOVATION_COST_PCT = 0.03      # 3% of purchase price
-MONTHLY_HOLDING_COST = 1500    # Insurance, taxes, maintenance
-TRANSACTION_COST_PCT = 0.06    # 6% (commissions, fees)
+# Helper function
+def is_kaz_era(purchase_date) -> bool:
+    """Check if a purchase date falls in Kaz era."""
+    return purchase_date >= KAZ_ERA_START
 
-# Market action thresholds
-GROW_WIN_RATE = 80             # >80% = GROW
-HOLD_WIN_RATE = 60             # 60-80% = HOLD
-PAUSE_WIN_RATE = 40            # 40-60% = PAUSE
-# <40% = EXIT
+# =============================================================================
+# COHORT DEFINITIONS (by days held at time of sale)
+# =============================================================================
+COHORT_NEW_MAX_DAYS = 90       # <90 days = fresh inventory
+COHORT_MID_MAX_DAYS = 180      # 90-180 days = normal cycle
+COHORT_OLD_MAX_DAYS = 365      # 180-365 days = stale
+# TOXIC = anything > 365 days
+
+# =============================================================================
+# SIGNAL THRESHOLDS (for OPS Score)
+# =============================================================================
+PACE_GREEN_MIN = 95.0          # On track
+WIN_RATE_GREEN_MIN = 85.0      # Healthy profitability
+TURNOVER_GREEN_MIN = 15.0      # Healthy velocity
+TOXIC_PCT_GREEN_MAX = 5.0      # Minimal legacy drag
+
+# =============================================================================
+# UNIT ECONOMICS ASSUMPTIONS
+# =============================================================================
+RENOVATION_COST_PCT = 0.05     # 5% of purchase price
+HOLDING_COST_PER_DAY = 55.0    # $55/day
+BUY_TRANSACTION_PCT = 0.01     # 1% buy-side costs
+SELL_TRANSACTION_PCT = 0.02    # 2% sell-side costs
+COMMISSION_PCT = 0.025         # 2.5% agent commission
 ```
 
 ---
@@ -327,7 +350,7 @@ CREATE TABLE sales (
     year_built INTEGER,
     -- Calculated fields
     cohort TEXT,           -- new/mid/old/toxic
-    is_kaz_era BOOLEAN,    -- post Oct 2023
+    is_kaz_era BOOLEAN,    -- post Sep 10, 2025 (see src/config.py)
     is_win BOOLEAN         -- realized_net > 0
 );
 

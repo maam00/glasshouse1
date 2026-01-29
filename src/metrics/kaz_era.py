@@ -7,12 +7,11 @@ This is THE leading indicator:
 - Kaz-era SOLD: Shows realized results of new strategy
 - Kaz-era ON MARKET: Shows unrealized, forward-looking health
 
-Kaz (Khosrowshahi) became CEO ~3 months ago (late October 2025).
+Kaz Nejatian became CEO on September 10, 2025.
 His new pricing/acquisition strategy represents a fresh approach.
 
 We define "Kaz-era" as:
-- Homes purchased on or after Nov 1, 2025
-- Can be adjusted via KAZ_ERA_START
+- Homes purchased on or after Sep 10, 2025 (KAZ_ERA_START from config)
 
 Key insight:
 - Kaz-era sold: 65/66 profitable (98.5% win rate)
@@ -27,10 +26,9 @@ from dataclasses import dataclass
 import pandas as pd
 import numpy as np
 
-logger = logging.getLogger(__name__)
+from src.config import KAZ_ERA_START, KAZ_ERA_START_STR
 
-# Define when "Kaz era" starts - he became CEO late October 2025
-KAZ_ERA_START = datetime(2025, 11, 1)
+logger = logging.getLogger(__name__)
 
 
 @dataclass

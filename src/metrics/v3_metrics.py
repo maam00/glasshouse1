@@ -18,9 +18,9 @@ from dataclasses import dataclass, asdict
 import pandas as pd
 import numpy as np
 
-logger = logging.getLogger(__name__)
+from src.config import KAZ_ERA_START
 
-KAZ_ERA_START = datetime(2025, 11, 1)
+logger = logging.getLogger(__name__)
 
 
 @dataclass

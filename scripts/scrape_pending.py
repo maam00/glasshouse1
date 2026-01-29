@@ -30,7 +30,7 @@ import numpy as np
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.config import get_config
+from src.config import get_config, KAZ_ERA_START
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -81,8 +81,7 @@ OPENDOOR_MARKETS = [
     "Salt Lake City, UT",
 ]
 
-# Kaz era start date (CEO transition)
-KAZ_ERA_START = datetime(2023, 10, 1)
+# NOTE: KAZ_ERA_START is imported from src.config - single source of truth
 
 
 def load_opendoor_inventory(output_dir: Path) -> pd.DataFrame:

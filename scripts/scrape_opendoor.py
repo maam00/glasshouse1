@@ -44,6 +44,11 @@ except ImportError:
 
 import pandas as pd
 
+# Add parent to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from src.config import KAZ_ERA_START
+
 # Opendoor market slugs
 OPENDOOR_MARKETS = {
     "phoenix": "phoenix-az",
@@ -68,8 +73,7 @@ OPENDOOR_MARKETS = {
     "tucson": "tucson-az",
 }
 
-# Kaz era start
-KAZ_ERA_START = datetime(2023, 10, 1)
+# NOTE: KAZ_ERA_START is imported from src.config - single source of truth
 
 
 async def scrape_market(page: Page, market_slug: str) -> List[Dict]:

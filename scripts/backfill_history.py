@@ -16,12 +16,12 @@ import json
 import logging
 
 from src.db.database import Database
+from src.config import KAZ_ERA_START
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%H:%M:%S')
 logger = logging.getLogger(__name__)
 
-# Kaz era start
-KAZ_ERA_START = datetime(2025, 11, 1)
+# NOTE: KAZ_ERA_START is imported from src.config - single source of truth
 
 
 def backfill_from_sales(sales_path: str, listings_path: str):
@@ -201,7 +201,7 @@ def calculate_cohorts(sales: pd.DataFrame) -> dict:
 def calculate_kaz_era(sales: pd.DataFrame, listings: pd.DataFrame, as_of_date) -> dict:
     """Calculate Kaz-era metrics."""
 
-    # Kaz-era sales (purchased after Nov 1, 2025)
+    # Kaz-era sales (purchased on/after KAZ_ERA_START from config)
     if 'purchase_date' in sales.columns:
         kaz_sales = sales[sales['purchase_date'] >= KAZ_ERA_START]
     else:

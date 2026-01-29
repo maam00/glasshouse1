@@ -21,10 +21,9 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-logger = logging.getLogger(__name__)
+from src.config import KAZ_ERA_START, is_kaz_era as config_is_kaz_era
 
-# Kaz era start
-KAZ_ERA_START = datetime(2023, 10, 1)
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -126,14 +125,11 @@ class PendingTracker:
             return "toxic"
 
     def is_kaz_era(self, purchase_date: str) -> bool:
-        """Check if purchase was in Kaz era."""
-        if not purchase_date:
-            return False
-        try:
-            pdate = pd.to_datetime(purchase_date)
-            return pdate >= KAZ_ERA_START
-        except:
-            return False
+        """Check if purchase was in Kaz era.
+
+        Uses the canonical KAZ_ERA_START from src/config.py
+        """
+        return config_is_kaz_era(purchase_date)
 
     def analyze_pending_listings(
         self,

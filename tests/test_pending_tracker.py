@@ -6,6 +6,7 @@ import pytest
 import pandas as pd
 from datetime import datetime, timedelta
 from src.metrics.pending_tracker import PendingTracker, PendingMetrics
+from src.config import KAZ_ERA_START, KAZ_ERA_START_STR
 
 
 class TestCohortClassification:
@@ -37,21 +38,28 @@ class TestCohortClassification:
 
 
 class TestKazEraClassification:
-    """Test Kaz era classification."""
+    """Test Kaz era classification.
 
-    def test_kaz_era_after_oct_2023(self):
-        """Test purchases after Oct 2023 are Kaz era."""
-        tracker = PendingTracker()
-        assert tracker.is_kaz_era("2024-01-15") == True
-        assert tracker.is_kaz_era("2023-10-01") == True
-        assert tracker.is_kaz_era("2023-12-25") == True
+    Uses KAZ_ERA_START from src/config.py (Sep 10, 2025)
+    """
 
-    def test_legacy_before_oct_2023(self):
-        """Test purchases before Oct 2023 are legacy."""
+    def test_kaz_era_after_config_date(self):
+        """Test purchases on/after KAZ_ERA_START are Kaz era."""
         tracker = PendingTracker()
-        assert tracker.is_kaz_era("2023-09-30") == False
-        assert tracker.is_kaz_era("2022-06-15") == False
-        assert tracker.is_kaz_era("2021-01-01") == False
+        # KAZ_ERA_START is Sep 10, 2025
+        assert tracker.is_kaz_era("2025-09-10") == True  # Exact date
+        assert tracker.is_kaz_era("2025-09-15") == True  # After
+        assert tracker.is_kaz_era("2025-12-25") == True  # Well after
+        assert tracker.is_kaz_era("2026-01-15") == True  # Next year
+
+    def test_legacy_before_config_date(self):
+        """Test purchases before KAZ_ERA_START are legacy."""
+        tracker = PendingTracker()
+        # KAZ_ERA_START is Sep 10, 2025
+        assert tracker.is_kaz_era("2025-09-09") == False  # Day before
+        assert tracker.is_kaz_era("2025-01-01") == False  # Earlier in 2025
+        assert tracker.is_kaz_era("2024-06-15") == False  # 2024
+        assert tracker.is_kaz_era("2023-10-01") == False  # Old incorrect date
 
     def test_invalid_date_returns_false(self):
         """Test invalid dates return False."""
@@ -60,13 +68,24 @@ class TestKazEraClassification:
         assert tracker.is_kaz_era(None) == False
         assert tracker.is_kaz_era("invalid") == False
 
+    def test_uses_config_constant(self):
+        """Verify we're using the config constant."""
+        # This test ensures the module imports from config
+        from src.config import KAZ_ERA_START
+        assert KAZ_ERA_START == datetime(2025, 9, 10)
+
 
 class TestPendingMetricsAnalysis:
     """Test pending metrics analysis."""
 
     @pytest.fixture
     def sample_pending_df(self):
-        """Create sample pending data."""
+        """Create sample pending data.
+
+        Uses dates relative to KAZ_ERA_START (Sep 10, 2025):
+        - 2 homes after KAZ_ERA_START (Kaz-era)
+        - 2 homes before KAZ_ERA_START (legacy)
+        """
         return pd.DataFrame({
             'scraped_address': ['123 Main St', '456 Oak Ave', '789 Pine Rd', '321 Elm Blvd'],
             'city': ['Phoenix', 'Dallas', 'Phoenix', 'Atlanta'],
@@ -74,7 +93,8 @@ class TestPendingMetricsAnalysis:
             'list_price': [400000, 350000, 500000, 300000],
             'od_purchase_price': [380000, 340000, 480000, 320000],
             'od_days_on_market': [30, 120, 200, 400],
-            'od_purchase_date': ['2024-06-01', '2024-01-15', '2023-06-01', '2022-06-01'],
+            # 2 Kaz-era (after Sep 10, 2025), 2 legacy (before Sep 10, 2025)
+            'od_purchase_date': ['2025-10-01', '2025-09-15', '2025-06-01', '2024-06-01'],
         })
 
     def test_analyze_pending_total_count(self, sample_pending_df):
@@ -85,15 +105,25 @@ class TestPendingMetricsAnalysis:
         assert metrics.total_pending == 4
 
     def test_analyze_pending_cohort_breakdown(self, sample_pending_df):
-        """Test cohort breakdown in pending."""
+        """Test cohort breakdown in pending.
+
+        Note: When od_purchase_date exists, cohort is calculated from
+        days held (purchase_date -> today), not from od_days_on_market.
+
+        From Jan 29, 2026:
+        - 2025-10-01: ~120 days (mid cohort)
+        - 2025-09-15: ~136 days (mid cohort)
+        - 2025-06-01: ~243 days (old cohort)
+        - 2024-06-01: ~608 days (toxic cohort)
+        """
         tracker = PendingTracker()
         metrics = tracker.analyze_pending_listings(sample_pending_df)
 
-        # DOM: 30 (new), 120 (mid), 200 (old), 400 (toxic)
-        assert metrics.new_cohort_pending == 1
-        assert metrics.mid_cohort_pending == 1
-        assert metrics.old_cohort_pending == 1
-        assert metrics.toxic_cohort_pending == 1
+        # Cohort based on calculated days_held from purchase_date
+        assert metrics.new_cohort_pending == 0   # None < 90 days old
+        assert metrics.mid_cohort_pending == 2   # 2025-10-01, 2025-09-15
+        assert metrics.old_cohort_pending == 1   # 2025-06-01
+        assert metrics.toxic_cohort_pending == 1 # 2024-06-01
 
     def test_analyze_pending_kaz_era_breakdown(self, sample_pending_df):
         """Test Kaz era vs legacy breakdown."""

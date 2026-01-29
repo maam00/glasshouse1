@@ -780,5 +780,198 @@
     "product_insight": "100% zip coverage in Lower 48 dramatically expands addressable market beyond current 477-city footprint.",
     "pattern_insight": "78.9% win rate with 46K average profit per win demonstrates strong pricing discipline and margin control.",
     "generated_at": "2026-01-28T14:26:37.451087"
-  }
+  },
+  "sales_funnel": {
+    "scraped_at": "2026-01-29T13:15:53.482159",
+    "data_sources": {
+      "active_inventory": "/Users/mabramsky/glasshouse1/outputs/opendoor_listings_2026-01-29.csv",
+      "sales_data": "/Users/mabramsky/glasshouse1/outputs/pending_listings_2026-01-29.csv"
+    },
+    "active_inventory": {
+      "total": 600,
+      "total_value": 260020000,
+      "avg_price": 433366,
+      "by_market": {
+        "phoenix-az": 30,
+        "dallas-tx": 30,
+        "houston-tx": 30,
+        "austin-tx": 30,
+        "san-antonio-tx": 30,
+        "atlanta-ga": 30,
+        "charlotte-nc": 30,
+        "raleigh-nc": 30,
+        "tampa-fl": 30,
+        "orlando-fl": 30
+      },
+      "markets_count": 20
+    },
+    "recent_sales": {
+      "total": 42,
+      "total_value": 15720000,
+      "avg_price": 374285,
+      "by_market": {
+        "Jacksonville, FL": 7,
+        "Charlotte, NC": 6,
+        "Raleigh, NC": 5,
+        "Phoenix, AZ": 5,
+        "Tucson, AZ": 4,
+        "Nashville, TN": 4,
+        "Orlando, FL": 2,
+        "Dallas, TX": 2,
+        "Fort Worth, TX": 2,
+        "Atlanta, GA": 2,
+        "Houston, TX": 1,
+        "Tampa, FL": 1,
+        "Denver, CO": 1
+      },
+      "by_agent": {
+        "Karen Albright": 14,
+        "Tara Jones": 10,
+        "Amber Broadway": 5,
+        "Thomas L Shoupe": 5,
+        "Whitney Hunt-Sailors": 3,
+        "Thomas Shoupe": 2,
+        "Tanya Pickens": 1,
+        "Kristopher Furrow": 1,
+        "Lisa Mcgill": 1
+      },
+      "days_to_pending": {
+        "avg": 129,
+        "min": 1,
+        "max": 471,
+        "median": 71
+      },
+      "by_speed": {
+        "stale_over_180d": 13,
+        "normal_30_90d": 13,
+        "fast_under_30d": 10,
+        "slow_90_180d": 6
+      },
+      "top_sales": [
+        {
+          "scraped_address": "6160 E Woodridge Dr",
+          "city": "Scottsdale",
+          "state": "AZ",
+          "list_price": 1000000
+        },
+        {
+          "scraped_address": "35426 N 14th St",
+          "city": "Phoenix",
+          "state": "AZ",
+          "list_price": 600000
+        },
+        {
+          "scraped_address": "25722 N 20th Ln",
+          "city": "Phoenix",
+          "state": "AZ",
+          "list_price": 585000
+        },
+        {
+          "scraped_address": "1212 Beechdale Dr",
+          "city": "Charlotte",
+          "state": "NC",
+          "list_price": 585000
+        },
+        {
+          "scraped_address": "110 Stoneway Close",
+          "city": "Nashville",
+          "state": "TN",
+          "list_price": 580000
+        }
+      ]
+    },
+    "turnover": {
+      "sold_90d": 42,
+      "active_inventory": 600,
+      "turnover_rate_90d_pct": 7.0,
+      "monthly_velocity": 14.0,
+      "weekly_velocity": 3.2,
+      "months_of_inventory": 42.9
+    },
+    "market_velocity": [
+      {
+        "market": "charlotte-nc",
+        "active": 30,
+        "sold_90d": 6,
+        "turnover_pct": 20.0
+      },
+      {
+        "market": "phoenix-az",
+        "active": 30,
+        "sold_90d": 5,
+        "turnover_pct": 16.7
+      },
+      {
+        "market": "raleigh-nc",
+        "active": 30,
+        "sold_90d": 5,
+        "turnover_pct": 16.7
+      },
+      {
+        "market": "dallas-tx",
+        "active": 30,
+        "sold_90d": 2,
+        "turnover_pct": 6.7
+      },
+      {
+        "market": "atlanta-ga",
+        "active": 30,
+        "sold_90d": 2,
+        "turnover_pct": 6.7
+      },
+      {
+        "market": "orlando-fl",
+        "active": 30,
+        "sold_90d": 2,
+        "turnover_pct": 6.7
+      },
+      {
+        "market": "houston-tx",
+        "active": 30,
+        "sold_90d": 1,
+        "turnover_pct": 3.3
+      },
+      {
+        "market": "tampa-fl",
+        "active": 30,
+        "sold_90d": 1,
+        "turnover_pct": 3.3
+      },
+      {
+        "market": "austin-tx",
+        "active": 30,
+        "sold_90d": 0,
+        "turnover_pct": 0.0
+      },
+      {
+        "market": "san-antonio-tx",
+        "active": 30,
+        "sold_90d": 0,
+        "turnover_pct": 0.0
+      }
+    ],
+    "funnel_metrics": {
+      "total_identified": 42,
+      "kaz_era": 0,
+      "legacy": 0,
+      "toxic_count": 0,
+      "toxic_pct": 0,
+      "by_state": {
+        "NC": 11,
+        "FL": 10,
+        "AZ": 9,
+        "TX": 5,
+        "TN": 4,
+        "GA": 2,
+        "CO": 1
+      },
+      "changes": {
+        "new_pending": 38,
+        "converted_to_sold": 0,
+        "fell_through": 0,
+        "still_pending": 4
+      }
+    }
+  },
+  "sales_funnel_updated_at": "2026-01-29T13:21:25.171246"
 }

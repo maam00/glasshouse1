@@ -897,6 +897,162 @@
     </section>
 
     <!-- ============================================================
+         SALES FUNNEL
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">Sales Funnel (Live from Opendoor.com)</div>
+
+        <div class="split">
+            <div class="panel">
+                <div class="panel-title">Active Inventory</div>
+                <div class="big-num" id="funnel-active">600</div>
+                <div class="big-label">homes listed</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Total Value</span>
+                        <span class="stat-value" id="funnel-active-value">$260.0M</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Price</span>
+                        <span class="stat-value" id="funnel-active-avg">$433K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Markets</span>
+                        <span class="stat-value" id="funnel-markets">20</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Recent Sales (90d)</div>
+                <div class="big-num green" id="funnel-sold">42</div>
+                <div class="big-label">homes sold</div>
+                <div style="margin-top: 16px;">
+                    <div class="stat-row">
+                        <span class="stat-label">Total Value</span>
+                        <span class="stat-value" id="funnel-sold-value">$15.7M</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Price</span>
+                        <span class="stat-value" id="funnel-sold-avg">$374K</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Days to Pending</span>
+                        <span class="stat-value amber" id="funnel-avg-days">129</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Turnover Metrics -->
+        <div class="exposure">
+            <div class="exposure-title">Turnover Metrics</div>
+            <div class="exposure-grid">
+                <div class="exposure-item">
+                    <div class="exposure-num amber" id="funnel-turnover">7.0%</div>
+                    <div class="exposure-label">90-Day Turnover</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num" id="funnel-monthly">14.0</div>
+                    <div class="exposure-label">Sales/Month</div>
+                </div>
+                <div class="exposure-item">
+                    <div class="exposure-num red" id="funnel-months-inv">42.9</div>
+                    <div class="exposure-label">Months of Inventory</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales by Speed -->
+        <div class="split" style="margin-top: 16px;">
+            <div class="panel">
+                <div class="panel-title">Sales by Speed</div>
+                <table class="tbl">
+                    <thead>
+                        <tr><th>Speed</th><th>Count</th><th>%</th></tr>
+                    </thead>
+                    <tbody id="funnel-speed-table">
+                        <tr><td class="name">Fast (&lt;30d)</td><td class="green">10</td><td>24%</td></tr>
+                        <tr><td class="name">Normal (30-90d)</td><td>13</td><td>31%</td></tr>
+                        <tr><td class="name">Slow (90-180d)</td><td class="amber">6</td><td>14%</td></tr>
+                        <tr><td class="name">Stale (&gt;180d)</td><td class="red">13</td><td>31%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Top Agents</div>
+                <table class="tbl">
+                    <thead>
+                        <tr><th>Agent</th><th>Sales</th><th>%</th></tr>
+                    </thead>
+                    <tbody id="funnel-agent-table">
+                        <tr><td class="name">Karen Albright</td><td>14</td><td>33%</td></tr>
+                        <tr><td class="name">Tara Jones</td><td>10</td><td>24%</td></tr>
+                        <tr><td class="name">Amber Broadway</td><td>5</td><td>12%</td></tr>
+                        <tr><td class="name">Thomas L Shoupe</td><td>5</td><td>12%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Market Velocity -->
+        <div class="watchlist" style="margin-top: 16px;">
+            <div class="watchlist-header">
+                <span><strong>Market Velocity</strong> (Sold / Active)</span>
+                <span>Best: <span class="green">Charlotte 20%</span></span>
+            </div>
+            <table class="watchlist-table">
+                <thead>
+                    <tr>
+                        <th>Market</th>
+                        <th>Active</th>
+                        <th>Sold (90d)</th>
+                        <th>Turnover</th>
+                    </tr>
+                </thead>
+                <tbody id="funnel-market-table">
+                    <tr>
+                        <td class="name">Charlotte, NC</td>
+                        <td>30</td>
+                        <td class="green">6</td>
+                        <td class="green">20.0%</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Phoenix, AZ</td>
+                        <td>30</td>
+                        <td>5</td>
+                        <td>16.7%</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Raleigh, NC</td>
+                        <td>30</td>
+                        <td>5</td>
+                        <td>16.7%</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Austin, TX</td>
+                        <td>30</td>
+                        <td class="red">0</td>
+                        <td class="red">0.0%</td>
+                    </tr>
+                    <tr>
+                        <td class="name">San Antonio, TX</td>
+                        <td>30</td>
+                        <td class="red">0</td>
+                        <td class="red">0.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-text">
+            <strong>42.9 months of inventory</strong> indicates very slow turnover. 31% of sales are stale (&gt;180 days on market).
+            Austin and San Antonio have zero sales in 90 days despite 30 active listings each.
+        </div>
+    </section>
+
+    <!-- ============================================================
          DAILY VELOCITY
          ============================================================ -->
     <section class="section">
@@ -1268,9 +1424,102 @@ async function init() {
     }
 }
 
+// Update sales funnel section
+function updateSalesFunnel(data) {
+    if (!data || !data.sales_funnel) return;
+    const sf = data.sales_funnel;
+
+    // Active inventory
+    if (sf.active_inventory) {
+        const ai = sf.active_inventory;
+        updateText('#funnel-active', ai.total?.toLocaleString());
+        updateText('#funnel-active-value', '$' + (ai.total_value / 1e6).toFixed(1) + 'M');
+        updateText('#funnel-active-avg', '$' + Math.round(ai.avg_price / 1000) + 'K');
+        updateText('#funnel-markets', ai.markets_count);
+    }
+
+    // Recent sales
+    if (sf.recent_sales) {
+        const rs = sf.recent_sales;
+        updateText('#funnel-sold', rs.total?.toLocaleString());
+        updateText('#funnel-sold-value', '$' + (rs.total_value / 1e6).toFixed(1) + 'M');
+        updateText('#funnel-sold-avg', '$' + Math.round(rs.avg_price / 1000) + 'K');
+        if (rs.days_to_pending) {
+            updateText('#funnel-avg-days', rs.days_to_pending.avg);
+        }
+
+        // Update speed table
+        if (rs.by_speed) {
+            const speedTable = document.getElementById('funnel-speed-table');
+            if (speedTable) {
+                const total = Object.values(rs.by_speed).reduce((a, b) => a + b, 0);
+                const speedMap = {
+                    'fast_under_30d': { label: 'Fast (<30d)', class: 'green' },
+                    'normal_30_90d': { label: 'Normal (30-90d)', class: '' },
+                    'slow_90_180d': { label: 'Slow (90-180d)', class: 'amber' },
+                    'stale_over_180d': { label: 'Stale (>180d)', class: 'red' }
+                };
+                let html = '';
+                for (const [key, info] of Object.entries(speedMap)) {
+                    const count = rs.by_speed[key] || 0;
+                    const pct = total > 0 ? Math.round(count / total * 100) : 0;
+                    html += `<tr><td class="name">${info.label}</td><td class="${info.class}">${count}</td><td>${pct}%</td></tr>`;
+                }
+                speedTable.innerHTML = html;
+            }
+        }
+
+        // Update agent table
+        if (rs.by_agent) {
+            const agentTable = document.getElementById('funnel-agent-table');
+            if (agentTable) {
+                const total = Object.values(rs.by_agent).reduce((a, b) => a + b, 0);
+                const agents = Object.entries(rs.by_agent).slice(0, 4);
+                let html = '';
+                for (const [agent, count] of agents) {
+                    const pct = total > 0 ? Math.round(count / total * 100) : 0;
+                    html += `<tr><td class="name">${agent}</td><td>${count}</td><td>${pct}%</td></tr>`;
+                }
+                agentTable.innerHTML = html;
+            }
+        }
+    }
+
+    // Turnover metrics
+    if (sf.turnover) {
+        const t = sf.turnover;
+        updateText('#funnel-turnover', t.turnover_rate_90d_pct?.toFixed(1) + '%');
+        updateText('#funnel-monthly', t.monthly_velocity?.toFixed(1));
+        updateText('#funnel-months-inv', t.months_of_inventory?.toFixed(1));
+    }
+
+    // Market velocity table
+    if (sf.market_velocity) {
+        const marketTable = document.getElementById('funnel-market-table');
+        if (marketTable) {
+            const markets = sf.market_velocity.slice(0, 5);
+            let html = '';
+            for (const m of markets) {
+                const turnoverClass = m.turnover_pct >= 15 ? 'green' : m.turnover_pct === 0 ? 'red' : '';
+                const soldClass = m.sold_90d === 0 ? 'red' : m.sold_90d >= 5 ? 'green' : '';
+                html += `<tr>
+                    <td class="name">${m.market.replace(/-/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</td>
+                    <td>${m.active}</td>
+                    <td class="${soldClass}">${m.sold_90d}</td>
+                    <td class="${turnoverClass}">${m.turnover_pct?.toFixed(1)}%</td>
+                </tr>`;
+            }
+            marketTable.innerHTML = html;
+        }
+    }
+}
+
 // Update dashboard metrics from unified data
 function updateDashboardMetrics(data) {
     if (!data) return;
+
+    // Update sales funnel
+    updateSalesFunnel(data);
 
     // Update timestamp
     const tsEl = document.querySelector('.header__timestamp');

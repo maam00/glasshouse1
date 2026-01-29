@@ -13,7 +13,17 @@ from dataclasses import dataclass
 import urllib.request
 import urllib.error
 
+from ..retry import retry_with_backoff, RetryConfig
+
 logger = logging.getLogger(__name__)
+
+# Retry config for Yahoo Finance API
+YAHOO_RETRY_CONFIG = RetryConfig(
+    max_retries=3,
+    base_delay=1.0,
+    max_delay=10.0,
+    retryable_exceptions=(urllib.error.URLError, urllib.error.HTTPError, TimeoutError),
+)
 
 
 @dataclass
@@ -52,24 +62,28 @@ class YahooFinanceClient:
         }
 
     def _fetch(self, url: str) -> Optional[Dict]:
-        """Make HTTP request."""
-        try:
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-                "Accept": "application/json",
-                "Accept-Language": "en-US,en;q=0.9",
-            }
+        """Make HTTP request with retry logic."""
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Accept": "application/json",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        def make_request():
             req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=10) as response:
                 return json.loads(response.read().decode())
+
+        try:
+            return retry_with_backoff(make_request, YAHOO_RETRY_CONFIG)
         except urllib.error.HTTPError as e:
             # Try alternative endpoint for chart data
-            if "quoteSummary" in url:
+            if "quoteSummary" in url and e.code in (403, 404):
                 return self._fetch_chart_fallback(url)
-            logger.error(f"Yahoo Finance request failed: {e}")
+            logger.error(f"Yahoo Finance request failed after retries: {e}")
             return None
         except Exception as e:
-            logger.error(f"Yahoo Finance request failed: {e}")
+            logger.error(f"Yahoo Finance request failed after retries: {e}")
             return None
 
     def _fetch_chart_fallback(self, original_url: str) -> Optional[Dict]:

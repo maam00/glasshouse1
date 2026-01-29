@@ -10,6 +10,8 @@ from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 import logging
 
+from .retry import retry_with_backoff, RetryConfig, calculate_backoff
+
 logger = logging.getLogger(__name__)
 
 try:
@@ -56,13 +58,22 @@ class ParclClient:
 
         self.client = ParclLabsClient(self.api_key, num_workers=num_workers)
         self._last_request_time = 0
-        self._min_request_interval = 0.1  # 100ms between requests
+        self._min_request_interval = 0.2  # 200ms between requests (safer rate limit)
+        self._retry_config = RetryConfig(
+            max_retries=3,
+            base_delay=1.0,
+            max_delay=30.0,
+            retryable_exceptions=(Exception,),  # Parcl client raises generic exceptions
+        )
 
     def _rate_limit(self):
-        """Simple rate limiting."""
+        """Rate limiting with jitter to prevent thundering herd."""
         elapsed = time.time() - self._last_request_time
         if elapsed < self._min_request_interval:
-            time.sleep(self._min_request_interval - elapsed)
+            # Add small jitter (0-50ms) to prevent synchronized requests
+            import random
+            jitter = random.uniform(0, 0.05)
+            time.sleep(self._min_request_interval - elapsed + jitter)
         self._last_request_time = time.time()
 
     def search_properties(
@@ -84,39 +95,47 @@ class ParclClient:
 
         This is the core endpoint for Opendoor tracking.
         """
-        self._rate_limit()
-
         parcl_ids = parcl_ids or [self.US_NATIONAL_ID]
 
-        try:
-            # Build kwargs dynamically to avoid passing None values
-            kwargs = {
-                "parcl_ids": parcl_ids,
-                "include_property_details": include_property_details,
-                "limit": limit,
-            }
+        # Build kwargs dynamically to avoid passing None values
+        kwargs = {
+            "parcl_ids": parcl_ids,
+            "include_property_details": include_property_details,
+            "limit": limit,
+        }
 
-            if entity_seller_name:
-                kwargs["entity_seller_name"] = entity_seller_name
-            if current_entity_owner_name:
-                kwargs["current_entity_owner_name"] = current_entity_owner_name
-            if current_on_market_flag is not None:
-                kwargs["current_on_market_flag"] = current_on_market_flag
-            if event_names:
-                kwargs["event_names"] = event_names
-            if min_event_date:
-                kwargs["min_event_date"] = min_event_date
-            if max_event_date:
-                kwargs["max_event_date"] = max_event_date
-            if include_full_event_history:
-                kwargs["include_full_event_history"] = include_full_event_history
-            if owner_name:
-                kwargs["owner_name"] = owner_name
+        if entity_seller_name:
+            kwargs["entity_seller_name"] = entity_seller_name
+        if current_entity_owner_name:
+            kwargs["current_entity_owner_name"] = current_entity_owner_name
+        if current_on_market_flag is not None:
+            kwargs["current_on_market_flag"] = current_on_market_flag
+        if event_names:
+            kwargs["event_names"] = event_names
+        if min_event_date:
+            kwargs["min_event_date"] = min_event_date
+        if max_event_date:
+            kwargs["max_event_date"] = max_event_date
+        if include_full_event_history:
+            kwargs["include_full_event_history"] = include_full_event_history
+        if owner_name:
+            kwargs["owner_name"] = owner_name
 
+        def make_request():
+            self._rate_limit()
             df = self.client.property_v2.search.retrieve(**kwargs)
             return df if df is not None else pd.DataFrame()
+
+        try:
+            return retry_with_backoff(
+                make_request,
+                self._retry_config,
+                on_retry=lambda attempt, e: logger.warning(
+                    f"Parcl API retry {attempt + 1}/{self._retry_config.max_retries + 1}: {e}"
+                )
+            )
         except Exception as e:
-            logger.error(f"Property search failed: {e}")
+            logger.error(f"Property search failed after retries: {e}")
             import traceback
             traceback.print_exc()
             return pd.DataFrame()

@@ -97,6 +97,18 @@ class DailyMetrics:
 class Database:
     """SQLite database for Glass House metrics."""
 
+    # Whitelist of valid metric column names (prevents SQL injection)
+    VALID_METRICS = frozenset([
+        "date", "new_cohort_win_rate", "new_cohort_count",
+        "mid_cohort_win_rate", "old_cohort_win_rate",
+        "toxic_cohort_win_rate", "toxic_cohort_count",
+        "toxic_remaining", "toxic_sold", "clearance_pct",
+        "overall_win_rate", "contribution_margin", "avg_profit",
+        "homes_sold_total", "homes_sold_today",
+        "revenue_total", "revenue_today",
+        "total_listings", "legacy_pct", "avg_dom",
+    ])
+
     def __init__(self, db_path: str = None):
         if db_path is None:
             db_path = Path(__file__).parent.parent.parent / "data" / "glasshouse.db"
@@ -371,11 +383,19 @@ class Database:
 
         metric_path examples: "new_cohort_win_rate", "toxic_remaining", etc.
         """
+        # Validate metric_path against whitelist to prevent SQL injection
+        if metric_path not in self.VALID_METRICS:
+            raise ValueError(
+                f"Invalid metric '{metric_path}'. "
+                f"Must be one of: {', '.join(sorted(self.VALID_METRICS))}"
+            )
+
         start_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
 
         conn = self._get_conn()
         cursor = conn.cursor()
 
+        # Safe to interpolate metric_path since it's validated against whitelist
         cursor.execute(f"""
             SELECT date, {metric_path} FROM daily_metrics
             WHERE date >= ?

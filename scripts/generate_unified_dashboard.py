@@ -25,12 +25,24 @@ try:
 except ImportError:
     pass
 
+# Add parent to path for local imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 # Claude API for narrative generation
 try:
     import anthropic
     HAS_ANTHROPIC = True
 except ImportError:
     HAS_ANTHROPIC = False
+
+# Unit Economics and Market P&L
+try:
+    from src.metrics.unit_economics import UnitEconomicsCalculator
+    from src.metrics.market_pnl import MarketPnLAnalyzer
+    from src.config import get_config
+    HAS_ANALYTICS = True
+except ImportError:
+    HAS_ANALYTICS = False
 
 def find_latest_file(directory: Path, pattern: str) -> Path:
     """Find the most recent file matching pattern."""
@@ -387,6 +399,99 @@ def main():
     this_week_narrative = generate_this_week_narrative(dashboard_data, dashboard_data_file)
     dashboard_data['this_week_narrative'] = this_week_narrative
 
+    # ==== UNIT ECONOMICS (True margins after all costs) ====
+    if HAS_ANALYTICS and len(q1_sales) > 0:
+        try:
+            print("Calculating true unit economics...")
+            calc = UnitEconomicsCalculator()
+            unit_econ = calc.analyze_sales(q1_sales, listings_data)
+
+            if unit_econ:
+                dashboard_data['unit_economics'] = {
+                    'total_sales': unit_econ.get('total_sales', 0),
+                    'gross_spread_total': round(unit_econ.get('gross_spread_total', 0)),
+                    'gross_spread_avg': round(unit_econ.get('gross_spread_avg', 0)),
+                    'total_costs': round(unit_econ.get('total_costs', 0)),
+                    'true_net_total': round(unit_econ.get('true_net_total', 0)),
+                    'true_net_avg': round(unit_econ.get('true_net_avg', 0)),
+                    'true_margin_avg': round(unit_econ.get('true_margin_avg', 0), 1),
+                    'profitable_count': unit_econ.get('profitable_count', 0),
+                    'profitable_pct': round(unit_econ.get('profitable_pct', 0), 1),
+                    'tier_breakdown': unit_econ.get('tier_breakdown', {}),
+                    'cost_breakdown': {
+                        'renovation_avg': round(unit_econ.get('cost_breakdown', {}).get('renovation_avg', 0)),
+                        'holding_avg': round(unit_econ.get('cost_breakdown', {}).get('holding_avg', 0)),
+                    },
+                    'reported_vs_true': {
+                        'hidden_costs_pct': round(
+                            (unit_econ.get('gross_spread_total', 0) - unit_econ.get('true_net_total', 0)) /
+                            unit_econ.get('gross_spread_total', 1) * 100, 1
+                        ) if unit_econ.get('gross_spread_total', 0) > 0 else 0,
+                    }
+                }
+                print(f"  True margin: {dashboard_data['unit_economics']['true_margin_avg']}% "
+                      f"(vs {dashboard_data['pnl']['win_rate']}% reported win rate)")
+        except Exception as e:
+            print(f"  Warning: Could not calculate unit economics: {e}")
+
+    # ==== MARKET P&L MATRIX ====
+    if HAS_ANALYTICS and listings_data is not None and len(q1_sales) > 0:
+        try:
+            print("Analyzing market-level P&L...")
+            analyzer = MarketPnLAnalyzer(q1_sales, listings_data)
+            market_summary = analyzer.get_summary()
+
+            if market_summary and market_summary.get('markets'):
+                dashboard_data['market_pnl'] = {
+                    'markets': market_summary['markets'][:12],  # Top 12 markets
+                    'actions': market_summary.get('actions', {}),
+                    'summary': {
+                        'grow_count': len(market_summary.get('actions', {}).get('grow', [])),
+                        'hold_count': len(market_summary.get('actions', {}).get('hold', [])),
+                        'pause_count': len(market_summary.get('actions', {}).get('pause', [])),
+                        'exit_count': len(market_summary.get('actions', {}).get('exit', [])),
+                    }
+                }
+                print(f"  Analyzed {len(market_summary['markets'])} markets")
+                print(f"  GROW: {dashboard_data['market_pnl']['summary']['grow_count']}, "
+                      f"PAUSE/EXIT: {dashboard_data['market_pnl']['summary']['pause_count'] + dashboard_data['market_pnl']['summary']['exit_count']}")
+        except Exception as e:
+            print(f"  Warning: Could not analyze market P&L: {e}")
+
+    # ==== SAVE OUTPUT ====
+    output_file = output_dir / "unified_dashboard_data.json"
+    with open(output_file, 'w') as f:
+        json.dump(dashboard_data, f, indent=2, default=str)
+
+    print(f"\nSaved: {output_file}")
+
+    # Print summary
+    print("\n" + "=" * 60)
+    print("  DASHBOARD DATA SUMMARY")
+    print("=" * 60)
+    print(f"\n  Q1 2026 ({dashboard_data['as_of']}):")
+    print(f"    Sales: {dashboard_data['velocity']['q1_sales']}")
+    print(f"    Revenue: ${dashboard_data['velocity']['q1_revenue']:,.0f}")
+    print(f"    Daily Avg: {dashboard_data['velocity']['daily_avg_sales']} sales/day")
+    print(f"    Win Rate: {dashboard_data['pnl']['win_rate']}%")
+    print(f"    Guidance Pacing: {dashboard_data['guidance']['pacing_pct']}%")
+
+    if 'unit_economics' in dashboard_data:
+        print(f"\n  True Unit Economics:")
+        print(f"    True Margin: {dashboard_data['unit_economics']['true_margin_avg']}%")
+        print(f"    Profitable: {dashboard_data['unit_economics']['profitable_pct']}%")
+        print(f"    Hidden Costs: {dashboard_data['unit_economics']['reported_vs_true']['hidden_costs_pct']}% of gross")
+
+    if 'market_pnl' in dashboard_data:
+        print(f"\n  Market Actions:")
+        print(f"    GROW: {dashboard_data['market_pnl']['summary']['grow_count']} markets")
+        print(f"    HOLD: {dashboard_data['market_pnl']['summary']['hold_count']} markets")
+        print(f"    PAUSE/EXIT: {dashboard_data['market_pnl']['summary']['pause_count'] + dashboard_data['market_pnl']['summary']['exit_count']} markets")
+
+    print("=" * 60 + "\n")
+
+    return 0
+
 
 def generate_this_week_narrative(dashboard_data, dashboard_data_file):
     """Generate 'This Week' narrative using Claude API or fallback to rules."""
@@ -538,27 +643,6 @@ def generate_narrative_rules(context):
         narrative['watching'].append(f"Kaz-era underwater at {context['kaz_era']['underwater']} homes")
 
     return narrative
-
-    # Save
-    output_file = output_dir / "unified_dashboard_data.json"
-    with open(output_file, 'w') as f:
-        json.dump(dashboard_data, f, indent=2, default=str)
-
-    print(f"\nSaved: {output_file}")
-
-    # Print summary
-    print("\n" + "=" * 60)
-    print("  DASHBOARD DATA SUMMARY")
-    print("=" * 60)
-    print(f"\n  Q1 2026 ({dashboard_data['as_of']}):")
-    print(f"    Sales: {dashboard_data['velocity']['q1_sales']}")
-    print(f"    Revenue: ${dashboard_data['velocity']['q1_revenue']:,.0f}")
-    print(f"    Daily Avg: {dashboard_data['velocity']['daily_avg_sales']} sales/day")
-    print(f"    Win Rate: {dashboard_data['pnl']['win_rate']}%")
-    print(f"    Guidance Pacing: {dashboard_data['guidance']['pacing_pct']}%")
-    print("=" * 60 + "\n")
-
-    return 0
 
 
 if __name__ == "__main__":

@@ -42,51 +42,155 @@ except ImportError:
     HAS_PLAYWRIGHT = False
     logger.warning("playwright not installed. Run: pip install playwright && playwright install chromium")
 
-# Market slugs
-OPENDOOR_MARKETS = {
-    "phoenix": "phoenix-az",
-    "dallas": "dallas-tx",
-    "houston": "houston-tx",
-    "austin": "austin-tx",
-    "san_antonio": "san-antonio-tx",
-    "atlanta": "atlanta-ga",
-    "charlotte": "charlotte-nc",
-    "raleigh": "raleigh-nc",
-    "tampa": "tampa-fl",
-    "orlando": "orlando-fl",
-    "jacksonville": "jacksonville-fl",
-    "denver": "denver-co",
-    "las_vegas": "las-vegas-nv",
-    "nashville": "nashville-tn",
-    "sacramento": "sacramento-ca",
-    "riverside": "riverside-ca",
-    "minneapolis": "minneapolis-mn",
-    "portland": "portland-or",
-    "salt_lake_city": "salt-lake-city-ut",
-    "tucson": "tucson-az",
+# City to state mapping for known Opendoor markets
+CITY_STATE_MAP = {
+    "phoenix": "az", "scottsdale": "az", "mesa": "az", "chandler": "az",
+    "gilbert": "az", "glendale": "az", "tucson": "az", "tempe": "az",
+    "dallas": "tx", "fort worth": "tx", "plano": "tx", "arlington": "tx",
+    "houston": "tx", "austin": "tx", "san antonio": "tx", "round rock": "tx",
+    "atlanta": "ga", "marietta": "ga", "alpharetta": "ga", "johns creek": "ga",
+    "charlotte": "nc", "raleigh": "nc", "durham": "nc", "cary": "nc",
+    "tampa": "fl", "orlando": "fl", "jacksonville": "fl", "st. petersburg": "fl",
+    "denver": "co", "aurora": "co", "lakewood": "co", "thornton": "co",
+    "las vegas": "nv", "henderson": "nv", "north las vegas": "nv",
+    "nashville": "tn", "murfreesboro": "tn", "franklin": "tn",
+    "sacramento": "ca", "riverside": "ca", "san bernardino": "ca",
+    "minneapolis": "mn", "st. paul": "mn", "bloomington": "mn",
+    "portland": "or", "beaverton": "or", "hillsboro": "or",
+    "salt lake city": "ut", "west jordan": "ut", "provo": "ut",
+    "indianapolis": "in", "carmel": "in", "fishers": "in",
+    "columbia": "sc", "greenville": "sc", "charleston": "sc",
+    "san diego": "ca", "los angeles": "ca",
 }
+
+# Fallback hardcoded markets (used if Singularity fails)
+FALLBACK_MARKETS = [
+    "phoenix-az", "dallas-tx", "houston-tx", "austin-tx", "san-antonio-tx",
+    "atlanta-ga", "charlotte-nc", "raleigh-nc", "tampa-fl", "orlando-fl",
+    "jacksonville-fl", "denver-co", "las-vegas-nv", "nashville-tn",
+    "sacramento-ca", "riverside-ca", "minneapolis-mn", "portland-or",
+    "salt-lake-city-ut", "tucson-az", "indianapolis-in",
+]
+
+
+def get_markets_from_singularity(min_listings: int = 5) -> List[str]:
+    """
+    Discover active markets from Singularity map data.
+    Returns list of market slugs (e.g., 'phoenix-az').
+    """
+    import requests
+
+    logger.info("Fetching markets from Singularity...")
+
+    try:
+        response = requests.get(
+            "https://singularityresearchfund.com/api/opendoor/map-data",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=30
+        )
+        response.raise_for_status()
+        data = response.json()
+
+        markets = []
+        for item in data:
+            city = item.get('city', '').lower().strip()
+            listing_count = item.get('listing_count', 0)
+
+            if listing_count < min_listings:
+                continue
+
+            # Find state for this city
+            state = CITY_STATE_MAP.get(city)
+            if not state:
+                # Try partial match
+                for known_city, known_state in CITY_STATE_MAP.items():
+                    if known_city in city or city in known_city:
+                        state = known_state
+                        break
+
+            if state:
+                slug = f"{city.replace(' ', '-')}-{state}"
+                if slug not in markets:
+                    markets.append(slug)
+                    logger.debug(f"  Found market: {slug} ({listing_count} listings)")
+
+        logger.info(f"Discovered {len(markets)} markets from Singularity")
+        return markets
+
+    except Exception as e:
+        logger.warning(f"Could not fetch Singularity markets: {e}")
+        logger.info("Using fallback market list")
+        return FALLBACK_MARKETS
 
 
 async def scrape_market(page: Page, market_slug: str) -> List[Dict]:
     """Scrape all listings from a single Opendoor market."""
-    url = f"https://www.opendoor.com/homes/{market_slug}"
+    # Try both URL formats - Opendoor sometimes redirects
+    urls_to_try = [
+        f"https://www.opendoor.com/homes/{market_slug}",
+        f"https://www.opendoor.com/homes?market={market_slug}",
+    ]
     listings = []
 
     try:
         logger.info(f"Scraping {market_slug}...")
-        await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-        await page.wait_for_timeout(2000)
 
-        # Wait for listings
-        try:
-            await page.wait_for_selector('a[href*="/properties/"]', timeout=30000)
-        except Exception:
-            logger.warning(f"  Timeout waiting for listings in {market_slug}")
+        # Try first URL
+        url = urls_to_try[0]
+        response = await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+        await page.wait_for_timeout(5000)  # Wait for JS to load content
 
-        # Scroll to load lazy content
-        await auto_scroll(page)
+        # Get the actual URL after any redirects
+        final_url = page.url
+        logger.debug(f"  Final URL: {final_url}")
 
-        # Extract via JavaScript
+        # Try multiple selectors for property cards
+        selectors = [
+            'a[href*="/properties/"]',
+            '[data-testid*="property"]',
+            '[class*="PropertyCard"]',
+            '[class*="listing"]',
+        ]
+
+        found_selector = None
+        for selector in selectors:
+            try:
+                await page.wait_for_selector(selector, timeout=10000)
+                found_selector = selector
+                logger.debug(f"  Found content with selector: {selector}")
+                break
+            except Exception:
+                continue
+
+        if not found_selector:
+            logger.warning(f"  No listings found with any selector in {market_slug}")
+            # Try to get the page title for debugging
+            title = await page.title()
+            logger.debug(f"  Page title: {title}")
+
+        # Get initial count before scrolling
+        initial_count = await page.evaluate("""
+            () => document.querySelectorAll('a[href*="/properties/"]').length
+        """)
+        logger.info(f"  Initial property links: {initial_count}")
+
+        # Check for total count displayed on page
+        total_text = await page.evaluate("""
+            () => {
+                const text = document.body.innerText;
+                const match = text.match(/(\\d+)\\s+homes?\\s+(?:for sale|available)/i);
+                return match ? match[1] : null;
+            }
+        """)
+        expected_count = int(total_text) if total_text else None
+        if expected_count:
+            logger.info(f"  Page shows: {expected_count} homes")
+
+        # Load all properties by clicking "Show more" repeatedly
+        final_count = await load_all_properties(page, max_clicks=30)
+        logger.info(f"  Loaded {final_count} unique properties")
+
+        # Extract all listings via JavaScript
         js_code = """
         () => {
             const results = [];
@@ -99,11 +203,12 @@ async def scrape_market(page: Page, market_slug: str) -> List[Dict]:
                 let card = link;
                 for (let i = 0; i < 10 && card; i++) {
                     const text = card.innerText || '';
-                    const priceMatch = text.match(/\\$(\\d{1,3}(?:,\\d{3})+)/);
+                    // Match price: $XXX,XXX format
+                    const priceMatch = text.match(/\\$(\\d{1,3}(?:,\\d{3})*)/);
                     if (priceMatch) {
-                        const bedMatch = text.match(/(\\d+)\\s*bds?/i);
-                        const bathMatch = text.match(/(\\d+(?:\\.\\d+)?)\\s*ba/i);
-                        const sqftMatch = text.match(/([\\d,]+)\\s*sqft/i);
+                        const bedMatch = text.match(/(\\d+)\\s*(?:bds?|beds?|br)/i);
+                        const bathMatch = text.match(/(\\d+(?:\\.\\d+)?)\\s*(?:ba|baths?)/i);
+                        const sqftMatch = text.match(/([\\d,]+)\\s*(?:sqft|sq\\s*ft)/i);
 
                         let address = null;
                         const addrMatch = href.match(/\\/properties\\/([^/?]+)/);
@@ -132,18 +237,23 @@ async def scrape_market(page: Page, market_slug: str) -> List[Dict]:
                 }
             });
 
-            // Dedupe by URL
+            // Dedupe by URL (strip query params)
             const seen = new Set();
             return results.filter(r => {
-                if (seen.has(r.url)) return false;
-                seen.add(r.url);
+                const cleanUrl = r.url.split('?')[0];
+                if (seen.has(cleanUrl)) return false;
+                seen.add(cleanUrl);
                 return true;
             });
         }
         """
 
         js_listings = await page.evaluate(js_code)
-        logger.info(f"  Found {len(js_listings)} listings in {market_slug}")
+        logger.info(f"  Extracted {len(js_listings)} listings")
+
+        # Warn if we didn't get expected count
+        if expected_count and len(js_listings) < expected_count * 0.9:
+            logger.warning(f"  Expected ~{expected_count} but only got {len(js_listings)}")
 
         # Parse city/state from market slug
         parts = market_slug.split('-')
@@ -164,23 +274,93 @@ async def scrape_market(page: Page, market_slug: str) -> List[Dict]:
     return listings
 
 
-async def auto_scroll(page: Page, max_scrolls: int = 20):
-    """Scroll to trigger lazy loading."""
-    prev_height = 0
-    for i in range(max_scrolls):
-        await page.evaluate("window.scrollBy(0, window.innerHeight)")
-        await page.wait_for_timeout(800)
+async def load_all_properties(page: Page, max_clicks: int = 20) -> int:
+    """
+    Load all properties by clicking 'Show more' button until no more available.
+    Uses JavaScript click to handle hidden button state.
+    Returns the count of unique property URLs found.
+    """
 
-        current_height = await page.evaluate("document.body.scrollHeight")
-        at_bottom = await page.evaluate(
-            "window.innerHeight + window.scrollY >= document.body.scrollHeight - 100"
-        )
-        if at_bottom and current_height == prev_height:
+    get_unique_count_js = """
+    () => {
+        const links = document.querySelectorAll('a[href*="/properties/"]');
+        const urls = new Set();
+        links.forEach(l => urls.add(l.getAttribute('href').split('?')[0]));
+        return urls.size;
+    }
+    """
+
+    prev_count = await page.evaluate(get_unique_count_js)
+    logger.info(f"    Initial unique properties: {prev_count}")
+
+    for click_num in range(max_clicks):
+        # Scroll to absolute bottom to reveal Show more button
+        for _ in range(5):
+            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            await page.wait_for_timeout(500)
+
+        # Use JavaScript to find and click the VISIBLE "Show more" button
+        # (There are multiple buttons, we need the one that's actually visible)
+        click_result = await page.evaluate("""
+        () => {
+            const buttons = document.querySelectorAll('button');
+            for (const btn of buttons) {
+                const text = (btn.innerText || '').toLowerCase().trim();
+                if (text === 'show more' || text === 'load more') {
+                    const style = window.getComputedStyle(btn);
+                    const rect = btn.getBoundingClientRect();
+                    // Check if actually visible (not hidden by CSS)
+                    if (style.visibility === 'visible' &&
+                        style.display !== 'none' &&
+                        rect.height > 0) {
+                        btn.click();
+                        return {clicked: true, position: rect.top};
+                    }
+                }
+            }
+            return {clicked: false};
+        }
+        """)
+
+        if click_result.get('clicked'):
+            logger.info(f"    Click {click_num + 1}: Clicked 'Show more' at position {click_result.get('position', 'unknown')}")
+            await page.wait_for_timeout(3000)  # Wait for content to load
+
+            # Check new count
+            current_count = await page.evaluate(get_unique_count_js)
+            logger.info(f"    Now have {current_count} unique properties")
+
+            if current_count == prev_count:
+                logger.info(f"    No new properties loaded, stopping")
+                break
+
+            prev_count = current_count
+        else:
+            logger.debug(f"    No clickable 'Show more' button found")
             break
-        prev_height = current_height
 
+    # Final scroll to top
     await page.evaluate("window.scrollTo(0, 0)")
     await page.wait_for_timeout(500)
+
+    final_count = await page.evaluate(get_unique_count_js)
+    return final_count
+
+
+async def auto_scroll(page: Page, max_scrolls: int = 10):
+    """
+    Simple scroll to trigger initial lazy loading.
+    Main loading is done via load_all_properties clicking 'Show more'.
+    """
+    for i in range(max_scrolls):
+        await page.evaluate("window.scrollBy(0, window.innerHeight)")
+        await page.wait_for_timeout(500)
+
+    await page.evaluate("window.scrollTo(0, 0)")
+    await page.wait_for_timeout(300)
+    return await page.evaluate("""
+        () => document.querySelectorAll('a[href*="/properties/"]').length
+    """)
 
 
 async def scrape_all_markets(markets: List[str], headless: bool = True) -> List[Dict]:
@@ -196,7 +376,15 @@ async def scrape_all_markets(markets: List[str], headless: bool = True) -> List[
         page = await context.new_page()
 
         for market in markets:
-            slug = OPENDOOR_MARKETS.get(market.lower().replace(' ', '_'), market)
+            # Market should already be a slug like 'phoenix-az'
+            # If it's just a city name, try to convert it
+            slug = market
+            if '-' not in market:
+                city = market.lower().replace('_', ' ')
+                state = CITY_STATE_MAP.get(city)
+                if state:
+                    slug = f"{city.replace(' ', '-')}-{state}"
+
             listings = await scrape_market(page, slug)
             all_listings.extend(listings)
             await page.wait_for_timeout(2000)  # Pause between markets
@@ -340,12 +528,23 @@ def main():
 
     # Determine markets
     if args.markets:
-        markets = [m.strip() for m in args.markets.split(',')]
-    elif args.all_markets:
-        markets = list(OPENDOOR_MARKETS.keys())
+        # User-specified markets (can be slugs or city names)
+        markets = []
+        for m in args.markets.split(','):
+            m = m.strip().lower()
+            # If it's already a slug (has hyphen), use as-is
+            if '-' in m:
+                markets.append(m)
+            else:
+                # Convert city name to slug
+                state = CITY_STATE_MAP.get(m.replace('-', ' '))
+                if state:
+                    markets.append(f"{m.replace(' ', '-')}-{state}")
+                else:
+                    markets.append(m)  # Use as-is, will likely fail
     else:
-        # Default: all markets
-        markets = list(OPENDOOR_MARKETS.keys())
+        # Default: discover markets from Singularity (primary source: MLS data)
+        markets = get_markets_from_singularity(min_listings=5)
 
     print(f"\n{'='*60}")
     print("  DAILY PROPERTY SNAPSHOT JOB")

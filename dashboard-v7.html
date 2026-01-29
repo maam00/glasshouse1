@@ -565,6 +565,11 @@
         .action-badge--pause { background: var(--yellow-dim); color: var(--yellow); }
         .action-badge--exit { background: var(--red-dim); color: var(--red); }
 
+        /* State badges (G/Y/R) */
+        .signal__badge--g { background: var(--green-dim); color: var(--green); }
+        .signal__badge--y { background: var(--yellow-dim); color: var(--yellow); }
+        .signal__badge--r { background: var(--red-dim); color: var(--red); }
+
         /* ============================================================
            PROGRESS BARS
            ============================================================ */
@@ -643,6 +648,107 @@
             font-size: 11px;
             color: var(--text-3);
             line-height: 1.6;
+        }
+
+        /* ============================================================
+           TAPE FEED
+           ============================================================ */
+        .tape-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tape-day {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .tape-day--empty {
+            opacity: 0.6;
+        }
+
+        .tape-day__header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tape-day__date {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-2);
+        }
+
+        .tape-day__badge {
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: var(--blue-dim);
+            color: var(--blue);
+            text-transform: uppercase;
+        }
+
+        .tape-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tape-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .tape-item__icon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .tape-item--high .tape-item__icon { color: var(--red); }
+        .tape-item--medium .tape-item__icon { color: var(--yellow); }
+        .tape-item--low .tape-item__icon { color: var(--text-3); }
+
+        .tape-item__content {
+            flex: 1;
+        }
+
+        .tape-item__headline {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .tape-item__detail {
+            font-size: 11px;
+            color: var(--text-3);
+        }
+
+        .tape-item__meta {
+            display: flex;
+            align-items: center;
+        }
+
+        .tape-item__type {
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: var(--surface);
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* ============================================================
@@ -911,6 +1017,94 @@
                     </div>
                 </div>
 
+            </div>
+
+            <!-- OPS Score Breakdown -->
+            <div class="section" style="margin-top: 24px;">
+                <div class="section__title">OPS Score Breakdown</div>
+                <div class="card">
+                    <table class="tbl" id="ops-breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Signal</th>
+                                <th>Value</th>
+                                <th>State</th>
+                                <th>Conf</th>
+                                <th>Weight</th>
+                                <th>Contribution</th>
+                                <th>Rationale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="name">Guidance Pace</td>
+                                <td>91.0%</td>
+                                <td><span class="signal__badge signal__badge--y">Y</span></td>
+                                <td><span class="signal__badge signal__badge--a">A</span></td>
+                                <td>0.243</td>
+                                <td class="yellow">14.8</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Slightly behind at 91% of target</td>
+                            </tr>
+                            <tr>
+                                <td class="name">Kaz Economics</td>
+                                <td>95.3%</td>
+                                <td><span class="signal__badge signal__badge--g">G</span></td>
+                                <td><span class="signal__badge signal__badge--b">B</span></td>
+                                <td>0.127</td>
+                                <td class="green">12.1</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Exceptional: 45/47 profitable (95.7%)</td>
+                            </tr>
+                            <tr>
+                                <td class="name">Legacy Burndown</td>
+                                <td>87.1%</td>
+                                <td><span class="signal__badge signal__badge--g">G</span></td>
+                                <td><span class="signal__badge signal__badge--a">A</span></td>
+                                <td>0.150</td>
+                                <td class="green">13.1</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Only 12.9% legacy inventory remains</td>
+                            </tr>
+                            <tr>
+                                <td class="name">Inventory Aging</td>
+                                <td>68 DOM</td>
+                                <td><span class="signal__badge signal__badge--y">Y</span></td>
+                                <td><span class="signal__badge signal__badge--b">B</span></td>
+                                <td>0.098</td>
+                                <td class="yellow">6.8</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Healthy aging at 68 avg DOM</td>
+                            </tr>
+                            <tr>
+                                <td class="name">Pricecut Stress</td>
+                                <td>34.2%</td>
+                                <td><span class="signal__badge signal__badge--y">Y</span></td>
+                                <td><span class="signal__badge signal__badge--a">A</span></td>
+                                <td>0.150</td>
+                                <td class="yellow">6.4</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Moderate stress: 34.2% with heavy cuts</td>
+                            </tr>
+                            <tr>
+                                <td class="name">Underwater Exposure</td>
+                                <td>23.5%</td>
+                                <td><span class="signal__badge signal__badge--y">Y</span></td>
+                                <td><span class="signal__badge signal__badge--b">B</span></td>
+                                <td>0.065</td>
+                                <td class="yellow">3.4</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Moderate exposure: 200 homes underwater</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="border-top: 2px solid var(--border);">
+                                <td colspan="4" style="font-weight: 600;">TOTAL OPS SCORE</td>
+                                <td style="font-weight: 600;">0.833</td>
+                                <td style="font-weight: 700; font-size: 14px;" class="yellow">56.6</td>
+                                <td style="font-family: Inter; font-size: 11px; color: var(--text-2);">Grade: C+ (2G/4Y/0R)</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="signal__footer" style="margin-top: 12px;">
+                        <div class="signal__source">Formula: OPS = Σ(base_weight × conf_mult × √coverage × normalized_value)</div>
+                        <div class="signal__coverage">Conf multipliers: A=1.0, B=0.65, C=0.30</div>
+                    </div>
+                </div>
             </div>
 
             <!-- This Week Changes -->
@@ -1301,81 +1495,116 @@
         </div>
 
         <!-- ============================================================
-             TAPE MODE
+             TAPE MODE - Intel Feed (Last 7 Days)
              ============================================================ -->
         <div class="mode" id="mode-tape">
 
             <div class="section">
-                <div class="section__title">Q1 Guidance Tracking</div>
-                <div class="card">
-                    <div class="card__header">
-                        <div class="card__title">Revenue vs $1B Target</div>
-                        <span class="card__badge signal__badge--a">A</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress__labels">
-                            <span>$124.7M revenue</span>
-                            <span>21.0% of target</span>
+                <div class="section__title">Intel Tape</div>
+                <p style="color: var(--text-3); font-size: 12px; margin-bottom: 16px;">
+                    Material updates from SEC filings, job postings, and market signals. Max 3 items per day.
+                </p>
+
+                <div class="tape-feed" id="tape-feed">
+                    <!-- Day 1 -->
+                    <div class="tape-day">
+                        <div class="tape-day__header">
+                            <span class="tape-day__date">Jan 29, 2026</span>
+                            <span class="tape-day__badge">Today</span>
                         </div>
-                        <div class="progress__bar">
-                            <div class="progress__fill" style="width: 21%; background: var(--yellow);"></div>
-                        </div>
-                    </div>
-                    <div class="grid-2" style="margin-top: 16px;">
-                        <div>
-                            <div class="stat-row">
-                                <span class="stat-row__label">Days Elapsed</span>
-                                <span class="stat-row__value">29</span>
+                        <div class="tape-item tape-item--high">
+                            <div class="tape-item__icon">!!!</div>
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline">SEC 8-K: Results of Operations and Financial Condition</div>
+                                <div class="tape-item__detail">Filed Jan 29. Item 2.02: Q4 preliminary results announced</div>
                             </div>
-                            <div class="stat-row">
-                                <span class="stat-row__label">Days Remaining</span>
-                                <span class="stat-row__value">61</span>
+                            <div class="tape-item__meta">
+                                <span class="tape-item__type">FILING</span>
                             </div>
                         </div>
-                        <div>
-                            <div class="stat-row">
-                                <span class="stat-row__label">Daily Required</span>
-                                <span class="stat-row__value">$11.1M</span>
+                        <div class="tape-item tape-item--medium">
+                            <div class="tape-item__icon">!!</div>
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline">Opendoor posted 3 AI/Platform roles</div>
+                                <div class="tape-item__detail">New postings: Sr. ML Engineer, Staff Data Scientist, Platform Arch</div>
                             </div>
-                            <div class="stat-row">
-                                <span class="stat-row__label">Daily Actual (7D)</span>
-                                <span class="stat-row__value yellow">$4.6M</span>
+                            <div class="tape-item__meta">
+                                <span class="tape-item__type">JOBS</span>
                             </div>
                         </div>
                     </div>
-                    <div class="signal__footer" style="margin-top: 12px;">
-                        <div class="signal__source">Source: Singularity (real-time sales)</div>
-                        <div class="signal__coverage">Coverage: 100%</div>
+
+                    <!-- Day 2 -->
+                    <div class="tape-day">
+                        <div class="tape-day__header">
+                            <span class="tape-day__date">Jan 28, 2026</span>
+                        </div>
+                        <div class="tape-item tape-item--medium">
+                            <div class="tape-item__icon">!!</div>
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline">Opendoor posted 2 Pricing/Risk roles</div>
+                                <div class="tape-item__detail">New postings: Pricing Analyst, Risk Modeler</div>
+                            </div>
+                            <div class="tape-item__meta">
+                                <span class="tape-item__type">JOBS</span>
+                            </div>
+                        </div>
+                        <div class="tape-item tape-item--low">
+                            <div class="tape-item__icon">!</div>
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline">SEC Form 4: Insider transaction</div>
+                                <div class="tape-item__detail">CFO sold 15,000 shares at $2.47</div>
+                            </div>
+                            <div class="tape-item__meta">
+                                <span class="tape-item__type">FILING</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 3 -->
+                    <div class="tape-day">
+                        <div class="tape-day__header">
+                            <span class="tape-day__date">Jan 27, 2026</span>
+                        </div>
+                        <div class="tape-item tape-item--low">
+                            <div class="tape-item__icon">!</div>
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline">Opendoor removed 5 job postings net</div>
+                                <div class="tape-item__detail">Total open positions: 142</div>
+                            </div>
+                            <div class="tape-item__meta">
+                                <span class="tape-item__type">JOBS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No updates days -->
+                    <div class="tape-day tape-day--empty">
+                        <div class="tape-day__header">
+                            <span class="tape-day__date">Jan 26, 2026</span>
+                        </div>
+                        <div class="tape-item tape-item--none">
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline" style="color: var(--text-3);">No material updates</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tape-day tape-day--empty">
+                        <div class="tape-day__header">
+                            <span class="tape-day__date">Jan 25, 2026</span>
+                        </div>
+                        <div class="tape-item tape-item--none">
+                            <div class="tape-item__content">
+                                <div class="tape-item__headline" style="color: var(--text-3);">No material updates</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="section">
-                <div class="section__title">Daily Revenue</div>
-                <div class="chart-container">
-                    <div class="chart-container__header">
-                        <div class="chart-container__title">Q1 2026 Daily Revenue vs Target</div>
-                        <span class="signal__badge signal__badge--a">A</span>
-                    </div>
-                    <div class="chart" id="revenue-chart"></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section__title">Trend Indicators</div>
-                <div class="grid-2">
-                    <div class="chart-container">
-                        <div class="chart-container__header">
-                            <div class="chart-container__title">Toxic Remaining (Weekly)</div>
-                        </div>
-                        <div class="chart" id="toxic-chart"></div>
-                    </div>
-                    <div class="chart-container">
-                        <div class="chart-container__header">
-                            <div class="chart-container__title">Win Rate (Rolling 7D)</div>
-                        </div>
-                        <div class="chart" id="winrate-chart"></div>
-                    </div>
+                <div class="signal__footer" style="margin-top: 16px;">
+                    <div class="signal__source">Sources: SEC EDGAR, Greenhouse API</div>
+                    <div class="signal__coverage">Last 7 days only</div>
                 </div>
             </div>
 

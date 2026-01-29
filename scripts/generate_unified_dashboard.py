@@ -459,36 +459,127 @@ def main():
         except Exception as e:
             print(f"  Warning: Could not analyze market P&L: {e}")
 
-    # ==== PENDING FUNNEL DATA ====
-    if HAS_ANALYTICS:
-        try:
-            # Look for latest pending data
-            pending_file = find_latest_file(output_dir, "pending_*.json")
-            if pending_file:
-                print("Loading pending funnel data...")
-                with open(pending_file) as f:
-                    pending_data = json.load(f)
+    # ==== SALES FUNNEL DATA ====
+    # Combines: Opendoor direct inventory + MLS pending/sold data
+    try:
+        print("Loading sales funnel data...")
 
+        # Load Opendoor direct inventory (active listings)
+        opendoor_inventory_file = find_latest_file(output_dir, "opendoor_listings_*.csv")
+        opendoor_inventory = None
+        if opendoor_inventory_file:
+            opendoor_inventory = pd.read_csv(opendoor_inventory_file)
+            print(f"  Loaded {len(opendoor_inventory)} active Opendoor listings")
+
+        # Load pending/sold listings (from MLS scraper)
+        pending_csv_file = find_latest_file(output_dir, "pending_listings_*.csv")
+        pending_listings = None
+        if pending_csv_file:
+            pending_listings = pd.read_csv(pending_csv_file)
+            print(f"  Loaded {len(pending_listings)} pending/sold Opendoor listings")
+
+        # Load pending JSON for metrics
+        pending_json_file = find_latest_file(output_dir, "pending_*.json")
+        pending_metrics = {}
+        if pending_json_file:
+            with open(pending_json_file) as f:
+                pending_data = json.load(f)
                 pending_metrics = pending_data.get('metrics', {})
-                if pending_metrics:
-                    dashboard_data['pending_funnel'] = {
-                        'total_pending': pending_metrics.get('total_pending', 0),
-                        'kaz_era_pending': pending_metrics.get('kaz_era_pending', 0),
-                        'legacy_pending': pending_metrics.get('legacy_pending', 0),
-                        'avg_dom_at_pending': pending_metrics.get('avg_dom_at_pending', 0),
-                        'cohort_breakdown': pending_metrics.get('cohort_breakdown', {}),
-                        'toxic_pending_count': pending_metrics.get('toxic_pending_count', 0),
-                        'toxic_pending_pct': pending_metrics.get('toxic_pending_pct', 0),
-                        'by_state': pending_metrics.get('by_state', {}),
-                        'funnel_changes': pending_metrics.get('funnel_changes', {}),
-                        'scraped_at': pending_data.get('scraped_at', ''),
-                    }
 
-                    print(f"  Total Pending: {dashboard_data['pending_funnel']['total_pending']}")
-                    print(f"  Toxic Pending: {dashboard_data['pending_funnel']['toxic_pending_count']} "
-                          f"({dashboard_data['pending_funnel']['toxic_pending_pct']}%)")
-        except Exception as e:
-            print(f"  Warning: Could not load pending data: {e}")
+        # Build comprehensive sales funnel data
+        sales_funnel = {
+            'scraped_at': pending_data.get('scraped_at', '') if pending_json_file else datetime.now().isoformat(),
+        }
+
+        # Active inventory stats
+        if opendoor_inventory is not None and len(opendoor_inventory) > 0:
+            sales_funnel['active_inventory'] = {
+                'total': len(opendoor_inventory),
+                'total_value': int(opendoor_inventory['price'].sum()) if 'price' in opendoor_inventory.columns else 0,
+                'avg_price': int(opendoor_inventory['price'].mean()) if 'price' in opendoor_inventory.columns else 0,
+                'by_market': opendoor_inventory['market'].value_counts().head(10).to_dict() if 'market' in opendoor_inventory.columns else {},
+            }
+
+        # Sales/pending stats
+        if pending_listings is not None and len(pending_listings) > 0:
+            sales_funnel['recent_sales'] = {
+                'total': len(pending_listings),
+                'total_value': int(pending_listings['list_price'].sum()) if 'list_price' in pending_listings.columns else 0,
+                'avg_price': int(pending_listings['list_price'].mean()) if 'list_price' in pending_listings.columns else 0,
+                'by_market': pending_listings['search_market'].value_counts().to_dict() if 'search_market' in pending_listings.columns else {},
+                'by_agent': pending_listings['agent_name'].value_counts().to_dict() if 'agent_name' in pending_listings.columns else {},
+            }
+
+            # Calculate days-to-pending for each sale
+            if 'list_date' in pending_listings.columns and 'pending_date' in pending_listings.columns:
+                pending_listings['list_date_dt'] = pd.to_datetime(pending_listings['list_date'], errors='coerce')
+                pending_listings['pending_date_dt'] = pd.to_datetime(pending_listings['pending_date'], errors='coerce')
+                pending_listings['days_to_pending'] = (pending_listings['pending_date_dt'] - pending_listings['list_date_dt']).dt.days
+
+                valid_days = pending_listings['days_to_pending'].dropna()
+                if len(valid_days) > 0:
+                    sales_funnel['recent_sales']['avg_days_to_pending'] = int(valid_days.mean())
+                    sales_funnel['recent_sales']['min_days_to_pending'] = int(valid_days.min())
+                    sales_funnel['recent_sales']['max_days_to_pending'] = int(valid_days.max())
+
+                    # Cohort breakdown by days to pending
+                    def categorize_dom(days):
+                        if pd.isna(days):
+                            return 'unknown'
+                        if days < 30:
+                            return 'fast (<30d)'
+                        elif days < 90:
+                            return 'normal (30-90d)'
+                        elif days < 180:
+                            return 'slow (90-180d)'
+                        else:
+                            return 'stale (>180d)'
+
+                    pending_listings['speed_cohort'] = pending_listings['days_to_pending'].apply(categorize_dom)
+                    sales_funnel['recent_sales']['by_speed'] = pending_listings['speed_cohort'].value_counts().to_dict()
+
+            # Top sales (highest prices)
+            if 'list_price' in pending_listings.columns:
+                top_sales = pending_listings.nlargest(5, 'list_price')[['scraped_address', 'city', 'state', 'list_price', 'search_market']].to_dict('records')
+                sales_funnel['recent_sales']['top_sales'] = top_sales
+
+        # Calculate turnover metrics
+        if sales_funnel.get('active_inventory') and sales_funnel.get('recent_sales'):
+            active = sales_funnel['active_inventory']['total']
+            sold = sales_funnel['recent_sales']['total']
+            sales_funnel['turnover'] = {
+                'sold_90d': sold,
+                'active_inventory': active,
+                'turnover_rate_90d': round(sold / active * 100, 1) if active > 0 else 0,
+                'monthly_velocity': round(sold / 3, 1),  # 90 days = 3 months
+                'months_of_inventory': round(active / (sold / 3), 1) if sold > 0 else 0,
+            }
+
+        # Include original pending metrics
+        if pending_metrics:
+            sales_funnel['funnel_metrics'] = {
+                'total_pending': pending_metrics.get('total_pending', 0),
+                'kaz_era_pending': pending_metrics.get('kaz_era_pending', 0),
+                'legacy_pending': pending_metrics.get('legacy_pending', 0),
+                'toxic_pending_count': pending_metrics.get('toxic_pending_count', 0),
+                'toxic_pending_pct': pending_metrics.get('toxic_pending_pct', 0),
+                'cohort_breakdown': pending_metrics.get('cohort_breakdown', {}),
+                'funnel_changes': pending_metrics.get('funnel_changes', {}),
+            }
+
+        dashboard_data['sales_funnel'] = sales_funnel
+
+        # Print summary
+        if 'turnover' in sales_funnel:
+            t = sales_funnel['turnover']
+            print(f"  Turnover: {t['sold_90d']} sold / {t['active_inventory']} active = {t['turnover_rate_90d']}%")
+            print(f"  Monthly velocity: {t['monthly_velocity']} sales/month")
+            print(f"  Months of inventory: {t['months_of_inventory']}")
+
+    except Exception as e:
+        print(f"  Warning: Could not load sales funnel data: {e}")
+        import traceback
+        traceback.print_exc()
 
     # ==== SAVE OUTPUT ====
     output_file = output_dir / "unified_dashboard_data.json"
@@ -520,14 +611,21 @@ def main():
         print(f"    HOLD: {dashboard_data['market_pnl']['summary']['hold_count']} markets")
         print(f"    PAUSE/EXIT: {dashboard_data['market_pnl']['summary']['pause_count'] + dashboard_data['market_pnl']['summary']['exit_count']} markets")
 
-    if 'pending_funnel' in dashboard_data:
-        pf = dashboard_data['pending_funnel']
-        print(f"\n  Pending Funnel:")
-        print(f"    Total Pending: {pf['total_pending']}")
-        print(f"    Kaz-Era: {pf['kaz_era_pending']} | Legacy: {pf['legacy_pending']}")
-        cohorts = pf.get('cohort_breakdown', {})
-        if cohorts:
-            print(f"    Toxic Pending: {cohorts.get('toxic', 0)} ({pf['toxic_pending_pct']}%)")
+    if 'sales_funnel' in dashboard_data:
+        sf = dashboard_data['sales_funnel']
+        print(f"\n  Sales Funnel:")
+        if 'active_inventory' in sf:
+            ai = sf['active_inventory']
+            print(f"    Active Inventory: {ai['total']} listings (${ai['total_value']/1e6:.1f}M)")
+        if 'recent_sales' in sf:
+            rs = sf['recent_sales']
+            print(f"    Recent Sales (90d): {rs['total']} (${rs['total_value']/1e6:.1f}M)")
+            if 'avg_days_to_pending' in rs:
+                print(f"    Avg Days to Pending: {rs['avg_days_to_pending']} days")
+        if 'turnover' in sf:
+            t = sf['turnover']
+            print(f"    Turnover Rate: {t['turnover_rate_90d']}% (90d)")
+            print(f"    Months of Inventory: {t['months_of_inventory']}")
 
     print("=" * 60 + "\n")
 

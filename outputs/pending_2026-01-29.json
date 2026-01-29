@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-01-29T13:15:53.482159",
+  "scraped_at": "2026-01-29T13:45:55.533587",
   "markets_scraped": [
     "Austin, TX",
     "Dallas, TX",
@@ -27,7 +27,7 @@
   ],
   "metrics": {
     "total_pending": 42,
-    "scraped_at": "2026-01-29T13:15:53.454701",
+    "scraped_at": "2026-01-29T13:45:55.517092",
     "avg_pending_price": 374286,
     "total_pending_value": 15720000,
     "by_state": {
@@ -52,10 +52,10 @@
       "Atlanta, GA": 2
     },
     "funnel_changes": {
-      "new_pending": 38,
+      "new_pending": 0,
       "converted_to_sold": 0,
       "fell_through": 0,
-      "still_pending": 4
+      "still_pending": 42
     }
   },
   "listings": [
@@ -522,27 +522,6 @@
       "search_market": "Jacksonville, FL"
     },
     {
-      "scraped_address": "5933 Copper Lake Dr",
-      "city": "Jacksonville",
-      "state": "FL",
-      "status": "SOLD",
-      "list_price": 278000,
-      "list_date": "2025-03-27 14:58:25",
-      "pending_date": "2025-12-12 23:42:28",
-      "beds": 3,
-      "baths": 2,
-      "sqft": 1788,
-      "year_built": 1992,
-      "latitude": 30.432809,
-      "longitude": -81.744647,
-      "property_url": "https://www.realtor.com/realestateandhomes-detail/5933-Copper-Lake-Dr_Jacksonville_FL_32218_M64840-41970",
-      "mls_id": "2077986",
-      "agent_name": "Karen Albright",
-      "broker_name": null,
-      "match_method": "agent",
-      "search_market": "Jacksonville, FL"
-    },
-    {
       "scraped_address": "4240 Oriely Dr",
       "city": "Jacksonville",
       "state": "FL",
@@ -558,6 +537,27 @@
       "longitude": -81.7596,
       "property_url": "https://www.realtor.com/realestateandhomes-detail/4240-Oriely-Dr_Jacksonville_FL_32210_M58978-85961",
       "mls_id": "2119803",
+      "agent_name": "Karen Albright",
+      "broker_name": null,
+      "match_method": "agent",
+      "search_market": "Jacksonville, FL"
+    },
+    {
+      "scraped_address": "5933 Copper Lake Dr",
+      "city": "Jacksonville",
+      "state": "FL",
+      "status": "SOLD",
+      "list_price": 278000,
+      "list_date": "2025-03-27 14:58:25",
+      "pending_date": "2025-12-12 23:42:28",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1788,
+      "year_built": 1992,
+      "latitude": 30.432809,
+      "longitude": -81.744647,
+      "property_url": "https://www.realtor.com/realestateandhomes-detail/5933-Copper-Lake-Dr_Jacksonville_FL_32218_M64840-41970",
+      "mls_id": "2077986",
       "agent_name": "Karen Albright",
       "broker_name": null,
       "match_method": "agent",

@@ -1,73 +1,40 @@
 #!/bin/bash
-# =============================================================================
-# Glass House - Daily Data Refresh
-# =============================================================================
-# Run this daily via cron to keep dashboard updated
-#
-# Cron example (run at 6 PM daily):
-#   0 18 * * * /Users/mabramsky/glasshouse/scripts/daily_refresh.sh
-#
-# =============================================================================
+# Daily GlassHouse Data Refresh
+# Runs: scraper, data import, tape generator, dashboard data
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-LOG_FILE="$PROJECT_DIR/logs/refresh_$(date +%Y%m%d).log"
-
-# Create logs directory
-mkdir -p "$PROJECT_DIR/logs"
-
-echo "========================================" >> "$LOG_FILE"
-echo "Glass House Refresh: $(date)" >> "$LOG_FILE"
-echo "========================================" >> "$LOG_FILE"
+LOG_FILE="$PROJECT_DIR/outputs/daily_refresh.log"
 
 cd "$PROJECT_DIR"
+
+echo "========================================" >> "$LOG_FILE"
+echo "Daily Refresh: $(date)" >> "$LOG_FILE"
+echo "========================================" >> "$LOG_FILE"
 
 # Activate virtual environment
 source venv/bin/activate
 
-# Load environment variables (for API keys)
-if [ -f .env ]; then
-    export $(grep -v '^#' .env | xargs)
-fi
+# 1. Run daily snapshot scraper (Opendoor listings)
+echo "[1/4] Running daily snapshot scraper..." >> "$LOG_FILE"
+python3 scripts/daily_snapshot.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Scraper had issues" >> "$LOG_FILE"
 
-# Step 1: Scrape Singularity (FREE - always runs)
-echo "[1/7] Scraping Singularity..." >> "$LOG_FILE"
-python scripts/scrape_singularity.py >> "$LOG_FILE" 2>&1
+# 2. Import any new CSV data from Desktop
+echo "[2/4] Importing historical data..." >> "$LOG_FILE"
+python3 scripts/import_historical_data.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Import had issues" >> "$LOG_FILE"
 
-# Step 2: Scrape Accountability (Acquisition contracts + products)
-echo "[2/7] Scraping Accountability page..." >> "$LOG_FILE"
-python scripts/scrape_accountability.py >> "$LOG_FILE" 2>&1
+# 3. Generate intel tape (jobs + filings)
+echo "[3/4] Generating intel tape..." >> "$LOG_FILE"
+python3 -m src.tape.tape_generator >> "$LOG_FILE" 2>&1 || echo "  Warning: Tape generator had issues" >> "$LOG_FILE"
 
-# Step 3: Scrape Careers (Greenhouse API)
-echo "[3/7] Scraping Careers data..." >> "$LOG_FILE"
-python scripts/scrape_careers.py >> "$LOG_FILE" 2>&1
+# 4. Generate dashboard data
+echo "[4/4] Generating dashboard data..." >> "$LOG_FILE"
+python3 scripts/generate_dashboard_data.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Dashboard data had issues" >> "$LOG_FILE"
 
-# Step 4: Merge datasets (uses latest Parcl CSV if available)
-echo "[4/7] Merging datasets..." >> "$LOG_FILE"
-python scripts/merge_datasets.py >> "$LOG_FILE" 2>&1
-
-# Step 5: Generate dashboard data
-echo "[5/7] Generating dashboard data..." >> "$LOG_FILE"
-python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1
-
-# Step 6: Generate AI insights
-echo "[6/8] Generating AI insights..." >> "$LOG_FILE"
-python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1
-
-# Step 7: Generate Problem Homes analysis
-echo "[7/8] Generating Problem Homes analysis..." >> "$LOG_FILE"
-python scripts/generate_problem_homes.py >> "$LOG_FILE" 2>&1
-
-# Step 8: Push to GitHub Pages
-echo "[8/8] Deploying to GitHub Pages..." >> "$LOG_FILE"
-git add outputs/unified_dashboard_data.json outputs/accountability_*.json outputs/careers_*.json outputs/problem_homes_*.json >> "$LOG_FILE" 2>&1
-git commit -m "Daily data refresh $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1 || true
-git push origin master >> "$LOG_FILE" 2>&1
-
+echo "Completed: $(date)" >> "$LOG_FILE"
 echo "" >> "$LOG_FILE"
-echo "Refresh complete: $(date)" >> "$LOG_FILE"
-echo "========================================" >> "$LOG_FILE"
 
-echo "Done! Dashboard data refreshed."
+# Print summary
+tail -20 "$LOG_FILE"

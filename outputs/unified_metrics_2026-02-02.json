@@ -1,0 +1,94 @@
+{
+  "q1_2026": {
+    "period": {
+      "start": "2026-01-01",
+      "end": "2026-02-01",
+      "days": 32
+    },
+    "sales": {
+      "total": 903,
+      "from_singularity": "702",
+      "from_parcl": "437",
+      "matched": "236",
+      "singularity_only": "466",
+      "parcl_only": "201"
+    },
+    "revenue": {
+      "total": 350740999.0,
+      "daily_avg": 8509062.499999998,
+      "avg_sale_price": 388848.11419068737
+    },
+    "velocity": {
+      "total_sales": 903,
+      "daily_avg": 21.9375,
+      "best_day": "2026-01-27",
+      "best_day_count": 41
+    },
+    "pnl": {
+      "coverage_pct": 41.74972314507198,
+      "total_realized": 11324484.0,
+      "win_rate": 76.92307692307693,
+      "avg_profit": 47084.38965517242,
+      "avg_loss": -26781.48275862069,
+      "wins": 290,
+      "losses": 87
+    },
+    "property_details": {
+      "coverage_pct": 77.74086378737542,
+      "avg_beds": 3.3603988603988606,
+      "avg_baths": 2.3447293447293447,
+      "avg_sqft": 1966.2207977207977
+    },
+    "data_quality": {
+      "singularity_pct": 77.74086378737542,
+      "parcl_pct": 48.39424141749723,
+      "full_data_pct": 26.135105204872644
+    }
+  },
+  "all_time": {
+    "period": {
+      "start": "2025-08-25",
+      "end": "2026-02-01",
+      "days": 154
+    },
+    "sales": {
+      "total": 3256,
+      "from_singularity": "3055",
+      "from_parcl": "437",
+      "matched": "236",
+      "singularity_only": "2819",
+      "parcl_only": "201"
+    },
+    "revenue": {
+      "total": 1265631899.0,
+      "daily_avg": 7268116.883116882,
+      "avg_sale_price": 388827.00430107524
+    },
+    "velocity": {
+      "total_sales": 3256,
+      "daily_avg": 18.714285714285715,
+      "best_day": "2025-09-10",
+      "best_day_count": 58
+    },
+    "pnl": {
+      "coverage_pct": 11.578624078624077,
+      "total_realized": 11324484.0,
+      "win_rate": 76.92307692307693,
+      "avg_profit": 47084.38965517242,
+      "avg_loss": -26781.48275862069,
+      "wins": 290,
+      "losses": 87
+    },
+    "property_details": {
+      "coverage_pct": 93.82678132678133,
+      "avg_beds": 3.3037643207855973,
+      "avg_baths": 2.327495908346972,
+      "avg_sqft": 1912.1397708674303
+    },
+    "data_quality": {
+      "singularity_pct": 93.82678132678133,
+      "parcl_pct": 13.421375921375923,
+      "full_data_pct": 7.2481572481572485
+    }
+  }
+}

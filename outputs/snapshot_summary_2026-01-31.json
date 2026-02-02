@@ -1,0 +1,63 @@
+{
+  "scraped_at": "2026-01-31T12:58:59.185594",
+  "markets": [
+    "phoenix-az",
+    "charlotte-nc",
+    "tucson-az",
+    "raleigh-nc",
+    "columbia-sc",
+    "durham-nc",
+    "indianapolis-in",
+    "aurora-co",
+    "san-antonio-tx",
+    "dallas-tx",
+    "houston-tx",
+    "las-vegas-nv",
+    "atlanta-ga",
+    "jacksonville-fl",
+    "orlando-fl",
+    "denver-co",
+    "fort-worth-tx",
+    "marietta-ga",
+    "san-diego-ca",
+    "mesa-az",
+    "plano-tx",
+    "sacramento-ca",
+    "tampa-fl"
+  ],
+  "stats": {
+    "total_scraped": 1870,
+    "new_properties": 63,
+    "updated_properties": 1807,
+    "status_transitions": [],
+    "price_cuts": 0,
+    "by_market": {
+      "phoenix-az": 90,
+      "tucson-az": 89,
+      "raleigh-nc": 89,
+      "durham-nc": 89,
+      "indianapolis-in": 89,
+      "aurora-co": 89,
+      "san-antonio-tx": 89,
+      "dallas-tx": 89,
+      "houston-tx": 89,
+      "las-vegas-nv": 89,
+      "atlanta-ga": 89,
+      "jacksonville-fl": 89,
+      "orlando-fl": 89,
+      "denver-co": 89,
+      "fort-worth-tx": 89,
+      "marietta-ga": 89,
+      "san-diego-ca": 89,
+      "mesa-az": 89,
+      "plano-tx": 89,
+      "sacramento-ca": 89,
+      "tampa-fl": 89
+    },
+    "by_status": {
+      "FOR_SALE": 1870
+    }
+  },
+  "transitions": [],
+  "missing_count": 238
+}

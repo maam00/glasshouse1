@@ -8,7 +8,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/mabramsky/glasshouse/scripts/daily_run.sh</string>
+        <string>/Users/mabramsky/glasshouse1/scripts/daily_run.sh</string>
     </array>
 
     <!-- Run daily at 12:00 PM (noon) - after manual Parcl data drop at 9am -->
@@ -21,13 +21,13 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/Users/mabramsky/glasshouse/logs/launchd_daily.log</string>
+    <string>/Users/mabramsky/glasshouse1/logs/launchd_daily.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/mabramsky/glasshouse/logs/launchd_daily_error.log</string>
+    <string>/Users/mabramsky/glasshouse1/logs/launchd_daily_error.log</string>
 
     <key>WorkingDirectory</key>
-    <string>/Users/mabramsky/glasshouse</string>
+    <string>/Users/mabramsky/glasshouse1</string>
 
     <!-- Run missed jobs when waking from sleep -->
     <key>StartInterval</key>

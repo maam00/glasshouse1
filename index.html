@@ -2287,12 +2287,26 @@ async function fetchStockPrice() {
     }
 }
 
+// Helper to try fetching from multiple dates (today, then up to 7 days back)
+async function fetchWithDateFallback(prefix, suffix = '.json') {
+    const today = new Date();
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        try {
+            const r = await fetch(`outputs/${prefix}${dateStr}${suffix}`);
+            if (r.ok) return await r.json();
+        } catch (e) { /* try next date */ }
+    }
+    return null;
+}
+
 // Load and display acquisition data
 async function loadAcquisitionData() {
     try {
-        const r = await fetch('outputs/accountability_' + new Date().toISOString().split('T')[0] + '.json');
-        if (r.ok) {
-            const acqData = await r.json();
+        const acqData = await fetchWithDateFallback('accountability_');
+        if (acqData) {
             updateAcquisitionSection(acqData);
         }
     } catch (e) {
@@ -2397,9 +2411,8 @@ function updateProductUpdates(products) {
 // Load and display careers data
 async function loadCareersData() {
     try {
-        const r = await fetch('outputs/careers_' + new Date().toISOString().split('T')[0] + '.json');
-        if (r.ok) {
-            const careersData = await r.json();
+        const careersData = await fetchWithDateFallback('careers_');
+        if (careersData) {
             updateCareersSection(careersData);
         }
     } catch (e) {
@@ -2460,9 +2473,8 @@ function updateCareersSection(data) {
 // Load and display problem homes data
 async function loadProblemHomesData() {
     try {
-        const r = await fetch('outputs/problem_homes_' + new Date().toISOString().split('T')[0] + '.json');
-        if (r.ok) {
-            const data = await r.json();
+        const data = await fetchWithDateFallback('problem_homes_');
+        if (data) {
             updateProblemHomesSection(data);
         }
     } catch (e) {

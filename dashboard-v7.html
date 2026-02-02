@@ -1444,18 +1444,47 @@ const chartLayout = {
     }
 };
 
-// Revenue Chart
-function renderRevenueChart() {
-    const dates = ['Jan 1', 'Jan 5', 'Jan 10', 'Jan 15', 'Jan 20', 'Jan 25', 'Jan 29'];
-    const revenue = [3.8, 9.1, 3.7, 8.4, 14.3, 5.9, 14.4];
-    const target = Array(7).fill(11.1);
+// Revenue Chart - uses live data from dashboard_data.json or unified_dashboard_data.json
+function renderRevenueChart(data) {
+    const el = document.getElementById('revenue-chart');
+    if (!el) return;
+
+    let dates, revenue;
+    const TARGET = 11.1; // $11.1M/day target
+
+    // Try unified data format first (has revenue_chart array)
+    if (data && data.unifiedData && data.unifiedData.revenue_chart && data.unifiedData.revenue_chart.length > 0) {
+        const chartData = data.unifiedData.revenue_chart.slice(-15); // Last 15 days
+        dates = chartData.map(d => d.date);
+        revenue = chartData.map(d => d.revenue_millions || 0);
+    } else if (data && data.history && data.history.length > 0) {
+        // Fallback to history format
+        const recentHistory = data.history.slice(-10);
+        dates = recentHistory.map(d => {
+            const date = new Date(d.date);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        revenue = recentHistory.map((d, i) => {
+            if (i === 0) return (d.performance.revenue_total / 1000000) || 0;
+            const prevTotal = recentHistory[i-1].performance.revenue_total || 0;
+            const currTotal = d.performance.revenue_total || 0;
+            const dailyRev = (currTotal - prevTotal) / 1000000;
+            return dailyRev > 0 ? dailyRev : (d.performance.revenue_today || 0) / 1000000;
+        });
+    } else {
+        // Fallback to sample data if no live data
+        dates = ['Jan 1', 'Jan 5', 'Jan 10', 'Jan 15', 'Jan 20', 'Jan 25', 'Jan 29'];
+        revenue = [3.8, 9.1, 3.7, 8.4, 14.3, 5.9, 14.4];
+    }
+
+    const target = Array(dates.length).fill(TARGET);
 
     Plotly.newPlot('revenue-chart', [
         {
             x: dates,
             y: revenue,
             type: 'bar',
-            marker: { color: revenue.map(r => r >= 11.1 ? '#22c55e' : '#eab308') }
+            marker: { color: revenue.map(r => r >= TARGET ? '#22c55e' : '#eab308') }
         },
         {
             x: dates,
@@ -1470,50 +1499,115 @@ function renderRevenueChart() {
     }, { displayModeBar: false, responsive: true });
 }
 
-// Toxic Chart
-function renderToxicChart() {
-    const weeks = ['W1', 'W2', 'W3', 'W4'];
-    const toxic = [89, 85, 84, 82];
+// Toxic Chart - uses live data from dashboard_data.json or unified_dashboard_data.json
+function renderToxicChart(data) {
+    const el = document.getElementById('toxic-chart');
+    if (!el) return;
+
+    let weeks, toxic;
+
+    // Try unified data format first (has toxic_weekly_trend array)
+    if (data && data.unifiedData && data.unifiedData.toxic_weekly_trend && data.unifiedData.toxic_weekly_trend.length > 0) {
+        const trendData = data.unifiedData.toxic_weekly_trend;
+        weeks = trendData.map(t => 'W' + t.week);
+        toxic = trendData.map(t => t.toxic_count);
+    } else if (data && data.history && data.history.length > 0) {
+        // Fallback to history format - group by week
+        const weeklyData = [];
+        let weekNum = 1;
+        for (let i = 0; i < data.history.length; i += 7) {
+            const weekSlice = data.history.slice(i, i + 7);
+            const lastDay = weekSlice[weekSlice.length - 1];
+            if (lastDay && lastDay.toxic) {
+                weeklyData.push({
+                    week: 'W' + weekNum,
+                    count: lastDay.toxic.remaining_count || lastDay.inventory?.toxic_count || 84
+                });
+                weekNum++;
+            }
+        }
+        const recentWeeks = weeklyData.slice(-4);
+        weeks = recentWeeks.map(w => w.week);
+        toxic = recentWeeks.map(w => w.count);
+    } else {
+        // Fallback to sample data
+        weeks = ['W1', 'W2', 'W3', 'W4'];
+        toxic = [89, 85, 84, 82];
+    }
+
+    // Determine color based on trend (green if decreasing)
+    const isTrendingDown = toxic.length >= 2 && toxic[toxic.length - 1] < toxic[0];
+    const lineColor = isTrendingDown ? '#22c55e' : '#eab308';
+
+    const minVal = Math.min(...toxic) - 10;
+    const maxVal = Math.max(...toxic) + 10;
 
     Plotly.newPlot('toxic-chart', [{
         x: weeks,
         y: toxic,
         type: 'scatter',
         mode: 'lines+markers',
-        line: { color: '#22c55e', width: 2 },
+        line: { color: lineColor, width: 2 },
         marker: { size: 8 }
     }], {
         ...chartLayout,
-        yaxis: { ...chartLayout.yaxis, range: [70, 95] }
+        yaxis: { ...chartLayout.yaxis, range: [minVal, maxVal] }
     }, { displayModeBar: false, responsive: true });
 }
 
-// Win Rate Chart
-function renderWinRateChart() {
-    const days = ['Jan 15', 'Jan 18', 'Jan 21', 'Jan 24', 'Jan 27', 'Jan 29'];
-    const winRate = [78.5, 79.2, 78.8, 79.5, 79.0, 79.1];
+// Win Rate Chart - uses live data from dashboard_data.json
+function renderWinRateChart(data) {
+    const el = document.getElementById('winrate-chart');
+    if (!el) return;
+
+    let days, winRate;
+
+    if (data && data.history && data.history.length > 0) {
+        // Use last 10 days from history
+        const recentHistory = data.history.slice(-10);
+        days = recentHistory.map(d => {
+            const date = new Date(d.date);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        winRate = recentHistory.map(d => d.performance?.win_rate || 0);
+    } else {
+        // Fallback to sample data
+        days = ['Jan 15', 'Jan 18', 'Jan 21', 'Jan 24', 'Jan 27', 'Jan 29'];
+        winRate = [78.5, 79.2, 78.8, 79.5, 79.0, 79.1];
+    }
+
+    // Calculate dynamic range
+    const minRate = Math.max(0, Math.min(...winRate) - 10);
+    const maxRate = Math.min(100, Math.max(...winRate) + 10);
+
+    // Color based on current win rate (green if >= 75%, otherwise amber)
+    const currentRate = winRate[winRate.length - 1] || 0;
+    const lineColor = currentRate >= 75 ? '#3b82f6' : '#eab308';
 
     Plotly.newPlot('winrate-chart', [{
         x: days,
         y: winRate,
         type: 'scatter',
         mode: 'lines+markers',
-        line: { color: '#3b82f6', width: 2 },
+        line: { color: lineColor, width: 2 },
         marker: { size: 6 },
         fill: 'tozeroy',
-        fillcolor: 'rgba(59, 130, 246, 0.1)'
+        fillcolor: lineColor === '#3b82f6' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(234, 179, 8, 0.1)'
     }], {
         ...chartLayout,
-        yaxis: { ...chartLayout.yaxis, range: [70, 85], ticksuffix: '%' }
+        yaxis: { ...chartLayout.yaxis, range: [minRate, maxRate], ticksuffix: '%' }
     }, { displayModeBar: false, responsive: true });
 }
+
+// Store dashboard data globally for chart rendering
+let dashboardData = null;
 
 // Initialize charts when Tape mode is shown
 document.querySelector('[data-mode="tape"]').addEventListener('click', () => {
     setTimeout(() => {
-        renderRevenueChart();
-        renderToxicChart();
-        renderWinRateChart();
+        renderRevenueChart(dashboardData);
+        renderToxicChart(dashboardData);
+        renderWinRateChart(dashboardData);
     }, 100);
 });
 
@@ -1521,34 +1615,130 @@ document.querySelector('[data-mode="tape"]').addEventListener('click', () => {
 // LOAD DATA
 // ============================================================
 async function loadData() {
+    // Try dashboard_data.json first, then unified_dashboard_data.json as fallback
+    let data = null;
+
     try {
         const response = await fetch('outputs/dashboard_data.json');
         if (response.ok) {
-            const data = await response.json();
-            updateDashboard(data);
+            data = await response.json();
         }
     } catch (e) {
-        console.log('Using default data');
+        console.log('dashboard_data.json not available');
+    }
+
+    // Try unified data as fallback or to supplement
+    try {
+        const unifiedResponse = await fetch('outputs/unified_dashboard_data.json');
+        if (unifiedResponse.ok) {
+            const unifiedData = await unifiedResponse.json();
+            if (!data) {
+                // Use unified data as primary source
+                data = {
+                    generated_at: unifiedData.generated_at,
+                    current: {
+                        performance: {
+                            win_rate: unifiedData.pnl?.win_rate || 0,
+                            revenue_total: unifiedData.velocity?.q1_revenue || 0,
+                            homes_sold_total: unifiedData.velocity?.q1_sales || 0,
+                            contribution_margin: 0
+                        },
+                        toxic: unifiedData.toxic_weekly_trend ? {
+                            remaining_count: unifiedData.toxic_weekly_trend[unifiedData.toxic_weekly_trend.length - 1]?.toxic_count || 84
+                        } : null,
+                        inventory: unifiedData.inventory || null,
+                        guidance: unifiedData.guidance || null
+                    },
+                    // Convert revenue_chart to history format for chart rendering
+                    history: unifiedData.revenue_chart ? unifiedData.revenue_chart.map(d => ({
+                        date: d.date_full,
+                        performance: {
+                            revenue_total: d.revenue,
+                            win_rate: unifiedData.pnl?.win_rate || 0
+                        }
+                    })) : null
+                };
+            }
+            // Store unified data for charts that use its format directly
+            data.unifiedData = unifiedData;
+        }
+    } catch (e) {
+        console.log('unified_dashboard_data.json not available');
+    }
+
+    if (data) {
+        dashboardData = data;
+        updateDashboard(data);
     }
 }
 
 function updateDashboard(data) {
     // Update timestamp
-    if (data.generated_at) {
-        document.getElementById('last-updated').textContent = 'Updated: ' + new Date(data.generated_at).toLocaleString();
+    const lastUpdated = document.getElementById('last-updated');
+    if (lastUpdated && data.generated_at) {
+        lastUpdated.textContent = 'Updated: ' + new Date(data.generated_at).toLocaleString();
     }
 
-    // Additional data binding would go here
+    // Update key metrics from current data
+    if (data.current) {
+        // Win Rate
+        const winRateEl = document.querySelector('[data-metric="win-rate"]');
+        if (winRateEl) winRateEl.textContent = (data.current.performance?.win_rate || 0).toFixed(1) + '%';
+
+        // Toxic Count
+        const toxicEl = document.querySelector('[data-metric="toxic-count"]');
+        if (toxicEl) toxicEl.textContent = data.current.toxic?.remaining_count || data.current.inventory?.toxic_count || '--';
+
+        // Contribution Margin
+        const marginEl = document.querySelector('[data-metric="contribution-margin"]');
+        if (marginEl) marginEl.textContent = (data.current.performance?.contribution_margin || 0).toFixed(1) + '%';
+
+        // Revenue
+        const revenueEl = document.querySelector('[data-metric="revenue"]');
+        if (revenueEl) {
+            const revenue = (data.current.performance?.revenue_total || 0) / 1000000;
+            revenueEl.textContent = '$' + revenue.toFixed(1) + 'M';
+        }
+
+        // Homes Sold
+        const soldEl = document.querySelector('[data-metric="homes-sold"]');
+        if (soldEl) soldEl.textContent = data.current.performance?.homes_sold_total || '--';
+
+        // Inventory
+        const invEl = document.querySelector('[data-metric="inventory"]');
+        if (invEl) invEl.textContent = data.current.inventory?.total || '--';
+
+        // Kaz-Era Win Rate
+        const kazWinEl = document.querySelector('[data-metric="kaz-win-rate"]');
+        if (kazWinEl) kazWinEl.textContent = (data.current.kaz_era?.realized?.win_rate || 0).toFixed(1) + '%';
+
+        // Q1 Pacing
+        const pacingEl = document.querySelector('[data-metric="q1-pacing"]');
+        if (pacingEl && data.current.guidance) {
+            const pct = data.current.guidance.pct_to_target || 0;
+            pacingEl.textContent = pct.toFixed(1) + '%';
+        }
+    }
+
+    // Re-render charts with live data
+    renderRevenueChart(data);
+    renderToxicChart(data);
+    renderWinRateChart(data);
 }
+
+// Refresh data periodically (every 5 minutes)
+setInterval(() => {
+    loadData();
+}, 5 * 60 * 1000);
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
-    // Pre-render charts for Tape mode
+    // Pre-render charts with fallback data initially
     if (document.getElementById('revenue-chart')) {
-        renderRevenueChart();
-        renderToxicChart();
-        renderWinRateChart();
+        renderRevenueChart(null);
+        renderToxicChart(null);
+        renderWinRateChart(null);
     }
 });
 </script>

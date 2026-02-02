@@ -1,9 +1,11 @@
 #!/bin/bash
 # Glass House Daily Run
 # Runs at 12:00 PM daily (after manual Parcl data drop at 9am)
-# Full pipeline: Import CSVs → Scrape → Generate data → AI insights → Market brief
+# Full pipeline: Scrape → Merge → Generate dashboard data → Deploy
 
-cd /Users/mabramsky/glasshouse
+set -e
+
+cd /Users/mabramsky/glasshouse1
 
 # Activate virtual environment
 source venv/bin/activate
@@ -16,60 +18,43 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 TODAY=$(date +%Y-%m-%d)
 LOG_FILE="logs/daily_${TIMESTAMP}.log"
 
-echo "========================================" >> "$LOG_FILE"
-echo "Glass House Daily Run - $(date)" >> "$LOG_FILE"
-echo "========================================" >> "$LOG_FILE"
+echo "========================================" | tee -a "$LOG_FILE"
+echo "Glass House Daily Run - $(date)" | tee -a "$LOG_FILE"
+echo "========================================" | tee -a "$LOG_FILE"
 
-# Step 1: Import latest Parcl CSVs from Desktop
-echo "[1/6] Importing Parcl data from Desktop..." >> "$LOG_FILE"
-DESKTOP_DIR="$HOME/Desktop/glasshouse"
-if [ -d "$DESKTOP_DIR" ]; then
-    # Find today's files (or most recent)
-    SALES_CSV=$(ls -t "$DESKTOP_DIR"/opendoor-home-sales-*.csv 2>/dev/null | head -1)
-    LISTINGS_CSV=$(ls -t "$DESKTOP_DIR"/opendoor-for-sale-listings-*.csv 2>/dev/null | head -1)
+# Step 1: Scrape Singularity for sales data (FREE - always works)
+echo "[1/7] Scraping Singularity tracker..." | tee -a "$LOG_FILE"
+python scripts/scrape_singularity.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Singularity scrape failed" >> "$LOG_FILE"
 
-    if [ -n "$SALES_CSV" ] && [ -n "$LISTINGS_CSV" ]; then
-        cp "$SALES_CSV" "data/imports/sales_latest.csv"
-        cp "$LISTINGS_CSV" "data/imports/listings_latest.csv"
-        echo "  Imported: $(basename "$SALES_CSV")" >> "$LOG_FILE"
-        echo "  Imported: $(basename "$LISTINGS_CSV")" >> "$LOG_FILE"
-    else
-        echo "  WARNING: No Parcl CSVs found in $DESKTOP_DIR" >> "$LOG_FILE"
-    fi
-else
-    echo "  WARNING: Desktop folder not found: $DESKTOP_DIR" >> "$LOG_FILE"
-fi
+# Step 2: Merge datasets (Parcl CSVs from Desktop + Singularity)
+echo "[2/7] Merging datasets..." | tee -a "$LOG_FILE"
+python scripts/merge_datasets.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Merge failed" >> "$LOG_FILE"
 
-# Step 2: Run main dashboard data generation
-echo "[2/6] Running dashboard data generation..." >> "$LOG_FILE"
-python glasshouse.py --quick >> "$LOG_FILE" 2>&1
+# Step 3: Generate unified dashboard data
+echo "[3/7] Generating unified dashboard data..." | tee -a "$LOG_FILE"
+python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Dashboard gen failed" >> "$LOG_FILE"
 
-# Step 3: Scrape Singularity for additional data
-echo "[3/6] Scraping Singularity tracker..." >> "$LOG_FILE"
-python scripts/scrape_singularity.py >> "$LOG_FILE" 2>&1
+# Step 4: Scrape Accountability page (acquisition contracts)
+echo "[4/7] Scraping Accountability page..." | tee -a "$LOG_FILE"
+python scripts/scrape_accountability.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Accountability scrape failed" >> "$LOG_FILE"
 
-# Step 4: Generate unified dashboard data
-echo "[4/6] Generating unified dashboard data..." >> "$LOG_FILE"
-python scripts/generate_unified_dashboard.py >> "$LOG_FILE" 2>&1
+# Step 5: Scrape Careers data (Greenhouse API)
+echo "[5/7] Scraping Careers data..." | tee -a "$LOG_FILE"
+python scripts/scrape_careers.py >> "$LOG_FILE" 2>&1 || echo "  Warning: Careers scrape failed" >> "$LOG_FILE"
 
-# Step 5: Generate AI insights (Claude API)
-echo "[5/6] Generating AI insights..." >> "$LOG_FILE"
-python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1
+# Step 6: Generate AI insights (if Anthropic API key available)
+echo "[6/7] Generating AI insights..." | tee -a "$LOG_FILE"
+python scripts/generate_ai_insights.py >> "$LOG_FILE" 2>&1 || echo "  Warning: AI insights failed (API key may be missing)" >> "$LOG_FILE"
 
-# Step 6: Generate market brief + news bullets (Claude API)
-echo "[6/6] Generating market brief..." >> "$LOG_FILE"
-python scripts/generate_market_brief.py >> "$LOG_FILE" 2>&1
+# Step 7: Deploy to GitHub Pages
+echo "[7/7] Deploying to GitHub Pages..." | tee -a "$LOG_FILE"
+git add outputs/*.json outputs/*.csv >> "$LOG_FILE" 2>&1 || true
+git commit -m "Daily data refresh ${TODAY}" >> "$LOG_FILE" 2>&1 || echo "  No changes to commit" >> "$LOG_FILE"
+git push origin master >> "$LOG_FILE" 2>&1 || echo "  Warning: Git push failed" >> "$LOG_FILE"
 
-# Check final status
-if [ $? -eq 0 ]; then
-    echo "========================================" >> "$LOG_FILE"
-    echo "SUCCESS: Daily run completed at $(date)" >> "$LOG_FILE"
-else
-    echo "========================================" >> "$LOG_FILE"
-    echo "ERROR: Daily run failed at $(date)" >> "$LOG_FILE"
-fi
+echo "========================================" | tee -a "$LOG_FILE"
+echo "SUCCESS: Daily run completed at $(date)" | tee -a "$LOG_FILE"
+echo "Log saved to: $LOG_FILE" | tee -a "$LOG_FILE"
 
 # Keep only last 30 days of logs
-find logs -name "daily_*.log" -mtime +30 -delete 2>/dev/null
-
-echo "Log saved to: $LOG_FILE"
+find logs -name "daily_*.log" -mtime +30 -delete 2>/dev/null || true

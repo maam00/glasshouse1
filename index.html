@@ -1847,6 +1847,39 @@
         </div>
 
         <div class="insight-text" data-metric="velocity-insight"></div>
+
+        <!-- Day of Week Analysis -->
+        <div class="section-title" style="margin-top: 32px;">Weekday vs Weekend Velocity</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;">
+            <div style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 8px;">Weekday Average (Mon-Fri)</div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <div>
+                        <span style="font-size: 24px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--green);" id="dow-weekday-rev">$10.3M</span>
+                        <span style="font-size: 12px; color: var(--text-2);">/day</span>
+                    </div>
+                    <div style="font-size: 14px; font-family: 'JetBrains Mono', monospace;" id="dow-weekday-sales">26.4 homes</div>
+                </div>
+            </div>
+            <div style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 8px;">Weekend Average (Sat-Sun)</div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <div>
+                        <span style="font-size: 24px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--amber);" id="dow-weekend-rev">$4.6M</span>
+                        <span style="font-size: 12px; color: var(--text-2);">/day</span>
+                    </div>
+                    <div style="font-size: 14px; font-family: 'JetBrains Mono', monospace;" id="dow-weekend-sales">12.7 homes</div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;" id="dow-breakdown">
+            <!-- Day bars will be populated by JS -->
+        </div>
+        <div style="margin-top: 8px; font-size: 11px; color: var(--text-3);">
+            Weekend index: <span id="dow-weekend-index" style="color: var(--amber);">45%</span> of weekday ·
+            Normalized factor: <span id="dow-norm-factor">2.23x</span> ·
+            <span style="color: var(--text-2);">Real estate closings concentrate on weekdays</span>
+        </div>
     </section>
 
     <!-- ============================================================
@@ -2756,6 +2789,48 @@ function updateDashboardMetrics(data) {
 
         const invValue = document.getElementById('inv-value');
         if (invValue) invValue.textContent = '$' + Math.round(inv.total_inventory_value / 1000000) + 'M';
+    }
+
+    // Update Day of Week Analysis
+    if (data.day_of_week) {
+        const dow = data.day_of_week;
+
+        // Update weekday metrics
+        const wdRevEl = document.getElementById('dow-weekday-rev');
+        if (wdRevEl) wdRevEl.textContent = '$' + (dow.weekday_avg_revenue / 1000000).toFixed(1) + 'M';
+
+        const wdSalesEl = document.getElementById('dow-weekday-sales');
+        if (wdSalesEl) wdSalesEl.textContent = dow.weekday_avg_sales + ' homes';
+
+        // Update weekend metrics
+        const weRevEl = document.getElementById('dow-weekend-rev');
+        if (weRevEl) weRevEl.textContent = '$' + (dow.weekend_avg_revenue / 1000000).toFixed(1) + 'M';
+
+        const weSalesEl = document.getElementById('dow-weekend-sales');
+        if (weSalesEl) weSalesEl.textContent = dow.weekend_avg_sales + ' homes';
+
+        // Update index and normalization factor
+        const indexEl = document.getElementById('dow-weekend-index');
+        if (indexEl) indexEl.textContent = dow.weekend_index + '%';
+
+        const normEl = document.getElementById('dow-norm-factor');
+        if (normEl) normEl.textContent = dow.normalization_factor + 'x';
+
+        // Build day-of-week bars
+        const breakdownEl = document.getElementById('dow-breakdown');
+        if (breakdownEl && dow.breakdown) {
+            breakdownEl.innerHTML = dow.breakdown.map(d => {
+                const barColor = d.is_weekend ? 'var(--amber)' : 'var(--green)';
+                const barWidth = Math.min(d.index, 150); // Cap at 150% for display
+                return `<div style="flex: 1; min-width: 60px; text-align: center;">
+                    <div style="font-size: 10px; color: var(--text-3); margin-bottom: 4px;">${d.day}</div>
+                    <div style="height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;">
+                        <div style="height: 100%; width: ${barWidth}%; background: ${barColor}; border-radius: 2px;"></div>
+                    </div>
+                    <div style="font-size: 10px; color: ${d.is_weekend ? 'var(--amber)' : 'var(--text-2)'}; margin-top: 2px;">${d.index}%</div>
+                </div>`;
+            }).join('');
+        }
     }
 }
 

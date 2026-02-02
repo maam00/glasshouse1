@@ -197,6 +197,57 @@ def main():
             "moving_avg": round(row['sales_moving_avg'], 1) if pd.notna(row.get('sales_moving_avg')) else None,
         })
 
+    # ==== DAY OF WEEK ANALYSIS (Weekend/Weekday Normalization) ====
+    day_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    day_stats = {i: {'count': 0, 'total_revenue': 0, 'total_sales': 0} for i in range(7)}
+
+    for entry in dashboard_data['revenue_chart']:
+        date_str = entry.get('date_full')
+        if date_str:
+            dt = datetime.strptime(date_str, '%Y-%m-%d')
+            dow = dt.weekday()  # 0=Monday, 6=Sunday
+            day_stats[dow]['count'] += 1
+            day_stats[dow]['total_revenue'] += entry.get('revenue', 0)
+            day_stats[dow]['total_sales'] += entry.get('sales_count', 0)
+
+    # Calculate weekday vs weekend averages
+    weekday_rev = sum(day_stats[i]['total_revenue'] for i in range(5))
+    weekday_days = sum(day_stats[i]['count'] for i in range(5))
+    weekend_rev = sum(day_stats[i]['total_revenue'] for i in [5, 6])
+    weekend_days = sum(day_stats[i]['count'] for i in [5, 6])
+
+    weekday_avg = weekday_rev / weekday_days if weekday_days > 0 else 0
+    weekend_avg = weekend_rev / weekend_days if weekend_days > 0 else 0
+    overall_avg = (weekday_rev + weekend_rev) / (weekday_days + weekend_days) if (weekday_days + weekend_days) > 0 else 0
+
+    # Build day-of-week breakdown
+    dow_breakdown = []
+    for i, name in enumerate(day_names):
+        stats = day_stats[i]
+        if stats['count'] > 0:
+            avg_rev = stats['total_revenue'] / stats['count']
+            avg_sales = stats['total_sales'] / stats['count']
+            index = (avg_rev / overall_avg * 100) if overall_avg > 0 else 0
+            dow_breakdown.append({
+                'day': name,
+                'day_num': i,
+                'sample_days': stats['count'],
+                'avg_revenue': round(avg_rev),
+                'avg_sales': round(avg_sales, 1),
+                'index': round(index),
+                'is_weekend': i >= 5
+            })
+
+    dashboard_data['day_of_week'] = {
+        'breakdown': dow_breakdown,
+        'weekday_avg_revenue': round(weekday_avg),
+        'weekend_avg_revenue': round(weekend_avg),
+        'weekday_avg_sales': round(sum(day_stats[i]['total_sales'] for i in range(5)) / weekday_days, 1) if weekday_days > 0 else 0,
+        'weekend_avg_sales': round(sum(day_stats[i]['total_sales'] for i in [5, 6]) / weekend_days, 1) if weekend_days > 0 else 0,
+        'weekend_index': round(weekend_avg / weekday_avg * 100) if weekday_avg > 0 else 0,
+        'normalization_factor': round(weekday_avg / weekend_avg, 2) if weekend_avg > 0 else 1.0,
+    }
+
     # ==== INVENTORY METRICS (from Parcl Listings) ====
     if listings_data is not None and len(listings_data) > 0:
         # Parse numeric columns

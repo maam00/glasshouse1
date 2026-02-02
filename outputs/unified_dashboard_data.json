@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-02T12:35:51.722234",
+  "generated_at": "2026-02-02T12:38:51.975917",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -890,7 +890,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-02T12:37:57.418696",
+    "generated_at": "2026-02-02T12:38:53.048981",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -949,8 +949,29 @@
     },
     "news": {
       "headlines": [],
-      "fed_news": [],
+      "fed_news": [
+        {
+          "title": "If You'd Invested $5,000 In NuScale Power (SMR) Stock 2 Years Ago, Here's How Much You'd Have Today",
+          "publisher": "Motley Fool",
+          "date": "2026-02-02"
+        },
+        {
+          "title": "Cathie Wood drops $10 million on next-gen tech stock",
+          "publisher": "TheStreet",
+          "date": "2026-02-02"
+        },
+        {
+          "title": "20 Years of Prizes: Vilcek Foundation Honors 14 New Immigrants and Visionaries",
+          "publisher": "PR Newswire",
+          "date": "2026-02-02"
+        }
+      ],
       "housing_news": [
+        {
+          "title": "If You'd Invested $5,000 In NuScale Power (SMR) Stock 2 Years Ago, Here's How Much You'd Have Today",
+          "publisher": "Motley Fool",
+          "date": "2026-02-02"
+        },
         {
           "title": "Cathie Wood drops $10 million on next-gen tech stock",
           "publisher": "TheStreet",
@@ -967,13 +988,8 @@
           "date": "2026-02-02"
         },
         {
-          "title": "H5 Data Centers Announces Acquisition of Three Locations from 365 Data Centers",
-          "publisher": "Business Wire",
-          "date": "2026-02-02"
-        },
-        {
-          "title": "Corinex Appoints George Reznik as Chief Operating Officer to Accelerate Global Expansion",
-          "publisher": "CNW Group",
+          "title": "Mike Johnson's Push For Fast-Track $1.2 Trillion Funding Bill Stalled As House Democrats Refuse Support",
+          "publisher": "Benzinga",
           "date": "2026-02-02"
         }
       ],

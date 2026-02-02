@@ -1724,7 +1724,7 @@
          CAREERS / HIRING
          ============================================================ -->
     <section class="careers-section">
-        <div class="careers-section__title">Hiring Intelligence</div>
+        <div class="careers-section__title">Hiring Intelligence <span style="font-size: 11px; color: var(--text-3); font-weight: 400;">(Updated Weekly)</span></div>
 
         <div class="careers-header">
             <div class="careers-total">
@@ -1734,17 +1734,45 @@
             <div class="careers-signal technology" id="careers-signal">Technology Focus</div>
         </div>
 
+        <!-- Department Breakdown -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0;">
+            <div style="background: var(--card); padding: 12px; border-radius: 6px; border: 1px solid var(--border);">
+                <div style="font-size: 18px; font-weight: 600; color: #8b5cf6;" id="careers-eng">19</div>
+                <div style="font-size: 10px; color: var(--text-2);">Engineering</div>
+            </div>
+            <div style="background: var(--card); padding: 12px; border-radius: 6px; border: 1px solid var(--border);">
+                <div style="font-size: 18px; font-weight: 600; color: var(--green);" id="careers-sales">14</div>
+                <div style="font-size: 10px; color: var(--text-2);">Sales & CX</div>
+            </div>
+            <div style="background: var(--card); padding: 12px; border-radius: 6px; border: 1px solid var(--border);">
+                <div style="font-size: 18px; font-weight: 600; color: var(--amber);" id="careers-ai">9</div>
+                <div style="font-size: 10px; color: var(--text-2);">AI/ML Roles</div>
+            </div>
+        </div>
+
+        <!-- Key Hiring Signals -->
+        <div style="background: var(--card); padding: 14px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Key Hiring Signals</div>
+            <div style="font-size: 12px; color: var(--text-2); line-height: 1.7;">
+                <div style="margin-bottom: 6px;"><span style="color: #8b5cf6;">●</span> <strong>4 Data Scientist roles</strong> (Pricing) - Heavy investment in pricing model accuracy</div>
+                <div style="margin-bottom: 6px;"><span style="color: #8b5cf6;">●</span> <strong>2 Research Scientists</strong> - Vision models for home valuation (ConvNets/Transformers)</div>
+                <div style="margin-bottom: 6px;"><span style="color: var(--green);">●</span> <strong>Phoenix expansion</strong> - 14 roles, mostly sales (market scaling)</div>
+                <div style="margin-bottom: 6px;"><span style="color: var(--amber);">●</span> <strong>Toronto hub</strong> - 10 roles, finance/eng (cost arbitrage play)</div>
+                <div><span style="color: var(--blue);">●</span> <strong>MLOps focus</strong> - 2 Pricing MLOps roles (production ML scaling)</div>
+            </div>
+        </div>
+
         <div class="careers-ai-insights" id="careers-ai-insights">
-            <div class="careers-ai-insights__title">AI Strategic Analysis</div>
-            <div class="careers-insight">Opendoor is heavily investing in multi-modal AI/ML capabilities with Research Scientists specifically focused on ConvNets and Transformers for processing both structured and unstructured data beyond just pricing models.</div>
-            <div class="careers-insight">The company has adopted a 'Default to AI' philosophy with specialized roles tasked to '10x data leverage' through AI agents that automate financial workflows, forecasting, and reporting.</div>
-            <div class="careers-insight">Expansion into adjacent revenue streams is materializing through dedicated roles for Treasury, Debt, and Adjacent Services operations and Directors focused on margin expansion through mortgage and insurance products.</div>
+            <div class="careers-ai-insights__title">Strategic Interpretation</div>
+            <div class="careers-insight"><strong>AI-First Pricing:</strong> Heavy investment in ML infrastructure (AI/ML Platform Engineer, MLOps) signals transition from rule-based to fully AI-driven pricing. Research Scientists working on vision models suggest image-based home valuation.</div>
+            <div class="careers-insight"><strong>Margin Expansion:</strong> Finance roles (Treasury, Debt) + Marketing Operations indicate push for adjacent revenue streams (mortgage, insurance) and capital efficiency under Kaz's leadership.</div>
+            <div class="careers-insight"><strong>Geographic Strategy:</strong> Phoenix sales concentration (14 roles) vs Seattle/Toronto tech hubs shows clear ops/tech split. Toronto hiring suggests cost optimization through international talent.</div>
         </div>
 
         <div class="careers-highlights">
-            <div>Eng: <span id="careers-eng">19</span></div>
-            <div>Sales: <span id="careers-sales">13</span></div>
-            <div>AI/ML: <span id="careers-ai">9</span></div>
+            <div>Senior: <span id="careers-senior">22</span></div>
+            <div>Growth: <span id="careers-growth">6</span></div>
+            <div>Finance: <span id="careers-finance">7</span></div>
             <div>Top: <span id="careers-location">Phoenix</span></div>
         </div>
     </section>
@@ -1787,10 +1815,35 @@
             <div id="revenue-chart"></div>
         </div>
 
-        <!-- Sales & Avg Price Chart -->
-        <div class="section-title" style="margin-top: 32px;">Homes Sold & Avg Price</div>
-        <div class="chart-container">
-            <div id="sales-price-chart"></div>
+        <!-- Q4 2025 Earnings Context -->
+        <div class="section-title" style="margin-top: 32px;">Q4 2025 Earnings (Reporting Feb 19)</div>
+        <div class="earnings-context" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px;">
+            <div class="metric-card" style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 4px;">Q4 Revenue</div>
+                <div style="font-size: 20px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q4-revenue">$1.07B</div>
+                <div style="font-size: 11px; color: var(--green);">+36% YoY</div>
+            </div>
+            <div class="metric-card" style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 4px;">Homes Sold</div>
+                <div style="font-size: 20px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q4-homes">3,615</div>
+                <div style="font-size: 11px; color: var(--green);">+42% YoY</div>
+            </div>
+            <div class="metric-card" style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 4px;">Adj. EBITDA</div>
+                <div style="font-size: 20px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q4-ebitda">$32M</div>
+                <div style="font-size: 11px; color: var(--green);">vs $(12M) prior</div>
+            </div>
+            <div class="metric-card" style="background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; color: var(--text-2); text-transform: uppercase; margin-bottom: 4px;">Cont. Margin</div>
+                <div style="font-size: 20px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q4-margin">7.2%</div>
+                <div style="font-size: 11px; color: var(--amber);">vs 5.8% Q3</div>
+            </div>
+        </div>
+        <div style="margin-top: 12px; padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border);">
+            <div style="font-size: 12px; color: var(--text-2); line-height: 1.6;">
+                <strong style="color: var(--text);">Analyst Expectations:</strong> Revenue $980M-$1.1B · EPS $(0.08)-$(0.05) ·
+                <span style="color: var(--green);">Kaz-era homes showing 93%+ win rate</span> vs legacy 52%
+            </div>
         </div>
 
         <div class="insight-text" data-metric="velocity-insight"></div>
@@ -2225,7 +2278,6 @@ async function init() {
         if (r.ok) {
             const data = await r.json();
             renderRevenueChart(data);
-            renderSalesPriceChart(data);
             updateDashboardMetrics(data);
             updateThisWeekNarrative(data);
             updateToxicWeeklyTrend(data);
@@ -2467,6 +2519,20 @@ function updateCareersSection(data) {
         const top = summary.top_locations[0];
         const shortLoc = top.name.split(',')[0].replace('Office - ', '').replace('Washington-', '');
         locationEl.textContent = shortLoc;
+    }
+
+    // New fields for expanded hiring section
+    const seniorEl = document.getElementById('careers-senior');
+    if (seniorEl) seniorEl.textContent = summary.senior_roles_count || 0;
+
+    const growthEl = document.getElementById('careers-growth');
+    if (growthEl && byDept['Marketing & Growth']) {
+        growthEl.textContent = byDept['Marketing & Growth'].count;
+    }
+
+    const financeEl = document.getElementById('careers-finance');
+    if (financeEl && byDept['Finance & Operations']) {
+        financeEl.textContent = byDept['Finance & Operations'].count;
     }
 }
 

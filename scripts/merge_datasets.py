@@ -272,7 +272,15 @@ def create_unified_sales(parcl: pd.DataFrame, sing: pd.DataFrame,
     unified = pd.DataFrame(unified_records)
     unified = unified.sort_values('sale_date', ascending=False).reset_index(drop=True)
 
+    # Deduplicate by address + sale_date (keep first, which has most data due to sort)
+    before_dedup = len(unified)
+    unified = unified.drop_duplicates(subset=['address', 'sale_date'], keep='first')
+    unified = unified.reset_index(drop=True)
+    dedup_removed = before_dedup - len(unified)
+
     logger.info(f"  Unified dataset: {len(unified)} total sales")
+    if dedup_removed > 0:
+        logger.info(f"    - Removed {dedup_removed} duplicate records")
     logger.info(f"    - Matched: {len(matches)}")
     logger.info(f"    - Singularity-only: {(unified['source'] == 'singularity_only').sum()}")
     logger.info(f"    - Parcl-only: {(unified['source'] == 'parcl_only').sum()}")

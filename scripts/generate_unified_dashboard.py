@@ -174,25 +174,29 @@ def main():
         },
     }
 
-    # Build daily chart data
+    # Build daily chart data using unified (merged) counts for consistency with velocity totals
     for _, row in q1_daily.iterrows():
         date_str = row['date'].strftime('%b %d')
+
+        # Use unified counts (merged Singularity + Parcl) for chart/total consistency
+        unified_sales = int(row['sales_count_unified']) if pd.notna(row.get('sales_count_unified')) else int(row['sales_count'])
+        unified_revenue_millions = row['revenue_millions_unified'] if pd.notna(row.get('revenue_millions_unified')) else row['revenue_millions']
 
         dashboard_data['revenue_chart'].append({
             "date": date_str,
             "date_full": row['date'].strftime('%Y-%m-%d'),
-            "revenue": row['revenue_millions'] * 1_000_000,
-            "revenue_millions": round(row['revenue_millions'], 2),
-            "sales_count": int(row['sales_count']),
+            "revenue": unified_revenue_millions * 1_000_000,
+            "revenue_millions": round(unified_revenue_millions, 2),
+            "sales_count": unified_sales,
         })
 
         # Calculate avg price for the day
-        daily_avg_price = (row['revenue_millions'] * 1_000_000) / row['sales_count'] if row['sales_count'] > 0 else 0
+        daily_avg_price = (unified_revenue_millions * 1_000_000) / unified_sales if unified_sales > 0 else 0
 
         dashboard_data['sales_chart'].append({
             "date": date_str,
             "date_full": row['date'].strftime('%Y-%m-%d'),
-            "count": int(row['sales_count']),
+            "count": unified_sales,
             "avg_price": round(daily_avg_price),
             "moving_avg": round(row['sales_moving_avg'], 1) if pd.notna(row.get('sales_moving_avg')) else None,
         })

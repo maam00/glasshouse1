@@ -168,20 +168,42 @@ def fetch_mortgage_rates():
     except Exception as e:
         print(f"FRED API error: {e}")
 
-    # Fallback: Try to scrape or use cached/estimated data
+    # Fallback: Try Freddie Mac PMMS page scraping
     try:
-        # Use Yahoo Finance for mortgage rate proxy
-        # or hardcode recent known rate as fallback
-        # Current rates as of Jan 2026 (approximate)
-        rates_data['rate_30yr'] = 6.89  # Fallback estimate
-        rates_data['rate_15yr'] = 6.12
-        rates_data['as_of'] = datetime.now().strftime('%Y-%m-%d')
-        rates_data['source'] = 'estimate'
-        rates_data['rate_change_1w'] = -0.03
-        rates_data['rate_change_1m'] = -0.15
-        print("Using estimated mortgage rates (no FRED API key)")
+        # Try to scrape Freddie Mac directly
+        freddie_url = "https://www.freddiemac.com/pmms"
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}
+        response = requests.get(freddie_url, headers=headers, timeout=15)
+        if response.status_code == 200:
+            import re as re_mod
+            # Look for rate pattern like "6.10%" in the page
+            match = re_mod.search(r'(\d+\.\d+)%?\s*(?:30-year|30 year|30yr)', response.text, re_mod.IGNORECASE)
+            if match:
+                rates_data['rate_30yr'] = float(match.group(1))
+                rates_data['as_of'] = datetime.now().strftime('%Y-%m-%d')
+                rates_data['source'] = 'freddie_mac_scrape'
+                print(f"Scraped Freddie Mac rate: {rates_data['rate_30yr']}%")
+            else:
+                # Try alternate pattern
+                match = re_mod.search(r'<span[^>]*>(\d+\.\d+)</span>\s*%', response.text)
+                if match:
+                    rates_data['rate_30yr'] = float(match.group(1))
+                    rates_data['as_of'] = datetime.now().strftime('%Y-%m-%d')
+                    rates_data['source'] = 'freddie_mac_scrape'
+                    print(f"Scraped Freddie Mac rate: {rates_data['rate_30yr']}%")
     except Exception as e:
-        print(f"Mortgage rate fallback error: {e}")
+        print(f"Freddie Mac scrape error: {e}")
+
+    # Final fallback if scraping failed - use conservative estimate based on Feb 2026 data
+    if rates_data['rate_30yr'] is None:
+        # As of Feb 2026, Freddie Mac PMMS shows ~6.10%
+        rates_data['rate_30yr'] = 6.10  # Updated fallback based on Freddie Mac Feb 2026
+        rates_data['rate_15yr'] = 5.40
+        rates_data['as_of'] = datetime.now().strftime('%Y-%m-%d')
+        rates_data['source'] = 'estimate_feb2026'
+        rates_data['rate_change_1w'] = 0.00
+        rates_data['rate_change_1m'] = -0.05
+        print("Using estimated mortgage rates (6.10% based on Freddie Mac Feb 2026)")
 
     return rates_data
 
@@ -243,6 +265,108 @@ def fetch_housing_news():
         print(f"Error fetching news: {e}")
 
     return news_data
+
+
+def fetch_fed_funds_rate():
+    """Fetch current Fed funds target rate from NY Fed or FRED."""
+
+    fed_data = {
+        'current_rate': None,
+        'effective_rate': None,
+        'last_action': 'hold',
+        'last_meeting': None,
+        'next_meeting': None,
+        'ytd_cuts': 0,
+        'ytd_hikes': 0,
+    }
+
+    # 2026 FOMC meeting dates (from Federal Reserve official calendar)
+    # Source: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+    fomc_2026 = [
+        ('Jan 28-29', datetime(2026, 1, 29)),
+        ('Mar 17-18', datetime(2026, 3, 18)),
+        ('May 6-7', datetime(2026, 5, 7)),
+        ('Jun 17-18', datetime(2026, 6, 18)),
+        ('Jul 29-30', datetime(2026, 7, 30)),
+        ('Sep 16-17', datetime(2026, 9, 17)),
+        ('Nov 4-5', datetime(2026, 11, 5)),
+        ('Dec 16-17', datetime(2026, 12, 17)),
+    ]
+
+    # Find last and next meeting
+    today = datetime.now()
+    last_meeting = None
+    next_meeting = None
+
+    for name, date in fomc_2026:
+        if date <= today:
+            last_meeting = name
+        elif next_meeting is None:
+            next_meeting = name
+
+    fed_data['last_meeting'] = last_meeting or 'Jan 29'
+    fed_data['next_meeting'] = next_meeting or 'TBD'
+
+    # Try to fetch from NY Fed EFFR API
+    try:
+        # NY Fed publishes EFFR daily
+        url = "https://markets.newyorkfed.org/api/rates/effr/last/1.json"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(url, headers=headers, timeout=10)
+
+        if response.status_code == 200:
+            data = response.json()
+            rates = data.get('refRates', [])
+            if rates:
+                effr = rates[0].get('percentRate')
+                fed_data['effective_rate'] = effr
+
+                # Determine target range from EFFR
+                # EFFR typically trades within the target range
+                # Current target is 3.50-3.75% (as of Feb 2026 after rate cuts)
+                if effr:
+                    effr_float = float(effr)
+                    # Round to nearest 0.25% range
+                    lower = round((effr_float - 0.125) * 4) / 4
+                    upper = lower + 0.25
+                    fed_data['current_rate'] = f"{lower:.2f}-{upper:.2f}%"
+                    print(f"Fetched Fed EFFR: {effr}%, target range: {fed_data['current_rate']}")
+    except Exception as e:
+        print(f"NY Fed API error: {e}")
+
+    # Try FRED API as backup
+    if fed_data['current_rate'] is None:
+        try:
+            fred_url = "https://api.stlouisfed.org/fred/series/observations"
+            params = {
+                'series_id': 'DFEDTARU',  # Fed funds target range upper limit
+                'api_key': os.environ.get('FRED_API_KEY', ''),
+                'file_type': 'json',
+                'limit': 1,
+                'sort_order': 'desc'
+            }
+
+            if params['api_key']:
+                response = requests.get(fred_url, params=params, timeout=10)
+                if response.status_code == 200:
+                    data = response.json()
+                    observations = data.get('observations', [])
+                    if observations:
+                        upper = float(observations[0]['value'])
+                        lower = upper - 0.25
+                        fed_data['current_rate'] = f"{lower:.2f}-{upper:.2f}%"
+                        print(f"Fetched Fed rate from FRED: {fed_data['current_rate']}")
+        except Exception as e:
+            print(f"FRED API error for Fed rate: {e}")
+
+    # Fallback based on known Feb 2026 data
+    # After 2025 rate cuts, Fed is at 3.50-3.75%
+    if fed_data['current_rate'] is None:
+        fed_data['current_rate'] = '3.50-3.75%'
+        fed_data['last_action'] = 'hold'
+        print("Using fallback Fed rate: 3.50-3.75% (Feb 2026)")
+
+    return fed_data
 
 
 def fetch_polymarket_fed_data():
@@ -560,17 +684,11 @@ def main():
     print("\n[7/7] Generating news bullets...")
     news_bullets = generate_news_bullets(news_data, rates_data)
 
-    # Fed data (2026 FOMC schedule)
-    # Next meetings: Jan 28-29, Mar 18-19, May 6-7, Jun 17-18, Jul 29-30, Sep 16-17, Nov 4-5, Dec 16-17
-    fed_data = {
-        'current_rate': '4.25-4.50%',
-        'last_action': 'hold',  # hold, cut, hike
-        'last_meeting': 'Jan 29',
-        'next_meeting': 'Mar 18-19',
-        'ytd_cuts': 0,
-        'ytd_hikes': 0,
-        'polymarket': polymarket_data
-    }
+    # Fed data (2026 FOMC schedule) - CORRECTED
+    # Official 2026 FOMC calendar: Jan 28-29, Mar 17-18, May 6-7, Jun 17-18, Jul 29-30, Sep 16-17, Nov 4-5, Dec 16-17
+    # Source: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+    fed_data = fetch_fed_funds_rate()
+    fed_data['polymarket'] = polymarket_data
 
     # Compile all market intelligence
     market_intel = {

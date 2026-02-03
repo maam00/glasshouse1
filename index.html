@@ -3242,6 +3242,64 @@ function updatePortfolioFromUnified(data) {
         const q4Days = document.getElementById('q4-days-to-report');
         if (q4Days) q4Days.textContent = data.q4_estimates.days_to_earnings ?? '--';
     }
+
+    // Update Problem Homes section
+    if (data.problem_homes) {
+        const phToxic = document.getElementById('ph-toxic');
+        if (phToxic) phToxic.textContent = data.problem_homes.toxic_count || '--';
+
+        const phVeryStale = document.getElementById('ph-very-stale');
+        if (phVeryStale) phVeryStale.textContent = data.problem_homes.very_stale_count || '--';
+
+        const phAvgDom = document.getElementById('ph-avg-dom');
+        if (phAvgDom) phAvgDom.textContent = Math.round(data.problem_homes.avg_dom) || '--';
+
+        const phPnl = document.getElementById('ph-pnl');
+        if (phPnl && data.problem_homes.unrealized_pnl_millions) {
+            phPnl.textContent = '$' + data.problem_homes.unrealized_pnl_millions.toFixed(1) + 'M';
+        }
+
+        // Populate risk markets
+        const marketsEl = document.getElementById('problem-markets-list');
+        if (marketsEl && data.problem_homes.risk_markets) {
+            const markets = data.problem_homes.risk_markets;
+            let html = '';
+            for (const m of markets) {
+                const riskClass = m.risk_level === 'critical' ? 'critical' : 'high';
+                const links = (m.opendoor_links || []).map(l =>
+                    `<a href="${l.url}" target="_blank" class="problem-market__link">Browse ${l.name}</a>`
+                ).join(' ');
+                html += `
+                    <div class="problem-market ${riskClass}">
+                        <div class="problem-market__info">
+                            <div class="problem-market__state">${m.state}</div>
+                            <div class="problem-market__stats">
+                                <span>${m.inventory}</span> homes, <span>${m.toxic_count}</span> toxic (${m.toxic_pct}%), <span>${Math.round(m.avg_dom)}</span> avg DOM
+                            </div>
+                            <div class="problem-market__links">${links}</div>
+                        </div>
+                        <div class="problem-market__risk">
+                            <div class="problem-market__risk-score">${Math.round(m.risk_score)}</div>
+                            <div class="problem-market__risk-label">${m.risk_level === 'critical' ? 'Critical' : 'High'}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            marketsEl.innerHTML = html;
+        }
+    }
+
+    // Update Kaz-era underwater summary
+    if (data.kaz_era) {
+        const uwCount = document.getElementById('uw-count');
+        if (uwCount) uwCount.textContent = data.kaz_era.listed_underwater ?? '--';
+
+        const uwTotal = document.getElementById('uw-total');
+        if (uwTotal && data.kaz_era.listed_uw_exposure) {
+            const exposure = Math.abs(data.kaz_era.listed_uw_exposure);
+            uwTotal.textContent = '-$' + (exposure / 1000).toFixed(0) + 'K';
+        }
+    }
 }
 
 // Load and display careers data

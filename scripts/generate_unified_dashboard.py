@@ -117,6 +117,14 @@ def main():
             careers_data = json.load(f)
         print(f"Loaded careers data from {careers_file.name}")
 
+    # Load problem homes data
+    problem_homes_file = find_latest_file(output_dir, "problem_homes_*.json")
+    problem_homes_data = {}
+    if problem_homes_file and problem_homes_file.exists():
+        with open(problem_homes_file) as f:
+            problem_homes_data = json.load(f)
+        print(f"Loaded problem homes data from {problem_homes_file.name}")
+
     # Load Parcl listings for inventory metrics
     listings_data = None
     if listings_file and listings_file.exists():
@@ -879,6 +887,22 @@ def main():
             'location_breakdown': dict(sorted(location_counts.items(), key=lambda x: -x[1])[:10]),
         }
         print(f"  Added careers: {total_jobs} jobs, {eng_count} engineering, {ai_count} AI/ML")
+
+    # ==== PROBLEM HOMES DATA ====
+    if problem_homes_data:
+        summary = problem_homes_data.get('summary', {})
+        markets = problem_homes_data.get('markets', [])
+
+        dashboard_data['problem_homes'] = {
+            'toxic_count': summary.get('total_toxic', 0),
+            'very_stale_count': summary.get('total_very_stale', 0),
+            'stale_count': summary.get('total_stale', 0),
+            'avg_dom': summary.get('avg_dom', 0),
+            'unrealized_pnl': summary.get('total_unrealized_pnl', 0),
+            'unrealized_pnl_millions': summary.get('unrealized_pnl_millions', 0),
+            'risk_markets': markets[:5],  # Top 5 highest risk markets
+        }
+        print(f"  Added problem homes: {summary.get('total_toxic', 0)} toxic, {summary.get('total_very_stale', 0)} very stale, ${summary.get('unrealized_pnl_millions', 0)}M unrealized")
 
     # ==== Q4 2025 EARNINGS ESTIMATES ====
     if len(q4_sales) > 0:

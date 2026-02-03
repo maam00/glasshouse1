@@ -66,6 +66,9 @@ def main():
     map_file = find_latest_file(output_dir, "singularity_map_*.json")
     charts_file = find_latest_file(output_dir, "singularity_charts_*.json")
 
+    # Load market intel data (mortgage rates, Fed data, Polymarket)
+    market_intel_file = find_latest_file(output_dir, "market_intel_*.json")
+
     # Load Parcl listings for inventory metrics
     parcl_dir = Path.home() / "Desktop" / "glasshouse"
     listings_file = find_latest_file(parcl_dir, "*listing*.csv")
@@ -90,6 +93,13 @@ def main():
     if charts_file and charts_file.exists():
         with open(charts_file) as f:
             charts_data = json.load(f)
+
+    # Load market intel data
+    market_intel_data = {}
+    if market_intel_file and market_intel_file.exists():
+        with open(market_intel_file) as f:
+            market_intel_data = json.load(f)
+        print(f"Loaded market intel data from {market_intel_file.name}")
 
     # Load Parcl listings for inventory metrics
     listings_data = None
@@ -635,6 +645,17 @@ def main():
         print(f"  Warning: Could not load sales funnel data: {e}")
         import traceback
         traceback.print_exc()
+
+    # ==== MARKET INTEL (Rates, Fed, Polymarket) ====
+    if market_intel_data:
+        dashboard_data['market_intel'] = {
+            'mortgage_rates': market_intel_data.get('mortgage_rates', {}),
+            'fed_data': market_intel_data.get('fed_data', {}),
+            'earnings': market_intel_data.get('earnings', {}),
+            'news': market_intel_data.get('news', {}),
+        }
+        print(f"  Added market intel: rates={market_intel_data.get('mortgage_rates', {}).get('rate_30yr', 'N/A')}%, "
+              f"fed={market_intel_data.get('fed_data', {}).get('current_rate', 'N/A')}")
 
     # ==== SAVE OUTPUT ====
     output_file = output_dir / "unified_dashboard_data.json"

@@ -1,4 +1,41 @@
 <!DOCTYPE html>
+<!--
+================================================================================
+OPENDOOR TRACKER DASHBOARD - CANONICAL FILE
+================================================================================
+
+This is the production dashboard served at https://opendoor-tracker.com/
+
+SECTION STRUCTURE:
+- At-a-Glance Signals (6 signal cards at top)
+- Pace & Velocity (revenue/sales charts, Q4 preview, day-of-week)
+- Portfolio Health (Kaz-Era + Legacy combined)
+- Risk & Problem Homes (COLLAPSED by default)
+- Pipeline (acquisition tracking)
+- Ops / Product / Hiring (COLLAPSED by default)
+- Methodology & Data Sources (COLLAPSED by default)
+
+HOW TO UPDATE SIGNAL THRESHOLDS:
+Edit the SIGNAL_THRESHOLDS object in the <script> section:
+- pace: 0.95/0.85/0.70 (ratio of actual to target homes/day)
+- winRate: 80/70/50 (percentages)
+- toxicWeeks: 8/16/24 (weeks to clear)
+
+HOW TO ADD A NEW SIGNAL CARD:
+1. Add HTML in the .signals-grid section following the pattern
+2. Add update logic in updateSignalCards() function
+3. Use getSignalStatus() with appropriate thresholds
+
+DATA SOURCES:
+- outputs/unified_dashboard_data.json (main metrics)
+- outputs/dashboard_data.json (portfolio details)
+- outputs/accountability_YYYY-MM-DD.json (acquisitions)
+- outputs/careers_YYYY-MM-DD.json (hiring)
+- outputs/problem_homes_YYYY-MM-DD.json (risk analysis)
+
+Last major refactor: Feb 2026
+================================================================================
+-->
 <html lang="en">
 <head>
     <!-- Google Analytics -->
@@ -1230,6 +1267,226 @@
             .metrics-row { grid-template-columns: repeat(2, 1fr); }
             .exposure-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* ============================================================
+           COLLAPSIBLE SECTIONS
+           ============================================================ */
+        .collapsible-section {
+            margin-bottom: 48px;
+        }
+
+        .collapsible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .collapsible-header:hover {
+            opacity: 0.9;
+        }
+
+        .collapsible-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+        }
+
+        .collapsible-toggle {
+            font-size: 10px;
+            color: var(--text-3);
+            padding: 4px 10px;
+            background: var(--surface);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .collapsible-header:hover .collapsible-toggle {
+            background: #1a1a1a;
+            color: var(--text-2);
+        }
+
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+        }
+
+        .collapsible-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 5000px;
+            opacity: 1;
+        }
+
+        /* ============================================================
+           SIGNAL CARDS (At-a-Glance)
+           ============================================================ */
+        .signals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .signals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .signal-card {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 3px solid var(--text-3);
+            transition: border-color 0.2s ease;
+        }
+
+        .signal-card.improving { border-left-color: var(--green); }
+        .signal-card.stable { border-left-color: var(--text-3); }
+        .signal-card.watching { border-left-color: var(--amber); }
+        .signal-card.critical { border-left-color: var(--red); }
+
+        .signal-card__label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-3);
+            margin-bottom: 8px;
+        }
+
+        .signal-card__value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .signal-card__secondary {
+            font-size: 11px;
+            color: var(--text-2);
+            margin-top: 4px;
+        }
+
+        .signal-card__secondary span {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .signal-card__status {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-top: 8px;
+        }
+
+        .signal-card__status.improving { background: var(--green-dim); color: var(--green); }
+        .signal-card__status.stable { background: rgba(102, 102, 102, 0.2); color: var(--text-2); }
+        .signal-card__status.watching { background: var(--amber-dim); color: var(--amber); }
+        .signal-card__status.critical { background: var(--red-dim); color: var(--red); }
+
+        /* Section takeaway (1-2 line summary) */
+        .section-takeaway {
+            font-size: 13px;
+            color: var(--text-2);
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border-left: 2px solid var(--text-3);
+        }
+
+        .section-takeaway strong {
+            color: var(--text);
+        }
+
+        /* Details disclosure for long tables */
+        .details-disclosure {
+            margin-top: 16px;
+        }
+
+        .details-disclosure__toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-2);
+            cursor: pointer;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .details-disclosure__toggle:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .details-disclosure__content {
+            margin-top: 12px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+        }
+
+        .details-disclosure__content.hidden {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .details-disclosure__content.visible {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        /* Data coverage chip */
+        .data-coverage-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--amber);
+            background: var(--amber-dim);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        /* Global timestamp banner */
+        .global-timestamp {
+            font-size: 11px;
+            color: var(--text-3);
+            text-align: center;
+            padding: 8px 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .global-timestamp strong {
+            color: var(--text-2);
+        }
     </style>
 </head>
 <body>
@@ -1246,6 +1503,11 @@
             <span class="header__refresh-note">Fresh data daily at 12pm PT</span>
         </div>
     </header>
+
+    <!-- Global Timestamp Banner -->
+    <div class="global-timestamp" id="global-timestamp">
+        Data as of <strong id="global-date">—</strong> · Updated daily at 12pm PT
+    </div>
 
     <!-- ============================================================
          THE VERDICT
@@ -1297,10 +1559,70 @@
     </div>
 
     <!-- ============================================================
+         AT-A-GLANCE SIGNALS
+         ============================================================ -->
+    <section class="section">
+        <div class="section-title">At-a-Glance Signals</div>
+        <div class="section-takeaway">
+            <strong>TL;DR:</strong> <span id="signals-summary">Tracking at 95% of guidance pace. Kaz-era performing well, legacy cleanup on track.</span>
+        </div>
+
+        <div class="signals-grid">
+            <!-- 1. Pace vs Guidance -->
+            <div class="signal-card watching" id="signal-pace">
+                <div class="signal-card__label">Pace vs Guidance</div>
+                <div class="signal-card__value" id="signal-pace-value">22.0/day</div>
+                <div class="signal-card__secondary">need <span id="signal-pace-target">29</span>/day for $1B</div>
+                <div class="signal-card__status watching" id="signal-pace-status">32% BEHIND</div>
+            </div>
+
+            <!-- 2. Revenue Pace -->
+            <div class="signal-card watching" id="signal-revenue">
+                <div class="signal-card__label">Revenue Pace</div>
+                <div class="signal-card__value" id="signal-rev-value">$8.6M/day</div>
+                <div class="signal-card__secondary">→ <span id="signal-rev-proj">$962M</span> projected Q1</div>
+                <div class="signal-card__status watching" id="signal-rev-status">$38M SHORT</div>
+            </div>
+
+            <!-- 3. Inventory Health -->
+            <div class="signal-card watching" id="signal-inventory">
+                <div class="signal-card__label">Inventory Health</div>
+                <div class="signal-card__value" id="signal-inv-value">764 active</div>
+                <div class="signal-card__secondary"><span id="signal-inv-dom">228</span>d avg DOM · <span id="signal-inv-cuts">75%</span> 3+ cuts</div>
+                <div class="signal-card__status watching" id="signal-inv-status">AGING</div>
+            </div>
+
+            <!-- 4. Legacy Toxic Clearance -->
+            <div class="signal-card stable" id="signal-toxic">
+                <div class="signal-card__label">Toxic Clearance</div>
+                <div class="signal-card__value" id="signal-toxic-value">84 left</div>
+                <div class="signal-card__secondary"><span id="signal-toxic-rate">5</span>/wk → clear by <span id="signal-toxic-date">May</span></div>
+                <div class="signal-card__status stable" id="signal-toxic-status">ON TRACK</div>
+            </div>
+
+            <!-- 5. Kaz-Era Quality -->
+            <div class="signal-card improving" id="signal-kaz">
+                <div class="signal-card__label">Kaz-Era Quality</div>
+                <div class="signal-card__value" id="signal-kaz-value">95% WR</div>
+                <div class="signal-card__secondary"><span id="signal-kaz-profit">$43K</span> avg profit · <span id="signal-kaz-uw">3</span> underwater</div>
+                <div class="signal-card__status improving" id="signal-kaz-status">STRONG</div>
+            </div>
+
+            <!-- 6. Acquisition Momentum -->
+            <div class="signal-card improving" id="signal-acq">
+                <div class="signal-card__label">Acquisition Momentum</div>
+                <div class="signal-card__value" id="signal-acq-value">287/wk</div>
+                <div class="signal-card__secondary">vs <span id="signal-acq-avg">240</span> 4wk avg · <span id="signal-acq-wow">+8%</span> WoW</div>
+                <div class="signal-card__status improving" id="signal-acq-status">RAMPING</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
          DAILY VELOCITY
          ============================================================ -->
     <section class="section">
-        <div class="section-title">Daily Velocity</div>
+        <div class="section-title">Pace & Velocity</div>
 
         <div class="metrics-row">
             <div class="metric-card">
@@ -1413,10 +1735,21 @@
     </section>
 
     <!-- ============================================================
-         KAZ-ERA PORTFOLIO
+         PORTFOLIO HEALTH
          ============================================================ -->
     <section class="section">
-        <div class="section-title">Kaz-Era Portfolio (Acquired Nov 2025+)</div>
+        <div class="section-title">Portfolio Health</div>
+        <div class="section-takeaway">
+            <strong>Kaz-era performing well</strong> (95% win rate) while legacy cleanup continues.
+            <span class="data-coverage-chip">38.7% P&L coverage</span>
+        </div>
+
+        <!-- Kaz-Era Sub-section -->
+        <div style="margin-bottom: 32px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%;"></span>
+                Kaz-Era (Acquired Nov 2025+)
+            </div>
 
         <div class="split">
             <div class="panel">
@@ -1520,13 +1853,14 @@
                 </tbody>
             </table>
         </div>
-    </section>
+        </div><!-- End Kaz-Era Sub-section -->
 
-    <!-- ============================================================
-         LEGACY PORTFOLIO
-         ============================================================ -->
-    <section class="section">
-        <div class="section-title">Legacy Portfolio (Pre-Kaz)</div>
+        <!-- Legacy Sub-section -->
+        <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--amber); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: var(--amber); border-radius: 50%;"></span>
+                Legacy (Pre-Kaz)
+            </div>
 
         <div class="split">
             <div class="panel">
@@ -1587,6 +1921,7 @@
                 </div>
             </div>
         </div>
+        </div><!-- End Legacy Sub-section -->
     </section>
 
     <!-- ============================================================
@@ -1619,7 +1954,10 @@
          ACQUISITION PIPELINE
          ============================================================ -->
     <section class="acquisition-section">
-        <div class="acquisition-section__title">Acquisition Pipeline (Inflow)</div>
+        <div class="acquisition-section__title">Pipeline</div>
+        <div class="section-takeaway">
+            Acquisition volume <strong>ramping</strong> — 287 contracts this week vs 240 4-week avg.
+        </div>
 
         <div class="acquisition-metrics">
             <div class="acquisition-metric">
@@ -1653,9 +1991,17 @@
     </section>
 
     <!-- ============================================================
-         PRODUCT UPDATES
+         OPS / PRODUCT / HIRING (Collapsible)
          ============================================================ -->
-    <section class="product-updates">
+    <section class="collapsible-section" id="section-ops">
+        <div class="collapsible-header" onclick="toggleSection('ops')">
+            <span class="collapsible-title">Ops / Product / Hiring</span>
+            <span class="collapsible-toggle" id="toggle-ops">Show ▼</span>
+        </div>
+        <div class="collapsible-content collapsed" id="content-ops">
+
+    <!-- Product Updates Sub-section -->
+    <div class="product-updates" style="margin-bottom: 24px;">
         <div class="product-updates__title">Recent Product Launches</div>
 
         <div class="product-updates__grid" id="product-grid">
@@ -1721,12 +2067,23 @@
         </div>
 
         <div class="insight-text" data-metric="product-insight" style="margin-top: 16px;"></div>
-    </section>
+    </div><!-- End product-updates -->
+
+        </div><!-- End collapsible content -->
+    </section><!-- End Ops / Product / Hiring -->
 
     <!-- ============================================================
-         PROBLEM HOMES DEEP DIVE
+         RISK & PROBLEM HOMES (Collapsible)
          ============================================================ -->
-    <section class="problem-homes-section">
+    <section class="collapsible-section" id="section-risk">
+        <div class="collapsible-header" onclick="toggleSection('risk')">
+            <span class="collapsible-title">Risk & Problem Homes</span>
+            <span class="collapsible-toggle" id="toggle-risk">Show ▼</span>
+        </div>
+        <div class="collapsible-content collapsed" id="content-risk">
+
+    <!-- Problem Homes Deep Dive -->
+    <div class="problem-homes-section" style="margin-bottom: 24px;">
         <div class="problem-homes__title">Problem Homes Deep Dive</div>
 
         <div class="problem-homes__summary">
@@ -1833,10 +2190,36 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div><!-- End Problem Homes Deep Dive -->
+
+    <!-- Cohort Performance (inside Risk section) -->
+    <div style="margin-top: 24px;">
+        <div class="section-title" style="border: none; margin-bottom: 12px;">Cohort Performance</div>
+        <table class="tbl" id="cohort-table-risk">
+            <thead>
+                <tr>
+                    <th>Cohort</th>
+                    <th>Sold</th>
+                    <th>Win Rate</th>
+                    <th>Margin</th>
+                    <th>Avg Profit</th>
+                </tr>
+            </thead>
+            <tbody id="cohort-table">
+                <tr><td class="name">New (&lt;90d)</td><td>70</td><td class="green">92.9%</td><td class="green">10.7%</td><td class="green">$41.9K</td></tr>
+                <tr><td class="name">Mid (90-180d)</td><td>104</td><td>84.6%</td><td>10.0%</td><td>$36.9K</td></tr>
+                <tr><td class="name">Old (180-365d)</td><td>100</td><td class="amber">53.0%</td><td>5.4%</td><td>$21.7K</td></tr>
+                <tr><td class="name">Toxic (&gt;365d)</td><td>43</td><td class="red">30.2%</td><td class="red">-4.1%</td><td class="red">-$12.5K</td></tr>
+            </tbody>
+        </table>
+        <div class="insight-text" data-metric="pattern-insight"></div>
+    </div>
+
+        </div><!-- End collapsible content -->
+    </section><!-- End Risk & Problem Homes -->
 
     <!-- ============================================================
-         CAREERS / HIRING
+         CAREERS / HIRING (standalone section)
          ============================================================ -->
     <section class="careers-section">
         <div class="careers-section__title">Hiring Intelligence <span style="font-size: 11px; color: var(--text-3); font-weight: 400;">(Updated Weekly)</span></div>
@@ -1893,37 +2276,10 @@
     </section>
 
     <!-- ============================================================
-         COHORT PERFORMANCE
+         RISK MONITORING (standalone section for inventory health)
          ============================================================ -->
     <section class="section">
-        <div class="section-title">Cohort Performance</div>
-
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>Cohort</th>
-                    <th>Sold</th>
-                    <th>Win Rate</th>
-                    <th>Margin</th>
-                    <th>Avg Profit</th>
-                </tr>
-            </thead>
-            <tbody id="cohort-table">
-                <tr><td class="name">New (&lt;90d)</td><td>70</td><td class="green">92.9%</td><td class="green">10.7%</td><td class="green">$41.9K</td></tr>
-                <tr><td class="name">Mid (90-180d)</td><td>104</td><td>84.6%</td><td>10.0%</td><td>$36.9K</td></tr>
-                <tr><td class="name">Old (180-365d)</td><td>100</td><td class="amber">53.0%</td><td>5.4%</td><td>$21.7K</td></tr>
-                <tr><td class="name">Toxic (&gt;365d)</td><td>43</td><td class="red">30.2%</td><td class="red">-4.1%</td><td class="red">-$12.5K</td></tr>
-            </tbody>
-        </table>
-
-        <div class="insight-text" data-metric="pattern-insight"></div>
-    </section>
-
-    <!-- ============================================================
-         RISK MONITORING
-         ============================================================ -->
-    <section class="section">
-        <div class="section-title">Risk Monitoring</div>
+        <div class="section-title">Inventory Health</div>
 
         <div class="split">
             <!-- Top Markets -->
@@ -1994,24 +2350,45 @@
     </section>
 
     <!-- ============================================================
-         DATA TRANSPARENCY
+         METHODOLOGY & DATA SOURCES (Collapsible)
          ============================================================ -->
-    <div class="disclaimer">
+    <section class="collapsible-section" id="section-methodology" style="margin-top: 48px;">
+        <div class="collapsible-header" onclick="toggleSection('methodology')">
+            <span class="collapsible-title">Methodology & Data Sources</span>
+            <span class="collapsible-toggle" id="toggle-methodology">Show ▼</span>
+        </div>
+        <div class="collapsible-content collapsed" id="content-methodology">
+
+    <div class="disclaimer" style="margin-top: 0;">
         <div class="disclaimer-title">&#9888; Data Transparency</div>
         <div class="disclaimer-text">
             Win rates reflect <strong>sold homes only</strong>. Homes still listed may lose money when sold.<br><br>
+
+            <strong>Definitions:</strong><br>
+            • <strong>Win Rate:</strong> % of sold homes with Realized Net > $0<br>
+            • <strong>Avg Profit:</strong> Mean profit on winning trades<br>
+            • <strong>Underwater Exposure:</strong> Sum of unrealized losses on homes listed below cost<br><br>
+
             <strong>Q1 2026:</strong> <span data-metric="data-coverage">715 sales (38.7% with P&L)</span><br>
             <strong>Win Rate:</strong> <span data-metric="win-rate">79.1%</span> (from <span data-metric="pnl-sample">277</span> sales with P&L data)<br>
             <strong>Avg Profit:</strong> <span data-metric="avg-profit">$46,407</span> | <strong>Total Realized:</strong> <span data-metric="total-realized">$8.4M</span><br><br>
+
             <strong>How Margin is Calculated:</strong><br>
             Realized Net from Parcl includes <em>all costs</em>: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price. Win = Realized Net > $0.<br><br>
+
             <strong>Guidance Target:</strong> $1B Q1 revenue. 29 homes/day target based on ~$388K avg price.<br><br>
+
             <strong>Data Sources:</strong><br>
             • Sales velocity & revenue: <a href="https://singularityresearchfund.com/opendoor-tracker" target="_blank" style="color: var(--text-2);">Singularity Research</a> (real-time)<br>
-            • P&L & inventory metrics: Parcl Research<br><br>
-            <span style="color: var(--text-3); font-size: 11px;">Data as of <span data-metric="as-of">Jan 26, 2026</span> | Unified dataset</span>
+            • P&L & inventory metrics: Parcl Research<br>
+            • Acquisition contracts: accountable.opendoor.com<br><br>
+
+            <strong style="color: var(--text);">Last Updated:</strong> <span data-metric="as-of" style="color: var(--text);">Jan 26, 2026</span> at 12:00 PM PT
         </div>
     </div>
+
+        </div><!-- End collapsible content -->
+    </section><!-- End Methodology & Data Sources -->
 
     <!-- Footer -->
     <footer>
@@ -2025,6 +2402,209 @@
 </div>
 
 <script>
+// ============================================================
+// COLLAPSIBLE SECTIONS
+// ============================================================
+function toggleSection(sectionId) {
+    const content = document.getElementById('content-' + sectionId);
+    const toggle = document.getElementById('toggle-' + sectionId);
+    if (!content || !toggle) return;
+
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        content.classList.add('expanded');
+        toggle.textContent = 'Hide ▲';
+    } else {
+        content.classList.remove('expanded');
+        content.classList.add('collapsed');
+        toggle.textContent = 'Show ▼';
+    }
+}
+
+// ============================================================
+// SIGNAL STATUS THRESHOLDS (centralized)
+// ============================================================
+const SIGNAL_THRESHOLDS = {
+    pace: {
+        improving: 0.95,  // >= 95% of target
+        stable: 0.85,     // >= 85% of target
+        watching: 0.70,   // >= 70% of target
+        critical: 0       // < 70% of target
+    },
+    winRate: {
+        improving: 80,    // >= 80%
+        stable: 70,       // >= 70%
+        watching: 50,     // >= 50%
+        critical: 0       // < 50%
+    },
+    toxicWeeks: {
+        improving: 8,     // <= 8 weeks to clear
+        stable: 16,       // <= 16 weeks
+        watching: 24,     // <= 24 weeks
+        critical: 999     // > 24 weeks
+    }
+};
+
+function getSignalStatus(value, thresholds, higherIsBetter = true) {
+    if (higherIsBetter) {
+        if (value >= thresholds.improving) return 'improving';
+        if (value >= thresholds.stable) return 'stable';
+        if (value >= thresholds.watching) return 'watching';
+        return 'critical';
+    } else {
+        if (value <= thresholds.improving) return 'improving';
+        if (value <= thresholds.stable) return 'stable';
+        if (value <= thresholds.watching) return 'watching';
+        return 'critical';
+    }
+}
+
+// ============================================================
+// UPDATE SIGNAL CARDS
+// ============================================================
+function updateSignalCards(data) {
+    if (!data) return;
+
+    // 1. Pace vs Guidance
+    if (data.velocity && data.guidance) {
+        const dailyAvg = data.velocity.daily_avg_sales || 22;
+        const target = 29; // homes/day for $1B
+        const paceRatio = dailyAvg / target;
+        const behindPct = Math.round((1 - paceRatio) * 100);
+        const status = getSignalStatus(paceRatio, SIGNAL_THRESHOLDS.pace);
+
+        updateSignalCard('signal-pace', {
+            value: dailyAvg.toFixed(1) + '/day',
+            secondary: 'need ' + target + '/day for $1B',
+            status: status,
+            statusText: behindPct > 0 ? behindPct + '% BEHIND' : 'ON PACE'
+        });
+    }
+
+    // 2. Revenue Pace
+    if (data.velocity && data.guidance) {
+        const dailyRev = data.velocity.daily_avg_revenue || 8600000;
+        const projectedQ1 = data.guidance.projected_revenue || 962000000;
+        const shortfall = 1000000000 - projectedQ1;
+        const status = shortfall > 50000000 ? 'watching' : shortfall > 0 ? 'stable' : 'improving';
+
+        updateSignalCard('signal-revenue', {
+            value: '$' + (dailyRev / 1000000).toFixed(1) + 'M/day',
+            secondary: '→ $' + Math.round(projectedQ1 / 1000000) + 'M projected Q1',
+            status: status,
+            statusText: shortfall > 0 ? '$' + Math.round(shortfall / 1000000) + 'M SHORT' : 'ON TARGET'
+        });
+    }
+
+    // 3. Inventory Health
+    if (data.inventory) {
+        const active = data.inventory.total_listings || 764;
+        const avgDom = data.inventory.avg_days_on_market || 228;
+        const cutsPct = data.inventory.homes_with_3plus_cuts / active * 100 || 75;
+        const status = avgDom > 200 ? 'watching' : avgDom > 150 ? 'stable' : 'improving';
+
+        updateSignalCard('signal-inventory', {
+            value: active + ' active',
+            secondary: avgDom + 'd avg DOM · ' + Math.round(cutsPct) + '% 3+ cuts',
+            status: status,
+            statusText: avgDom > 200 ? 'AGING' : 'HEALTHY'
+        });
+    }
+
+    // 4. Toxic Clearance
+    if (data.toxic_clearance) {
+        const remaining = data.toxic_clearance.remaining || 84;
+        const rate = data.toxic_clearance.rate_per_week || 5;
+        const weeksToGo = Math.ceil(remaining / rate);
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const clearDate = new Date();
+        clearDate.setDate(clearDate.getDate() + weeksToGo * 7);
+        const clearMonth = monthNames[clearDate.getMonth()];
+        const status = getSignalStatus(weeksToGo, SIGNAL_THRESHOLDS.toxicWeeks, false);
+
+        updateSignalCard('signal-toxic', {
+            value: remaining + ' left',
+            secondary: rate + '/wk → clear by ' + clearMonth,
+            status: status,
+            statusText: weeksToGo <= 16 ? 'ON TRACK' : 'SLOW'
+        });
+    }
+
+    // 5. Kaz-Era Quality
+    if (data.kaz_era) {
+        const winRate = data.kaz_era.sold_win_rate || 95;
+        const avgProfit = data.kaz_era.sold_avg_profit || 43000;
+        const underwater = data.kaz_era.listed_underwater || 3;
+        const status = getSignalStatus(winRate, SIGNAL_THRESHOLDS.winRate);
+
+        updateSignalCard('signal-kaz', {
+            value: Math.round(winRate) + '% WR',
+            secondary: '$' + Math.round(avgProfit / 1000) + 'K avg profit · ' + underwater + ' underwater',
+            status: status,
+            statusText: winRate >= 90 ? 'STRONG' : winRate >= 70 ? 'SOLID' : 'CONCERN'
+        });
+    }
+
+    // 6. Acquisition Momentum
+    if (data.acquisitions) {
+        const latest = data.acquisitions.latest_week || 287;
+        const avg4w = data.acquisitions.avg_4w || 240;
+        const wow = data.acquisitions.wow_change || 8;
+        const status = wow > 0 ? 'improving' : wow >= -10 ? 'stable' : 'watching';
+
+        updateSignalCard('signal-acq', {
+            value: latest + '/wk',
+            secondary: 'vs ' + Math.round(avg4w) + ' 4wk avg · ' + (wow >= 0 ? '+' : '') + wow + '% WoW',
+            status: status,
+            statusText: wow > 5 ? 'RAMPING' : wow >= 0 ? 'STEADY' : 'SLOWING'
+        });
+    }
+
+    // Update summary
+    updateSignalsSummary(data);
+}
+
+function updateSignalCard(cardId, opts) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    // Update card class for border color
+    card.className = 'signal-card ' + opts.status;
+
+    // Update value
+    const valueEl = card.querySelector('.signal-card__value');
+    if (valueEl && opts.value) valueEl.textContent = opts.value;
+
+    // Update secondary
+    const secEl = card.querySelector('.signal-card__secondary');
+    if (secEl && opts.secondary) secEl.innerHTML = opts.secondary;
+
+    // Update status badge
+    const statusEl = card.querySelector('.signal-card__status');
+    if (statusEl) {
+        statusEl.className = 'signal-card__status ' + opts.status;
+        statusEl.textContent = opts.statusText || opts.status.toUpperCase();
+    }
+}
+
+function updateSignalsSummary(data) {
+    const summaryEl = document.getElementById('signals-summary');
+    if (!summaryEl) return;
+
+    const pacing = data.guidance?.pacing_pct || 95;
+    const kazWR = data.kaz_era?.sold_win_rate || 95;
+    const toxicRemaining = data.toxic_clearance?.remaining || 84;
+
+    let summary = 'Tracking at ' + Math.round(pacing) + '% of guidance pace. ';
+    if (kazWR >= 90) summary += 'Kaz-era performing well';
+    else if (kazWR >= 70) summary += 'Kaz-era solid';
+    else summary += 'Kaz-era needs attention';
+    summary += ', legacy cleanup ';
+    summary += toxicRemaining < 100 ? 'on track.' : 'progressing.';
+
+    summaryEl.textContent = summary;
+}
+
 // ============================================================
 // UTILITIES
 // ============================================================
@@ -2322,6 +2902,7 @@ async function init() {
             const data = await r.json();
             renderRevenueChart(data);
             updateDashboardMetrics(data);
+            updateSignalCards(data);
             updateThisWeekNarrative(data);
             updateToxicWeeklyTrend(data);
             updateRateWatch(data);
@@ -2698,12 +3279,14 @@ function updateDashboardMetrics(data) {
         if (toxicRemaining) toxicRemaining.textContent = data.toxic_clearance.remaining || 84;
     }
 
-    // Update timestamp
+    // Update timestamp (header + global banner)
     const tsEl = document.querySelector('.header__timestamp');
-    if (tsEl && data.as_of) {
+    const globalDateEl = document.getElementById('global-date');
+    if (data.as_of) {
         const asOf = new Date(data.as_of + 'T12:00:00');
         const formatted = asOf.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        tsEl.textContent = `Data as of ${formatted}`;
+        if (tsEl) tsEl.textContent = `Data as of ${formatted}`;
+        if (globalDateEl) globalDateEl.textContent = formatted;
     }
     updateText('[data-metric="as-of"]', data.as_of);
 

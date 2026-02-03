@@ -135,9 +135,15 @@ def main():
     q1_sales = sales[sales['sale_date'] >= q1_start].copy()
     q1_daily = daily[daily['date'] >= q1_start].copy()
 
+    # Q4 2025 data (for earnings estimates)
+    q4_start = '2025-10-01'
+    q4_end = '2025-12-31'
+    q4_sales = sales[(sales['sale_date'] >= q4_start) & (sales['sale_date'] <= q4_end)].copy()
+
     q1_metrics = metrics['q1_2026']
 
     print(f"Q1 2026: {len(q1_sales)} sales, {len(q1_daily)} days")
+    print(f"Q4 2025: {len(q4_sales)} sales")
 
     # =========================================================================
     # BUILD DASHBOARD DATA
@@ -873,6 +879,32 @@ def main():
             'location_breakdown': dict(sorted(location_counts.items(), key=lambda x: -x[1])[:10]),
         }
         print(f"  Added careers: {total_jobs} jobs, {eng_count} engineering, {ai_count} AI/ML")
+
+    # ==== Q4 2025 EARNINGS ESTIMATES ====
+    if len(q4_sales) > 0:
+        q4_revenue = q4_sales['sale_price'].sum()
+        q4_homes_sold = len(q4_sales)
+
+        # Calculate Q4 acquisitions from accountability data (Oct-Dec 2025 weeks)
+        q4_acq = 0
+        if accountability_data:
+            weekly = accountability_data.get('weekly_contracts', [])
+            for w in weekly:
+                week_date = w.get('week', '')
+                if week_date >= '2025-10-01' and week_date <= '2025-12-31':
+                    q4_acq += w.get('actual', 0)
+
+        # Days until earnings (Feb 19, 2026)
+        earnings_date = datetime(2026, 2, 19)
+        days_to_earnings = (earnings_date - datetime.now()).days
+
+        dashboard_data['q4_estimates'] = {
+            'revenue': round(q4_revenue),
+            'homes_sold': q4_homes_sold,
+            'acquisitions': q4_acq,
+            'days_to_earnings': max(0, days_to_earnings),
+        }
+        print(f"  Added Q4 estimates: {q4_homes_sold} homes, ${q4_revenue/1e6:.1f}M revenue, {q4_acq} acquisitions")
 
     # ==== SAVE OUTPUT ====
     output_file = output_dir / "unified_dashboard_data.json"

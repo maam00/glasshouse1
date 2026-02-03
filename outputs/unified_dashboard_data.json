@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T14:47:10.869897",
+  "generated_at": "2026-02-03T14:48:37.709052",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -1333,5 +1333,11 @@
       "Florida-Miami; Washington-Seattle; Phoenix": 2,
       "Arizona-Tempe": 1
     }
+  },
+  "q4_estimates": {
+    "revenue": 600446900,
+    "homes_sold": 1552,
+    "acquisitions": 2533,
+    "days_to_earnings": 15
   }
 }

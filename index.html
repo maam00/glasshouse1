@@ -3225,6 +3225,23 @@ function updatePortfolioFromUnified(data) {
         const legacyToxicRemaining = document.getElementById('legacy-toxic-remaining');
         if (legacyToxicRemaining) legacyToxicRemaining.textContent = data.toxic_clearance.remaining || '--';
     }
+
+    // Update Q4 2025 earnings estimates
+    if (data.q4_estimates) {
+        const q4RevEst = document.getElementById('q4-revenue-est');
+        if (q4RevEst && data.q4_estimates.revenue) {
+            q4RevEst.textContent = '$' + Math.round(data.q4_estimates.revenue / 1000000) + 'M';
+        }
+
+        const q4HomesEst = document.getElementById('q4-homes-sold-est');
+        if (q4HomesEst) q4HomesEst.textContent = data.q4_estimates.homes_sold?.toLocaleString() || '--';
+
+        const q4AcqEst = document.getElementById('q4-acq-est');
+        if (q4AcqEst) q4AcqEst.textContent = data.q4_estimates.acquisitions?.toLocaleString() || '--';
+
+        const q4Days = document.getElementById('q4-days-to-report');
+        if (q4Days) q4Days.textContent = data.q4_estimates.days_to_earnings ?? '--';
+    }
 }
 
 // Load and display careers data

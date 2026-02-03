@@ -366,6 +366,55 @@ def main():
 
         dashboard_data['cohorts'] = cohorts
 
+    # ==== KAZ-ERA vs LEGACY SPLIT ====
+    # Kaz-era = purchased on or after Sep 10, 2025
+    KAZ_ERA_START = pd.Timestamp('2025-09-10')
+
+    # We need purchase_date to determine era - only available for matched/parcl records
+    sales_with_purchase = q1_sales[q1_sales['purchase_date'].notna()].copy()
+    sales_with_purchase['purchase_date'] = pd.to_datetime(sales_with_purchase['purchase_date'])
+
+    if len(sales_with_purchase) > 0:
+        kaz_era_sales = sales_with_purchase[sales_with_purchase['purchase_date'] >= KAZ_ERA_START]
+        legacy_sales = sales_with_purchase[sales_with_purchase['purchase_date'] < KAZ_ERA_START]
+
+        def calc_era_metrics(era_sales, era_name):
+            """Calculate metrics for Kaz-era or Legacy portfolio."""
+            era_with_pnl = era_sales[era_sales['realized_net'].notna()]
+
+            if len(era_with_pnl) > 0:
+                wins = len(era_with_pnl[era_with_pnl['realized_net'] > 0])
+                losses = len(era_with_pnl[era_with_pnl['realized_net'] < 0])
+                total = wins + losses
+                win_rate = wins / total * 100 if total > 0 else 0
+                avg_profit = era_with_pnl[era_with_pnl['realized_net'] > 0]['realized_net'].mean() if wins > 0 else 0
+                total_realized = era_with_pnl['realized_net'].sum()
+            else:
+                win_rate = 0
+                avg_profit = 0
+                total_realized = 0
+                wins = 0
+                losses = 0
+
+            return {
+                'sold_count': len(era_sales),
+                'sold_win_rate': round(win_rate, 1),
+                'sold_avg_profit': round(avg_profit) if not np.isnan(avg_profit) else 0,
+                'sold_total_realized': round(total_realized),
+                'wins': wins,
+                'losses': losses,
+            }
+
+        dashboard_data['kaz_era'] = calc_era_metrics(kaz_era_sales, 'kaz_era')
+        dashboard_data['legacy'] = calc_era_metrics(legacy_sales, 'legacy')
+
+        print(f"  Kaz-era: {dashboard_data['kaz_era']['sold_count']} sales, {dashboard_data['kaz_era']['sold_win_rate']}% WR")
+        print(f"  Legacy: {dashboard_data['legacy']['sold_count']} sales, {dashboard_data['legacy']['sold_win_rate']}% WR")
+    else:
+        # Fallback if no purchase date data
+        dashboard_data['kaz_era'] = {'sold_count': 0, 'sold_win_rate': 0, 'sold_avg_profit': 0, 'sold_total_realized': 0}
+        dashboard_data['legacy'] = {'sold_count': 0, 'sold_win_rate': 0, 'sold_avg_profit': 0, 'sold_total_realized': 0}
+
     # ==== WEEKLY SUMMARY ====
     # This week's data
     latest_date = q1_daily['date'].max()

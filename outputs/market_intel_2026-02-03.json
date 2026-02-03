@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-02-03T12:00:17.541896",
+  "earnings": {
+    "next_earnings_date": null,
+    "days_until_earnings": null,
+    "analyst_estimates": {},
+    "recent_history": [],
+    "source": "yahoo_finance"
+  },
+  "mortgage_rates": {
+    "rate_30yr": 6.1,
+    "rate_15yr": 5.4,
+    "rate_change_1w": 0.0,
+    "rate_change_1m": -0.05,
+    "as_of": "2026-02-03",
+    "source": "estimate_feb2026",
+    "historical": []
+  },
+  "fed_data": {
+    "current_rate": "3.50-3.75%",
+    "effective_rate": null,
+    "last_action": "hold",
+    "last_meeting": "Jan 28-29",
+    "next_meeting": "Mar 17-18",
+    "ytd_cuts": 0,
+    "ytd_hikes": 0,
+    "polymarket": {
+      "cuts_2026": [
+        {
+          "cuts": 3,
+          "probability": 25.5
+        },
+        {
+          "cuts": 2,
+          "probability": 23.5
+        },
+        {
+          "cuts": 4,
+          "probability": 14.5
+        },
+        {
+          "cuts": 1,
+          "probability": 13.5
+        },
+        {
+          "cuts": 2026,
+          "probability": 7.2
+        },
+        {
+          "cuts": 5,
+          "probability": 5.5
+        }
+      ],
+      "most_likely_cuts": 3,
+      "most_likely_pct": 25.5,
+      "volume": 4025410,
+      "source": "polymarket"
+    }
+  },
+  "news": {
+    "headlines": [],
+    "fed_news": [
+      {
+        "title": "HSBC Adjusts Price Target on Progressive to $223 From $224, Maintains Hold Rating",
+        "publisher": "MT Newswires",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "French police search X office in Paris, summons Elon Musk for questioning",
+        "publisher": "TechCrunch",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "European Stocks Mostly Lower in Tuesday Trading; Spain to Ban Social Media for Children; Credit Suisse Linked to Potential Nazi-Era Accounts",
+        "publisher": "MT Newswires",
+        "date": "2026-02-03"
+      }
+    ],
+    "housing_news": [
+      {
+        "title": "HSBC Adjusts Price Target on Progressive to $223 From $224, Maintains Hold Rating",
+        "publisher": "MT Newswires",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "French police search X office in Paris, summons Elon Musk for questioning",
+        "publisher": "TechCrunch",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "European Stocks Mostly Lower in Tuesday Trading; Spain to Ban Social Media for Children; Credit Suisse Linked to Potential Nazi-Era Accounts",
+        "publisher": "MT Newswires",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "ABCS Insights Launches in Canada to Power the Outcomes Advertising Effectiveness Era",
+        "publisher": "PR Newswire",
+        "date": "2026-02-03"
+      },
+      {
+        "title": "Alphabet\u2019s Waymo secures $16bn funding at $126bn valuation",
+        "publisher": "Just Auto",
+        "date": "2026-02-03"
+      }
+    ],
+    "opendoor_news": [
+      {
+        "title": "Opendoor CEO Change Puts AI At Center Of House Flipping Model",
+        "publisher": "Simply Wall St.",
+        "link": "https://finance.yahoo.com/news/opendoor-ceo-change-puts-ai-043507248.html",
+        "date": "2026-02-02"
+      },
+      {
+        "title": "3 Stocks Under $10 to Buy in 2026",
+        "publisher": "Motley Fool",
+        "link": "https://finance.yahoo.com/m/c3a57e1d-0041-38b3-9a16-ce1c3f20fd16/3-stocks-under-%2410-to-buy-in.html",
+        "date": "2026-02-02"
+      },
+      {
+        "title": "What Long-Term Investors Should Understand About Opendoor Before Buying the Stock\u200b",
+        "publisher": "Motley Fool",
+        "link": "https://finance.yahoo.com/m/29ee0470-a4e6-3af9-a398-85b54d024e2c/what-long-term-investors.html",
+        "date": "2026-02-01"
+      },
+      {
+        "title": "Opendoor 4Q25 Financial Open House: Opendoor to Report Fourth Quarter and Full Year 2025 Financial Results on February 19th, 2026",
+        "publisher": "GlobeNewswire",
+        "link": "https://finance.yahoo.com/news/opendoor-4q25-financial-open-house-140000886.html",
+        "date": "2026-01-30"
+      },
+      {
+        "title": "Q3 Earnings Highs And Lows: Opendoor (NASDAQ:OPEN) Vs The Rest Of The Real Estate Services Stocks",
+        "publisher": "StockStory",
+        "link": "https://finance.yahoo.com/news/q3-earnings-highs-lows-opendoor-033113752.html",
+        "date": "2026-01-29"
+      }
+    ]
+  },
+  "market_brief": null
+}

@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-02-03T11:59:48.082998",
+  "results": [
+    {
+      "check_name": "kaz_era_sanity",
+      "status": "PASS",
+      "message": "Kaz-era sales count (2929) is healthy",
+      "details": {
+        "kaz_era_start": "2025-09-10",
+        "sales_count": 2929,
+        "pnl_coverage": 377
+      },
+      "is_critical": false
+    },
+    {
+      "check_name": "revenue_validation",
+      "status": "FAIL",
+      "message": "Revenue discrepancy (13.1%) exceeds 5% tolerance",
+      "details": {
+        "calculated_revenue": 1265631899.0,
+        "reported_revenue": 1119290000.0,
+        "difference_pct": 0.13074529299823995,
+        "tolerance": 0.05
+      },
+      "is_critical": true
+    },
+    {
+      "check_name": "win_rate_validation",
+      "status": "PASS",
+      "message": "Win rate validation passed (76.9% from 377 sales)",
+      "details": {
+        "calculated_win_rate": 0.7692307692307693,
+        "wins": 290,
+        "losses": 87,
+        "breakeven": 0,
+        "avg_profit": 47084.38965517242,
+        "avg_loss": -26781.48275862069,
+        "total_realized": 11324484.0,
+        "pnl_coverage": 377,
+        "total_sales": 3256
+      },
+      "is_critical": false
+    },
+    {
+      "check_name": "cross_source_validation",
+      "status": "PASS",
+      "message": "Cross-source validation passed (matched: 236, sing: 3055, parcl: 437)",
+      "details": {
+        "singularity_in_unified": 3055,
+        "parcl_in_unified": 437,
+        "matched": 236,
+        "singularity_direct": 3055
+      },
+      "is_critical": false
+    },
+    {
+      "check_name": "data_freshness",
+      "status": "PASS",
+      "message": "Data files are fresh",
+      "details": {},
+      "is_critical": false
+    },
+    {
+      "check_name": "sales_count_sanity",
+      "status": "WARN",
+      "message": "Sales count mismatch: 3256 (sales) vs 2882 (daily), diff=13.0%",
+      "details": {
+        "total_from_sales": 3256,
+        "total_from_daily": 2882,
+        "difference_pct": 0.1297709923664122
+      },
+      "is_critical": false
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 4,
+    "failed": 1,
+    "warned": 1,
+    "skipped": 0
+  },
+  "has_critical_failures": true
+}

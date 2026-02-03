@@ -349,21 +349,9 @@ def main():
                 kaz_listed_metrics = calc_listed_metrics(kaz_listed, 'kaz')
                 legacy_listed_metrics = calc_listed_metrics(legacy_listed, 'legacy')
 
-                # Add to kaz_era section
-                if 'kaz_era' in dashboard_data:
-                    dashboard_data['kaz_era']['listed_count'] = kaz_listed_metrics['count']
-                    dashboard_data['kaz_era']['listed_above_water'] = kaz_listed_metrics['above_water']
-                    dashboard_data['kaz_era']['listed_underwater'] = kaz_listed_metrics['underwater']
-                    dashboard_data['kaz_era']['listed_with_cuts'] = kaz_listed_metrics['with_cuts']
-                    dashboard_data['kaz_era']['listed_uw_exposure'] = kaz_listed_metrics['uw_exposure']
-
-                # Add to legacy section
-                if 'legacy' in dashboard_data:
-                    dashboard_data['legacy']['listed_count'] = legacy_listed_metrics['count']
-                    dashboard_data['legacy']['listed_above_water'] = legacy_listed_metrics['above_water']
-                    dashboard_data['legacy']['listed_underwater'] = legacy_listed_metrics['underwater']
-                    dashboard_data['legacy']['listed_with_cuts'] = legacy_listed_metrics['with_cuts']
-                    dashboard_data['legacy']['listed_uw_exposure'] = legacy_listed_metrics['uw_exposure']
+                # Store for later - will be added to kaz_era/legacy sections after they're created
+                dashboard_data['_kaz_listed_metrics'] = kaz_listed_metrics
+                dashboard_data['_legacy_listed_metrics'] = legacy_listed_metrics
 
                 print(f"  Kaz-era listed: {kaz_listed_metrics['count']} ({kaz_listed_metrics['underwater']} underwater)")
                 print(f"  Legacy listed: {legacy_listed_metrics['count']} ({legacy_listed_metrics['underwater']} underwater)")
@@ -486,6 +474,23 @@ def main():
         # Fallback if no purchase date data
         dashboard_data['kaz_era'] = {'sold_count': 0, 'sold_win_rate': 0, 'sold_avg_profit': 0, 'sold_total_realized': 0}
         dashboard_data['legacy'] = {'sold_count': 0, 'sold_win_rate': 0, 'sold_avg_profit': 0, 'sold_total_realized': 0}
+
+    # Merge in listed inventory metrics (calculated earlier from Parcl listings)
+    if '_kaz_listed_metrics' in dashboard_data:
+        kaz_listed = dashboard_data.pop('_kaz_listed_metrics')
+        dashboard_data['kaz_era']['listed_count'] = kaz_listed['count']
+        dashboard_data['kaz_era']['listed_above_water'] = kaz_listed['above_water']
+        dashboard_data['kaz_era']['listed_underwater'] = kaz_listed['underwater']
+        dashboard_data['kaz_era']['listed_with_cuts'] = kaz_listed['with_cuts']
+        dashboard_data['kaz_era']['listed_uw_exposure'] = kaz_listed['uw_exposure']
+
+    if '_legacy_listed_metrics' in dashboard_data:
+        legacy_listed = dashboard_data.pop('_legacy_listed_metrics')
+        dashboard_data['legacy']['listed_count'] = legacy_listed['count']
+        dashboard_data['legacy']['listed_above_water'] = legacy_listed['above_water']
+        dashboard_data['legacy']['listed_underwater'] = legacy_listed['underwater']
+        dashboard_data['legacy']['listed_with_cuts'] = legacy_listed['with_cuts']
+        dashboard_data['legacy']['listed_uw_exposure'] = legacy_listed['uw_exposure']
 
     # ==== WEEKLY SUMMARY ====
     # This week's data

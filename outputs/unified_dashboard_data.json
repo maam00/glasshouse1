@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T14:46:09.709598",
+  "generated_at": "2026-02-03T14:47:10.869897",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -730,7 +730,12 @@
     "sold_avg_profit": 49920,
     "sold_total_realized": 4406745,
     "wins": 90,
-    "losses": 5
+    "losses": 5,
+    "listed_count": 198,
+    "listed_above_water": 191,
+    "listed_underwater": 7,
+    "listed_with_cuts": 110,
+    "listed_uw_exposure": -74380
   },
   "legacy": {
     "sold_count": 151,
@@ -738,7 +743,12 @@
     "sold_avg_profit": 43847,
     "sold_total_realized": 2483750,
     "wins": 86,
-    "losses": 41
+    "losses": 41,
+    "listed_count": 536,
+    "listed_above_water": 343,
+    "listed_underwater": 193,
+    "listed_with_cuts": 528,
+    "listed_uw_exposure": -5561316
   },
   "this_week": {
     "sales": 204,

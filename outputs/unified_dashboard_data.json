@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T14:52:08.233711",
+  "generated_at": "2026-02-03T14:54:10.519202",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -735,7 +735,58 @@
     "listed_above_water": 191,
     "listed_underwater": 7,
     "listed_with_cuts": 110,
-    "listed_uw_exposure": -74380
+    "listed_uw_exposure": -74380,
+    "underwater_homes": [
+      {
+        "location": "ELLENWOOD, GA",
+        "days": 91,
+        "underwater": -15303,
+        "cuts": 2,
+        "status": "aging"
+      },
+      {
+        "location": "STONE MOUNTAIN, GA",
+        "days": 24,
+        "underwater": -10077,
+        "cuts": 2,
+        "status": "recent"
+      },
+      {
+        "location": "MARICOPA, AZ",
+        "days": 21,
+        "underwater": -1600,
+        "cuts": 1,
+        "status": "recent"
+      },
+      {
+        "location": "PHOENIX, AZ",
+        "days": 25,
+        "underwater": -14000,
+        "cuts": 0,
+        "status": "recent"
+      },
+      {
+        "location": "APOPKA, FL",
+        "days": 24,
+        "underwater": -6900,
+        "cuts": 2,
+        "status": "recent"
+      },
+      {
+        "location": "RALEIGH, NC",
+        "days": 58,
+        "underwater": -16000,
+        "cuts": 3,
+        "status": "recent"
+      },
+      {
+        "location": "CHARLOTTE, NC",
+        "days": 53,
+        "underwater": -10500,
+        "cuts": 2,
+        "status": "recent"
+      }
+    ]
   },
   "legacy": {
     "sold_count": 151,

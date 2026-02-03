@@ -367,6 +367,33 @@ def main():
                 dashboard_data['_kaz_listed_metrics'] = kaz_listed_metrics
                 dashboard_data['_legacy_listed_metrics'] = legacy_listed_metrics
 
+                # Get individual underwater Kaz-era homes for watchlist
+                kaz_underwater_homes = []
+                kaz_listed_copy = kaz_listed.copy()
+                kaz_listed_copy['unrealized'] = kaz_listed_copy['latest_price'] - kaz_listed_copy['original_price']
+                kaz_uw = kaz_listed_copy[kaz_listed_copy['unrealized'] < 0].copy()
+                for _, row in kaz_uw.iterrows():
+                    city = row.get('City', 'Unknown')
+                    state = row.get('State', '')
+                    dom = int(row.get('days_on_market', 0)) if pd.notna(row.get('days_on_market')) else 0
+                    uw_amt = row['unrealized']
+                    cuts = int(row.get('price_cuts', 0)) if pd.notna(row.get('price_cuts')) else 0
+                    # Determine status based on DOM
+                    if dom > 180:
+                        status = 'stale'
+                    elif dom > 90:
+                        status = 'aging'
+                    else:
+                        status = 'recent'
+                    kaz_underwater_homes.append({
+                        'location': f"{city}, {state}",
+                        'days': dom,
+                        'underwater': round(uw_amt),
+                        'cuts': cuts,
+                        'status': status,
+                    })
+                dashboard_data['_kaz_underwater_homes'] = kaz_underwater_homes
+
                 print(f"  Kaz-era listed: {kaz_listed_metrics['count']} ({kaz_listed_metrics['underwater']} underwater)")
                 print(f"  Legacy listed: {legacy_listed_metrics['count']} ({legacy_listed_metrics['underwater']} underwater)")
 
@@ -497,6 +524,9 @@ def main():
         dashboard_data['kaz_era']['listed_underwater'] = kaz_listed['underwater']
         dashboard_data['kaz_era']['listed_with_cuts'] = kaz_listed['with_cuts']
         dashboard_data['kaz_era']['listed_uw_exposure'] = kaz_listed['uw_exposure']
+
+    if '_kaz_underwater_homes' in dashboard_data:
+        dashboard_data['kaz_era']['underwater_homes'] = dashboard_data.pop('_kaz_underwater_homes')
 
     if '_legacy_listed_metrics' in dashboard_data:
         legacy_listed = dashboard_data.pop('_legacy_listed_metrics')

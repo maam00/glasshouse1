@@ -3299,6 +3299,27 @@ function updatePortfolioFromUnified(data) {
             const exposure = Math.abs(data.kaz_era.listed_uw_exposure);
             uwTotal.textContent = '-$' + (exposure / 1000).toFixed(0) + 'K';
         }
+
+        // Populate underwater homes watchlist table
+        const watchlistBody = document.getElementById('watchlist-body');
+        if (watchlistBody && data.kaz_era.underwater_homes) {
+            let html = '';
+            for (const home of data.kaz_era.underwater_homes) {
+                const statusClass = home.status === 'stale' ? 'red' : (home.status === 'aging' ? 'amber' : '');
+                const statusText = home.status === 'stale' ? 'Stale' : (home.status === 'aging' ? 'Aging' : 'Recent');
+                const uwAmt = Math.abs(home.underwater);
+                html += `
+                    <tr>
+                        <td class="name">${home.location}</td>
+                        <td>${home.days}d</td>
+                        <td class="red">-$${(uwAmt / 1000).toFixed(1)}K</td>
+                        <td>${home.cuts}</td>
+                        <td class="${statusClass}">${statusText}</td>
+                    </tr>
+                `;
+            }
+            watchlistBody.innerHTML = html;
+        }
     }
 }
 

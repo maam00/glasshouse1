@@ -3244,10 +3244,8 @@ function updatePortfolioFromUnified(data) {
     }
 
     // Update Problem Homes section
-    console.log('Problem homes data:', data.problem_homes);
     if (data.problem_homes) {
         const phToxic = document.getElementById('ph-toxic');
-        console.log('phToxic element:', phToxic, 'value:', data.problem_homes.toxic_count);
         if (phToxic) phToxic.textContent = data.problem_homes.toxic_count || '--';
 
         const phVeryStale = document.getElementById('ph-very-stale');
@@ -3303,9 +3301,7 @@ function updatePortfolioFromUnified(data) {
         }
 
         // Populate underwater homes watchlist table
-        console.log('Underwater homes:', data.kaz_era.underwater_homes);
         const watchlistBody = document.getElementById('watchlist-body');
-        console.log('watchlistBody element:', watchlistBody);
         if (watchlistBody && data.kaz_era.underwater_homes) {
             let html = '';
             for (const home of data.kaz_era.underwater_homes) {

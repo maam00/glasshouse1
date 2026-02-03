@@ -101,6 +101,22 @@ def main():
             market_intel_data = json.load(f)
         print(f"Loaded market intel data from {market_intel_file.name}")
 
+    # Load accountability data (acquisitions)
+    accountability_file = find_latest_file(output_dir, "accountability_*.json")
+    accountability_data = {}
+    if accountability_file and accountability_file.exists():
+        with open(accountability_file) as f:
+            accountability_data = json.load(f)
+        print(f"Loaded accountability data from {accountability_file.name}")
+
+    # Load careers data
+    careers_file = find_latest_file(output_dir, "careers_*.json")
+    careers_data = {}
+    if careers_file and careers_file.exists():
+        with open(careers_file) as f:
+            careers_data = json.load(f)
+        print(f"Loaded careers data from {careers_file.name}")
+
     # Load Parcl listings for inventory metrics
     listings_data = None
     if listings_file and listings_file.exists():
@@ -732,6 +748,70 @@ def main():
         }
         print(f"  Added market intel: rates={market_intel_data.get('mortgage_rates', {}).get('rate_30yr', 'N/A')}%, "
               f"fed={market_intel_data.get('fed_data', {}).get('current_rate', 'N/A')}")
+
+    # ==== ACQUISITIONS DATA ====
+    if accountability_data:
+        weekly_contracts = accountability_data.get('weekly_contracts', [])
+        latest = accountability_data.get('latest', {})
+        product_updates = accountability_data.get('product_updates', [])
+
+        dashboard_data['acquisitions'] = {
+            'weekly_contracts': weekly_contracts,
+            'latest_week': latest.get('contracts', 0),
+            'wow_change': latest.get('wow_change', 0),
+            'avg_4w': latest.get('avg_4w', 0),
+            'q1_total': latest.get('q1_total', 0),
+            'q1_weeks': latest.get('q1_weeks', 0),
+            'product_updates': product_updates,
+        }
+        print(f"  Added acquisitions: {latest.get('contracts', 0)} contracts this week, {len(product_updates)} product updates")
+
+    # ==== CAREERS DATA ====
+    if careers_data:
+        jobs = careers_data.get('jobs', [])
+        total_jobs = careers_data.get('total_jobs', len(jobs))
+
+        # Count by department
+        dept_counts = {}
+        location_counts = {}
+        for job in jobs:
+            dept = job.get('department', 'Other')
+            loc = job.get('location', 'Unknown')
+            dept_counts[dept] = dept_counts.get(dept, 0) + 1
+            # Extract city from location
+            city = loc.split(',')[0].replace('Office - ', '').strip()
+            location_counts[city] = location_counts.get(city, 0) + 1
+
+        # Get top location
+        top_location = max(location_counts.items(), key=lambda x: x[1])[0] if location_counts else 'Unknown'
+
+        # Count specific categories
+        eng_count = dept_counts.get('Engineering & Technology', 0)
+        sales_count = dept_counts.get('Sales & Customer Experience', 0)
+        finance_count = dept_counts.get('Finance & Accounting', 0) + dept_counts.get('Legal', 0)
+        growth_count = dept_counts.get('Marketing & Growth', 0)
+
+        # Count AI/ML roles
+        ai_count = sum(1 for j in jobs if 'AI' in j.get('title', '') or 'ML' in j.get('title', '') or
+                       'Data Scientist' in j.get('title', '') or 'Machine Learning' in j.get('title', ''))
+
+        # Count senior roles
+        senior_count = sum(1 for j in jobs if 'Senior' in j.get('title', '') or 'Director' in j.get('title', '') or
+                          'Manager' in j.get('title', '') or 'Lead' in j.get('title', '') or 'VP' in j.get('title', ''))
+
+        dashboard_data['careers'] = {
+            'total_jobs': total_jobs,
+            'engineering': eng_count,
+            'sales': sales_count,
+            'finance': finance_count,
+            'growth': growth_count,
+            'ai_ml': ai_count,
+            'senior': senior_count,
+            'top_location': top_location,
+            'department_breakdown': dept_counts,
+            'location_breakdown': dict(sorted(location_counts.items(), key=lambda x: -x[1])[:10]),
+        }
+        print(f"  Added careers: {total_jobs} jobs, {eng_count} engineering, {ai_count} AI/ML")
 
     # ==== SAVE OUTPUT ====
     output_file = output_dir / "unified_dashboard_data.json"

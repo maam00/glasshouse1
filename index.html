@@ -2783,16 +2783,17 @@ document.addEventListener('keydown', function(e) {
 // INIT
 // ============================================================
 async function init() {
+    let dashboardData = null;
     try {
         const r = await fetch('outputs/unified_dashboard_data.json');
         if (r.ok) {
-            const data = await r.json();
-            renderRevenueChart(data);
-            updateDashboardMetrics(data);
-            updateSignalCards(data);
-            updateThisWeekNarrative(data);
-            updateToxicWeeklyTrend(data);
-            updateRateWatch(data);
+            dashboardData = await r.json();
+            renderRevenueChart(dashboardData);
+            updateDashboardMetrics(dashboardData);
+            updateSignalCards(dashboardData);
+            updateThisWeekNarrative(dashboardData);
+            updateToxicWeeklyTrend(dashboardData);
+            updateRateWatch(dashboardData);
         } else {
             renderRevenueChart(null);
         }
@@ -2806,17 +2807,20 @@ async function init() {
     // Refresh every 30 minutes
     setInterval(fetchStockPrice, 30 * 60 * 1000);
 
-    // Load acquisition data
-    loadAcquisitionData();
+    // Load acquisition data from unified JSON
+    if (dashboardData && dashboardData.acquisitions) {
+        updateAcquisitionSectionFromUnified(dashboardData.acquisitions);
+    }
 
-    // Load careers data
-    loadCareersData();
+    // Load careers data from unified JSON
+    if (dashboardData && dashboardData.careers) {
+        updateCareersSectionFromUnified(dashboardData.careers);
+    }
 
-    // Load problem homes data
-    loadProblemHomesData();
-
-    // Load portfolio data (Kaz-Era & Legacy)
-    loadPortfolioData();
+    // Load portfolio data (Kaz-Era & Legacy) from unified JSON
+    if (dashboardData) {
+        updatePortfolioFromUnified(dashboardData);
+    }
 }
 
 async function fetchStockPrice() {
@@ -2969,6 +2973,210 @@ function updateProductUpdates(products) {
     }
 
     grid.innerHTML = html;
+}
+
+// Update acquisition section from unified dashboard data
+function updateAcquisitionSectionFromUnified(acq) {
+    if (!acq) return;
+
+    // Update main metrics
+    const acqLatest = document.getElementById('acq-latest');
+    if (acqLatest) acqLatest.textContent = acq.latest_week?.toLocaleString() || '—';
+
+    const acqWow = document.getElementById('acq-wow');
+    if (acqWow && acq.wow_change !== undefined) {
+        const arrow = acq.wow_change >= 0 ? '+' : '';
+        acqWow.textContent = `${arrow}${Math.round(acq.wow_change)}% WoW`;
+        acqWow.className = 'acquisition-metric__delta ' + (acq.wow_change >= 0 ? 'up' : 'down');
+    }
+
+    const acqAvg = document.getElementById('acq-avg');
+    if (acqAvg) acqAvg.textContent = Math.round(acq.avg_4w || 0).toLocaleString();
+
+    const acqQ1 = document.getElementById('acq-q1');
+    if (acqQ1) acqQ1.textContent = (acq.q1_total || 0).toLocaleString();
+
+    const acqQ1Weeks = document.getElementById('acq-q1-weeks');
+    if (acqQ1Weeks) acqQ1Weeks.textContent = `${acq.q1_weeks || 0} weeks`;
+
+    // Update takeaway
+    const takeaway = document.getElementById('acq-takeaway');
+    if (takeaway) {
+        const weekContracts = document.getElementById('acq-week-contracts');
+        const avgContracts = document.getElementById('acq-avg-contracts');
+        if (weekContracts) weekContracts.textContent = acq.latest_week || '--';
+        if (avgContracts) avgContracts.textContent = Math.round(acq.avg_4w) || '--';
+    }
+
+    // Update trend display (last 5 weeks)
+    const acqTrend = document.getElementById('acq-trend');
+    const contracts = acq.weekly_contracts || [];
+    if (acqTrend && contracts.length > 0) {
+        const last5 = contracts.slice(-5);
+        const trendHtml = last5.map((w, i) =>
+            `<span class="acquisition-trend__week">${w.actual}</span>` +
+            (i < last5.length - 1 ? ' → ' : '')
+        ).join('');
+        acqTrend.innerHTML = trendHtml;
+    }
+
+    // Update product updates section
+    const products = acq.product_updates || [];
+    if (products.length > 0) {
+        updateProductUpdates(products);
+    }
+}
+
+// Update careers section from unified dashboard data
+function updateCareersSectionFromUnified(careers) {
+    if (!careers) return;
+
+    // Update total
+    const totalEl = document.getElementById('careers-total');
+    if (totalEl) totalEl.textContent = careers.total_jobs || 0;
+
+    // Update department counts
+    const engEl = document.getElementById('careers-eng');
+    if (engEl) engEl.textContent = careers.engineering || 0;
+
+    const salesEl = document.getElementById('careers-sales');
+    if (salesEl) salesEl.textContent = careers.sales || 0;
+
+    const aiEl = document.getElementById('careers-ai');
+    if (aiEl) aiEl.textContent = careers.ai_ml || 0;
+
+    // Update highlights
+    const seniorEl = document.getElementById('careers-senior');
+    if (seniorEl) seniorEl.textContent = careers.senior || 0;
+
+    const growthEl = document.getElementById('careers-growth');
+    if (growthEl) growthEl.textContent = careers.growth || 0;
+
+    const financeEl = document.getElementById('careers-finance');
+    if (financeEl) financeEl.textContent = careers.finance || 0;
+
+    const locationEl = document.getElementById('careers-location');
+    if (locationEl) locationEl.textContent = careers.top_location || '--';
+
+    // Update hiring signals (generate from data)
+    const signalsEl = document.getElementById('hiring-signals');
+    if (signalsEl && careers.department_breakdown) {
+        let signalsHtml = '';
+        const depts = careers.department_breakdown;
+        if (careers.ai_ml > 0) {
+            signalsHtml += `<div style="margin-bottom: 6px;"><span style="color: #8b5cf6;">●</span> <strong>${careers.ai_ml} Data/AI roles</strong> - Heavy investment in pricing model accuracy</div>`;
+        }
+        if (careers.engineering > 10) {
+            signalsHtml += `<div style="margin-bottom: 6px;"><span style="color: #8b5cf6;">●</span> <strong>${careers.engineering} Engineering roles</strong> - Scaling technology platform</div>`;
+        }
+        if (careers.sales > 10) {
+            signalsHtml += `<div style="margin-bottom: 6px;"><span style="color: var(--green);">●</span> <strong>${careers.sales} Sales/CX roles</strong> - Customer growth focus</div>`;
+        }
+        if (careers.top_location) {
+            const topCount = careers.location_breakdown?.[careers.top_location] || 0;
+            signalsHtml += `<div style="margin-bottom: 6px;"><span style="color: var(--amber);">●</span> <strong>${careers.top_location}</strong> - ${topCount} roles (top hiring market)</div>`;
+        }
+        signalsEl.innerHTML = signalsHtml || '<div>Loading hiring signals...</div>';
+    }
+
+    // Update strategic interpretation
+    const insightsEl = document.getElementById('careers-insights-content');
+    if (insightsEl) {
+        let insightsHtml = '';
+        if (careers.ai_ml > 3) {
+            insightsHtml += `<div class="careers-insight"><strong>AI-First Pricing:</strong> Heavy investment in ML infrastructure signals transition from rule-based to fully AI-driven pricing.</div>`;
+        }
+        if (careers.finance > 3) {
+            insightsHtml += `<div class="careers-insight"><strong>Margin Expansion:</strong> Finance roles indicate push for capital efficiency under Kaz's leadership.</div>`;
+        }
+        if (careers.sales > 10) {
+            insightsHtml += `<div class="careers-insight"><strong>Growth Mode:</strong> Significant sales hiring indicates expansion focus.</div>`;
+        }
+        insightsEl.innerHTML = insightsHtml || '<div class="careers-insight">Analysis based on current hiring patterns.</div>';
+    }
+}
+
+// Update portfolio section from unified dashboard data
+function updatePortfolioFromUnified(data) {
+    if (!data) return;
+
+    // Update Kaz-era metrics
+    if (data.kaz_era) {
+        const kazSoldCount = document.getElementById('kaz-sold-count');
+        if (kazSoldCount) kazSoldCount.textContent = data.kaz_era.sold_count || '--';
+
+        const kazWinRate = document.getElementById('kaz-win-rate');
+        if (kazWinRate) kazWinRate.textContent = (data.kaz_era.sold_win_rate?.toFixed(1) || '--') + '%';
+
+        const kazAvgProfit = document.getElementById('kaz-avg-profit');
+        if (kazAvgProfit && data.kaz_era.sold_avg_profit) {
+            kazAvgProfit.textContent = '$' + Math.round(data.kaz_era.sold_avg_profit / 1000) + 'K';
+        }
+
+        const kazTotalRealized = document.getElementById('kaz-total-realized');
+        if (kazTotalRealized && data.kaz_era.sold_total_realized) {
+            kazTotalRealized.textContent = '$' + (data.kaz_era.sold_total_realized / 1000000).toFixed(1) + 'M';
+        }
+    }
+
+    // Update Legacy metrics
+    if (data.legacy) {
+        const legacySoldCount = document.getElementById('legacy-sold-count');
+        if (legacySoldCount) legacySoldCount.textContent = data.legacy.sold_count || '--';
+
+        const legacyWinRate = document.getElementById('legacy-win-rate');
+        if (legacyWinRate) legacyWinRate.textContent = (data.legacy.sold_win_rate?.toFixed(1) || '--') + '%';
+
+        const legacyAvgProfit = document.getElementById('legacy-avg-profit');
+        if (legacyAvgProfit && data.legacy.sold_avg_profit) {
+            legacyAvgProfit.textContent = '$' + Math.round(data.legacy.sold_avg_profit / 1000) + 'K';
+        }
+
+        const legacyTotalRealized = document.getElementById('legacy-total-realized');
+        if (legacyTotalRealized && data.legacy.sold_total_realized) {
+            legacyTotalRealized.textContent = '$' + (data.legacy.sold_total_realized / 1000000).toFixed(1) + 'M';
+        }
+    }
+
+    // Update P&L coverage chip
+    if (data.pnl) {
+        const coverageChip = document.getElementById('pnl-coverage-chip');
+        if (coverageChip) coverageChip.textContent = (data.pnl.coverage_pct?.toFixed(0) || '--') + '% P&L coverage';
+    }
+
+    // Update Q1 progress bar metrics
+    if (data.guidance && data.velocity) {
+        const q1Rev = document.getElementById('q1-rev');
+        if (q1Rev) q1Rev.textContent = '$' + Math.round(data.velocity.q1_revenue / 1000000) + 'M';
+
+        const q1Pct = document.getElementById('q1-pct');
+        if (q1Pct) q1Pct.textContent = data.guidance.pacing_pct?.toFixed(0) + '%';
+
+        const q1Progress = document.getElementById('q1-progress');
+        if (q1Progress) {
+            const progressWidth = Math.min(100, (data.velocity.q1_revenue / data.guidance.q1_target) * 100);
+            q1Progress.style.width = progressWidth + '%';
+        }
+    }
+
+    // Update toxic clearance from unified data
+    if (data.toxic_clearance) {
+        const toxicCleared = document.getElementById('toxic-cleared');
+        if (toxicCleared) toxicCleared.textContent = data.toxic_clearance.cleared || '--';
+
+        const toxicRemaining = document.getElementById('toxic-remaining');
+        if (toxicRemaining) toxicRemaining.textContent = data.toxic_clearance.remaining || '--';
+
+        const clearanceRate = document.getElementById('clearance-rate');
+        if (clearanceRate) clearanceRate.textContent = data.toxic_clearance.rate_per_week || '--';
+
+        // Update toxic bar
+        const toxicBar = document.getElementById('toxic-bar');
+        if (toxicBar && data.toxic_clearance.initial) {
+            const clearedPct = (data.toxic_clearance.cleared / data.toxic_clearance.initial) * 100;
+            toxicBar.style.width = clearedPct + '%';
+        }
+    }
 }
 
 // Load and display careers data

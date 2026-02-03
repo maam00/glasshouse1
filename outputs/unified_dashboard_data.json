@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T14:23:18.030028",
+  "generated_at": "2026-02-03T14:39:18.555675",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -787,6 +787,12 @@
       "toxic_count": 84
     }
   ],
+  "toxic_clearance": {
+    "remaining": 84,
+    "cleared": 43,
+    "rate_per_week": 5,
+    "initial": 127
+  },
   "this_week_narrative": {
     "improving": [
       "Legacy underwater down 8 homes",

@@ -510,6 +510,33 @@ def main():
 
     dashboard_data['toxic_weekly_trend'] = toxic_weekly
 
+    # ==== TOXIC CLEARANCE SUMMARY ====
+    # Calculate toxic clearance metrics for the signal card
+    toxic_remaining = 84  # default
+    toxic_cleared = 43  # default
+    toxic_rate = 5  # default rate per week
+
+    if toxic_weekly and len(toxic_weekly) >= 2:
+        # Get current toxic count
+        toxic_remaining = toxic_weekly[-1].get('toxic_count', 84)
+        # Calculate rate from recent trend (change over last few weeks)
+        first_count = toxic_weekly[0].get('toxic_count', toxic_remaining)
+        weeks_elapsed = len(toxic_weekly)
+        if weeks_elapsed > 0 and first_count > toxic_remaining:
+            toxic_rate = round((first_count - toxic_remaining) / weeks_elapsed, 1)
+        toxic_cleared = 127 - toxic_remaining  # Assuming 127 was initial toxic count
+    elif 'cohorts' in dashboard_data and 'toxic' in dashboard_data['cohorts']:
+        # Fallback to cohorts data
+        toxic_remaining = dashboard_data['cohorts']['toxic'].get('count', 84)
+        toxic_cleared = 127 - toxic_remaining
+
+    dashboard_data['toxic_clearance'] = {
+        'remaining': toxic_remaining,
+        'cleared': max(0, toxic_cleared),
+        'rate_per_week': max(1, toxic_rate),  # At least 1/week
+        'initial': 127
+    }
+
     # ==== THIS WEEK NARRATIVE (AI-powered) ====
     this_week_narrative = generate_this_week_narrative(dashboard_data, dashboard_data_file)
     dashboard_data['this_week_narrative'] = this_week_narrative

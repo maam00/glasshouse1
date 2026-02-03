@@ -1499,8 +1499,6 @@ Last major refactor: Feb 2026
         <div class="header__brand">Glass House</div>
         <div class="header__right">
             <span class="header__ticker" id="stock-ticker">$OPEN --</span>
-            <span class="header__timestamp" id="timestamp">Loading...</span>
-            <span class="header__refresh-note">Fresh data daily at 12pm PT</span>
         </div>
     </header>
 
@@ -3279,13 +3277,11 @@ function updateDashboardMetrics(data) {
         if (toxicRemaining) toxicRemaining.textContent = data.toxic_clearance.remaining || 84;
     }
 
-    // Update timestamp (header + global banner)
-    const tsEl = document.querySelector('.header__timestamp');
+    // Update global timestamp banner
     const globalDateEl = document.getElementById('global-date');
     if (data.as_of) {
         const asOf = new Date(data.as_of + 'T12:00:00');
         const formatted = asOf.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        if (tsEl) tsEl.textContent = `Data as of ${formatted}`;
         if (globalDateEl) globalDateEl.textContent = formatted;
     }
     updateText('[data-metric="as-of"]', data.as_of);

@@ -127,6 +127,9 @@ def main():
     sales['sale_date'] = pd.to_datetime(sales['sale_date'])
     daily['date'] = pd.to_datetime(daily['date'])
 
+    # Kaz-era start date (CEO change: Sep 10, 2025)
+    KAZ_ERA_START = pd.Timestamp('2025-09-10')
+
     # Filter to Q1 2026
     q1_start = '2026-01-01'
     q1_sales = sales[sales['sale_date'] >= q1_start].copy()
@@ -309,6 +312,62 @@ def main():
             state_counts = listings_data['State'].value_counts().head(5).to_dict()
             dashboard_data['inventory']['by_state'] = state_counts
 
+        # ==== KAZ-ERA VS LEGACY LISTED INVENTORY ====
+        if 'Original Purchase Date' in listings_data.columns:
+            # Parse purchase dates
+            listings_data['purchase_date'] = pd.to_datetime(listings_data['Original Purchase Date'], errors='coerce')
+
+            # Filter to listings with purchase date
+            listings_with_date = listings_data[listings_data['purchase_date'].notna()].copy()
+
+            if len(listings_with_date) > 0:
+                # Split into Kaz-era and Legacy
+                kaz_listed = listings_with_date[listings_with_date['purchase_date'] >= KAZ_ERA_START]
+                legacy_listed = listings_with_date[listings_with_date['purchase_date'] < KAZ_ERA_START]
+
+                # Calculate underwater status
+                def calc_listed_metrics(df, name):
+                    if len(df) == 0:
+                        return {'count': 0, 'above_water': 0, 'underwater': 0, 'with_cuts': 0, 'uw_exposure': 0}
+
+                    df = df.copy()
+                    df['unrealized'] = df['latest_price'] - df['original_price']
+                    above_water = (df['unrealized'] >= 0).sum()
+                    underwater = (df['unrealized'] < 0).sum()
+                    with_cuts = (df['price_cuts'] > 0).sum()
+                    uw_exposure = df[df['unrealized'] < 0]['unrealized'].sum() if underwater > 0 else 0
+
+                    return {
+                        'count': len(df),
+                        'above_water': int(above_water),
+                        'underwater': int(underwater),
+                        'with_cuts': int(with_cuts),
+                        'uw_exposure': round(uw_exposure),
+                        'avg_dom': round(df['days_on_market'].mean(), 1) if df['days_on_market'].notna().any() else 0,
+                    }
+
+                kaz_listed_metrics = calc_listed_metrics(kaz_listed, 'kaz')
+                legacy_listed_metrics = calc_listed_metrics(legacy_listed, 'legacy')
+
+                # Add to kaz_era section
+                if 'kaz_era' in dashboard_data:
+                    dashboard_data['kaz_era']['listed_count'] = kaz_listed_metrics['count']
+                    dashboard_data['kaz_era']['listed_above_water'] = kaz_listed_metrics['above_water']
+                    dashboard_data['kaz_era']['listed_underwater'] = kaz_listed_metrics['underwater']
+                    dashboard_data['kaz_era']['listed_with_cuts'] = kaz_listed_metrics['with_cuts']
+                    dashboard_data['kaz_era']['listed_uw_exposure'] = kaz_listed_metrics['uw_exposure']
+
+                # Add to legacy section
+                if 'legacy' in dashboard_data:
+                    dashboard_data['legacy']['listed_count'] = legacy_listed_metrics['count']
+                    dashboard_data['legacy']['listed_above_water'] = legacy_listed_metrics['above_water']
+                    dashboard_data['legacy']['listed_underwater'] = legacy_listed_metrics['underwater']
+                    dashboard_data['legacy']['listed_with_cuts'] = legacy_listed_metrics['with_cuts']
+                    dashboard_data['legacy']['listed_uw_exposure'] = legacy_listed_metrics['uw_exposure']
+
+                print(f"  Kaz-era listed: {kaz_listed_metrics['count']} ({kaz_listed_metrics['underwater']} underwater)")
+                print(f"  Legacy listed: {legacy_listed_metrics['count']} ({legacy_listed_metrics['underwater']} underwater)")
+
     # ==== GEOGRAPHIC DATA ====
     # Use Singularity map data for top markets (sorted by listing count)
     if map_data:
@@ -383,9 +442,6 @@ def main():
         dashboard_data['cohorts'] = cohorts
 
     # ==== KAZ-ERA vs LEGACY SPLIT ====
-    # Kaz-era = purchased on or after Sep 10, 2025
-    KAZ_ERA_START = pd.Timestamp('2025-09-10')
-
     # We need purchase_date to determine era - only available for matched/parcl records
     sales_with_purchase = q1_sales[q1_sales['purchase_date'].notna()].copy()
     sales_with_purchase['purchase_date'] = pd.to_datetime(sales_with_purchase['purchase_date'])

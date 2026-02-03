@@ -3100,41 +3100,85 @@ function updateCareersSectionFromUnified(careers) {
 function updatePortfolioFromUnified(data) {
     if (!data) return;
 
-    // Update Kaz-era metrics
+    // Update Kaz-era SOLD metrics
     if (data.kaz_era) {
         const kazSoldCount = document.getElementById('kaz-sold-count');
         if (kazSoldCount) kazSoldCount.textContent = data.kaz_era.sold_count || '--';
 
-        const kazWinRate = document.getElementById('kaz-win-rate');
-        if (kazWinRate) kazWinRate.textContent = (data.kaz_era.sold_win_rate?.toFixed(1) || '--') + '%';
+        const kazSoldWr = document.getElementById('kaz-sold-wr');
+        if (kazSoldWr) kazSoldWr.textContent = (data.kaz_era.sold_win_rate?.toFixed(1) || '--') + '%';
 
-        const kazAvgProfit = document.getElementById('kaz-avg-profit');
-        if (kazAvgProfit && data.kaz_era.sold_avg_profit) {
-            kazAvgProfit.textContent = '$' + Math.round(data.kaz_era.sold_avg_profit / 1000) + 'K';
+        const kazSoldProfit = document.getElementById('kaz-sold-profit');
+        if (kazSoldProfit && data.kaz_era.sold_avg_profit) {
+            kazSoldProfit.textContent = '$' + Math.round(data.kaz_era.sold_avg_profit / 1000) + 'K';
         }
 
-        const kazTotalRealized = document.getElementById('kaz-total-realized');
-        if (kazTotalRealized && data.kaz_era.sold_total_realized) {
-            kazTotalRealized.textContent = '$' + (data.kaz_era.sold_total_realized / 1000000).toFixed(1) + 'M';
+        const kazSoldTotal = document.getElementById('kaz-sold-total');
+        if (kazSoldTotal && data.kaz_era.sold_total_realized) {
+            kazSoldTotal.textContent = '$' + (data.kaz_era.sold_total_realized / 1000000).toFixed(1) + 'M';
+        }
+
+        // Update Kaz-era realized gains
+        const kazRealized = document.getElementById('kaz-realized');
+        if (kazRealized && data.kaz_era.sold_total_realized) {
+            kazRealized.textContent = '$' + (data.kaz_era.sold_total_realized / 1000000).toFixed(1) + 'M';
+        }
+
+        // Update Kaz-era LISTED metrics
+        const kazListedCount = document.getElementById('kaz-listed-count');
+        if (kazListedCount) kazListedCount.textContent = data.kaz_era.listed_count ?? '--';
+
+        const kazListedAbove = document.getElementById('kaz-listed-above');
+        if (kazListedAbove) kazListedAbove.textContent = data.kaz_era.listed_above_water ?? '--';
+
+        const kazListedUw = document.getElementById('kaz-listed-uw');
+        if (kazListedUw) kazListedUw.textContent = data.kaz_era.listed_underwater ?? '--';
+
+        const kazListedCuts = document.getElementById('kaz-listed-cuts');
+        if (kazListedCuts) kazListedCuts.textContent = data.kaz_era.listed_with_cuts ?? '--';
+
+        const kazUwExposure = document.getElementById('kaz-uw-exposure');
+        if (kazUwExposure && data.kaz_era.listed_uw_exposure) {
+            const exposure = Math.abs(data.kaz_era.listed_uw_exposure);
+            kazUwExposure.textContent = '-$' + (exposure / 1000).toFixed(0) + 'K';
         }
     }
 
-    // Update Legacy metrics
+    // Update Legacy SOLD metrics
     if (data.legacy) {
         const legacySoldCount = document.getElementById('legacy-sold-count');
         if (legacySoldCount) legacySoldCount.textContent = data.legacy.sold_count || '--';
 
-        const legacyWinRate = document.getElementById('legacy-win-rate');
-        if (legacyWinRate) legacyWinRate.textContent = (data.legacy.sold_win_rate?.toFixed(1) || '--') + '%';
+        const legacySoldWr = document.getElementById('legacy-sold-wr');
+        if (legacySoldWr) legacySoldWr.textContent = (data.legacy.sold_win_rate?.toFixed(1) || '--') + '%';
 
-        const legacyAvgProfit = document.getElementById('legacy-avg-profit');
-        if (legacyAvgProfit && data.legacy.sold_avg_profit) {
-            legacyAvgProfit.textContent = '$' + Math.round(data.legacy.sold_avg_profit / 1000) + 'K';
+        const legacySoldProfit = document.getElementById('legacy-sold-profit');
+        if (legacySoldProfit && data.legacy.sold_avg_profit) {
+            legacySoldProfit.textContent = '$' + Math.round(data.legacy.sold_avg_profit / 1000) + 'K';
         }
 
-        const legacyTotalRealized = document.getElementById('legacy-total-realized');
-        if (legacyTotalRealized && data.legacy.sold_total_realized) {
-            legacyTotalRealized.textContent = '$' + (data.legacy.sold_total_realized / 1000000).toFixed(1) + 'M';
+        const legacySoldTotal = document.getElementById('legacy-sold-total');
+        if (legacySoldTotal && data.legacy.sold_total_realized) {
+            legacySoldTotal.textContent = '$' + (data.legacy.sold_total_realized / 1000000).toFixed(1) + 'M';
+        }
+
+        // Update Legacy LISTED metrics
+        const legacyListedCount = document.getElementById('legacy-listed-count');
+        if (legacyListedCount) legacyListedCount.textContent = data.legacy.listed_count ?? '--';
+
+        const legacyListedAbove = document.getElementById('legacy-listed-above');
+        if (legacyListedAbove) legacyListedAbove.textContent = data.legacy.listed_above_water ?? '--';
+
+        const legacyListedUw = document.getElementById('legacy-listed-uw');
+        if (legacyListedUw) legacyListedUw.textContent = data.legacy.listed_underwater ?? '--';
+
+        const legacyListedCuts = document.getElementById('legacy-listed-cuts');
+        if (legacyListedCuts) legacyListedCuts.textContent = data.legacy.listed_with_cuts ?? '--';
+
+        const legacyUwExposure = document.getElementById('legacy-uw-exposure');
+        if (legacyUwExposure && data.legacy.listed_uw_exposure) {
+            const exposure = Math.abs(data.legacy.listed_uw_exposure);
+            legacyUwExposure.textContent = '-$' + (exposure / 1000000).toFixed(1) + 'M';
         }
     }
 
@@ -3176,6 +3220,10 @@ function updatePortfolioFromUnified(data) {
             const clearedPct = (data.toxic_clearance.cleared / data.toxic_clearance.initial) * 100;
             toxicBar.style.width = clearedPct + '%';
         }
+
+        // Update legacy toxic remaining
+        const legacyToxicRemaining = document.getElementById('legacy-toxic-remaining');
+        if (legacyToxicRemaining) legacyToxicRemaining.textContent = data.toxic_clearance.remaining || '--';
     }
 }
 

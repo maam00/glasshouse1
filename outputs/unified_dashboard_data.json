@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-06T09:14:14.449846",
+  "generated_at": "2026-02-06T12:00:13.312463",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -713,15 +713,15 @@
       "avg_price": 266273
     },
     {
-      "city": "Dallas",
+      "city": "Spring",
       "listings": 10,
-      "avg_price": 356900
+      "avg_price": 368100
     }
   ],
   "market_concentration": {
     "top5_pct": 7.7,
-    "total_markets": 483,
-    "total_listings": 1158
+    "total_markets": 480,
+    "total_listings": 1151
   },
   "top_cities": {
     "Phoenix": 14,
@@ -1057,7 +1057,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-06T09:14:16.884553",
+    "generated_at": "2026-02-06T12:00:18.638098",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -1111,86 +1111,44 @@
         ],
         "most_likely_cuts": 3,
         "most_likely_pct": 26.5,
-        "volume": 4402688,
+        "volume": 4416106,
         "source": "polymarket"
       }
     },
     "news": {
       "headlines": [],
-      "fed_news": [
-        {
-          "title": "Meta Platforms (META) CEO Zuckerberg Has \u201cFigured Out How to Have AI Make AI,\u201d Says Jim Cramer",
-          "publisher": "Insider Monkey",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "1844 Resources Announces Final Closing of Strategic Financing Round",
-          "publisher": "TMX Newsfile",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "Earnings live: Amazon stock sinks, Philip Morris retreats, Reddit spikes as Wall Street focuses on guidance",
-          "publisher": "Yahoo Finance",
-          "date": "2026-02-06"
-        }
-      ],
-      "housing_news": [
-        {
-          "title": "Meta Platforms (META) CEO Zuckerberg Has \u201cFigured Out How to Have AI Make AI,\u201d Says Jim Cramer",
-          "publisher": "Insider Monkey",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "1844 Resources Announces Final Closing of Strategic Financing Round",
-          "publisher": "TMX Newsfile",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "Earnings live: Amazon stock sinks, Philip Morris retreats, Reddit spikes as Wall Street focuses on guidance",
-          "publisher": "Yahoo Finance",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "ServiceNow (NOW)\u2019s Decline is Overdone, Says Jim Cramer",
-          "publisher": "Insider Monkey",
-          "date": "2026-02-06"
-        },
-        {
-          "title": "\u201cTesla (TSLA) Was Fabulous,\u201d Says Jim Cramer",
-          "publisher": "Insider Monkey",
-          "date": "2026-02-06"
-        }
-      ],
+      "fed_news": [],
+      "housing_news": [],
       "opendoor_news": [
         {
-          "title": "Opendoor\u2019s AI Reset Under New CEO Tests Housing Model At Scale",
+          "title": "Opendoor 4Q25 Financial Open House: Opendoor to Report Fourth Quarter and Full Year 2025 Financial Results on February 19th, 2026",
+          "publisher": "GlobeNewswire",
+          "link": "https://finance.yahoo.com/news/opendoor-4q25-financial-open-house-140000886.html",
+          "date": "2026-01-30"
+        },
+        {
+          "title": "Q3 Earnings Highs And Lows: Opendoor (NASDAQ:OPEN) Vs The Rest Of The Real Estate Services Stocks",
+          "publisher": "StockStory",
+          "link": "https://finance.yahoo.com/news/q3-earnings-highs-lows-opendoor-033113752.html",
+          "date": "2026-01-29"
+        },
+        {
+          "title": "Opendoor CEO Channel Shift Raises Questions For Valuation And Momentum",
           "publisher": "Simply Wall St.",
-          "link": "https://finance.yahoo.com/news/opendoor-ai-reset-under-ceo-181259438.html",
-          "date": "2026-02-05"
+          "link": "https://finance.yahoo.com/news/opendoor-ceo-channel-shift-raises-231506979.html",
+          "date": "2026-01-28"
         },
         {
-          "title": "Opendoor\u00a0Technologies Inc. (OPEN): A Bear\u00a0Case Theory",
-          "publisher": "Insider Monkey",
-          "link": "https://finance.yahoo.com/news/opendoor-technologies-inc-open-bear-182627285.html",
-          "date": "2026-02-04"
-        },
-        {
-          "title": "Why Opendoor Stock Dropped 12% in January",
+          "title": "This Unstoppable Stock Soared by 264% in 2025. Here's What Could Happen in 2026.",
           "publisher": "Motley Fool",
-          "link": "https://finance.yahoo.com/m/1f4ad747-5f4a-31bc-bce2-9187d5353227/why-opendoor-stock-dropped.html",
-          "date": "2026-02-04"
+          "link": "https://finance.yahoo.com/m/dd869ad3-4bad-3f8f-b69e-5b3a87b4944e/this-unstoppable-stock-soared.html",
+          "date": "2026-01-27"
         },
         {
-          "title": "Mixed options sentiment in Opendoor Technologies with shares down 1.94%",
-          "publisher": "TipRanks",
-          "link": "https://finance.yahoo.com/news/mixed-options-sentiment-opendoor-technologies-172509359.html",
-          "date": "2026-02-03"
-        },
-        {
-          "title": "BC-Most Active Stocks",
-          "publisher": "Associated Press Finance",
-          "link": "https://finance.yahoo.com/news/bc-most-active-stocks-153020785.html",
-          "date": "2026-02-03"
+          "title": "Meme Stocks Turn 5. Will There Ever Be Another GameStop?",
+          "publisher": "Barrons.com",
+          "link": "https://finance.yahoo.com/m/155e4c07-a4a9-3b4f-89fa-e2b059cdf9dd/meme-stocks-turn-5.-will.html",
+          "date": "2026-01-24"
         }
       ]
     },

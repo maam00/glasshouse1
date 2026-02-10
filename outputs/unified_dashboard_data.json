@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-09T12:00:13.956917",
+  "generated_at": "2026-02-10T12:11:22.854316",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -1099,7 +1099,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-09T12:00:17.790228",
+    "generated_at": "2026-02-10T12:11:25.361297",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -1112,7 +1112,7 @@
       "rate_15yr": 5.4,
       "rate_change_1w": 0.0,
       "rate_change_1m": -0.05,
-      "as_of": "2026-02-09",
+      "as_of": "2026-02-10",
       "source": "estimate_feb2026",
       "historical": []
     },
@@ -1128,15 +1128,15 @@
         "cuts_2026": [
           {
             "cuts": 2,
-            "probability": 26.5
+            "probability": 27.5
           },
           {
             "cuts": 3,
-            "probability": 24.5
+            "probability": 23.5
           },
           {
             "cuts": 1,
-            "probability": 17.0
+            "probability": 17.5
           },
           {
             "cuts": 4,
@@ -1144,16 +1144,16 @@
           },
           {
             "cuts": 2026,
-            "probability": 6.4
+            "probability": 6.5
           },
           {
             "cuts": 5,
-            "probability": 5.5
+            "probability": 6.5
           }
         ],
         "most_likely_cuts": 2,
-        "most_likely_pct": 26.5,
-        "volume": 4887441,
+        "most_likely_pct": 27.5,
+        "volume": 5125024,
         "source": "polymarket"
       }
     },
@@ -1161,53 +1161,65 @@
       "headlines": [],
       "fed_news": [
         {
-          "title": "Federal Home Loan Bank of New York Opens 2026 Affordable Housing Program and Homebuyer Dream Program Rounds with $93.8 Million in Available Grant Funding",
+          "title": "UK regulator asks social media firms to block crypto exchange HTX",
+          "publisher": "Reuters",
+          "date": "2026-02-10"
+        },
+        {
+          "title": "UK government champions healthtech through new NHS access programme",
+          "publisher": "Medical Device Network",
+          "date": "2026-02-10"
+        },
+        {
+          "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
           "publisher": "GlobeNewswire",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Angus Reid Survey Finds Less Than 30% of Albertans Would Vote for Province to Leave Canada",
-          "publisher": "MT Newswires",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Energizer Fiscal Q1 Tops Expectations but Gross Margin Pressure Continues, Morgan Stanley Says",
-          "publisher": "MT Newswires",
-          "date": "2026-02-09"
+          "date": "2026-02-10"
         }
       ],
       "housing_news": [
         {
-          "title": "Federal Home Loan Bank of New York Opens 2026 Affordable Housing Program and Homebuyer Dream Program Rounds with $93.8 Million in Available Grant Funding",
+          "title": "UK regulator asks social media firms to block crypto exchange HTX",
+          "publisher": "Reuters",
+          "date": "2026-02-10"
+        },
+        {
+          "title": "UK government champions healthtech through new NHS access programme",
+          "publisher": "Medical Device Network",
+          "date": "2026-02-10"
+        },
+        {
+          "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
           "publisher": "GlobeNewswire",
-          "date": "2026-02-09"
+          "date": "2026-02-10"
         },
         {
-          "title": "Angus Reid Survey Finds Less Than 30% of Albertans Would Vote for Province to Leave Canada",
-          "publisher": "MT Newswires",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Energizer Fiscal Q1 Tops Expectations but Gross Margin Pressure Continues, Morgan Stanley Says",
-          "publisher": "MT Newswires",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Comcast Completes Network Expansions to Residents and Businesses in Spokane County",
-          "publisher": "Business Wire",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Volunteer as a Judge: Globee\u00ae Awards for Excellence Invites Professionals and Business Owners Worldwide",
+          "title": "Varsity Spirit Celebrates Inaugural National School Spirit Championships Winners",
           "publisher": "PR Newswire",
-          "date": "2026-02-09"
+          "date": "2026-02-10"
+        },
+        {
+          "title": "RBC Previews Canadian Banks' Fiscal First-Quarter Results",
+          "publisher": "MT Newswires",
+          "date": "2026-02-10"
         }
       ],
       "opendoor_news": [
         {
+          "title": "Opendoor Stock Is Cheap, but Does That Make It a Buy Now?",
+          "publisher": "Motley Fool",
+          "link": "https://finance.yahoo.com/m/ca4fb92d-d8b5-3dd7-ae79-69ef60b049ea/opendoor-stock-is-cheap%2C-but.html",
+          "date": "2026-02-09"
+        },
+        {
           "title": "UBS Adjusts Opendoor Technologies Price Target to $5 From $1.60, Maintains Neutral Rating",
           "publisher": "MT Newswires",
           "link": "https://finance.yahoo.com/news/ubs-adjusts-opendoor-technologies-price-153015846.html",
+          "date": "2026-02-09"
+        },
+        {
+          "title": "Is Opendoor Quietly Building the Amazon of Housing Transactions?",
+          "publisher": "Zacks",
+          "link": "https://finance.yahoo.com/news/opendoor-quietly-building-amazon-housing-152500344.html",
           "date": "2026-02-09"
         },
         {
@@ -1221,18 +1233,6 @@
           "publisher": "Simply Wall St.",
           "link": "https://finance.yahoo.com/news/opendoor-ai-reset-under-ceo-181259438.html",
           "date": "2026-02-05"
-        },
-        {
-          "title": "Opendoor\u00a0Technologies Inc. (OPEN): A Bear\u00a0Case Theory",
-          "publisher": "Insider Monkey",
-          "link": "https://finance.yahoo.com/news/opendoor-technologies-inc-open-bear-182627285.html",
-          "date": "2026-02-04"
-        },
-        {
-          "title": "Why Opendoor Stock Dropped 12% in January",
-          "publisher": "Motley Fool",
-          "link": "https://finance.yahoo.com/m/1f4ad747-5f4a-31bc-bce2-9187d5353227/why-opendoor-stock-dropped.html",
-          "date": "2026-02-04"
         }
       ]
     },
@@ -1475,33 +1475,33 @@
     ]
   },
   "careers": {
-    "total_jobs": 52,
-    "engineering": 19,
-    "sales": 14,
+    "total_jobs": 56,
+    "engineering": 18,
+    "sales": 15,
     "finance": 0,
     "growth": 6,
-    "ai_ml": 7,
-    "senior": 22,
+    "ai_ml": 6,
+    "senior": 21,
     "top_location": "Phoenix",
     "department_breakdown": {
-      "Sales & Customer Experience": 14,
-      "Engineering & Technology": 19,
+      "Sales & Customer Experience": 15,
+      "Engineering & Technology": 18,
       "Marketing & Growth": 6,
-      "Finance & Operations": 7,
-      "Other": 4,
-      "Operations": 2
+      "Other": 7,
+      "Finance & Operations": 9,
+      "Operations": 1
     },
     "location_breakdown": {
-      "Phoenix": 12,
-      "Toronto": 9,
+      "Phoenix": 11,
+      "Toronto": 10,
       "Washington-Seattle": 7,
       "Miami": 6,
       "Seattle": 6,
       "Ontario": 3,
       "Arizona": 3,
-      "Florida-Miami": 2,
-      "Florida-Miami; Washington-Seattle; Phoenix": 2,
-      "Arizona-Tempe": 1
+      "Florida-Miami": 3,
+      "San Francisco": 2,
+      "Washington-Seattle; Toronto": 2
     }
   },
   "problem_homes": {
@@ -1618,6 +1618,6 @@
     "revenue": 598445900,
     "homes_sold": 1547,
     "acquisitions": 2533,
-    "days_to_earnings": 9
+    "days_to_earnings": 8
   }
 }

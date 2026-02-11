@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-10T12:11:22.854316",
+  "generated_at": "2026-02-11T12:18:20.693282",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -1099,7 +1099,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-10T12:11:25.361297",
+    "generated_at": "2026-02-11T12:18:24.063229",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -1112,7 +1112,7 @@
       "rate_15yr": 5.4,
       "rate_change_1w": 0.0,
       "rate_change_1m": -0.05,
-      "as_of": "2026-02-10",
+      "as_of": "2026-02-11",
       "source": "estimate_feb2026",
       "historical": []
     },
@@ -1128,7 +1128,7 @@
         "cuts_2026": [
           {
             "cuts": 2,
-            "probability": 27.5
+            "probability": 25.5
           },
           {
             "cuts": 3,
@@ -1136,24 +1136,24 @@
           },
           {
             "cuts": 1,
-            "probability": 17.5
+            "probability": 18.0
           },
           {
             "cuts": 4,
-            "probability": 12.5
+            "probability": 14.5
           },
           {
             "cuts": 2026,
-            "probability": 6.5
+            "probability": 8.2
           },
           {
             "cuts": 5,
-            "probability": 6.5
+            "probability": 5.5
           }
         ],
         "most_likely_cuts": 2,
-        "most_likely_pct": 27.5,
-        "volume": 5125024,
+        "most_likely_pct": 25.5,
+        "volume": 5378869,
         "source": "polymarket"
       }
     },
@@ -1161,49 +1161,55 @@
       "headlines": [],
       "fed_news": [
         {
-          "title": "UK regulator asks social media firms to block crypto exchange HTX",
-          "publisher": "Reuters",
-          "date": "2026-02-10"
+          "title": "TSX Down Near 150 Points at Midday With Tech Sector Down 7%",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
         },
         {
-          "title": "UK government champions healthtech through new NHS access programme",
-          "publisher": "Medical Device Network",
-          "date": "2026-02-10"
+          "title": "Update: Avantor Shares Fall After Q4 Results",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
         },
         {
-          "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
-          "publisher": "GlobeNewswire",
-          "date": "2026-02-10"
+          "title": "TD Cowen Adjusts Gilead Sciences Price Target to $160 From $145, Maintains Buy Rating",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
         }
       ],
       "housing_news": [
         {
-          "title": "UK regulator asks social media firms to block crypto exchange HTX",
-          "publisher": "Reuters",
-          "date": "2026-02-10"
-        },
-        {
-          "title": "UK government champions healthtech through new NHS access programme",
-          "publisher": "Medical Device Network",
-          "date": "2026-02-10"
-        },
-        {
-          "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
-          "publisher": "GlobeNewswire",
-          "date": "2026-02-10"
-        },
-        {
-          "title": "Varsity Spirit Celebrates Inaugural National School Spirit Championships Winners",
-          "publisher": "PR Newswire",
-          "date": "2026-02-10"
-        },
-        {
-          "title": "RBC Previews Canadian Banks' Fiscal First-Quarter Results",
+          "title": "TSX Down Near 150 Points at Midday With Tech Sector Down 7%",
           "publisher": "MT Newswires",
-          "date": "2026-02-10"
+          "date": "2026-02-11"
+        },
+        {
+          "title": "Update: Avantor Shares Fall After Q4 Results",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
+        },
+        {
+          "title": "TD Cowen Adjusts Gilead Sciences Price Target to $160 From $145, Maintains Buy Rating",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
+        },
+        {
+          "title": "Jefferies Adjusts Progressive Price Target to $216 From $230, Maintains Hold Rating",
+          "publisher": "MT Newswires",
+          "date": "2026-02-11"
+        },
+        {
+          "title": "AccountTech Expert Warns: In the Era of AI-Driven Fraud, \"Trust is No Longer Sufficient\" for Business Internal Controls",
+          "publisher": "PR Newswire",
+          "date": "2026-02-11"
         }
       ],
       "opendoor_news": [
+        {
+          "title": "BC-Most Active Stocks",
+          "publisher": "Associated Press Finance",
+          "link": "https://finance.yahoo.com/news/bc-most-active-stocks-153023239.html",
+          "date": "2026-02-10"
+        },
         {
           "title": "Opendoor Stock Is Cheap, but Does That Make It a Buy Now?",
           "publisher": "Motley Fool",
@@ -1227,12 +1233,6 @@
           "publisher": "Motley Fool",
           "link": "https://finance.yahoo.com/m/4d2777af-f13c-30ab-979e-f65d20bb59db/opendoor-technologies%3A.html",
           "date": "2026-02-06"
-        },
-        {
-          "title": "Opendoor\u2019s AI Reset Under New CEO Tests Housing Model At Scale",
-          "publisher": "Simply Wall St.",
-          "link": "https://finance.yahoo.com/news/opendoor-ai-reset-under-ceo-181259438.html",
-          "date": "2026-02-05"
         }
       ]
     },
@@ -1618,6 +1618,6 @@
     "revenue": 598445900,
     "homes_sold": 1547,
     "acquisitions": 2533,
-    "days_to_earnings": 8
+    "days_to_earnings": 7
   }
 }

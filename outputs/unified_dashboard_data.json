@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-02-11T12:18:20.693282",
+  "generated_at": "2026-02-13T09:55:02.500889",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
     "note": "Unified dataset combining both sources"
   },
-  "as_of": "2026-02-08",
+  "as_of": "2026-02-12",
   "velocity": {
-    "q1_sales": 858,
-    "q1_revenue": 336967350.0,
-    "daily_avg_sales": 21.4,
-    "daily_avg_revenue": 8362307.692307693,
-    "avg_home_price": 392736,
-    "best_day": "2026-01-27",
-    "best_day_sales": 38
+    "q1_sales": 961,
+    "q1_revenue": 375952850.0,
+    "daily_avg_sales": 21.8,
+    "daily_avg_revenue": 8516744.186046513,
+    "avg_home_price": 391210,
+    "best_day": "2026-02-12",
+    "best_day_sales": 46
   },
   "pnl": {
-    "win_rate": 75.6,
-    "avg_profit": 42200,
-    "avg_loss": -29794,
-    "total_realized": 6061641.0,
-    "wins": 186,
+    "win_rate": 74.9,
+    "avg_profit": 41903,
+    "avg_loss": -30179,
+    "total_realized": 5689841.0,
+    "wins": 179,
     "losses": 60,
-    "coverage_pct": 28.7
+    "coverage_pct": 24.9
   },
   "revenue_chart": [
     {
@@ -49,43 +49,43 @@
     {
       "date": "Jan 04",
       "date_full": "2026-01-04",
-      "revenue": 10221000.0,
-      "revenue_millions": 10.22,
-      "sales_count": 27
+      "revenue": 10038000.0,
+      "revenue_millions": 10.04,
+      "sales_count": 26
     },
     {
       "date": "Jan 05",
       "date_full": "2026-01-05",
-      "revenue": 8760000.0,
-      "revenue_millions": 8.76,
+      "revenue": 8937000.0,
+      "revenue_millions": 8.94,
       "sales_count": 24
     },
     {
       "date": "Jan 06",
       "date_full": "2026-01-06",
-      "revenue": 6996000.0,
-      "revenue_millions": 7.0,
+      "revenue": 6545000.0,
+      "revenue_millions": 6.54,
       "sales_count": 19
     },
     {
       "date": "Jan 07",
       "date_full": "2026-01-07",
-      "revenue": 9567000.0,
-      "revenue_millions": 9.57,
+      "revenue": 8720000.0,
+      "revenue_millions": 8.72,
       "sales_count": 19
     },
     {
       "date": "Jan 08",
       "date_full": "2026-01-08",
-      "revenue": 8638500.0,
-      "revenue_millions": 8.64,
+      "revenue": 8525500.0,
+      "revenue_millions": 8.53,
       "sales_count": 21
     },
     {
       "date": "Jan 09",
       "date_full": "2026-01-09",
-      "revenue": 10156000.0,
-      "revenue_millions": 10.16,
+      "revenue": 9954000.0,
+      "revenue_millions": 9.95,
       "sales_count": 26
     },
     {
@@ -105,8 +105,8 @@
     {
       "date": "Jan 12",
       "date_full": "2026-01-12",
-      "revenue": 10361000.0,
-      "revenue_millions": 10.36,
+      "revenue": 11421000.0,
+      "revenue_millions": 11.42,
       "sales_count": 24
     },
     {
@@ -119,23 +119,23 @@
     {
       "date": "Jan 14",
       "date_full": "2026-01-14",
-      "revenue": 12574125.0,
-      "revenue_millions": 12.57,
+      "revenue": 12187875.0,
+      "revenue_millions": 12.19,
       "sales_count": 33
     },
     {
       "date": "Jan 15",
       "date_full": "2026-01-15",
-      "revenue": 8715000.0,
-      "revenue_millions": 8.71,
-      "sales_count": 20
+      "revenue": 8460000.0,
+      "revenue_millions": 8.46,
+      "sales_count": 19
     },
     {
       "date": "Jan 16",
       "date_full": "2026-01-16",
-      "revenue": 9056525.0,
-      "revenue_millions": 9.06,
-      "sales_count": 25
+      "revenue": 8512525.0,
+      "revenue_millions": 8.51,
+      "sales_count": 24
     },
     {
       "date": "Jan 17",
@@ -154,37 +154,37 @@
     {
       "date": "Jan 19",
       "date_full": "2026-01-19",
-      "revenue": 7274000.0,
-      "revenue_millions": 7.27,
-      "sales_count": 21
+      "revenue": 6849000.0,
+      "revenue_millions": 6.85,
+      "sales_count": 20
     },
     {
       "date": "Jan 20",
       "date_full": "2026-01-20",
-      "revenue": 11803000.0,
-      "revenue_millions": 11.8,
-      "sales_count": 35
+      "revenue": 10980000.0,
+      "revenue_millions": 10.98,
+      "sales_count": 33
     },
     {
       "date": "Jan 21",
       "date_full": "2026-01-21",
-      "revenue": 12499500.0,
-      "revenue_millions": 12.5,
-      "sales_count": 30
+      "revenue": 11679500.0,
+      "revenue_millions": 11.68,
+      "sales_count": 28
     },
     {
       "date": "Jan 22",
       "date_full": "2026-01-22",
-      "revenue": 14165000.0,
-      "revenue_millions": 14.16,
-      "sales_count": 36
+      "revenue": 13303750.0,
+      "revenue_millions": 13.3,
+      "sales_count": 34
     },
     {
       "date": "Jan 23",
       "date_full": "2026-01-23",
-      "revenue": 9322000.0,
-      "revenue_millions": 9.32,
-      "sales_count": 25
+      "revenue": 8885000.0,
+      "revenue_millions": 8.88,
+      "sales_count": 23
     },
     {
       "date": "Jan 24",
@@ -203,37 +203,37 @@
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
-      "revenue": 12780000.0,
-      "revenue_millions": 12.78,
-      "sales_count": 30
+      "revenue": 11732000.0,
+      "revenue_millions": 11.73,
+      "sales_count": 27
     },
     {
       "date": "Jan 27",
       "date_full": "2026-01-27",
-      "revenue": 18522000.0,
-      "revenue_millions": 18.52,
-      "sales_count": 39
+      "revenue": 15910000.0,
+      "revenue_millions": 15.91,
+      "sales_count": 34
     },
     {
       "date": "Jan 28",
       "date_full": "2026-01-28",
-      "revenue": 13334000.0,
-      "revenue_millions": 13.33,
-      "sales_count": 29
+      "revenue": 12586000.0,
+      "revenue_millions": 12.59,
+      "sales_count": 27
     },
     {
       "date": "Jan 29",
       "date_full": "2026-01-29",
-      "revenue": 9757700.0,
-      "revenue_millions": 9.76,
-      "sales_count": 26
+      "revenue": 8473700.0,
+      "revenue_millions": 8.47,
+      "sales_count": 22
     },
     {
       "date": "Jan 30",
       "date_full": "2026-01-30",
-      "revenue": 11886000.0,
-      "revenue_millions": 11.89,
-      "sales_count": 30
+      "revenue": 11321000.0,
+      "revenue_millions": 11.32,
+      "sales_count": 29
     },
     {
       "date": "Jan 31",
@@ -245,23 +245,23 @@
     {
       "date": "Feb 01",
       "date_full": "2026-02-01",
-      "revenue": 2349000.0,
-      "revenue_millions": 2.35,
-      "sales_count": 6
+      "revenue": 1758000.0,
+      "revenue_millions": 1.76,
+      "sales_count": 5
     },
     {
       "date": "Feb 02",
       "date_full": "2026-02-02",
-      "revenue": 14278000.0,
-      "revenue_millions": 14.28,
-      "sales_count": 35
+      "revenue": 13277000.0,
+      "revenue_millions": 13.28,
+      "sales_count": 32
     },
     {
       "date": "Feb 03",
       "date_full": "2026-02-03",
-      "revenue": 13315000.0,
-      "revenue_millions": 13.31,
-      "sales_count": 38
+      "revenue": 12180000.0,
+      "revenue_millions": 12.18,
+      "sales_count": 34
     },
     {
       "date": "Feb 04",
@@ -273,16 +273,16 @@
     {
       "date": "Feb 05",
       "date_full": "2026-02-05",
-      "revenue": 10617000.0,
-      "revenue_millions": 10.62,
-      "sales_count": 26
+      "revenue": 8701000.0,
+      "revenue_millions": 8.7,
+      "sales_count": 22
     },
     {
       "date": "Feb 06",
       "date_full": "2026-02-06",
-      "revenue": 14505000.0,
-      "revenue_millions": 14.51,
-      "sales_count": 34
+      "revenue": 13735000.0,
+      "revenue_millions": 13.73,
+      "sales_count": 32
     },
     {
       "date": "Feb 07",
@@ -294,9 +294,37 @@
     {
       "date": "Feb 08",
       "date_full": "2026-02-08",
-      "revenue": 6451000.0,
-      "revenue_millions": 6.45,
-      "sales_count": 16
+      "revenue": 6261000.0,
+      "revenue_millions": 6.26,
+      "sales_count": 15
+    },
+    {
+      "date": "Feb 09",
+      "date_full": "2026-02-09",
+      "revenue": 13601000.0,
+      "revenue_millions": 13.6,
+      "sales_count": 36
+    },
+    {
+      "date": "Feb 10",
+      "date_full": "2026-02-10",
+      "revenue": 14431000.0,
+      "revenue_millions": 14.43,
+      "sales_count": 36
+    },
+    {
+      "date": "Feb 11",
+      "date_full": "2026-02-11",
+      "revenue": 9762000.0,
+      "revenue_millions": 9.76,
+      "sales_count": 27
+    },
+    {
+      "date": "Feb 12",
+      "date_full": "2026-02-12",
+      "revenue": 18162000.0,
+      "revenue_millions": 18.16,
+      "sales_count": 46
     }
   ],
   "sales_chart": [
@@ -305,14 +333,14 @@
       "date_full": "2026-01-01",
       "count": 9,
       "avg_price": 426556,
-      "moving_avg": 14.7
+      "moving_avg": 14.6
     },
     {
       "date": "Jan 02",
       "date_full": "2026-01-02",
       "count": 5,
       "avg_price": 285200,
-      "moving_avg": 14.4
+      "moving_avg": 14.3
     },
     {
       "date": "Jan 03",
@@ -324,64 +352,64 @@
     {
       "date": "Jan 04",
       "date_full": "2026-01-04",
-      "count": 27,
-      "avg_price": 378556,
+      "count": 26,
+      "avg_price": 386077,
       "moving_avg": 14.7
     },
     {
       "date": "Jan 05",
       "date_full": "2026-01-05",
       "count": 24,
-      "avg_price": 365000,
-      "moving_avg": 15.4
+      "avg_price": 372375,
+      "moving_avg": 15.3
     },
     {
       "date": "Jan 06",
       "date_full": "2026-01-06",
       "count": 19,
-      "avg_price": 368211,
-      "moving_avg": 15.5
+      "avg_price": 344474,
+      "moving_avg": 15.4
     },
     {
       "date": "Jan 07",
       "date_full": "2026-01-07",
       "count": 19,
-      "avg_price": 503526,
-      "moving_avg": 15.5
+      "avg_price": 458947,
+      "moving_avg": 15.4
     },
     {
       "date": "Jan 08",
       "date_full": "2026-01-08",
       "count": 21,
-      "avg_price": 411357,
+      "avg_price": 405976,
       "moving_avg": 15.5
     },
     {
       "date": "Jan 09",
       "date_full": "2026-01-09",
       "count": 26,
-      "avg_price": 390615,
-      "moving_avg": 15.4
+      "avg_price": 382846,
+      "moving_avg": 15.3
     },
     {
       "date": "Jan 10",
       "date_full": "2026-01-10",
       "count": 12,
       "avg_price": 333500,
-      "moving_avg": 15.1
+      "moving_avg": 15.0
     },
     {
       "date": "Jan 11",
       "date_full": "2026-01-11",
       "count": 9,
       "avg_price": 318222,
-      "moving_avg": 14.5
+      "moving_avg": 14.4
     },
     {
       "date": "Jan 12",
       "date_full": "2026-01-12",
       "count": 24,
-      "avg_price": 431708,
+      "avg_price": 475875,
       "moving_avg": 15.0
     },
     {
@@ -389,230 +417,258 @@
       "date_full": "2026-01-13",
       "count": 25,
       "avg_price": 355240,
-      "moving_avg": 15.7
+      "moving_avg": 15.6
     },
     {
       "date": "Jan 14",
       "date_full": "2026-01-14",
       "count": 33,
-      "avg_price": 381034,
+      "avg_price": 369330,
       "moving_avg": 15.9
     },
     {
       "date": "Jan 15",
       "date_full": "2026-01-15",
-      "count": 20,
-      "avg_price": 435750,
-      "moving_avg": 15.9
+      "count": 19,
+      "avg_price": 445263,
+      "moving_avg": 15.8
     },
     {
       "date": "Jan 16",
       "date_full": "2026-01-16",
-      "count": 25,
-      "avg_price": 362261,
-      "moving_avg": 15.7
+      "count": 24,
+      "avg_price": 354689,
+      "moving_avg": 15.6
     },
     {
       "date": "Jan 17",
       "date_full": "2026-01-17",
       "count": 9,
       "avg_price": 352111,
-      "moving_avg": 15.4
+      "moving_avg": 15.3
     },
     {
       "date": "Jan 18",
       "date_full": "2026-01-18",
       "count": 12,
       "avg_price": 368667,
-      "moving_avg": 15.0
+      "moving_avg": 14.9
     },
     {
       "date": "Jan 19",
       "date_full": "2026-01-19",
-      "count": 21,
-      "avg_price": 346381,
-      "moving_avg": 15.5
+      "count": 20,
+      "avg_price": 342450,
+      "moving_avg": 15.4
     },
     {
       "date": "Jan 20",
       "date_full": "2026-01-20",
-      "count": 35,
-      "avg_price": 337229,
-      "moving_avg": 16.4
+      "count": 33,
+      "avg_price": 332727,
+      "moving_avg": 16.2
     },
     {
       "date": "Jan 21",
       "date_full": "2026-01-21",
-      "count": 30,
-      "avg_price": 416650,
-      "moving_avg": 16.9
+      "count": 28,
+      "avg_price": 417125,
+      "moving_avg": 16.6
     },
     {
       "date": "Jan 22",
       "date_full": "2026-01-22",
-      "count": 36,
-      "avg_price": 393472,
-      "moving_avg": 17.3
+      "count": 34,
+      "avg_price": 391287,
+      "moving_avg": 17.0
     },
     {
       "date": "Jan 23",
       "date_full": "2026-01-23",
-      "count": 25,
-      "avg_price": 372880,
-      "moving_avg": 17.8
+      "count": 23,
+      "avg_price": 386304,
+      "moving_avg": 17.4
     },
     {
       "date": "Jan 24",
       "date_full": "2026-01-24",
       "count": 9,
       "avg_price": 291000,
-      "moving_avg": 18.0
+      "moving_avg": 17.6
     },
     {
       "date": "Jan 25",
       "date_full": "2026-01-25",
       "count": 14,
       "avg_price": 322214,
-      "moving_avg": 18.3
+      "moving_avg": 17.9
     },
     {
       "date": "Jan 26",
       "date_full": "2026-01-26",
-      "count": 30,
-      "avg_price": 426000,
-      "moving_avg": 19.1
+      "count": 27,
+      "avg_price": 434519,
+      "moving_avg": 18.6
     },
     {
       "date": "Jan 27",
       "date_full": "2026-01-27",
-      "count": 39,
-      "avg_price": 474923,
-      "moving_avg": 20.0
+      "count": 34,
+      "avg_price": 467941,
+      "moving_avg": 19.3
     },
     {
       "date": "Jan 28",
       "date_full": "2026-01-28",
-      "count": 29,
-      "avg_price": 459793,
-      "moving_avg": 20.5
+      "count": 27,
+      "avg_price": 466148,
+      "moving_avg": 19.8
     },
     {
       "date": "Jan 29",
       "date_full": "2026-01-29",
-      "count": 26,
-      "avg_price": 375296,
-      "moving_avg": 21.0
+      "count": 22,
+      "avg_price": 385168,
+      "moving_avg": 20.2
     },
     {
       "date": "Jan 30",
       "date_full": "2026-01-30",
-      "count": 30,
-      "avg_price": 396200,
-      "moving_avg": 21.1
+      "count": 29,
+      "avg_price": 390379,
+      "moving_avg": 20.2
     },
     {
       "date": "Jan 31",
       "date_full": "2026-01-31",
       "count": 13,
       "avg_price": 415154,
-      "moving_avg": 21.3
+      "moving_avg": 20.4
     },
     {
       "date": "Feb 01",
       "date_full": "2026-02-01",
-      "count": 6,
-      "avg_price": 391500,
-      "moving_avg": 21.3
+      "count": 5,
+      "avg_price": 351600,
+      "moving_avg": 20.4
     },
     {
       "date": "Feb 02",
       "date_full": "2026-02-02",
-      "count": 35,
-      "avg_price": 407943,
-      "moving_avg": 22.0
+      "count": 32,
+      "avg_price": 414906,
+      "moving_avg": 21.0
     },
     {
       "date": "Feb 03",
       "date_full": "2026-02-03",
-      "count": 38,
-      "avg_price": 350395,
-      "moving_avg": 22.4
+      "count": 34,
+      "avg_price": 358235,
+      "moving_avg": 21.2
     },
     {
       "date": "Feb 04",
       "date_full": "2026-02-04",
       "count": 23,
       "avg_price": 387304,
-      "moving_avg": 22.4
+      "moving_avg": 21.2
     },
     {
       "date": "Feb 05",
       "date_full": "2026-02-05",
-      "count": 26,
-      "avg_price": 408346,
-      "moving_avg": 22.6
+      "count": 22,
+      "avg_price": 395500,
+      "moving_avg": 21.4
     },
     {
       "date": "Feb 06",
       "date_full": "2026-02-06",
-      "count": 34,
-      "avg_price": 426618,
-      "moving_avg": 23.2
+      "count": 32,
+      "avg_price": 429219,
+      "moving_avg": 21.8
     },
     {
       "date": "Feb 07",
       "date_full": "2026-02-07",
       "count": 11,
       "avg_price": 386818,
-      "moving_avg": 22.9
+      "moving_avg": 21.5
     },
     {
       "date": "Feb 08",
       "date_full": "2026-02-08",
-      "count": 16,
-      "avg_price": 403188,
-      "moving_avg": 22.6
+      "count": 15,
+      "avg_price": 417400,
+      "moving_avg": 21.2
+    },
+    {
+      "date": "Feb 09",
+      "date_full": "2026-02-09",
+      "count": 36,
+      "avg_price": 377806,
+      "moving_avg": 22.0
+    },
+    {
+      "date": "Feb 10",
+      "date_full": "2026-02-10",
+      "count": 36,
+      "avg_price": 400861,
+      "moving_avg": 22.9
+    },
+    {
+      "date": "Feb 11",
+      "date_full": "2026-02-11",
+      "count": 27,
+      "avg_price": 361556,
+      "moving_avg": 23.1
+    },
+    {
+      "date": "Feb 12",
+      "date_full": "2026-02-12",
+      "count": 46,
+      "avg_price": 394826,
+      "moving_avg": 23.8
     }
   ],
   "moving_avg_30d": [
-    15.1,
-    14.5,
-    15.0,
-    15.7,
     15.9,
-    15.9,
-    15.7,
+    15.8,
+    15.6,
+    15.3,
+    14.9,
     15.4,
-    15.0,
-    15.5,
-    16.4,
-    16.9,
-    17.3,
-    17.8,
-    18.0,
-    18.3,
-    19.1,
-    20.0,
-    20.5,
+    16.2,
+    16.6,
+    17.0,
+    17.4,
+    17.6,
+    17.9,
+    18.6,
+    19.3,
+    19.8,
+    20.2,
+    20.2,
+    20.4,
+    20.4,
     21.0,
-    21.1,
-    21.3,
-    21.3,
+    21.2,
+    21.2,
+    21.4,
+    21.8,
+    21.5,
+    21.2,
     22.0,
-    22.4,
-    22.4,
-    22.6,
-    23.2,
     22.9,
-    22.6
+    23.1,
+    23.8
   ],
   "data_quality": {
-    "total_records": 858,
-    "matched_records": "267",
-    "singularity_only": "567",
+    "total_records": 961,
+    "matched_records": "260",
+    "singularity_only": "677",
     "parcl_only": "24",
-    "pnl_coverage": 28.7,
-    "details_coverage": 97.2
+    "pnl_coverage": 24.9,
+    "details_coverage": 97.5
   },
   "methodology": {
     "margin_note": "Realized Net from Parcl includes all costs: renovation, holding costs (taxes, insurance), transaction fees, and commissions. Not simply Sale Price minus Purchase Price.",
@@ -624,46 +680,46 @@
       {
         "day": "Mon",
         "day_num": 0,
-        "sample_days": 5,
-        "avg_revenue": 10690600,
-        "avg_sales": 26.8,
-        "index": 124,
+        "sample_days": 6,
+        "avg_revenue": 10969500,
+        "avg_sales": 27.2,
+        "index": 125,
         "is_weekend": false
       },
       {
         "day": "Tue",
         "day_num": 1,
-        "sample_days": 5,
-        "avg_revenue": 11903400,
-        "avg_sales": 31.2,
-        "index": 138,
+        "sample_days": 6,
+        "avg_revenue": 11487833,
+        "avg_sales": 30.2,
+        "index": 131,
         "is_weekend": false
       },
       {
         "day": "Wed",
         "day_num": 2,
-        "sample_days": 5,
-        "avg_revenue": 11376525,
-        "avg_sales": 26.8,
-        "index": 132,
+        "sample_days": 6,
+        "avg_revenue": 10640562,
+        "avg_sales": 26.2,
+        "index": 122,
         "is_weekend": false
       },
       {
         "day": "Thu",
         "day_num": 3,
-        "sample_days": 6,
-        "avg_revenue": 9288700,
-        "avg_sales": 23.0,
-        "index": 108,
+        "sample_days": 7,
+        "avg_revenue": 9923564,
+        "avg_sales": 24.7,
+        "index": 114,
         "is_weekend": false
       },
       {
         "day": "Fri",
         "day_num": 4,
         "sample_days": 6,
-        "avg_revenue": 9391921,
-        "avg_sales": 24.2,
-        "index": 109,
+        "avg_revenue": 8972254,
+        "avg_sales": 23.2,
+        "index": 103,
         "is_weekend": false
       },
       {
@@ -672,25 +728,25 @@
         "sample_days": 6,
         "avg_revenue": 4035167,
         "avg_sales": 11.2,
-        "index": 47,
+        "index": 46,
         "is_weekend": true
       },
       {
         "day": "Sun",
         "day_num": 6,
         "sample_days": 6,
-        "avg_revenue": 5136667,
-        "avg_sales": 14.0,
-        "index": 59,
+        "avg_revenue": 4976000,
+        "avg_sales": 13.5,
+        "index": 57,
         "is_weekend": true
       }
     ],
-    "weekday_avg_revenue": 10442087,
-    "weekend_avg_revenue": 4585917,
+    "weekday_avg_revenue": 10383415,
+    "weekend_avg_revenue": 4505583,
     "weekday_avg_sales": 26.2,
-    "weekend_avg_sales": 12.6,
-    "weekend_index": 44,
-    "normalization_factor": 2.28
+    "weekend_avg_sales": 12.3,
+    "weekend_index": 43,
+    "normalization_factor": 2.3
   },
   "inventory": {
     "total_listings": 859,
@@ -711,109 +767,109 @@
   "top_markets": [
     {
       "city": "Charlotte",
-      "listings": 27,
-      "avg_price": 339111
+      "listings": 28,
+      "avg_price": 338857
+    },
+    {
+      "city": "Tucson",
+      "listings": 19,
+      "avg_price": 282053
     },
     {
       "city": "Phoenix",
       "listings": 18,
-      "avg_price": 448389
-    },
-    {
-      "city": "Tucson",
-      "listings": 18,
-      "avg_price": 281833
-    },
-    {
-      "city": "Colorado Springs",
-      "listings": 13,
-      "avg_price": 407154
-    },
-    {
-      "city": "Columbia",
-      "listings": 12,
-      "avg_price": 279750
+      "avg_price": 464556
     },
     {
       "city": "Indianapolis",
-      "listings": 12,
-      "avg_price": 282917
+      "listings": 16,
+      "avg_price": 265938
     },
     {
       "city": "Las Vegas",
-      "listings": 12,
-      "avg_price": 399583
+      "listings": 16,
+      "avg_price": 425125
+    },
+    {
+      "city": "Colorado Springs",
+      "listings": 14,
+      "avg_price": 397286
+    },
+    {
+      "city": "Atlanta",
+      "listings": 13,
+      "avg_price": 294308
     },
     {
       "city": "Raleigh",
-      "listings": 12,
-      "avg_price": 402833
-    },
-    {
-      "city": "Dallas",
-      "listings": 11,
-      "avg_price": 342636
+      "listings": 13,
+      "avg_price": 410154
     },
     {
       "city": "Durham",
-      "listings": 11,
-      "avg_price": 325636
+      "listings": 12,
+      "avg_price": 350750
+    },
+    {
+      "city": "Dallas",
+      "listings": 10,
+      "avg_price": 345700
     }
   ],
   "market_concentration": {
-    "top5_pct": 7.6,
-    "total_markets": 473,
-    "total_listings": 1160
+    "top5_pct": 7.9,
+    "total_markets": 501,
+    "total_listings": 1223
   },
   "top_cities": {
-    "Indianapolis": 14,
-    "Phoenix": 14,
-    "Kansas City": 13,
+    "Indianapolis": 17,
+    "Phoenix": 15,
+    "Kansas City": 15,
+    "Columbia": 15,
+    "Charlotte": 13,
     "Tucson": 13,
-    "Charlotte": 12,
-    "Columbia": 10,
+    "Raleigh": 12,
+    "Jacksonville": 10,
     "Albuquerque": 10,
     "Houston": 9,
-    "Raleigh": 9,
-    "Jacksonville": 9,
-    "San Antonio": 8,
-    "Las Vegas": 8,
+    "Cincinnati": 9,
     "Atlanta": 8,
-    "Cincinnati": 7,
+    "Las Vegas": 8,
+    "Dallas": 7,
     "Fort Worth": 7
   },
   "cohorts": {
     "new": {
-      "count": 59,
+      "count": 55,
       "win_rate": 100.0,
-      "avg_profit": 42032,
-      "total_realized": 2227696
+      "avg_profit": 40306,
+      "total_realized": 1934696
     },
     "mid": {
       "count": 101,
       "win_rate": 90.7,
-      "avg_profit": 39458,
-      "total_realized": 3393345
+      "avg_profit": 40284,
+      "total_realized": 3464445
     },
     "old": {
-      "count": 90,
-      "win_rate": 56.2,
-      "avg_profit": 7929,
-      "total_realized": 578800
+      "count": 89,
+      "win_rate": 56.9,
+      "avg_profit": 8012,
+      "total_realized": 576900
     },
     "toxic": {
-      "count": 40,
-      "win_rate": 41.2,
-      "avg_profit": -4065,
-      "total_realized": -138200
+      "count": 38,
+      "win_rate": 36.4,
+      "avg_profit": -8673,
+      "total_realized": -286200
     }
   },
   "kaz_era": {
-    "sold_count": 115,
-    "sold_win_rate": 95.1,
-    "sold_avg_profit": 45755,
-    "sold_total_realized": 4397822,
-    "wins": 97,
+    "sold_count": 111,
+    "sold_win_rate": 94.9,
+    "sold_avg_profit": 45253,
+    "sold_total_realized": 4168122,
+    "wins": 93,
     "losses": 5,
     "listed_count": 200,
     "listed_above_water": 189,
@@ -901,11 +957,11 @@
     ]
   },
   "legacy": {
-    "sold_count": 175,
-    "sold_win_rate": 61.8,
-    "sold_avg_profit": 38326,
-    "sold_total_realized": 1663819,
-    "wins": 89,
+    "sold_count": 172,
+    "sold_win_rate": 61.0,
+    "sold_avg_profit": 38279,
+    "sold_total_realized": 1521719,
+    "wins": 86,
     "losses": 55,
     "listed_count": 519,
     "listed_above_water": 337,
@@ -914,28 +970,28 @@
     "listed_uw_exposure": -5244510
   },
   "this_week": {
-    "sales": 181,
-    "revenue": 71440000.0,
-    "daily_avg": 25.9
+    "sales": 203,
+    "revenue": 80190000.0,
+    "daily_avg": 29.0
   },
   "last_week": {
-    "sales": 168,
-    "revenue": 70630000.0,
-    "daily_avg": 24.0
+    "sales": 155,
+    "revenue": 60170000.0,
+    "daily_avg": 22.1
   },
   "wow_change": {
-    "sales_pct": 7.7,
-    "revenue_pct": 1.1
+    "sales_pct": 31.0,
+    "revenue_pct": 33.3
   },
   "guidance": {
     "q1_target": 1000000000,
-    "current_revenue": 336967350.0,
-    "days_elapsed": 39,
-    "days_remaining": 51,
+    "current_revenue": 375952850.0,
+    "days_elapsed": 43,
+    "days_remaining": 47,
     "daily_target": 11111111,
-    "daily_actual": 8640188,
-    "projected_revenue": 777616962,
-    "pacing_pct": 77.8,
+    "daily_actual": 8743090,
+    "projected_revenue": 786878058,
+    "pacing_pct": 78.7,
     "on_track": false
   },
   "toxic_weekly_trend": [
@@ -976,7 +1032,7 @@
       "New cohort performance strong (100.0% WR)"
     ],
     "watching": [
-      "Daily velocity below target (21 vs 29 needed)",
+      "Daily velocity below target (22 vs 29 needed)",
       "Kaz-era underwater at 3 homes"
     ]
   },
@@ -1099,7 +1155,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-11T12:18:24.063229",
+    "generated_at": "2026-02-13T09:55:09.631597",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -1112,7 +1168,7 @@
       "rate_15yr": 5.4,
       "rate_change_1w": 0.0,
       "rate_change_1m": -0.05,
-      "as_of": "2026-02-11",
+      "as_of": "2026-02-13",
       "source": "estimate_feb2026",
       "historical": []
     },
@@ -1128,23 +1184,23 @@
         "cuts_2026": [
           {
             "cuts": 2,
-            "probability": 25.5
+            "probability": 26.5
           },
           {
             "cuts": 3,
-            "probability": 23.5
+            "probability": 25.5
           },
           {
             "cuts": 1,
-            "probability": 18.0
+            "probability": 17.5
           },
           {
             "cuts": 4,
-            "probability": 14.5
+            "probability": 12.0
           },
           {
             "cuts": 2026,
-            "probability": 8.2
+            "probability": 6.7
           },
           {
             "cuts": 5,
@@ -1152,8 +1208,8 @@
           }
         ],
         "most_likely_cuts": 2,
-        "most_likely_pct": 25.5,
-        "volume": 5378869,
+        "most_likely_pct": 26.5,
+        "volume": 5822030,
         "source": "polymarket"
       }
     },
@@ -1161,78 +1217,78 @@
       "headlines": [],
       "fed_news": [
         {
-          "title": "TSX Down Near 150 Points at Midday With Tech Sector Down 7%",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "Unmanned Aerial Vehicle (UAV) Drones Market Size Worth USD 209.91 Billion by 2035 Driven by Commercial Adoption and Defense Investments",
+          "publisher": "GlobeNewswire",
+          "date": "2026-02-13"
         },
         {
-          "title": "Update: Avantor Shares Fall After Q4 Results",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "6 Things Responsible Retirees Need To Upgrade in Their House",
+          "publisher": "GOBankingRates",
+          "date": "2026-02-13"
         },
         {
-          "title": "TD Cowen Adjusts Gilead Sciences Price Target to $160 From $145, Maintains Buy Rating",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "Stock Market Today: Dow Slips After CPI Inflation Surprise; DraftKings Plunges On Earnings (Live Coverage)",
+          "publisher": "Investor's Business Daily",
+          "date": "2026-02-13"
         }
       ],
       "housing_news": [
         {
-          "title": "TSX Down Near 150 Points at Midday With Tech Sector Down 7%",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "Unmanned Aerial Vehicle (UAV) Drones Market Size Worth USD 209.91 Billion by 2035 Driven by Commercial Adoption and Defense Investments",
+          "publisher": "GlobeNewswire",
+          "date": "2026-02-13"
         },
         {
-          "title": "Update: Avantor Shares Fall After Q4 Results",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "6 Things Responsible Retirees Need To Upgrade in Their House",
+          "publisher": "GOBankingRates",
+          "date": "2026-02-13"
         },
         {
-          "title": "TD Cowen Adjusts Gilead Sciences Price Target to $160 From $145, Maintains Buy Rating",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "Stock Market Today: Dow Slips After CPI Inflation Surprise; DraftKings Plunges On Earnings (Live Coverage)",
+          "publisher": "Investor's Business Daily",
+          "date": "2026-02-13"
         },
         {
-          "title": "Jefferies Adjusts Progressive Price Target to $216 From $230, Maintains Hold Rating",
-          "publisher": "MT Newswires",
-          "date": "2026-02-11"
+          "title": "Advance Auto Parts AAP Q4 2025 Earnings Transcript",
+          "publisher": "Motley Fool",
+          "date": "2026-02-13"
         },
         {
-          "title": "AccountTech Expert Warns: In the Era of AI-Driven Fraud, \"Trust is No Longer Sufficient\" for Business Internal Controls",
-          "publisher": "PR Newswire",
-          "date": "2026-02-11"
+          "title": "Major Shareholder Announcement",
+          "publisher": "GlobeNewswire",
+          "date": "2026-02-13"
         }
       ],
       "opendoor_news": [
         {
-          "title": "BC-Most Active Stocks",
-          "publisher": "Associated Press Finance",
-          "link": "https://finance.yahoo.com/news/bc-most-active-stocks-153023239.html",
-          "date": "2026-02-10"
+          "title": "Opendoor Technologies Inc. (OPEN) at a Reset Point Despite Mixed Wall Street Ratings",
+          "publisher": "Insider Monkey",
+          "link": "https://finance.yahoo.com/news/opendoor-technologies-inc-open-reset-121416235.html",
+          "date": "2026-02-13"
         },
         {
-          "title": "Opendoor Stock Is Cheap, but Does That Make It a Buy Now?",
+          "title": "Should You Buy Opendoor Stock Before Feb. 19?",
           "publisher": "Motley Fool",
-          "link": "https://finance.yahoo.com/m/ca4fb92d-d8b5-3dd7-ae79-69ef60b049ea/opendoor-stock-is-cheap%2C-but.html",
-          "date": "2026-02-09"
+          "link": "https://finance.yahoo.com/m/8f35abad-afe0-30c2-9cf2-b63001c38f4a/should-you-buy-opendoor-stock.html",
+          "date": "2026-02-13"
         },
         {
-          "title": "UBS Adjusts Opendoor Technologies Price Target to $5 From $1.60, Maintains Neutral Rating",
-          "publisher": "MT Newswires",
-          "link": "https://finance.yahoo.com/news/ubs-adjusts-opendoor-technologies-price-153015846.html",
-          "date": "2026-02-09"
-        },
-        {
-          "title": "Is Opendoor Quietly Building the Amazon of Housing Transactions?",
+          "title": "Will Opendoor Technologies Inc. (OPEN) Report Negative Earnings Next Week? What You Should Know",
           "publisher": "Zacks",
-          "link": "https://finance.yahoo.com/news/opendoor-quietly-building-amazon-housing-152500344.html",
-          "date": "2026-02-09"
+          "link": "https://finance.yahoo.com/news/opendoor-technologies-inc-open-report-150011794.html",
+          "date": "2026-02-12"
         },
         {
-          "title": "Opendoor Technologies: Disruptive Real Estate Stock or Value Trap?\u200b",
-          "publisher": "Motley Fool",
-          "link": "https://finance.yahoo.com/m/4d2777af-f13c-30ab-979e-f65d20bb59db/opendoor-technologies%3A.html",
-          "date": "2026-02-06"
+          "title": "Solidion Technology Enters into Non-Binding Memorandum of Understanding to Supply Pouch Cells",
+          "publisher": "PR Newswire",
+          "link": "https://finance.yahoo.com/news/solidion-technology-enters-non-binding-111500938.html",
+          "date": "2026-02-12"
+        },
+        {
+          "title": "A Look At Opendoor Technologies (OPEN) Valuation As Trump Homes AI And Nationwide Expansion Reshape Its Story",
+          "publisher": "Simply Wall St.",
+          "link": "https://finance.yahoo.com/news/look-opendoor-technologies-open-valuation-210937294.html",
+          "date": "2026-02-11"
         }
       ]
     },
@@ -1394,13 +1450,18 @@
         "week": "2026-01-31",
         "actual": 303,
         "last_year": 0
+      },
+      {
+        "week": "2026-02-07",
+        "actual": 242,
+        "last_year": 0
       }
     ],
-    "latest_week": 303,
-    "wow_change": 5.6,
-    "avg_4w": 279.0,
-    "q1_total": 1262,
-    "q1_weeks": 5,
+    "latest_week": 242,
+    "wow_change": -20.1,
+    "avg_4w": 274.5,
+    "q1_total": 1504,
+    "q1_weeks": 6,
     "product_updates": [
       {
         "name": "100% Zip Coverage in Lower 48 States",
@@ -1615,9 +1676,9 @@
     ]
   },
   "q4_estimates": {
-    "revenue": 598445900,
-    "homes_sold": 1547,
+    "revenue": 597875900,
+    "homes_sold": 1545,
     "acquisitions": 2533,
-    "days_to_earnings": 7
+    "days_to_earnings": 5
   }
 }

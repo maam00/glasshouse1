@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T12:00:15.073706",
+  "generated_at": "2026-02-14T12:25:52.821589",
   "data_sources": {
     "singularity": "https://singularityresearchfund.com/opendoor-tracker",
     "parcl": "Parcl Research CSV exports",
@@ -1155,7 +1155,7 @@
     }
   },
   "market_intel": {
-    "generated_at": "2026-02-13T12:00:17.767553",
+    "generated_at": "2026-02-14T12:25:55.820258",
     "earnings": {
       "next_earnings_date": null,
       "days_until_earnings": null,
@@ -1168,7 +1168,7 @@
       "rate_15yr": 5.4,
       "rate_change_1w": 0.0,
       "rate_change_1m": -0.05,
-      "as_of": "2026-02-13",
+      "as_of": "2026-02-14",
       "source": "estimate_feb2026",
       "historical": []
     },
@@ -1183,33 +1183,33 @@
       "polymarket": {
         "cuts_2026": [
           {
-            "cuts": 3,
-            "probability": 27.0
-          },
-          {
             "cuts": 2,
             "probability": 26.5
           },
           {
+            "cuts": 3,
+            "probability": 26.0
+          },
+          {
             "cuts": 1,
-            "probability": 16.5
+            "probability": 17.5
           },
           {
             "cuts": 4,
-            "probability": 12.5
+            "probability": 12.0
           },
           {
             "cuts": 2026,
-            "probability": 6.3
+            "probability": 5.7
           },
           {
             "cuts": 5,
             "probability": 5.5
           }
         ],
-        "most_likely_cuts": 3,
-        "most_likely_pct": 27.0,
-        "volume": 5839831,
+        "most_likely_cuts": 2,
+        "most_likely_pct": 26.5,
+        "volume": 6025598,
         "source": "polymarket"
       }
     },
@@ -1217,49 +1217,61 @@
       "headlines": [],
       "fed_news": [
         {
-          "title": "KBRA Assigns Preliminary Ratings to New Residential Mortgage Loan Trust 2026-NQM3 (NRMLT 2026-NQM3)",
-          "publisher": "Business Wire",
-          "date": "2026-02-13"
+          "title": "Say Hello to 1 Unstoppable Stock That's Up 58,000% Since Its IPO",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "Diesel revival continues with new Audi A6",
-          "publisher": "Just Auto",
-          "date": "2026-02-13"
+          "title": "Fund Slashes Chime Stake by Nearly $10 Million as Shares Sit 27% Below IPO Price",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "Top Midday Stories: Core CPI Slows Year Over Year in January; Pentagon Withdraws Document Listing Alibaba as 'Chinese Military Company'",
-          "publisher": "MT Newswires",
-          "date": "2026-02-13"
+          "title": "Why AST SpaceMobile Stock Sank Almost 20% This Week",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         }
       ],
       "housing_news": [
         {
-          "title": "Diesel revival continues with new Audi A6",
-          "publisher": "Just Auto",
-          "date": "2026-02-13"
+          "title": "Say Hello to 1 Unstoppable Stock That's Up 58,000% Since Its IPO",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "Top Midday Stories: Core CPI Slows Year Over Year in January; Pentagon Withdraws Document Listing Alibaba as 'Chinese Military Company'",
-          "publisher": "MT Newswires",
-          "date": "2026-02-13"
+          "title": "Fund Slashes Chime Stake by Nearly $10 Million as Shares Sit 27% Below IPO Price",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "Gregorys Coffee Launches Franchise Program, Opening The Door for Entrepreneurs to Grow With a Proven Specialty Coffee Brand",
-          "publisher": "PR Newswire",
-          "date": "2026-02-13"
+          "title": "Why AST SpaceMobile Stock Sank Almost 20% This Week",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "Update: Magna International Shares Rise After Q4 Adjusted Earnings, Sales Top Estimates",
-          "publisher": "MT Newswires",
-          "date": "2026-02-13"
+          "title": "BillionToOne Stock at $89: Why a New $19.1 Million Position Could Matter Now",
+          "publisher": "Motley Fool",
+          "date": "2026-02-14"
         },
         {
-          "title": "CPI rose at an annual rate of 2.4% in January, cooler than expected",
-          "publisher": "CBS News",
-          "date": "2026-02-13"
+          "title": "Swiss say Oman to host US-Iran talks in Geneva next week",
+          "publisher": "AFP",
+          "date": "2026-02-14"
         }
       ],
       "opendoor_news": [
+        {
+          "title": "Walmart earnings, FOMC minutes, December PCE: What to Watch",
+          "publisher": "Yahoo Finance Video",
+          "link": "https://finance.yahoo.com/video/walmart-earnings-fomc-minutes-december-000000696.html",
+          "date": "2026-02-13"
+        },
+        {
+          "title": "Is Opendoor (OPEN) Using Its AI Pivot To Quietly Redefine Its Core Housing Strategy?",
+          "publisher": "Simply Wall St.",
+          "link": "https://finance.yahoo.com/news/opendoor-open-using-ai-pivot-231324465.html",
+          "date": "2026-02-13"
+        },
         {
           "title": "Opendoor Technologies Inc. (OPEN) at a Reset Point Despite Mixed Wall Street Ratings",
           "publisher": "Insider Monkey",
@@ -1277,18 +1289,6 @@
           "publisher": "Zacks",
           "link": "https://finance.yahoo.com/news/opendoor-technologies-inc-open-report-150011794.html",
           "date": "2026-02-12"
-        },
-        {
-          "title": "Solidion Technology Enters into Non-Binding Memorandum of Understanding to Supply Pouch Cells",
-          "publisher": "PR Newswire",
-          "link": "https://finance.yahoo.com/news/solidion-technology-enters-non-binding-111500938.html",
-          "date": "2026-02-12"
-        },
-        {
-          "title": "A Look At Opendoor Technologies (OPEN) Valuation As Trump Homes AI And Nationwide Expansion Reshape Its Story",
-          "publisher": "Simply Wall St.",
-          "link": "https://finance.yahoo.com/news/look-opendoor-technologies-open-valuation-210937294.html",
-          "date": "2026-02-11"
         }
       ]
     },
@@ -1679,6 +1679,6 @@
     "revenue": 597875900,
     "homes_sold": 1545,
     "acquisitions": 2533,
-    "days_to_earnings": 5
+    "days_to_earnings": 4
   }
 }
